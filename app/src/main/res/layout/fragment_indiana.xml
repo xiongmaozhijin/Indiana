@@ -3,10 +3,107 @@
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/holo_orange_light">
+
     <!-- 图片轮播部分 -->
     <com.example.liangge.indiana.ui.widget.BannerView
         android:id="@+id/main_banner_view"
         android:layout_width="match_parent"
         android:layout_height="120dp" />
+
+    <!-- 分类横向菜单 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@android:color/white">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/indiana_category_wrapper">
+            <RadioButton
+                android:id="@+id/indian_product_category_rb_hots"
+                android:checked="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/indiana_category_item"
+                android:text="@string/indiana_product_category_hots"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/indiana_category_wrapper">
+
+            <RadioButton
+                android:id="@+id/indian_product_category_rb_lastest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/indiana_category_item"
+                android:text="@string/indiana_product_category_lasest"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/indiana_category_wrapper">
+
+            <RadioButton
+                android:id="@+id/indian_product_category_rb_schedule"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/indiana_category_item"
+                android:text="@string/indian_product_category_schedule"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/indiana_category_wrapper">
+
+            <RadioButton
+                android:id="@+id/indian_product_category_rb_need_peoples"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/indiana_category_item"
+                android:text="@string/indiana_product_category_need_peoples"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            style="@style/indiana_category_wrapper">
+
+            <RadioButton
+                android:id="@+id/indian_product_category_rb_category_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                style="@style/indiana_category_item"
+                android:text="@string/indiana_product_category_categoryitems"/>
+
+        </FrameLayout>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <!-- 产品展示, GridView -->
+
+
+    </LinearLayout>
 
 </FrameLayout>

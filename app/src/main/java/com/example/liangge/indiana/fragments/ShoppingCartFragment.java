@@ -27,5 +27,15 @@ public class ShoppingCartFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_shopping_cart, container, false);
     }
 
+    @Override
+    protected void registerUIBroadCast() {
+
+    }
+
+    @Override
+    protected void unRegisterUIBroadCast() {
+
+    }
+
 
 }

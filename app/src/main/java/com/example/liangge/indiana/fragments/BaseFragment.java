@@ -12,7 +12,7 @@ import com.example.liangge.indiana.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
 
     public BaseFragment() {
@@ -27,5 +27,36 @@ public class BaseFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_base, container, false);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        registerUIBroadCast();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        unRegisterUIBroadCast();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            unRegisterUIBroadCast();
+        } else {
+            registerUIBroadCast();
+        }
+    }
+
+    /**
+     * 注册UI广播
+     */
+    protected abstract void registerUIBroadCast();
+
+    /**
+     * 解除注册UI广播
+     */
+    protected abstract void unRegisterUIBroadCast();
 
 }

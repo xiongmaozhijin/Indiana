@@ -33,8 +33,6 @@ public class UIMessageConts {
 
 
 
-
-
     }
 
     public interface LastestAnnouncementMessage {

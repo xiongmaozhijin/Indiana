@@ -27,5 +27,15 @@ public class PersonalCenterFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_personal_center, container, false);
     }
 
+    @Override
+    protected void registerUIBroadCast() {
+
+    }
+
+    @Override
+    protected void unRegisterUIBroadCast() {
+
+    }
+
 
 }

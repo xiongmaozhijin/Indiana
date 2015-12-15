@@ -37,7 +37,7 @@ public class MessageManager {
             Intent i = new Intent();
             i.setAction(UIMessageConts.UI_MESSAGE_ACTION);
             i.putExtra(UIMessageConts.UI_MESSAGE_KEY, msgEntity.getMessageAction());
-            mContext.sendBroadcast(new Intent());
+            mContext.sendBroadcast(i);
         }
     };
 

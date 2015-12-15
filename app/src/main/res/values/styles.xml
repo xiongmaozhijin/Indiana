@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- main radio button style-->
     <style name="main_radio_button_style">
         <item name="android:button">@null</item>
         <item name="android:layout_weight">0.5</item>
@@ -17,6 +18,27 @@
         <item name="android:paddingTop">7dp</item>
         <item name="android:paddingBottom">2dp</item>
     </style>
+
+    <!-- indiana category wrapper-->
+    <style name="indiana_category_wrapper">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!-- indiana category item -->
+    <style name="indiana_category_item">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@drawable/selector_f_indiana_text_color</item>
+        <item name="android:checkable">true</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+
+
+
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

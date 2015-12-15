@@ -12,8 +12,11 @@
     <string name="main_titlebar_title_shopping_cart">购物车</string>
     <string name="main_titlebar_title_personal_center">个人中心</string>
     <string name="title_activity_banner_activity_test">BannerActivityTest</string>
-
-
+    <string name="indiana_product_category_hots">人气</string>
+    <string name="indiana_product_category_lasest">最新</string>
+    <string name="indian_product_category_schedule">进度</string>
+    <string name="indiana_product_category_need_peoples">总需</string>
+    <string name="indiana_product_category_categoryitems">分类</string>
 
 
 </resources>

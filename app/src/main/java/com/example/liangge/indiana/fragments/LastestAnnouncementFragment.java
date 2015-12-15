@@ -27,5 +27,15 @@ public class LastestAnnouncementFragment extends BaseFragment {
         return inflater.inflate(R.layout.fragment_lastest_announcement, container, false);
     }
 
+    @Override
+    protected void registerUIBroadCast() {
+
+    }
+
+    @Override
+    protected void unRegisterUIBroadCast() {
+
+    }
+
 
 }

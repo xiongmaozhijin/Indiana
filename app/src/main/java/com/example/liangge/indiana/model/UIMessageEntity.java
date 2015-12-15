@@ -9,7 +9,13 @@ public class UIMessageEntity {
     /** 消息动作 */
     private String messageAction;
 
+    public UIMessageEntity() {
 
+    }
+
+    public UIMessageEntity(String messageAction) {
+        this.messageAction = messageAction;
+    }
 
 
     public String getMessageAction() {
