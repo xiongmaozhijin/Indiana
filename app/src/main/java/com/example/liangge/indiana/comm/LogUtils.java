@@ -19,6 +19,15 @@ public class LogUtils {
         Log.i(tag, String.format(format, args));
     }
 
+    public static void w(String tag, String msg) {
+        Log.w(tag, msg);
+    }
+
+    public static void w(String tag, String format, Object...args) {
+        Log.w(tag, String.format(format, args));
+    }
+
+
     public static void e(String tag, String msg) {
         Log.e(tag, msg);
     }

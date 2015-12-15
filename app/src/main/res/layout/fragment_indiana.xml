@@ -1,82 +1,68 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
-    <LinearLayout
+    <com.example.liangge.indiana.ui.widget.ExScrollView
+        android:id="@+id/f_indiana_main_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@android:color/holo_orange_light">
+        android:background="@android:color/holo_orange_dark">
 
-    <!-- 图片轮播部分 -->
-    <com.example.liangge.indiana.ui.widget.BannerView
-        android:id="@+id/main_banner_view"
-        android:layout_width="match_parent"
-        android:layout_height="120dp" />
 
-    <!-- 分类横向菜单 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:background="@android:color/white">
-
-        <RadioGroup
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:background="@android:color/holo_orange_light"
+            android:orientation="vertical">
 
-
-            <RadioButton
-                android:id="@+id/indian_product_category_rb_hots"
-                android:checked="true"
+            <!-- 图片轮播部分 -->
+            <com.example.liangge.indiana.ui.widget.BannerView
+                android:id="@+id/main_banner_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/indiana_category_item"
-                android:text="@string/indiana_product_category_hots"/>
+                android:layout_height="120dp" />
 
-
-            <RadioButton
-                android:id="@+id/indian_product_category_rb_lastest"
+            <!-- 内容部分，包括菜单，内容，加载更多提示部分 -->
+            <FrameLayout
+                android:id="@+id/f_indiana_product_content_wrapper"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/indiana_category_item"
-                android:text="@string/indiana_product_category_lasest"/>
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- 分类浮动菜单 -->
+                    <include layout="@layout/f_indiana_content_float_menu" />
+
+                    <!-- 产品展示, GridView -->
+                    <com.example.liangge.indiana.ui.widget.ScrollGridView
+                        android:id="@+id/f_indiana_product_content_gridview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/darker_gray"
+                        android:gravity="center"
+                        android:horizontalSpacing="1dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="1dp" />
+
+                    <!-- 加载更多 -->
 
 
-            <RadioButton
-                android:id="@+id/indian_product_category_rb_schedule"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/indiana_category_item"
-                android:text="@string/indian_product_category_schedule"/>
+                </LinearLayout>
 
 
-
-            <RadioButton
-                android:id="@+id/indian_product_category_rb_need_peoples"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/indiana_category_item"
-                android:text="@string/indiana_product_category_need_peoples"/>
-
-            <RadioButton
-                android:id="@+id/indian_product_category_rb_category_items"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                style="@style/indiana_category_item"
-                android:text="@string/indiana_product_category_categoryitems"/>
+            </FrameLayout>
 
 
-        </RadioGroup>
+        </LinearLayout>
 
-    </LinearLayout>
+    </com.example.liangge.indiana.ui.widget.ExScrollView>
 
-    <!-- 产品展示, GridView -->
-
-
-    </LinearLayout>
+    <!-- 浮动菜单 -->
+    <include layout="@layout/f_indiana_content_fit_float_menu"
+        android:id="@+id/f_indiana_product_fit_float_menu"/>
 
 </FrameLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 分类横向菜单 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="horizontal"
+
+    android:visibility="gone">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/indian_product_category_rb_hots"
+            style="@style/indiana_category_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="@string/indiana_product_category_hots" />
+
+
+        <RadioButton
+            android:id="@+id/indian_product_category_rb_lastest"
+            style="@style/indiana_category_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/indiana_product_category_lasest" />
+
+
+        <RadioButton
+            android:id="@+id/indian_product_category_rb_schedule"
+            style="@style/indiana_category_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/indian_product_category_schedule" />
+
+
+        <RadioButton
+            android:id="@+id/indian_product_category_rb_need_peoples"
+            style="@style/indiana_category_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/indiana_product_category_need_peoples" />
+
+        <RadioButton
+            android:id="@+id/indian_product_category_rb_category_items"
+            style="@style/indiana_category_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/indiana_product_category_categoryitems" />
+
+
+    </RadioGroup>
+
+</LinearLayout>

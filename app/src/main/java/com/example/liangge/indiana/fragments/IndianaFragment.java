@@ -7,15 +7,22 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.BannerInfo;
+import com.example.liangge.indiana.model.ProductItemEntity;
 import com.example.liangge.indiana.ui.widget.BannerView;
+import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +37,21 @@ public class IndianaFragment extends BaseFragment {
     private IndianaBiz mIndianaBiz;
 
     private UIReceive mUIReceive;
+
+    /** 产品展示的包裹View */
+    private View mViewProductContentWrapper;
+
+    /** 浮动菜单 */
+    private View mViewFitFloatMenu;
+
+    /** 产品显示列表 */
+    private GridView mGridviewProducts;
+
+    /** 适配器*/
+    private IndianaProductGridViewAdapter mAdapter;
+
+    /** Main ScrollView */
+    private ExScrollView mScrollViewMain;
 
     public IndianaFragment() {
         // Required empty public constructor
@@ -73,6 +95,63 @@ public class IndianaFragment extends BaseFragment {
 
     private void initWidget(View view) {
         mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
+        mViewProductContentWrapper = view.findViewById(R.id.f_indiana_product_content_wrapper);
+        mViewFitFloatMenu = view.findViewById(R.id.f_indiana_product_fit_float_menu);
+        mScrollViewMain = (ExScrollView) view.findViewById(R.id.f_indiana_main_scrollview);
+
+        mGridviewProducts = (GridView) view.findViewById(R.id.f_indiana_product_content_gridview);
+        mAdapter = new IndianaProductGridViewAdapter(getActivity() );
+        mGridviewProducts.setAdapter(mAdapter);
+
+
+
+        mBannerView.setOnClickListener(new BannerView.OnClickListener() {
+            @Override
+            public void onClick(BannerInfo item) {
+                LogUtils.i(TAG, "onBannerInfo click. item=%s", item.toString());
+            }
+        });
+
+        mAdapter.setOnShoppingCartClickListener(new IndianaProductGridViewAdapter.OnShoppingCartClickListener() {
+            @Override
+            public void onShoppoingCartClick(ProductItemEntity item) {
+                LogUtils.i(TAG, "shopping cart click. item=%s", item.toString());
+            }
+        });
+
+        mGridviewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogUtils.i(TAG, "item click. position=%d", position);
+            }
+        });
+
+
+        mScrollViewMain.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+            @Override
+            public void onScrollTop() {
+                LogUtils.w(TAG, "onScrollTop()");
+            }
+
+            @Override
+            public void onScrollBottom() {
+                LogUtils.w(TAG, "onScrollBottom()");
+            }
+        });
+
+        mScrollViewMain.setOnFloatMenuHiddenListener(new ExScrollView.OnFloatMenuHiddenListener() {
+            @Override
+            public void shouldHiddle(boolean bShouldHiddle) {
+                if (bShouldHiddle) {
+                    mViewFitFloatMenu.setVisibility(View.GONE);
+
+                } else {
+                    mViewFitFloatMenu.setVisibility(View.VISIBLE);
+
+                }
+            }
+        }, mViewProductContentWrapper);
+
 
     }
 
@@ -139,10 +218,16 @@ public class IndianaFragment extends BaseFragment {
     }
 
     /**
-     * 处理产品数据
+     * 处理产品数据UI
      * @param strUIAction
      */
     private void handleUIProduct(String strUIAction) {
+        LogUtils.i(TAG, "handleUIProduct()");
+
+        if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS)) {
+            mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
+
+        }
 
     }
 

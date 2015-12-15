@@ -206,8 +206,6 @@ public class BannerView extends FrameLayout{
 
         @Override
         public void onClick(View v) {
-            LogUtils.e(TAG, bannerInfo.getImgUrl());
-            LogUtils.toastShortMsg(mContext, bannerInfo.getImgUrl());
             if (mOnClickListener != null) {
                 mOnClickListener.onClick(bannerInfo);
             }

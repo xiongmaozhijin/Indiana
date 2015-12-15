@@ -25,6 +25,10 @@ public class ExScrollView extends ScrollView{
     private View mFloatMenuContentViewWrapper;
 
 
+    private float iPrevY;
+
+    private static final int I_DO_LOAD_MORE_CAPTURE = 10;
+
     /**
      * 监听是否应该显示或隐藏浮动菜单
      */
@@ -77,10 +81,10 @@ public class ExScrollView extends ScrollView{
         handleOnScrollDone(ev);
         handleFloatMenu(ev);
 
-
         return super.onTouchEvent(ev);
 
     }
+
 
     private void handleFloatMenu(MotionEvent ev) {
         final int iAction = ev.getAction();
@@ -94,30 +98,40 @@ public class ExScrollView extends ScrollView{
     }
 
     private void handleFloatMenu() {
-        int iWrapperTopDis = this.mFloatMenuContentViewWrapper.getTop();
-        int iScrollY = getScrollY();
-        boolean bShouldShow = (iScrollY >= iWrapperTopDis);
-        if (mOnFloatMenuHiddenListener != null) {
-            mOnFloatMenuHiddenListener.shouldHiddle(!bShouldShow);
+        if (this.mFloatMenuContentViewWrapper != null) {
+            int iWrapperTopDis = this.mFloatMenuContentViewWrapper.getTop();
+            int iScrollY = getScrollY();
+            boolean bShouldShow = (iScrollY >= iWrapperTopDis);
+            if (mOnFloatMenuHiddenListener != null) {
+                mOnFloatMenuHiddenListener.shouldHiddle(!bShouldShow);
+            }
+
         }
     }
 
     private void handleOnScrollDone(MotionEvent ev) {
         final int iAction = ev.getAction();
+        final int LIMIT_CANPTURE = 0;
+        final int TOP_VALUE = 0 + LIMIT_CANPTURE;
+
         if (iAction == MotionEvent.ACTION_MOVE) {
             int iScrollY = getScrollY();
             int iHeight = getHeight();
             int iScrollViewMeasuredHeight = getChildAt(0).getMeasuredHeight();
-            if (iScrollY == 0) {
-                if (mOnScrollDoneListener != null) {
-                    mOnScrollDoneListener.onScrollTop();
+
+                if (iScrollY <= TOP_VALUE) {
+                    if (mOnScrollDoneListener != null) {
+                        mOnScrollDoneListener.onScrollTop();
+                    }
                 }
-            }
-            if ( (iScrollY+iHeight) == iScrollViewMeasuredHeight) {
-                if (mOnScrollDoneListener != null) {
-                    mOnScrollDoneListener.onScrollBottom();
+
+                if ( (iScrollY+iHeight) >= (iScrollViewMeasuredHeight-LIMIT_CANPTURE)) {
+                    if (mOnScrollDoneListener != null) {
+                        mOnScrollDoneListener.onScrollBottom();
+                    }
                 }
-            }
+
+
 
         }
     }

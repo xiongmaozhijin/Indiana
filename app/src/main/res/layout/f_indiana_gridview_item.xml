@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="210dp"
-        android:background="@android:color/white"
+        android:background="@drawable/selector_f_indiana_product_item_bg"
         android:padding="4dp">
 
         <ImageView
