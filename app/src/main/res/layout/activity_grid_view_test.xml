@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:text="titlebar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+<com.example.liangge.indiana.ui.widget.ExScrollView
+    android:id="@+id/scrollview"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/holo_red_light">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="78dp"
+            android:text="图片轮播"/>
+
+        <LinearLayout
+            android:id="@+id/float_content_wrapper"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_orange_dark">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@android:color/holo_orange_dark"
+                android:text="float menu-----1234345"/>
+
+        <com.example.liangge.indiana.ui.widget.ScrollGridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2"
+            android:background="@android:color/darker_gray"
+            android:verticalSpacing="1dp"
+            android:horizontalSpacing="1dp"
+            android:gravity="center" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+</com.example.liangge.indiana.ui.widget.ExScrollView>
+
+        <TextView
+            android:id="@+id/fit_float_menu"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@android:color/holo_purple"
+            android:text="float menu---123d4345"/>
+
+
+    </FrameLayout>
+
+</LinearLayout>

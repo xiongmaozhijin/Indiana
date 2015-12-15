@@ -2,6 +2,7 @@ package com.example.liangge.indiana.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -109,6 +110,7 @@ public class HomeActivity extends UIBaseActivity {
 
     private void initViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
+        mViewPager.setOffscreenPageLimit(4);    //TODO 暂时的简单解决方案
         mIndianaFragment = new IndianaFragment();
         mLastestAnnouncementFragment = new LastestAnnouncementFragment();
         mShoppingCartFragment = new ShoppingCartFragment();
@@ -174,7 +176,7 @@ public class HomeActivity extends UIBaseActivity {
     }
 
 
-    public class HomeFragmentAdapter extends FragmentStatePagerAdapter {
+    public class HomeFragmentAdapter extends FragmentPagerAdapter {
 
         private int iPrevItem = -1;
 

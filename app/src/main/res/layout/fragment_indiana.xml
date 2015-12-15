@@ -28,10 +28,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            style="@style/indiana_category_wrapper">
+
             <RadioButton
                 android:id="@+id/indian_product_category_rb_hots"
                 android:checked="true"
@@ -39,12 +36,7 @@
                 android:layout_height="match_parent"
                 style="@style/indiana_category_item"
                 android:text="@string/indiana_product_category_hots"/>
-        </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            style="@style/indiana_category_wrapper">
 
             <RadioButton
                 android:id="@+id/indian_product_category_rb_lastest"
@@ -53,12 +45,6 @@
                 style="@style/indiana_category_item"
                 android:text="@string/indiana_product_category_lasest"/>
 
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            style="@style/indiana_category_wrapper">
 
             <RadioButton
                 android:id="@+id/indian_product_category_rb_schedule"
@@ -67,12 +53,7 @@
                 style="@style/indiana_category_item"
                 android:text="@string/indian_product_category_schedule"/>
 
-        </FrameLayout>
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            style="@style/indiana_category_wrapper">
 
             <RadioButton
                 android:id="@+id/indian_product_category_rb_need_peoples"
@@ -81,13 +62,6 @@
                 style="@style/indiana_category_item"
                 android:text="@string/indiana_product_category_need_peoples"/>
 
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            style="@style/indiana_category_wrapper">
-
             <RadioButton
                 android:id="@+id/indian_product_category_rb_category_items"
                 android:layout_width="match_parent"
@@ -95,7 +69,6 @@
                 style="@style/indiana_category_item"
                 android:text="@string/indiana_product_category_categoryitems"/>
 
-        </FrameLayout>
 
         </RadioGroup>
 

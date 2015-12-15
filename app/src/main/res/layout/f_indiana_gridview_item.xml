@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        android:background="@android:color/white"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/indiana_product_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@android:color/holo_orange_dark"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="9dp"/>
+
+        <TextView
+            android:id="@+id/indiana_product_item_name_txv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/indiana_product_item_img"
+            android:text="小米手环"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:maxLength="15"/>
+
+        <TextView
+            android:id="@+id/indiana_product_item_bingo_process_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/indiana_product_item_bingo_process"
+            android:layout_below="@id/indiana_product_item_name_txv"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/indiana_product_item_bingo_process_txv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="42%"
+            android:layout_below="@id/indiana_product_item_name_txv"
+            android:layout_toRightOf="@id/indiana_product_item_bingo_process_hint"
+            android:layout_alignBaseline="@id/indiana_product_item_bingo_process_hint"
+            android:layout_marginLeft="5dp"/>
+
+        <ProgressBar
+            android:id="@+id/f_indiana_product_item_progressbar"
+            android:layout_width="120dp"
+            android:layout_height="11dp"
+            android:layout_below="@id/indiana_product_item_bingo_process_hint"
+            style="@style/ProgressBar_Mini"
+            android:max="100"
+            android:progress="50"
+            android:layout_marginTop="5dp"/>
+
+        <ImageButton
+            android:id="@+id/f_indiana_product_item_shopping_cart_btn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_toRightOf="@id/f_indiana_product_item_progressbar"
+            android:layout_above="@id/f_indiana_product_item_progressbar"
+            android:background="@drawable/selector_f_indiana_item_shoppingcart" />
+
+    </RelativeLayout>
+
+</FrameLayout>
