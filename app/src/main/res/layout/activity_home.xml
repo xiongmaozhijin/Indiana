@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Titlebar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@android:color/holo_red_dark">
+
+        <TextView
+            android:id="@+id/main_titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一元夺宝"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"/>
+
+        <ImageView
+            android:id="@+id/main_btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_search"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="9dp"/>
+
+    </RelativeLayout>
+
+    <!-- 中间Fragment部分 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
+    <!-- 底部菜单部分 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:gravity="bottom">
+        <RadioGroup
+            android:id="@+id/main_menu_rg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/main_rb_indiana"
+                android:checked="true"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                style="@style/main_radio_button_style"
+                android:drawableTop="@drawable/selector_main_rb_indianna"
+                android:text="@string/main_rb_indiana_text"
+                android:onClick="onBtnIndiana"/>
+
+            <RadioButton
+                android:id="@+id/main_rb_latest_announcement"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                style="@style/main_radio_button_style"
+                android:drawableTop="@drawable/selector_main_rb_latest_announcement"
+                android:text="@string/main_rb_latest_announcement_text"
+                android:onClick="onBtnLatestAnnouncement"/>
+
+            <RadioButton
+                android:id="@+id/main_rb_shopping_card"
+                android:layout_width="48dp"
+                android:layout_height="match_parent"
+                style="@style/main_radio_button_style"
+                android:drawableTop="@drawable/selector_main_rb_shopping_cart"
+                android:text="@string/main_rb_shopping_card_text"
+                android:onClick="onBtnShoppingCart"/>
+
+            <RadioButton
+                android:id="@+id/main_rb_personal_center"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                style="@style/main_radio_button_style"
+                android:drawableTop="@drawable/selector_main_rb_indianna"
+                android:text="@string/main_rb_personal_center_text"
+                android:onClick="onBtnPersonalCenter"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</LinearLayout>

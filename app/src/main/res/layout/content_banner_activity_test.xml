@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_banner_activity_test"
+    android:orientation="vertical"
+    tools:context="com.example.liangge.indiana.ui.test.BannerActivityTest">
+
+    <com.example.liangge.indiana.ui.widget.BannerView
+        android:id="@+id/test_banner_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加载"
+        android:onClick="onBtnLoad"/>
+
+
+</LinearLayout>

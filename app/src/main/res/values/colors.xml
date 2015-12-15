@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="cube_mints_f1f1f1">#f1f1f1</color>
+    <color name="cube_mints_white">#ffffff</color>
+
+    <!-- main -->
+    <color name="main_rb_checked">@android:color/holo_red_light</color>
+    <color name="main_rb_pressed">@android:color/holo_red_light</color>
+    <color name="main_rb_default">@android:color/black</color>
+
+</resources>

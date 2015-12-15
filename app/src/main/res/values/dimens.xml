@@ -1,0 +1,13 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- TitleBar 的高度-->
+    <dimen name="titlebar_height">48dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Indiana Indicator 的大小 -->
+    <dimen name="indiana_indicator_size">12dp</dimen>
+
+</resources>

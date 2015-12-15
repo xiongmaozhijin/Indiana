@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Indiana</string>
+    <string name="main_rb_indiana_text">夺宝</string>
+    <string name="main_rb_latest_announcement_text">最新揭晓</string>
+    <string name="main_rb_shopping_card_text">购物车</string>
+    <string name="main_rb_personal_center_text">个人中心</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_titlebar_title_indiana">一元夺宝</string>
+    <string name="main_titlebar_title_lastest_anno">最新揭晓</string>
+    <string name="main_titlebar_title_shopping_cart">购物车</string>
+    <string name="main_titlebar_title_personal_center">个人中心</string>
+    <string name="title_activity_banner_activity_test">BannerActivityTest</string>
+
+
+
+
+</resources>

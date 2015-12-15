@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
+
+    <!-- 图片轮播部分 -->
+    <com.example.liangge.indiana.ui.widget.BannerView
+        android:id="@+id/main_banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" />
+
+</FrameLayout>
