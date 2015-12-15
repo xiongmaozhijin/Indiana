@@ -67,7 +67,7 @@ public class IndianaBiz {
     /**
      * 加载产品
      */
-    private void loadProduct() {
+    public void loadProduct() {
         LogUtils.i(TAG, "loadProduct()");
         String strAction = UIMessageConts.IndianaMessage.MESSAGE_LOADING_PRODUCT_DATA;
         UIMessageEntity info = new UIMessageEntity();
@@ -80,28 +80,38 @@ public class IndianaBiz {
      * @deprecated
      */
     private void loadProductTest() {
-        List<ProductItemEntity> list = new ArrayList<>();
-        String url1 = "http://www.bz55.com/uploads/allimg/150309/139-150309101F7.jpg";
-        String url2 = "http://pic33.nipic.com/20131008/13661616_190558208000_2.jpg";
-        String url3 = "http://pic13.nipic.com/20110419/2290512_182044467100_2.jpg";
-        String url4 = "http://img3.3lian.com/2013/s1/17/d/15aa.jpg";
+      new Thread(){
+          @Override
+      public void run() {
+              try {
+                  Thread.sleep(5000);
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+              List<ProductItemEntity> list = new ArrayList<>();
+              String url1 = "http://www.bz55.com/uploads/allimg/150309/139-150309101F7.jpg";
+              String url2 = "http://pic33.nipic.com/20131008/13661616_190558208000_2.jpg";
+              String url3 = "http://pic13.nipic.com/20110419/2290512_182044467100_2.jpg";
+              String url4 = "http://img3.3lian.com/2013/s1/17/d/15aa.jpg";
 
-        ProductItemEntity item1 = new ProductItemEntity(url1, "name1", 23, "23%");
-        ProductItemEntity item2 = new ProductItemEntity(url2, "name2", 100, "100%");
-        ProductItemEntity item3 = new ProductItemEntity(url3, "name3", 45, "45%");
-        list.add(item1);
-        list.add(item2);
-        list.add(item3);
-        for (int i=0; i<9; i++) {
-            ProductItemEntity item = new ProductItemEntity(url4, "产品名"+i, i, i+"%");
-            list.add(item);
-        }
-        list.add(item3);
+              ProductItemEntity item1 = new ProductItemEntity(url1, "name1", 23, "23%");
+              ProductItemEntity item2 = new ProductItemEntity(url2, "name2", 100, "100%");
+              ProductItemEntity item3 = new ProductItemEntity(url3, "name3", 45, "45%");
+              list.add(item1);
+              list.add(item2);
+              list.add(item3);
+              for (int i=0; i<9; i++) {
+                  ProductItemEntity item = new ProductItemEntity(url4, "产品名"+i, i, i+"%");
+                  list.add(item);
+              }
+              list.add(item3);
 
-        this.mListProducts = list;
+              mListProducts = list;
 
-        UIMessageEntity info = new UIMessageEntity(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS);
-        mMessageManager.sendMessage(info);
+              UIMessageEntity info = new UIMessageEntity(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS);
+              mMessageManager.sendMessage(info);
+          }
+      }.start();
     }
 
     /**

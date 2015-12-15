@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
@@ -52,6 +53,8 @@ public class IndianaFragment extends BaseFragment {
 
     /** Main ScrollView */
     private ExScrollView mScrollViewMain;
+
+    private View mViewProductLoading;
 
     public IndianaFragment() {
         // Required empty public constructor
@@ -94,6 +97,8 @@ public class IndianaFragment extends BaseFragment {
     }
 
     private void initWidget(View view) {
+        mViewProductLoading = view.findViewById(R.id.f_indiana_product_loading_more_wrapper);
+
         mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
         mViewProductContentWrapper = view.findViewById(R.id.f_indiana_product_content_wrapper);
         mViewFitFloatMenu = view.findViewById(R.id.f_indiana_product_fit_float_menu);
@@ -131,11 +136,13 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onScrollTop() {
                 LogUtils.w(TAG, "onScrollTop()");
+
             }
 
             @Override
             public void onScrollBottom() {
                 LogUtils.w(TAG, "onScrollBottom()");
+                mIndianaBiz.loadProduct();
             }
         });
 
@@ -211,6 +218,31 @@ public class IndianaFragment extends BaseFragment {
     }
 
     /**
+     *
+     * @param isLoading 是否要提示正在加载
+     * @param isSuccess 是否加载成功
+     */
+    public void setProductLoadingUI(boolean isLoading, boolean isSuccess) {
+        LogUtils.w(TAG, "isLoading=%b, isSuccess=%b", isLoading, isSuccess);
+
+        if (isSuccess) {
+            mViewProductLoading.setVisibility(View.GONE);
+        } else {
+            if (isLoading) {
+                mViewProductLoading.setVisibility(View.VISIBLE);
+
+            } else {
+                ((TextView)mViewProductLoading.findViewById(R.id.product_loading_txv_hint)).setText(getResources().getString(R.string.f_indian_product_load_fail_hint));
+
+            }
+        }
+
+
+    }
+
+
+
+    /**
      * 处理公共问题，比如没有联网
      */
     private void handleCommResponse() {
@@ -226,7 +258,13 @@ public class IndianaFragment extends BaseFragment {
 
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS)) {
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
+            setProductLoadingUI(false, true);
 
+        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOADING_PRODUCT_DATA)) {
+            setProductLoadingUI(true, false);
+
+        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_FAIL)) {
+            setProductLoadingUI(false, false);
         }
 
     }

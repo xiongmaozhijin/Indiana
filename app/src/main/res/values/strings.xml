@@ -18,6 +18,8 @@
     <string name="indiana_product_category_need_peoples">总需</string>
     <string name="indiana_product_category_categoryitems">分类</string>
     <string name="indiana_product_item_bingo_process">开奖进度</string>
+    <string name="f_indian_product_load_more_hint">正在加载更多</string>
+    <string name="f_indian_product_load_fail_hint">加载失败</string>
 
 
 </resources>
