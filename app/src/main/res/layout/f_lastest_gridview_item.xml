@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:orientation="vertical"
+        android:background="@drawable/selector_f_indiana_product_item_bg"
+        android:padding="4dp">
+
+        <!-- 上部 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/latest_product_item_img"
+                android:layout_width="match_parent"
+                android:layout_height="105dp"
+                android:background="@android:color/holo_orange_dark"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="9dp"/>
+            <TextView
+                android:id="@+id/latest_product_item_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="产品揭晓描述"
+                android:textColor="@android:color/black"
+                android:singleLine="true"/>
+
+        </LinearLayout>
+
+        <!-- 中间分割线 -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/latest_gridview_item_split_line"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+
+        <!-- 产品信息 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- 正在揭晓情况 -->
+            <LinearLayout
+                android:id="@+id/laset_item_runlottory_wrapper"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="9dp"
+                android:paddingTop="9dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="9dp"
+                    android:text="@string/lastest_item_runlottory_hint.xml"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/white"
+                    android:background="@android:color/holo_red_light"/>
+
+                <com.example.liangge.indiana.ui.widget.RunLottoryView2
+                    android:id="@+id/latest_runlottorytime_hint_txv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:background="@android:color/transparent"
+                    android:text="07:27:23"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/holo_red_dark"/>
+
+            </LinearLayout>
+
+            <!-- 揭晓信息情况-->
+            <LinearLayout
+                android:id="@+id/latest_bingo_info_wrapper"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="9dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/latest_item_bingo_info"
+                    android:text="@string/laest_bingo_info_user"/>
+
+                <TextView
+                    android:id="@+id/latest_bingo_info_bingouser_txv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户3"
+                    android:textColor="#0000FF"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/latest_item_bingo_info"
+                        android:text="@string/lastest_bingo_info_buycounts"/>
+
+                    <TextView
+                        android:id="@+id/latest_bingo_info_buycounts_txv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textColor="@android:color/darker_gray"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/latest_item_bingo_info"
+                        android:text="幸运号码："/>
+
+                    <TextView
+                        android:id="@+id/latest_bingo_info_luncynumber_txv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1029382"
+                        android:textColor="@android:color/holo_red_dark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/latest_item_bingo_info"
+                        android:text="@string/latest_bingo_info_run_lottory_time"/>
+
+                    <TextView
+                        android:id="@+id/latest_bingo_info_runlottorytime_txv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015-4-2"
+                        android:textColor="@android:color/darker_gray"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

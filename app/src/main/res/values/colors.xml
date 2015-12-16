@@ -12,4 +12,7 @@
     <color name="main_rb_pressed">@android:color/holo_red_light</color>
     <color name="main_rb_default">@android:color/black</color>
 
+    <color name="grid_item_press_bg">#55ff4444</color>
+
+
 </resources>

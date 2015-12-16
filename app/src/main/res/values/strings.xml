@@ -20,6 +20,11 @@
     <string name="indiana_product_item_bingo_process">开奖进度</string>
     <string name="f_indian_product_load_more_hint">正在加载更多</string>
     <string name="f_indian_product_load_fail_hint">加载失败</string>
+    <string name="lastest_item_runlottory_hint.xml">正在揭晓==》</string>
+    <string name="laest_bingo_info_user">获奖用户：</string>
+    <string name="lastest_bingo_info_buycounts">参与次数：</string>
+    <string name="latest_bingo_info_run_lottory_time">揭晓时间：</string>
 
+    <string name="latest_item_runninglottory_wait_hint">请稍后，正在计算...</string>
 
 </resources>
