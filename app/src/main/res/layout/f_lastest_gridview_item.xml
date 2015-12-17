@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,11 +70,10 @@
                     android:textColor="@android:color/white"
                     android:background="@android:color/holo_red_light"/>
 
-                <com.example.liangge.indiana.ui.widget.RunLottoryView2
+                <com.example.liangge.indiana.ui.widget.RunLottoryView3
                     android:id="@+id/latest_runlottorytime_hint_txv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="24dp"
-                    android:background="@android:color/transparent"
                     android:text="07:27:23"
                     android:textSize="18sp"
                     android:textColor="@android:color/holo_red_dark"/>
@@ -85,7 +83,7 @@
             <!-- 揭晓信息情况-->
             <LinearLayout
                 android:id="@+id/latest_bingo_info_wrapper"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="9dp"

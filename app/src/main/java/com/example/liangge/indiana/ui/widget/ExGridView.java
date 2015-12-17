@@ -7,19 +7,20 @@ import android.view.View;
 import android.widget.GridView;
 
 /**
+ * 扩展GridView，使其支持ScrollView
  * Created by baoxing on 2015/12/15.
  */
-public class ScrollGridView extends GridView{
+public class ExGridView extends GridView{
 
-        public ScrollGridView(Context context, AttributeSet attrs) {
+        public ExGridView(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
 
-        public ScrollGridView(Context context) {
+        public ExGridView(Context context) {
             super(context);
         }
 
-        public ScrollGridView(Context context, AttributeSet attrs, int defStyle) {
+        public ExGridView(Context context, AttributeSet attrs, int defStyle) {
             super(context, attrs, defStyle);
         }
 

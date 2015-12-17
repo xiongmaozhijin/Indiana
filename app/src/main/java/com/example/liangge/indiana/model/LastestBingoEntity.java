@@ -32,7 +32,7 @@ public class LastestBingoEntity {
     /** 开奖(揭晓)时间 */
     private long runLotteryTime;
 
-    private static DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+    private static DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd");
 
 
     public LastestBingoEntity(String productUrl, String titleDescribe, String bingoUser, String lunckyNumeber, int buyTimes, long runLotteryTime) {

@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * @deprecated
  * 开奖倒计时View
  * Created by baoxing on 2015/12/16.
  */

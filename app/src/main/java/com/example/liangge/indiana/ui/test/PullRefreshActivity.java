@@ -1,9 +1,11 @@
 package com.example.liangge.indiana.ui.test;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,8 +17,10 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.LastestBingoEntity;
+import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.RunLottoryView;
 import com.example.liangge.indiana.ui.widget.RunLottoryView2;
+import com.example.liangge.indiana.ui.widget.RunLottoryView3;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
@@ -24,6 +28,7 @@ import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
@@ -34,13 +39,15 @@ public class PullRefreshActivity extends AppCompatActivity {
 
     private PtrFrameLayout mPtrFrameLayout;
 
-    private GridView mGridView;
+    private static GridView mGridView;
 
-    private LatestGridViewAdapter mAdapter;
+    private static LatestGridViewAdapter mAdapter;
 
     private List<LastestBingoEntity> mListLatestDatas;
 
     private static DisplayImageOptions mDisplayImageOptions;
+
+    private ExScrollView mExScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +111,24 @@ public class PullRefreshActivity extends AppCompatActivity {
     private void intiView() {
 //        initRefreshView();
         initGridView();
+        initExScrollView();
 
+    }
+
+    private void initExScrollView() {
+        mExScrollView = (ExScrollView) findViewById(R.id.scrollview_test);
+        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+            @Override
+            public void onScrollTop() {
+                LogUtils.w(TAG, "onScrollTop()");
+            }
+
+            @Override
+            public void onScrollBottom() {
+                LogUtils.w(TAG, "onScrollBottom()");
+
+            }
+        });
     }
 
     private void initGridView() {
@@ -116,7 +140,7 @@ public class PullRefreshActivity extends AppCompatActivity {
 
 
     private void initRefreshView() {
-//        mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.pull_refresh_wrapper);
+        mPtrFrameLayout = (PtrFrameLayout) findViewById(R.id.pull_refresh_wrapper);
         // header
         final MaterialHeader header = new MaterialHeader(this);
         int[] colors = getResources().getIntArray(R.array.google_colors);
@@ -130,6 +154,16 @@ public class PullRefreshActivity extends AppCompatActivity {
         mPtrFrameLayout.setDurationToCloseHeader(1500);
         mPtrFrameLayout.setHeaderView(header);
         mPtrFrameLayout.addPtrUIHandler(header);
+
+        mPtrFrameLayout.setResistance(1.7f);
+        mPtrFrameLayout.setRatioOfHeaderHeightToRefresh(1.2f);
+        mPtrFrameLayout.setDurationToClose(200);
+        mPtrFrameLayout.setDurationToCloseHeader(1000);
+        // default is false
+        mPtrFrameLayout.setPullToRefresh(false);
+        // default is true
+        mPtrFrameLayout.setKeepHeaderWhenRefresh(true);
+
 
         mPtrFrameLayout.setPtrHandler(new PtrHandler() {
             @Override
@@ -228,7 +262,7 @@ public class PullRefreshActivity extends AppCompatActivity {
         /** 正在揭晓Wrapper View */
         private View runLottoryWrapper;
         /** 正在揭晓提示 */
-        private RunLottoryView2 runLottoryHint;
+        private RunLottoryView3 runLottoryHint;
 
         /** 揭晓信息Wrapper View */
         private View bingoInfoWrapper;
@@ -253,7 +287,7 @@ public class PullRefreshActivity extends AppCompatActivity {
             luckyNumber = (TextView) view.findViewById(R.id.latest_bingo_info_luncynumber_txv);
             alreadyRunLottoryTime = (TextView) view.findViewById(R.id.latest_bingo_info_runlottorytime_txv);
 
-            runLottoryHint = (RunLottoryView2) view.findViewById(R.id.latest_runlottorytime_hint_txv);
+            runLottoryHint = (RunLottoryView3) view.findViewById(R.id.latest_runlottorytime_hint_txv);
 
         }
 
@@ -309,12 +343,27 @@ public class PullRefreshActivity extends AppCompatActivity {
             runLottoryWrapper.setVisibility(View.VISIBLE);
             bingoInfoWrapper.setVisibility(View.GONE);
 
-            runLottoryHint.initConf(itemInfo);
+            runLottoryHint.init(itemInfo);
+            runLottoryHint.setOnTimesUpListener(new SimpleOnTimeUpListenerAdapter());
         }
 
 
     }
 
+
+    private static class SimpleOnTimeUpListenerAdapter implements RunLottoryView3.OnTimesUpListener {
+
+        @Override
+        public void onTimesUp(LastestBingoEntity lastestBingoEntity) {
+            LogUtils.w(TAG, "onTimeUp(). info=%s", lastestBingoEntity.toString() );
+            mGridView.post(new Runnable() {
+                @Override
+                public void run() {
+                    mAdapter.notifyDataSetChanged();
+                }
+            });
+        }
+    }
 
 
 }

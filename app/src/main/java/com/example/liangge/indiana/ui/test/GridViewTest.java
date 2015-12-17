@@ -19,11 +19,8 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.ProductItemEntity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
-import com.example.liangge.indiana.ui.widget.ScrollGridView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.List;

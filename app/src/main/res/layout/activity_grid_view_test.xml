@@ -46,7 +46,7 @@
                 android:background="@android:color/holo_orange_dark"
                 android:text="float menu-----1234345"/>
 
-        <com.example.liangge.indiana.ui.widget.ScrollGridView
+        <com.example.liangge.indiana.ui.widget.ExGridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -9,6 +9,7 @@ import android.widget.ScrollView;
 import com.example.liangge.indiana.comm.LogUtils;
 
 /**
+ * 对ScollView进行扩展，使其支持监听下拉到顶部和上拉到底部
  * Created by baoxing on 2015/12/15.
  */
 public class ExScrollView extends ScrollView{

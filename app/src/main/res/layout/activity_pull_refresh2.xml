@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.liangge.indiana.ui.test.PullRefreshActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-  <!--  <in.srain.cube.views.ptr.PtrFrameLayout
+    <in.srain.cube.views.ptr.PtrFrameLayout
         android:id="@+id/pull_refresh_wrapper"
         xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         cube_ptr:ptr_duration_to_close="300"
@@ -15,15 +13,22 @@
         cube_ptr:ptr_keep_header_when_refresh="true"
         cube_ptr:ptr_pull_to_fresh="false"
         cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
-        cube_ptr:ptr_resistance="1.7">-->
+        cube_ptr:ptr_resistance="1.7">
 
-        <FrameLayout
+        <com.example.liangge.indiana.ui.widget.ExScrollView
+            android:id="@+id/scrollview_test"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray">
 
-            <GridView
+            <com.example.liangge.indiana.ui.widget.ExGridView
                 android:id="@+id/pull_refresh_gridview"
+                android:focusable="false"
+                android:fadingEdge="none"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:numColumns="2"
@@ -33,9 +38,10 @@
                 android:gravity="center" />
 
 
-        </FrameLayout>
+        </LinearLayout>
 
+        </com.example.liangge.indiana.ui.widget.ExScrollView>
 
-    <!--</in.srain.cube.views.ptr.PtrFrameLayout>-->
+    </in.srain.cube.views.ptr.PtrFrameLayout>
 
-</FrameLayout>
+</LinearLayout>

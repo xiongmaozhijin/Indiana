@@ -38,7 +38,7 @@
                     <include layout="@layout/f_indiana_content_float_menu" />
 
                     <!-- 产品展示, GridView -->
-                    <com.example.liangge.indiana.ui.widget.ScrollGridView
+                    <com.example.liangge.indiana.ui.widget.ExGridView
                         android:id="@+id/f_indiana_product_content_gridview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
