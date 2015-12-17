@@ -15,6 +15,9 @@ import com.example.liangge.indiana.R;
 public class ShoppingCartFragment extends BaseFragment {
 
 
+    private static final String TAG = ShoppingCartFragment.class.getSimpleName();
+
+
     public ShoppingCartFragment() {
         // Required empty public constructor
     }
@@ -35,6 +38,11 @@ public class ShoppingCartFragment extends BaseFragment {
     @Override
     protected void unRegisterUIBroadCast() {
 
+    }
+
+    @Override
+    protected String getDeugTag() {
+        return TAG;
     }
 
 

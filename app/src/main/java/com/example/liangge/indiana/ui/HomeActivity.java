@@ -3,7 +3,6 @@ package com.example.liangge.indiana.ui;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.View;
@@ -17,10 +16,9 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.MessageManager;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.fragments.IndianaFragment;
-import com.example.liangge.indiana.fragments.LastestAnnouncementFragment;
+import com.example.liangge.indiana.fragments.LatestAnnouncementFragment;
 import com.example.liangge.indiana.fragments.PersonalCenterFragment;
 import com.example.liangge.indiana.fragments.ShoppingCartFragment;
-import com.example.liangge.indiana.ui.widget.BannerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +44,7 @@ public class HomeActivity extends UIBaseActivity {
     private IndianaFragment mIndianaFragment;
 
     /** 最新揭晓的Fragment */
-    private LastestAnnouncementFragment mLastestAnnouncementFragment;
+    private LatestAnnouncementFragment mLastestAnnouncementFragment;
 
     /** 购物车的Fragment */
     private ShoppingCartFragment mShoppingCartFragment;
@@ -112,7 +110,7 @@ public class HomeActivity extends UIBaseActivity {
         mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
         mViewPager.setOffscreenPageLimit(4);    //TODO 暂时的简单解决方案
         mIndianaFragment = new IndianaFragment();
-        mLastestAnnouncementFragment = new LastestAnnouncementFragment();
+        mLastestAnnouncementFragment = new LatestAnnouncementFragment();
         mShoppingCartFragment = new ShoppingCartFragment();
         mPersonalCenterFragment = new PersonalCenterFragment();
         mListFragments.add(mIndianaFragment);

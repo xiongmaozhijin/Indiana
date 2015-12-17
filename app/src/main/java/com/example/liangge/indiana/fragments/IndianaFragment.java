@@ -300,4 +300,13 @@ public class IndianaFragment extends BaseFragment {
         mIndianaBiz.onDestroy();
 
     }
+
+
+    @Override
+    protected String getDeugTag() {
+        return TAG;
+    }
+
+
+
 }

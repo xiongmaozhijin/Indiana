@@ -35,7 +35,16 @@ public class UIMessageConts {
 
     }
 
-    public interface LastestAnnouncementMessage {
+    public interface LatestAnnouncementMessage {
+
+        public static final String MESSAGE_LOADING_PRODUCT_DATA = "message_latest_loading_productdata";
+
+        public static final String MESSAGE_LOAD_PRODUCT_DATA_FAILED = "message_latest_load_failed";
+
+        public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCEED = "message_latest_load_success";
+
+        
+
 
     }
 

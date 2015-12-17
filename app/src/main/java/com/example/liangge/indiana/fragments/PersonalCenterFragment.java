@@ -15,6 +15,8 @@ import com.example.liangge.indiana.R;
 public class PersonalCenterFragment extends BaseFragment {
 
 
+    private static final String TAG = PersonalCenterFragment.class.getSimpleName();
+
     public PersonalCenterFragment() {
         // Required empty public constructor
     }
@@ -37,5 +39,10 @@ public class PersonalCenterFragment extends BaseFragment {
 
     }
 
+
+    @Override
+    protected String getDeugTag() {
+        return TAG;
+    }
 
 }

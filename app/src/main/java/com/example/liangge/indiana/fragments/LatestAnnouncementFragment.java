@@ -1,6 +1,9 @@
 package com.example.liangge.indiana.fragments;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,12 +15,35 @@ import com.example.liangge.indiana.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LastestAnnouncementFragment extends BaseFragment {
+public class LatestAnnouncementFragment extends BaseFragment {
 
 
-    public LastestAnnouncementFragment() {
+    private static final String TAG = LatestAnnouncementFragment.class.getSimpleName();
+
+    public LatestAnnouncementFragment() {
         // Required empty public constructor
     }
+
+
+    /**
+     * UI消息接收
+     */
+    private class UIMessageReceive extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+        }
+
+
+    }
+
+
+
+
+
+
 
 
     @Override
@@ -37,5 +63,10 @@ public class LastestAnnouncementFragment extends BaseFragment {
 
     }
 
+
+    @Override
+    protected String getDeugTag() {
+        return TAG;
+    }
 
 }
