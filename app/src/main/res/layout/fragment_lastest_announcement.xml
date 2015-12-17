@@ -3,8 +3,46 @@
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.LatestAnnouncementFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="LastestAnnouncementFragment" />
+    <!-- 没有网络时的加载情况 -->
+    <include layout="@layout/layout_not_network" android:id="@+id/f_latest_not_network_wrapper" />
+
+    <!-- 产品显示布局 -->
+
+    <FrameLayout
+        android:id="@+id/f_latest_content_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.liangge.indiana.ui.widget.ExScrollView
+            android:id="@+id/f_latest_content_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray">
+
+                <com.example.liangge.indiana.ui.widget.ExGridView
+                    android:id="@+id/f_latest_gridview_product_data"
+                    android:focusable="false"
+                    android:fadingEdge="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:numColumns="2"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:verticalSpacing="1dp"
+                    android:horizontalSpacing="1dp"
+                    android:gravity="center" />
+
+
+            </LinearLayout>
+
+        </com.example.liangge.indiana.ui.widget.ExScrollView>
+
+
+
+    </FrameLayout>
+
 
 </FrameLayout>

@@ -43,7 +43,7 @@ public class UIMessageConts {
 
         public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCEED = "message_latest_load_success";
 
-        
+
 
 
     }

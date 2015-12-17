@@ -7,7 +7,8 @@ import android.view.View;
 import android.widget.GridView;
 
 /**
- * 扩展GridView，使其支持ScrollView
+ * 扩展GridView，使其支持ScrollView<br/>
+ *
  * Created by baoxing on 2015/12/15.
  */
 public class ExGridView extends GridView{

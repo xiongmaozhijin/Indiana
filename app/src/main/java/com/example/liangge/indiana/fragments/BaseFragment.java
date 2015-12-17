@@ -116,4 +116,30 @@ public abstract class BaseFragment extends Fragment {
 
     protected abstract String getDeugTag();
 
+
+    /**
+     * 第一次进入这个界面
+     */
+    protected abstract void onFirstEnter();
+
+    /**
+     * 再次进入这个界面
+     */
+    protected abstract void onEnter();
+
+    /**
+     * 离开这个界面
+     */
+    protected abstract void onLeft();
+
+
+
+
+
+
+
+
+
+
+
 }
