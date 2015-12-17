@@ -45,5 +45,20 @@ public class ShoppingCartFragment extends BaseFragment {
         return TAG;
     }
 
+    @Override
+    public void onFirstEnter() {
+
+    }
+
+    @Override
+    public void onEnter() {
+
+    }
+
+    @Override
+    public void onLeft() {
+
+    }
+
 
 }

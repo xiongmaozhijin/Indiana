@@ -120,26 +120,17 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 第一次进入这个界面
      */
-    protected abstract void onFirstEnter();
+    public abstract void onFirstEnter();
 
     /**
      * 再次进入这个界面
      */
-    protected abstract void onEnter();
+    public abstract void onEnter();
 
     /**
      * 离开这个界面
      */
-    protected abstract void onLeft();
-
-
-
-
-
-
-
-
-
+    public abstract void onLeft();
 
 
 }

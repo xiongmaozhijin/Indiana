@@ -217,4 +217,19 @@ public class LatestAnnouncementFragment extends BaseFragment {
         return TAG;
     }
 
+    @Override
+    public void onFirstEnter() {
+        LogUtils.w(TAG, "onFirstEnter()");
+    }
+
+    @Override
+    public void onEnter() {
+        LogUtils.w(TAG, "onEnter()");
+    }
+
+    @Override
+    public void onLeft() {
+        LogUtils.w(TAG, "onLeft()");
+    }
+
 }

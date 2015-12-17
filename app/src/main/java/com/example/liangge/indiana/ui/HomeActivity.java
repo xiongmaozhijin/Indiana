@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.MessageManager;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.fragments.BaseFragment;
 import com.example.liangge.indiana.fragments.IndianaFragment;
 import com.example.liangge.indiana.fragments.LatestAnnouncementFragment;
 import com.example.liangge.indiana.fragments.PersonalCenterFragment;
@@ -34,7 +35,9 @@ public class HomeActivity extends UIBaseActivity {
     private static final int I_TAG_FRAGMENT_LASTEST = 1;
     private static final int I_TAG_FRAGMENT_SHOPPING_CART = 2;
     private static final int I_TAG_FRAGMENT_PERSONAL_CENTER = 3;
+    private static final int I_TAG_FRAGMENT_INVALID = -1;
 
+    private static final int I_TAG_FRAGMENT_COUNTS = 4;
 
     private TextView mTxvTitlebarTitle;
 
@@ -55,6 +58,8 @@ public class HomeActivity extends UIBaseActivity {
     /** Fragment 列表*/
     private List<Fragment> mListFragments = new ArrayList<>();
 
+    private boolean[] mAlreadyEntry = new boolean[I_TAG_FRAGMENT_COUNTS];
+
     /** 夺宝菜单 */
     private RadioButton mRbIndaina;
 
@@ -72,19 +77,21 @@ public class HomeActivity extends UIBaseActivity {
 
     private MessageManager mMessageManager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
-
+        initRes();
     }
 
     private void initView() {
         initBottomMenu();
         initViewPager();
         initOtherWidget();
-        initRes();
+
     }
 
     private void initRes() {
@@ -176,7 +183,7 @@ public class HomeActivity extends UIBaseActivity {
 
     public class HomeFragmentAdapter extends FragmentPagerAdapter {
 
-        private int iPrevItem = -1;
+        private int iPrevItem = I_TAG_FRAGMENT_INVALID;
 
         public HomeFragmentAdapter(FragmentManager fm) {
             super(fm);
@@ -207,6 +214,7 @@ public class HomeActivity extends UIBaseActivity {
             int iCurItem = mViewPager.getCurrentItem();
 
             if (iPrevItem != iCurItem) {
+                handleFragmentReplace(iPrevItem, iCurItem);
                 changeItemFragmentByVPScroll(iCurItem);
                 iPrevItem = iCurItem;
             }
@@ -238,6 +246,34 @@ public class HomeActivity extends UIBaseActivity {
                     break;
             }
         }
+    }
+
+    /**
+     * 处理各个Fragment之间的切换回调
+     * @param iPrevItem
+     * @param iCurItem
+     */
+    private void handleFragmentReplace(int iPrevItem, int iCurItem) {
+        LogUtils.w(TAG, "prevItem=%d, curItem=%d", iPrevItem, iCurItem);
+        if (iPrevItem != I_TAG_FRAGMENT_INVALID) {
+            BaseFragment prevFragment = (BaseFragment) mListFragments.get(iPrevItem);
+            prevFragment.onLeft();
+
+        }
+
+        if (iCurItem != I_TAG_FRAGMENT_INVALID) {
+            BaseFragment curFragment = (BaseFragment) mListFragments.get(iCurItem);
+            if (mAlreadyEntry[iCurItem]) {
+                curFragment.onEnter();
+
+            } else {
+                mAlreadyEntry[iCurItem] = true;
+                curFragment.onFirstEnter();
+
+            }
+
+        }
+
     }
 
 }
