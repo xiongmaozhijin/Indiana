@@ -47,17 +47,17 @@ public class ShoppingCartFragment extends BaseFragment {
 
     @Override
     public void onFirstEnter() {
-
+        super.onFirstEnter();
     }
 
     @Override
     public void onEnter() {
-
+        super.onEnter();
     }
 
     @Override
     public void onLeft() {
-
+        super.onLeft();
     }
 
 

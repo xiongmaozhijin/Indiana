@@ -120,17 +120,25 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 第一次进入这个界面
      */
-    public abstract void onFirstEnter();
+    public void onFirstEnter() {
+        LogUtils.w(getDeugTag(), "onFirstEnter()");
+        registerUIBroadCast();
+    }
 
     /**
      * 再次进入这个界面
      */
-    public abstract void onEnter();
+    public void onEnter() {
+        LogUtils.w(getDeugTag(), "onEnter()");
+
+    }
 
     /**
      * 离开这个界面
      */
-    public abstract void onLeft();
+    public void onLeft() {
+        LogUtils.w(getDeugTag(), "onLeft()");
+    }
 
 
 }

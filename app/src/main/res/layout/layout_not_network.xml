@@ -6,6 +6,7 @@
     android:gravity="center">
 
     <TextView
+        android:id="@+id/comm_not_network_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/comm_not_network"
@@ -13,6 +14,11 @@
         android:textSize="24sp"
         android:textColor="@android:color/white"/>
 
+    <com.example.liangge.indiana.ui.widget.RotateImageView
+        android:id="@+id/comm_loading_icon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:src="@drawable/comm_loading_view"/>
 
 
 </LinearLayout>

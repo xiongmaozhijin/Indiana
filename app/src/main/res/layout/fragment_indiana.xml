@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
+    <!-- 没有网络或第一次加载 -->
+    <include layout="@layout/layout_not_network" android:id="@+id/f_indian_not_network_first_load_wrapper" />
+
+    <FrameLayout
+        android:id="@+id/f_indiana_all_content_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
     <com.example.liangge.indiana.ui.widget.ExScrollView
         android:id="@+id/f_indiana_main_scrollview"
         android:layout_width="match_parent"
@@ -85,5 +94,8 @@
     <!-- 浮动菜单 -->
     <include layout="@layout/f_indiana_content_fit_float_menu"
         android:id="@+id/f_indiana_product_fit_float_menu"/>
+
+
+    </FrameLayout>
 
 </FrameLayout>

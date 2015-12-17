@@ -56,6 +56,10 @@ public class IndianaFragment extends BaseFragment {
 
     private View mViewProductLoading;
 
+    private View mViewNotNetworkOrFirstLoadWrapper;
+
+    private View mViewAllContentWrapper;
+
     public IndianaFragment() {
         // Required empty public constructor
 
@@ -97,6 +101,9 @@ public class IndianaFragment extends BaseFragment {
     }
 
     private void initWidget(View view) {
+        mViewNotNetworkOrFirstLoadWrapper = view.findViewById(R.id.f_indian_not_network_first_load_wrapper);
+        mViewAllContentWrapper = view.findViewById(R.id.f_indiana_all_content_wrapper);
+
         mViewProductLoading = view.findViewById(R.id.f_indiana_product_loading_more_wrapper);
 
         mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
@@ -226,12 +233,14 @@ public class IndianaFragment extends BaseFragment {
         LogUtils.w(TAG, "isLoading=%b, isSuccess=%b", isLoading, isSuccess);
 
         if (isSuccess) {
+            mViewAllContentWrapper.setVisibility(View.VISIBLE);
+            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.GONE);
             mViewProductLoading.setVisibility(View.GONE);
         } else {
-            if (isLoading) {
+            if (isLoading) {    //正在加载
                 mViewProductLoading.setVisibility(View.VISIBLE);
 
-            } else {
+            } else {    //加载失败
                 ((TextView)mViewProductLoading.findViewById(R.id.product_loading_txv_hint)).setText(getResources().getString(R.string.f_indian_product_load_fail_hint));
 
             }
@@ -286,6 +295,12 @@ public class IndianaFragment extends BaseFragment {
         }
     }
 
+    private void initFirstLoadingUI() {
+        mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.VISIBLE);
+        mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+        mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
+    }
+
 
 
     @Override
@@ -309,17 +324,18 @@ public class IndianaFragment extends BaseFragment {
 
     @Override
     public void onFirstEnter() {
-        LogUtils.w(TAG, "onFirstEnter()");
+        super.onFirstEnter();
+        initFirstLoadingUI();
     }
 
     @Override
     public void onEnter() {
-        LogUtils.w(TAG, "onEnter()");
+        super.onEnter();
     }
 
     @Override
     public void onLeft() {
-        LogUtils.w(TAG, "onLeft()");
+        super.onLeft();
     }
 
 

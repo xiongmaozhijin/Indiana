@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.LatestProductGridViewAdapter;
+import com.example.liangge.indiana.biz.LatestBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.LastestBingoEntity;
@@ -42,6 +43,8 @@ public class LatestAnnouncementFragment extends BaseFragment {
 
 
     private UIMessageReceive mUIMessageReceive;
+
+    private LatestBiz mLatestBiz;
 
 
     public LatestAnnouncementFragment() {
@@ -73,6 +76,8 @@ public class LatestAnnouncementFragment extends BaseFragment {
             if (intentAction != null) {
                 if (intentAction.equals(UIMessageConts.UI_MESSAGE_ACTION)) {
                     String strUIAction = intent.getStringExtra(UIMessageConts.UI_MESSAGE_KEY);
+                    LogUtils.e(TAG, "receive ui message. strAction=%s", strUIAction);
+
                     if (strUIAction != null) {
                         boolean bIsResponseLoadingProduct =  strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED)
                                                                 || strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED)
@@ -113,27 +118,32 @@ public class LatestAnnouncementFragment extends BaseFragment {
      */
     private void handleUIProductData(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA)) {
+            //正在加载产品数据
 
 
         } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED)) {
 
 
         } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED)){
+            mViewNotNetWorkWrpper.setVisibility(View.GONE);
+            mViewContentWrapper.setVisibility(View.VISIBLE);
+            mAdapter.setDatasAndNotify(mLatestBiz.getProductsData());
 
         }
 
     }
 
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initManager();
+    }
 
+    private void initManager() {
+        mLatestBiz = LatestBiz.getInstance(getActivity());
 
-
-
-
-
-
-
-
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -219,17 +229,28 @@ public class LatestAnnouncementFragment extends BaseFragment {
 
     @Override
     public void onFirstEnter() {
-        LogUtils.w(TAG, "onFirstEnter()");
+        super.onFirstEnter();
+        mLatestBiz.onFirstEnter();
+        initFirstLoadingUI();
+
+    }
+
+    private void initFirstLoadingUI() {
+        mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
+        mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+        mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onEnter() {
-        LogUtils.w(TAG, "onEnter()");
+        super.onEnter();
+        mLatestBiz.onEnter();
     }
 
     @Override
     public void onLeft() {
-        LogUtils.w(TAG, "onLeft()");
+        super.onLeft();
+        mLatestBiz.onLeave();
     }
 
 }

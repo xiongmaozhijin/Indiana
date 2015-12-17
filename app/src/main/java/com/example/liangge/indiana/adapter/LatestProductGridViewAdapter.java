@@ -76,7 +76,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
      */
     public void setDatasAndNotify(List<LastestBingoEntity> listProducts) {
         this.mListLatestDatas = listProducts;
-
+        this.notifyDataSetChanged();
     }
 
     private void initImageLoaderConf(Context context) {

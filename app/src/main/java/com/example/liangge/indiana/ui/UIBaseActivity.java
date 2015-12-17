@@ -16,4 +16,9 @@ public class UIBaseActivity extends FragmentActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
+    }
 }

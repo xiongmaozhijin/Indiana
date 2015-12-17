@@ -2,6 +2,7 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.LastestBingoEntity;
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by baoxing on 2015/12/17.
  */
 public class LatestBiz extends BaseFragmentBiz{
+
+    private static final String TAG = LatestBiz.class.getSimpleName();
 
     private static LatestBiz mInstance;
 
@@ -117,7 +120,14 @@ public class LatestBiz extends BaseFragmentBiz{
         mListLatestDatas.add(item3);
     }
 
-
+    /**
+     * 返回产品数据
+     * @return
+     */
+    public List<LastestBingoEntity> getProductsData() {
+        LogUtils.w(TAG, "getProductsData(), size=%d", this.mLatestDatas.size());
+        return this.mLatestDatas;
+    }
 
 
     @Override
