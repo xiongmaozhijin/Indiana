@@ -22,4 +22,9 @@
         android:layout_height="wrap_content"
         android:src="@drawable/comm_loading_view"/>
 
+
+    <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

@@ -27,5 +27,6 @@
 
     <string name="latest_item_runninglottory_wait_hint">请稍后，正在计算...</string>
     <string name="comm_not_network">没有网络，轻点重新加载</string>
+    <string name="f_shoppingcart_item_buy_counts">购买次数</string>
 
 </resources>
