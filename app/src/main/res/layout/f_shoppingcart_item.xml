@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="157dp"
         android:background="@drawable/selector_f_indiana_product_item_bg"
-        android:padding="12dp"
+        android:padding="10dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -40,14 +39,31 @@
                 android:text="总需8090次，剩余8022次"
                 android:textColor="@android:color/darker_gray"/>
 
-            <TextView
-                android:id="@+id/f_shoppingcart_buycounts_describe"
+
+            <LinearLayout
+                android:layout_marginTop="3dp"
                 android:layout_below="@id/f_shoppingcart_join_describe"
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/f_shoppingcart_item_buy_counts"
-                android:textColor="@android:color/darker_gray"  />
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/f_shoppingcart_buycounts_describe"
+                    android:layout_below="@id/f_shoppingcart_join_describe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/f_shoppingcart_item_buy_counts"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_gravity="center"/>
+
+                <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
+                    android:id="@+id/f_shoppingcart_buy_widget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+
 
 
 

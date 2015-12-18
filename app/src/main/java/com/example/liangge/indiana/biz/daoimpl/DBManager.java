@@ -14,6 +14,7 @@ import java.util.List;
 import de.greenrobot.dao.query.QueryBuilder;
 
 /**
+ * 数据据数据操作  <br/>
  * Created by baoxing on 2015/12/18.
  */
 public class DBManager {

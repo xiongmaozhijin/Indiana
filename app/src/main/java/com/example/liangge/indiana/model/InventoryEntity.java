@@ -1,10 +1,13 @@
 package com.example.liangge.indiana.model;
 
 /**
- * 清单实体
+ * 清单实体 <br/>
  * Created by baoxing on 2015/12/17.
  */
 public class InventoryEntity {
+
+    /** 产品ID */
+    private int productId;
 
     /** 清单图片地址 */
     private String invertoryImgUrl;
@@ -63,15 +66,27 @@ public class InventoryEntity {
         this.lackPeopleCounts = lackPeopleCounts;
     }
 
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
     @Override
     public String toString() {
         return "InventoryEntity{" +
-                "invertoryImgUrl='" + invertoryImgUrl + '\'' +
+                "productId=" + productId +
+                ", invertoryImgUrl='" + invertoryImgUrl + '\'' +
                 ", titleDescribe='" + titleDescribe + '\'' +
                 ", needPeopleCounts=" + needPeopleCounts +
                 ", lackPeopleCounts=" + lackPeopleCounts +
                 ", buyCounts=" + buyCounts +
                 '}';
     }
+
+
 
 }

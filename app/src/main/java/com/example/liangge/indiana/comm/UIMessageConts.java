@@ -44,11 +44,23 @@ public class UIMessageConts {
         public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCEED = "message_latest_load_success";
 
 
-
-
     }
 
     public interface ShoppingCartMessage {
+
+        /** 重置列表ui */
+        public static final String M_RESET_UPDATE_LISTS = "m_reset_update_lists";
+
+        /** 购物车为空 */
+        public static final String M_EMPTY_ORDERS = "m_empty_orders";
+
+        /** 网络查询失败 */
+        public static final String M_QUERY_ORDERS_FAILED = "m_query_orders_failed";
+
+        /** 网络查询成功 */
+        public static final String M_QUERY_ORDERS_SUCCESS = "m_query_orders_success";
+
+
 
     }
 

@@ -3,6 +3,119 @@
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.ShoppingCartFragment">
 
+    <!-- 没有清单时的显示 -->
+    <FrameLayout
+        android:id="@+id/f_shoppingcart_empty_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/f_shoppingcart_icon"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="@string/f_shoppingcart_empty_cart"
+                android:layout_marginBottom="25dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/f_shoppingcart_go_indiana"
+                android:textColor="@android:color/white"
+                android:background="@android:color/holo_red_light"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+    <!-- 从网络中加载全部清单时的显示 -->
+    <FrameLayout
+        android:id="@+id/f_shopping_not_network_wrapper"
+        android:background="@android:color/darker_gray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_not_network" />
+
+    </FrameLayout>
+
+
+    <!-- 显示购物清单 -->
+    <FrameLayout
+        android:id="@+id/f_shoppingcart_content_wrapper"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"    >
+
+        <com.example.liangge.indiana.ui.widget.ExScrollView
+            android:id="@+id/f_shopping_content_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/f_shopping_content_listview"
+                android:cacheColorHint="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:dividerHeight="1dp"/>
+
+
+        </com.example.liangge.indiana.ui.widget.ExScrollView>
+
+
+
+        <LinearLayout
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@android:color/darker_gray"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/f_shopping_content_item_txvdesc1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:text="@string/f_shoppingcart_buycnt_hint"/>
+
+            <TextView
+                android:id="@+id/f_shopping_content_item_txvdesc2"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_light"
+                android:text="共: %1$d夺宝币"/>
+
+
+            <Button
+                android:id="@+id/f_shopping_content_item_btn_commit_pay"
+                android:background="@android:color/holo_red_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/f_shoppingcart_commit_pay"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
 
 
 
