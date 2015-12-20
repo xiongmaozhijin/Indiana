@@ -6,6 +6,7 @@
     <!-- 没有清单时的显示 -->
     <FrameLayout
         android:id="@+id/f_shoppingcart_empty_wrapper"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray">
@@ -30,6 +31,7 @@
                 android:layout_marginBottom="25dp"/>
 
             <Button
+                android:id="@+id/f_shoppingcart_btn_go_indiana"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/f_shoppingcart_go_indiana"
@@ -44,6 +46,7 @@
     <!-- 从网络中加载全部清单时的显示 -->
     <FrameLayout
         android:id="@+id/f_shopping_not_network_wrapper"
+        android:visibility="gone"
         android:background="@android:color/darker_gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -56,6 +59,7 @@
     <!-- 显示购物清单 -->
     <FrameLayout
         android:id="@+id/f_shoppingcart_content_wrapper"
+        android:visibility="visible"
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"    >
@@ -104,7 +108,7 @@
 
             <Button
                 android:id="@+id/f_shopping_content_item_btn_commit_pay"
-                android:background="@android:color/holo_red_dark"
+                android:background="@drawable/selector_f_shopping_btn_pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/f_shoppingcart_commit_pay"/>
