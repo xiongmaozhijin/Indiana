@@ -84,8 +84,10 @@
                 android:text="@string/main_rb_latest_announcement_text"
                 android:onClick="onBtnLatestAnnouncement"/>
 
+
             <RadioButton
                 android:id="@+id/main_rb_shopping_card"
+                android:layout_gravity="center"
                 android:layout_width="48dp"
                 android:layout_height="match_parent"
                 style="@style/main_radio_button_style"

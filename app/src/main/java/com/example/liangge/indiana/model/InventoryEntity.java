@@ -25,6 +25,15 @@ public class InventoryEntity {
     private int buyCounts;
 
 
+    public InventoryEntity(int productId, String invertoryImgUrl, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
+        this.productId = productId;
+        this.invertoryImgUrl = invertoryImgUrl;
+        this.titleDescribe = titleDescribe;
+        this.needPeopleCounts = needPeopleCounts;
+        this.lackPeopleCounts = lackPeopleCounts;
+        this.buyCounts = buyCounts;
+    }
+
     public int getBuyCounts() {
         return buyCounts;
     }

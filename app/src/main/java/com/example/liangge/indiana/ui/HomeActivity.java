@@ -139,6 +139,11 @@ public class HomeActivity extends UIBaseActivity {
         return this.mIconRefresh;
     }
 
+    public RadioButton getShoppingCartBtn() {
+        return this.mRbShoppingCart;
+    }
+
+
     /**
      * 马上去夺宝，ShoppingCart click which btn
      */

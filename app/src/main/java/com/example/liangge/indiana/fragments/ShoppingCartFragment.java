@@ -1,6 +1,7 @@
 package com.example.liangge.indiana.fragments;
 
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -20,6 +21,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.HomeActivity;
 import com.example.liangge.indiana.ui.widget.RotateImageView;
+import com.jauker.widget.BadgeView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,7 +55,14 @@ public class ShoppingCartFragment extends BaseFragment {
     /** 刷新加载图标 */
     private RotateImageView mIconRefreshLoading;
 
+    /** 底部菜单的购物车图标 */
+    private RadioButton mBtnShoppingCart;
+    private BadgeView mBadgeView;
+
+
     private static final String TAG = ShoppingCartFragment.class.getSimpleName();
+
+
 
 
     private UIReceiveBroadcat mReceive;
@@ -105,7 +114,7 @@ public class ShoppingCartFragment extends BaseFragment {
         mBtnGoIndiana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((HomeActivity)getActivity()).onFragmentBtnGoIndiana();
+                ((HomeActivity) getActivity()).onFragmentBtnGoIndiana();
             }
         });
 
@@ -166,8 +175,23 @@ public class ShoppingCartFragment extends BaseFragment {
         } else if (uiAction.equals(UIMessageConts.CommResponse.MESSAGE_COMM_NO_NETWORK)) {
             handleUINotNetwork();
 
+        } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)) {
+            handleShoppingCartCounts();
+
         }
 
+    }
+
+    /**
+     * 更新购物车商品数量
+     */
+    private void handleShoppingCartCounts() {
+        //TODO
+        //0.badgeview下次再画
+        //1.摇摆
+        ObjectAnimator anim = ObjectAnimator.ofFloat(mBtnShoppingCart, "rotation", 0, -30, 0, 30, 0);
+        anim.setRepeatCount(2);
+        anim.start();
     }
 
     private void handleUINotNetwork() {
@@ -233,6 +257,9 @@ public class ShoppingCartFragment extends BaseFragment {
                 LogUtils.w(TAG, "refresh icon click");
             }
         });
+
+
+        mBtnShoppingCart = ((HomeActivity)getActivity()).getShoppingCartBtn();
 
 
     }

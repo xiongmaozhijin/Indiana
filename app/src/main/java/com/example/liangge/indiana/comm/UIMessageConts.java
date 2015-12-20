@@ -63,6 +63,9 @@ public class UIMessageConts {
         /** 查询操作开始 */
         public static final String M_QUERY_ORDERS_STARTS = "m_query_orders_start";
 
+        /** 更新购物车商品数量 */
+        public static final String M_UPDATE_SHOPPINGCART_ITEM_COUNTS = "m_update_shoppingcart_item_count";
+
 
     }
 

@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.liangge.indiana.biz.daoimpl.DBManager;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
-import com.example.liangge.indiana.fragments.ShoppingCartFragment;
 import com.example.liangge.indiana.model.InventoryEntity;
+import com.example.liangge.indiana.model.ProductItemEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.liangge.databasedao.Order;
 
@@ -25,13 +25,15 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     private static Context mContext;
 
     /** 清单列表数据 */
-    private volatile List<InventoryEntity> mListInventorys = new ArrayList<>();
+    private volatile static List<InventoryEntity> mListInventorys = new ArrayList<>();
 
     /** 消息管理 */
     private MessageManager mMessageManager;
 
-    private DBManager mDBManager;
+    private static DBManager mDBManager;
 
+    /** 当前购物车数量 */
+    private int mICurCntShoppingItem = 0;
 
     private ShoppingCartBiz(Context context) {
         this.mContext = context;
@@ -62,6 +64,110 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     }
 
     /**
+     * 把商品添加到购物车
+     * 1.写数据库
+     * 2.写存在的内存列表
+     * 3.更新ui
+     * @param productItemEntity
+     */
+    public void addProductToShoppingCart(ProductItemEntity productItemEntity) {
+        LogUtils.w(TAG, "addProductToShoppingCart()");
+        new AsyncAddProductThread(productItemEntity).start();
+    }
+
+    /**
+     * 异步增加商品 <br/>
+     *
+     * 把商品添加到购物车
+     * 1.写数据库
+     * 2.写存在的内存列表
+     * 3.更新ui
+     *
+     */
+    private class AsyncAddProductThread extends Thread {
+
+        private ProductItemEntity mAddProductItemEntity;
+
+        public AsyncAddProductThread(ProductItemEntity productItemEntity) {
+            this.mAddProductItemEntity = productItemEntity;
+        }
+
+        @Override
+        public void run() {
+            //1.
+            writeOrderToDatabase();
+            //2.
+            writeOrderToList();
+
+            //3.
+             notifyCntShoppingItem();
+
+        }
+
+        private void notifyCntShoppingItem() {
+            mICurCntShoppingItem = getCurShoppingItemCnt();
+
+            LogUtils.w(TAG, "notifyCntShoppingItem().mICurCnt=%d", mICurCntShoppingItem);
+
+            if (mICurCntShoppingItem != 0) {
+                UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS);
+                mMessageManager.sendMessage(msgInfo);
+            }
+
+        }
+
+        private void writeOrderToList() {
+            boolean bIsContain = false;
+            InventoryEntity inventoryEntityItem;
+            for (int i=0, len=mListInventorys.size(); i<len; i++) {
+                inventoryEntityItem = mListInventorys.get(i);
+                if (inventoryEntityItem.getProductId() == mAddProductItemEntity.getProductId()) {
+                    int iCurBuyCnt = inventoryEntityItem.getBuyCounts();
+                    inventoryEntityItem.setBuyCounts(iCurBuyCnt+1);
+                    bIsContain = true;
+                    break;
+                }
+            }
+            if (!bIsContain) {
+                mListInventorys.add(Bizdto.changeToInventory(mAddProductItemEntity, 1));
+            }
+        }
+
+        private void writeOrderToDatabase() {
+            Order orderDb = mDBManager.loadOrderEntity(mAddProductItemEntity.getProductId());
+            if (orderDb == null) {
+                orderDb = new Order(mAddProductItemEntity.getProductId(), 1);
+                mDBManager.addOrder(orderDb);
+            } else {
+                int iCurBuyCnt = orderDb.getBuyCnt();
+                orderDb.setBuyCnt(iCurBuyCnt + 1);
+                mDBManager.updateOrder(orderDb);
+            }
+        }
+
+    }
+
+    /**
+     * 当前购物车数量
+     * @return
+     */
+    private int getCurShoppingItemCnt() {
+        List<Order> allOrderList = mDBManager.selectAllOrder();
+        int iCnt = 0;
+        if (allOrderList != null) {
+            Order item;
+            for (int i=0, len=allOrderList.size(); i<len; i++) {
+                item = allOrderList.get(i);
+                iCnt += item.getBuyCnt();
+            }
+
+        }
+
+        return iCnt;
+    }
+
+
+    /**
      * 进入到这个界面时
      * 0.把内存的list通知ui更新
      * 1.从数据库中取出所有订单
@@ -81,6 +187,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
 
     }
+
 
     /**
      * 消息通知ui加载重置列表清单/或空购物车
@@ -129,7 +236,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
             UIMessageEntity resultInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
             mMessageManager.sendMessage(resultInfo);
-
+            bIsWorking = false;
         }
 
     }

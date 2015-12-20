@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
 import com.example.liangge.indiana.biz.IndianaBiz;
+import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
@@ -54,6 +55,7 @@ public class IndianaFragment extends BaseFragment {
     /** Main ScrollView */
     private ExScrollView mScrollViewMain;
 
+    /** GridView底部加载更多提示 */
     private View mViewProductLoading;
 
     private View mViewNotNetworkOrFirstLoadWrapper;
@@ -128,6 +130,8 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onShoppoingCartClick(ProductItemEntity item) {
                 LogUtils.i(TAG, "shopping cart click. item=%s", item.toString());
+                //TODO 添加物品
+                ShoppingCartBiz.getInstance(getActivity()).addProductToShoppingCart(item);
             }
         });
 

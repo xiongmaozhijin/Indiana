@@ -56,6 +56,11 @@ public class DBManager {
     public void addOrder(int productId, int buyCnt) {
         LogUtils.w(TAG, "addOrder().productId=%d, buyCnt=%d", productId, buyCnt);
         Order order = new Order(productId, buyCnt);
+       addOrder(order);
+    }
+
+    public void addOrder(Order order) {
+        LogUtils.w(TAG, "addOrder().productId=%d, buyCnt=%d", order.getProductId(), order.getBuyCnt());
         OrderDao orderDao = mDaoSession.getOrderDao();
         orderDao.insert(order);
     }
@@ -77,18 +82,35 @@ public class DBManager {
      */
     public void updateOrder(int productId, int buyCnt) {
         LogUtils.w(TAG, "updateOrder().productId=%d, buyCnt=%d", productId, buyCnt);
-        OrderDao orderDao = mDaoSession.getOrderDao();
-        orderDao.insertOrReplace(new Order(productId, buyCnt));
+        updateOrder(new Order(productId, buyCnt) );
     }
 
+    public void updateOrder(Order order)  {
+        LogUtils.w(TAG, "updateOrder().productId=%d, buyCnt=%d", order.getProductId(), order.getBuyCnt());
+        OrderDao orderDao = mDaoSession.getOrderDao();
+        orderDao.insertOrReplace(order);
+    }
+
+    /**
+     * 查询全部
+     * @return
+     */
     public List<Order> selectAllOrder() {
         LogUtils.w(TAG, "selectAllOrder()");
         OrderDao orderDao = mDaoSession.getOrderDao();
         return orderDao.loadAll();
     }
 
-
-
+    /**
+     * 根据id查询出制定的订单
+     * @param productId
+     * @return  The entity or null, if no entity matched the PK value
+     */
+    public Order loadOrderEntity(int productId) {
+        OrderDao orderDao = mDaoSession.getOrderDao();
+        Order item = orderDao.load(productId);
+        return item;
+    }
 
 
 
