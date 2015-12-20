@@ -29,7 +29,10 @@ public class RotateImageView extends ImageView {
         startRotateview();
     }
 
-    private void startRotateview() {
+    /**
+     * 启动动画
+     */
+    public void startRotateview() {
         post(new Runnable() {
             @Override
             public void run() {
@@ -37,6 +40,21 @@ public class RotateImageView extends ImageView {
                     mRotateViewThread = new RotateViewThread();
                     mRotateViewThread.setRoteViewThreadActive(true);
                     mRotateViewThread.start();
+                }
+            }
+        });
+    }
+
+    /**
+     * 停止动画
+     */
+    public void stopRotateview() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                if (mRotateViewThread != null) {
+                    mRotateViewThread.setRoteViewThreadActive(false);
+                    mRotateViewThread = null;
                 }
             }
         });

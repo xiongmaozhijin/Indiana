@@ -96,20 +96,40 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
         }
         mMessageManager.sendMessage(info);
+
+        //发送消息，通知查询成功，停止icon refresh loadding
+        UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
+        mMessageManager.sendMessage(msgInfo);
+
     }
 
+    /** 正在网络请求操作 */
     private volatile boolean bIsWorking = false;
 
     private class TestRequest extends Thread {
         @Override
         public void run() {
             LogUtils.w(TAG, "run..");
+            UIMessageEntity startInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_STARTS);
+            mMessageManager.sendMessage(startInfo);
+
             List<Order> allDatas = mDBManager.selectAllOrder();
             List<Order> queryDatas = getDiffDatas(mListInventorys, allDatas);
             //...
             LogUtils.w(TAG, "网络请求差集数据..info=%s. size=%d", queryDatas.toString(), queryDatas.size());
 
             //消息回调 TODO
+
+            try {
+                Thread.sleep(3000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            UIMessageEntity resultInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
+            mMessageManager.sendMessage(resultInfo);
+
         }
 
     }

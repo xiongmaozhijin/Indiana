@@ -20,6 +20,7 @@ import com.example.liangge.indiana.fragments.IndianaFragment;
 import com.example.liangge.indiana.fragments.LatestAnnouncementFragment;
 import com.example.liangge.indiana.fragments.PersonalCenterFragment;
 import com.example.liangge.indiana.fragments.ShoppingCartFragment;
+import com.example.liangge.indiana.ui.widget.RotateImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,11 @@ public class HomeActivity extends UIBaseActivity {
 
     private TextView mTxvTitlebarTitle;
 
+    /** 夺宝界面Fragment中的搜索 **/
     private ImageView mIconSearch;
+
+    /** 购物车界面的刷新加载icon */
+    private RotateImageView mIconRefresh;
 
     /** 夺宝的Fragment */
     private IndianaFragment mIndianaFragment;
@@ -101,6 +106,7 @@ public class HomeActivity extends UIBaseActivity {
     private void initOtherWidget() {
         mTxvTitlebarTitle = (TextView) findViewById(R.id.main_titlebar_title);
         mIconSearch = (ImageView) findViewById(R.id.main_btn_search);
+        mIconRefresh = (RotateImageView) findViewById(R.id.main_btn_refresh_loading);
 
     }
 
@@ -129,23 +135,40 @@ public class HomeActivity extends UIBaseActivity {
     }
 
 
+    public RotateImageView getShoppingCartRefrshIconView() {
+        return this.mIconRefresh;
+    }
+
+    /**
+     * 马上去夺宝，ShoppingCart click which btn
+     */
+    public void onFragmentBtnGoIndiana() {
+        changeItemFragmentByButton(I_TAG_FRAGMENT_INDIANA, false);
+    }
+
+
+
     private void changeTitlebar(int iCurItem) {
         switch (iCurItem) {
             case I_TAG_FRAGMENT_INDIANA:
                 mTxvTitlebarTitle.setText(R.string.main_titlebar_title_indiana);
                 mIconSearch.setVisibility(View.VISIBLE);
+                mIconRefresh.setVisibility(View.GONE);
                 break;
             case I_TAG_FRAGMENT_LASTEST:
                 mTxvTitlebarTitle.setText(R.string.main_titlebar_title_lastest_anno);
                 mIconSearch.setVisibility(View.INVISIBLE);
+                mIconRefresh.setVisibility(View.GONE);
                 break;
             case I_TAG_FRAGMENT_SHOPPING_CART:
                 mTxvTitlebarTitle.setText(R.string.main_titlebar_title_shopping_cart);
                 mIconSearch.setVisibility(View.INVISIBLE);
+                mIconRefresh.setVisibility(View.VISIBLE);
                 break;
             case I_TAG_FRAGMENT_PERSONAL_CENTER:
                 mTxvTitlebarTitle.setText(R.string.main_titlebar_title_personal_center);
                 mIconSearch.setVisibility(View.INVISIBLE);
+                mIconRefresh.setVisibility(View.GONE);
                 break;
         }
     }

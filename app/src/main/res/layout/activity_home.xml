@@ -28,6 +28,17 @@
             android:layout_centerVertical="true"
             android:paddingRight="9dp"/>
 
+
+        <com.example.liangge.indiana.ui.widget.RotateImageView
+            android:id="@+id/main_btn_refresh_loading"
+            android:visibility="gone"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/comm_loading_view"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingRight="9dp"/>
+
     </RelativeLayout>
 
     <!-- 中间Fragment部分 -->

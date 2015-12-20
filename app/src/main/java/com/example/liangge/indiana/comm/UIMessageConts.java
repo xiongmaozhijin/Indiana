@@ -60,6 +60,8 @@ public class UIMessageConts {
         /** 网络查询成功 */
         public static final String M_QUERY_ORDERS_SUCCESS = "m_query_orders_success";
 
+        /** 查询操作开始 */
+        public static final String M_QUERY_ORDERS_STARTS = "m_query_orders_start";
 
 
     }
