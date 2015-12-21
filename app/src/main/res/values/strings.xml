@@ -34,5 +34,13 @@
     <string name="f_shoppingcart_commit_pay">确认支付</string>
     <string name="f_shoppingcart_join_describe">总需%1$d次，剩余%2$d次</string>
     <string name="f_shoppingcart_pay_hint">共: %1$d夺宝币</string>
+    <string name="activity_productdetailinfo_titlebar_title">商品详情</string>
+    <string name="activity_productdetailinfo_progressing_des1">总需:%1$d次</string>
+    <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝</string>
+    <string name="activity_productdetailinfo_lucky_number">幸运号码:%1$s</string>
+    <string name="activity_productdetailinfo_btn_why_calc">计算详细</string>
+    <string name="activity_productdetailinfo_bingo_ing_hint">正在揭晓中...</string>
+    <string name="activity_productdetailinfo_more_info">图文详细（建议WIFI下查看）</string>
+    <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
 
 </resources>
