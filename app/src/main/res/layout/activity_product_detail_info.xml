@@ -11,6 +11,15 @@
         android:layout_height="@dimen/titlebar_height"
         android:background="@android:color/holo_red_dark">
 
+        <ImageButton
+            android:id="@+id/activity_productdetailinfo_btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_f_shopping_btn_pay"
+            android:src="@android:drawable/ic_menu_revert"/>
+
         <TextView
             android:id="@+id/main_titlebar_title"
             android:layout_width="wrap_content"
@@ -20,26 +29,6 @@
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:layout_centerInParent="true"/>
-
-        <ImageView
-            android:id="@+id/main_btn_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_search"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingRight="9dp"/>
-
-
-        <com.example.liangge.indiana.ui.widget.RotateImageView
-            android:id="@+id/main_btn_refresh_loading"
-            android:visibility="gone"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/comm_loading_view"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingRight="9dp"/>
 
     </RelativeLayout>
 
@@ -201,12 +190,20 @@
                 </FrameLayout>
 
 
-
                 <!-- 揭晓中 -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/activity_productdetailinfo_bingo_ing_hint"/>
+                <FrameLayout
+                    android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/activity_productdetailinfo_bingo_ing_hint"/>
+
+                </FrameLayout>
+
+
 
 
 
