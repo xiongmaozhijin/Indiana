@@ -51,7 +51,7 @@ public class ExampleDaoGenerator {
      */
     private static void addOrder(Schema schema) {
         Entity orderEntity = schema.addEntity("Order");
-        orderEntity.addIntProperty("productId").notNull().primaryKey();
+        orderEntity.addLongProperty("productId").notNull().primaryKey();
         orderEntity.addIntProperty("buyCnt").notNull().notNull();
 
     }

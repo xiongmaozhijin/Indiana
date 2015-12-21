@@ -69,7 +69,7 @@ public class DBManager {
      * 删除一条订单
      * @param productId
      */
-    public void deleteOrder(Integer productId) {
+    public void deleteOrder(Long productId) {
         LogUtils.w(TAG, "deleteOrder(). productId=%d",productId);
         OrderDao orderDao = mDaoSession.getOrderDao();
         orderDao.deleteByKey(productId);
@@ -106,7 +106,7 @@ public class DBManager {
      * @param productId
      * @return  The entity or null, if no entity matched the PK value
      */
-    public Order loadOrderEntity(int productId) {
+    public Order loadOrderEntity(long productId) {
         OrderDao orderDao = mDaoSession.getOrderDao();
         Order item = orderDao.load(productId);
         return item;

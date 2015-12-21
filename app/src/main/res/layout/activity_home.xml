@@ -85,7 +85,7 @@
                 android:onClick="onBtnLatestAnnouncement"/>
 
 
-            <RadioButton
+            <com.example.liangge.indiana.ui.widget.ExRadioButton
                 android:id="@+id/main_rb_shopping_card"
                 android:layout_gravity="center"
                 android:layout_width="48dp"

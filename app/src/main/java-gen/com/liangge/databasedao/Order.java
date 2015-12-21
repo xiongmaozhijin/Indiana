@@ -6,26 +6,26 @@ package com.liangge.databasedao;
  */
 public class Order {
 
-    private int productId;
+    private long productId;
     private int buyCnt;
 
     public Order() {
     }
 
-    public Order(int productId) {
+    public Order(long productId) {
         this.productId = productId;
     }
 
-    public Order(int productId, int buyCnt) {
+    public Order(long productId, int buyCnt) {
         this.productId = productId;
         this.buyCnt = buyCnt;
     }
 
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
