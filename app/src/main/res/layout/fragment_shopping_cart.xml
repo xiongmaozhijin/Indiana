@@ -60,17 +60,19 @@
     <FrameLayout
         android:id="@+id/f_shoppingcart_content_wrapper"
         android:visibility="gone"
-        android:background="@android:color/white"
+        android:background="@android:color/darker_gray"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"    >
+        android:layout_height="match_parent">
 
         <com.example.liangge.indiana.ui.widget.ExScrollView
             android:id="@+id/f_shopping_content_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="54dp">
 
-            <ListView
+            <com.example.liangge.indiana.ui.widget.ExListView
                 android:id="@+id/f_shopping_content_listview"
+                android:listSelector="@drawable/selector_f_indiana_product_item_bg"
                 android:cacheColorHint="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -84,7 +86,7 @@
 
         <LinearLayout
             android:layout_gravity="bottom|center_horizontal"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/holo_orange_light"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="54dp">
@@ -103,7 +105,7 @@
                 android:gravity="left"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_red_light"
-                android:text="共: %1$d夺宝币"/>
+                android:text="@string/f_shoppingcart_pay_hint"/>
 
 
             <Button

@@ -45,7 +45,6 @@ public abstract class BaseFragment extends Fragment {
         super.onStop();
         LogUtils.w(getDeugTag(), "onStop()");
 
-        unRegisterUIBroadCast();
     }
 
     @Override

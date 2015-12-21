@@ -35,6 +35,17 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     /** 当前购物车数量 */
     private int mICurCntShoppingItem = 0;
 
+
+    private static class DataInfo {
+        /** 共买了多少不同商品 */
+        public volatile static int iTotalNum;
+
+        /** 共需要花费的金币 */
+        public volatile static int iTotalCost;
+
+
+    }
+
     private ShoppingCartBiz(Context context) {
         this.mContext = context;
         initRes();
@@ -57,11 +68,91 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     }
 
 
-    @Override
-    public void onViewCreated() {
+    //TODO
+    /** 返回当前的购买数量 */
+    public int getBuyCnt() {
+        return this.mICurCntShoppingItem;
+    }
 
+    /** 获取订单列表数据 */
+    public List<InventoryEntity> getListInventoryData() {
+        List<InventoryEntity> listNewDatas = new ArrayList<>();
+
+        InventoryEntity item;
+
+        for (int i=0, len=this.mListInventorys.size(); i<len; i++) {
+            item = this.mListInventorys.get(i);
+            listNewDatas.add(item);
+
+        }
+
+        return listNewDatas;
+    }
+
+    /**
+     * 共买了多少不同的商品
+     * @return
+     */
+    public int getTotalDiffProduct() {
+        return DataInfo.iTotalNum;
+    }
+
+    /**
+     * 共花费多少金币
+     * @return
+     */
+    public int getTotalCost() {
+        return DataInfo.iTotalCost;
+    }
+
+    /**
+     * 更新产品购买数量
+     * 1.列表中的已经修改过
+     * 2.更新到数据库，
+     * 3.通知ui更新底部的购物车商品图标
+     */
+    public void updateProductItemBuyCnt(final InventoryEntity item) {
+        new Thread() {
+            @Override
+            public void run() {
+                Order order = mDBManager.loadOrderEntity(item.getProductId());
+                if (order != null) {
+                    order.setBuyCnt(item.getBuyCounts());
+                    mDBManager.updateOrder(order);
+                    updateShoppingCartIconCnt();
+                } else {
+                    LogUtils.e(TAG, "error order is null. fix it");
+
+                }
+
+            }
+        }.start();
 
     }
+
+    /**
+     * 更新底部购物车数量，不扭动图标; 如果数量为0，取消显示badgeview
+     */
+    public void updateShoppingCartIconCnt() {
+        new Thread() {
+            @Override
+            public void run() {
+                mICurCntShoppingItem = getCurShoppingItemCnt();
+                if (mICurCntShoppingItem > 0) {
+                    UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS_WITHOUT_SHAKE);
+                    mMessageManager.sendMessage(msgInfo);
+                } else {
+                    UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_DISMISS_SHOPPINGCART_ITEM_COUNTS_ICON);
+                    mMessageManager.sendMessage(msgInfo);
+
+                }
+
+            }
+
+        }.start();
+
+    }
+
 
     /**
      * 把商品添加到购物车
@@ -74,6 +165,32 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         LogUtils.w(TAG, "addProductToShoppingCart()");
         new AsyncAddProductThread(productItemEntity).start();
     }
+
+    /**
+     * 请求清单结算信息
+     * //1.只结算内存中的列表清单，即可显示在ui中的清单
+     */
+    public void requestPayInfo() {
+        new Thread(){
+            @Override
+            public void run() {
+                DataInfo.iTotalNum = mListInventorys.size();
+                int iCost = 0;
+                InventoryEntity item;
+                for (int i=0, len=mListInventorys.size(); i<len; i++) {
+                    item = mListInventorys.get(i);
+                    iCost += item.getBuyCounts();
+                }
+                DataInfo.iTotalCost = iCost;
+
+                UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_UPDATE_PAY_INFO);
+                mMessageManager.sendMessage(msgInfo);
+            }
+
+        }.start();
+    }
+
+
 
     /**
      * 异步增加商品 <br/>
@@ -109,7 +226,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
             LogUtils.w(TAG, "notifyCntShoppingItem().mICurCnt=%d", mICurCntShoppingItem);
 
-            if (mICurCntShoppingItem != 0) {
+            if (mICurCntShoppingItem > 0) {
                 UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS);
                 mMessageManager.sendMessage(msgInfo);
             }
@@ -175,6 +292,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      * 4.把A请求网络查询
      * 5.把结果添加到内容列表
      * 6.把内存列表list通知ui更新/通知查询失败
+     *
      */
     private void onThisFrament() {
         notifyOrderDatas();
@@ -236,6 +354,10 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
             UIMessageEntity resultInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
             mMessageManager.sendMessage(resultInfo);
+
+//            UIMessageEntity updateInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_RESET_UPDATE_LISTS);
+//            mMessageManager.sendMessage(updateInfo);
+
             bIsWorking = false;
         }
 
@@ -291,6 +413,21 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     @Override
     public void onLeave() {
 
+    }
+
+    @Override
+    public void onViewCreated() {
+        int buyCnt = getCurShoppingItemCnt();
+        this.mICurCntShoppingItem = buyCnt;
+        if (mICurCntShoppingItem <= 0) {
+            UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_DISMISS_SHOPPINGCART_ITEM_COUNTS_ICON);
+            mMessageManager.sendMessage(msgInfo);
+
+        } else {
+            UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS);
+            mMessageManager.sendMessage(msgInfo);
+
+        }
     }
 
 

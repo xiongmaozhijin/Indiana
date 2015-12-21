@@ -89,12 +89,12 @@ public class ExRadioButton extends RadioButton{
      * 运行在主线程，更新购买数量
      * @param buyCnt
      */
-    private void setBuyCnt(int buyCnt) {
+    public void setBuyCnt(int buyCnt) {
         this.mIBuyCnt = buyCnt;
         invalidate();
     }
 
-    private void setBuyIconVisibility(boolean bShowBadgeView) {
+    public void setBuyIconVisibility(boolean bShowBadgeView) {
         this.mIsShowBadgeView = bShowBadgeView;
         invalidate();
     }

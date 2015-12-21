@@ -66,6 +66,14 @@ public class UIMessageConts {
         /** 更新购物车商品数量 */
         public static final String M_UPDATE_SHOPPINGCART_ITEM_COUNTS = "m_update_shoppingcart_item_count";
 
+        /** 更新购物车商品数量，不要扭图标 */
+        public static final String M_UPDATE_SHOPPINGCART_ITEM_COUNTS_WITHOUT_SHAKE = "m_update_shoppingcart_item_counts_without_shake";
+
+        /** 取消显示购物车的BadgeVieww */
+        public static final String M_DISMISS_SHOPPINGCART_ITEM_COUNTS_ICON = "m_dismiss_shopping_item_counts_icon";
+
+        /** 更新结算信息 */
+        public static final String M_UPDATE_PAY_INFO = "m_update_pay_info";
 
     }
 

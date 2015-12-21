@@ -11,15 +11,20 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.adapter.ShoppingCartListViewAdapter;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.ui.HomeActivity;
+import com.example.liangge.indiana.ui.widget.ExRadioButton;
 import com.example.liangge.indiana.ui.widget.RotateImageView;
 import com.jauker.widget.BadgeView;
 
@@ -56,9 +61,11 @@ public class ShoppingCartFragment extends BaseFragment {
     private RotateImageView mIconRefreshLoading;
 
     /** 底部菜单的购物车图标 */
-    private RadioButton mBtnShoppingCart;
-    private BadgeView mBadgeView;
+    private ExRadioButton mBtnShoppingCart;
 
+    private ListView mListView;
+
+    private ShoppingCartListViewAdapter mAdapter;
 
     private static final String TAG = ShoppingCartFragment.class.getSimpleName();
 
@@ -85,7 +92,23 @@ public class ShoppingCartFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initViewOnActivityCreate();
         initManager();
+        mShoppingCartBiz.onViewCreated();
+
+    }
+
+    private void initViewOnActivityCreate() {
+        mIconRefreshLoading = ((HomeActivity)getActivity()).getShoppingCartRefrshIconView();
+        mIconRefreshLoading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.w(TAG, "refresh icon click");
+            }
+        });
+
+
+        mBtnShoppingCart = (ExRadioButton) ((HomeActivity)getActivity()).getShoppingCartBtn();
     }
 
     private void initManager() {
@@ -108,6 +131,38 @@ public class ShoppingCartFragment extends BaseFragment {
         mBtnCommitPay = (Button) view.findViewById(R.id.f_shopping_content_item_btn_commit_pay);
         mTxvContentItemDesc1 = (TextView) view.findViewById(R.id.f_shopping_content_item_txvdesc1);
         mTxvContentItemDesc2 = (TextView) view.findViewById(R.id.f_shopping_content_item_txvdesc2);
+
+        mListView = (ListView) view.findViewById(R.id.f_shopping_content_listview);
+
+        mAdapter = new ShoppingCartListViewAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
+
+        mAdapter.setOnBuyCntChangeListener(new ShoppingCartListViewAdapter.OnBuyCntChangeListener() {
+            @Override
+            public void onBuyCntChange(InventoryEntity inventoryEntity) {
+                LogUtils.w(TAG, "onBuyCntChange().inventoryEntity=%s", inventoryEntity.toString());
+                mShoppingCartBiz.updateProductItemBuyCnt(inventoryEntity);
+                mShoppingCartBiz.requestPayInfo();
+
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogUtils.w(TAG, "onItemClick()");
+
+            }
+        });
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                LogUtils.w(TAG, "onItemLongClick()");
+
+                return false;
+            }
+        });
+
 
         //TODO onListerner
         //马上去夺宝
@@ -175,23 +230,61 @@ public class ShoppingCartFragment extends BaseFragment {
         } else if (uiAction.equals(UIMessageConts.CommResponse.MESSAGE_COMM_NO_NETWORK)) {
             handleUINotNetwork();
 
-        } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)) {
-            handleShoppingCartCounts();
+        } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)
+                            || uiAction.equals(UIMessageConts.ShoppingCartMessage.M_DISMISS_SHOPPINGCART_ITEM_COUNTS_ICON)) {
+            handleShoppingCartCounts(uiAction);
 
+        } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_PAY_INFO)) {
+            handleUpdatePayInfo();
+
+        } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS_WITHOUT_SHAKE)) {
+            handleUpdateBadgeViewCntWithoutShake();
         }
 
     }
 
     /**
+     * 更新底部BadgeView的数量，或取消显示
+     */
+    private void handleUpdateBadgeViewCntWithoutShake() {
+        mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
+    }
+
+    /**
+     * 更新结算信息
+     */
+    private void handleUpdatePayInfo() {
+        int iTotalNum = mShoppingCartBiz.getTotalDiffProduct();
+        int iTotalCost = mShoppingCartBiz.getTotalCost();
+        String desc1Format = getActivity().getResources().getString(R.string.f_shoppingcart_buycnt_hint);
+        String desc2Fromat = getActivity().getResources().getString(R.string.f_shoppingcart_pay_hint);
+        String desc1 = String.format(desc1Format, iTotalNum);
+        String desc2 = String.format(desc2Fromat, iTotalCost);
+
+        mTxvContentItemDesc1.setText(desc1);
+        mTxvContentItemDesc2.setText(desc2);
+    }
+
+    /**
      * 更新购物车商品数量
      */
-    private void handleShoppingCartCounts() {
-        //TODO
-        //0.badgeview下次再画
-        //1.摇摆
-        ObjectAnimator anim = ObjectAnimator.ofFloat(mBtnShoppingCart, "rotation", 0, -30, 0, 30, 0);
-        anim.setRepeatCount(2);
-        anim.start();
+    private void handleShoppingCartCounts(String uiAction) {
+        if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)) {
+            //TODO
+            //0.badgeview下次再画
+            mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
+            mBtnShoppingCart.setBuyIconVisibility(true);
+
+            //1.摇摆
+            ObjectAnimator anim = ObjectAnimator.ofFloat(mBtnShoppingCart, "rotation", 0, -30, 0, 30, 0);
+            anim.setRepeatCount(2);
+            anim.start();
+
+        } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_DISMISS_SHOPPINGCART_ITEM_COUNTS_ICON)) {
+            mBtnShoppingCart.setBuyIconVisibility(false);
+
+        }
+
     }
 
     private void handleUINotNetwork() {
@@ -214,10 +307,15 @@ public class ShoppingCartFragment extends BaseFragment {
     }
 
 
-
+    /**
+     * 处理购物列表
+     */
     private void handleUIResetUpdate() {
         showContentView();
-
+        LogUtils.w(TAG, "list info=%s", mShoppingCartBiz.getListInventoryData().toString());
+        mAdapter.resetDataAndNotify(mShoppingCartBiz.getListInventoryData());
+        //请求更新付款信息
+        mShoppingCartBiz.requestPayInfo();
     }
 
     private void handleUIEmptyShoppingCart() {
@@ -250,17 +348,6 @@ public class ShoppingCartFragment extends BaseFragment {
     }
 
     private void initOnFirstEnter() {
-        mIconRefreshLoading = ((HomeActivity)getActivity()).getShoppingCartRefrshIconView();
-        mIconRefreshLoading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.w(TAG, "refresh icon click");
-            }
-        });
-
-
-        mBtnShoppingCart = ((HomeActivity)getActivity()).getShoppingCartBtn();
-
 
     }
 

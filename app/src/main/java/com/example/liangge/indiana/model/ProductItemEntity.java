@@ -9,7 +9,7 @@ import java.util.Random;
 public class ProductItemEntity {
 
     /** 产品ID */
-    private int productId;
+    private long productId;
 
     /** 产品展示图片 */
     private String productImgUrl;
@@ -32,7 +32,7 @@ public class ProductItemEntity {
     /** 剩余人数 */
     private int lackPeople;
 
-    public ProductItemEntity(int productId, String productImgUrl, String name, String tilteDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
+    public ProductItemEntity(long productId, String productImgUrl, String name, String tilteDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
         this.productId = productId;
         this.productImgUrl = productImgUrl;
         this.name = name;
@@ -89,11 +89,11 @@ public class ProductItemEntity {
         this.strBingoProgress = strBingoProgress;
     }
 
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
     }
 
@@ -135,6 +135,10 @@ public class ProductItemEntity {
                 ", lackPeople=" + lackPeople +
                 '}';
     }
+
+
+
+
 
 
 }

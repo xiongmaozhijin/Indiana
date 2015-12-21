@@ -1,5 +1,9 @@
 package com.example.liangge.indiana.model;
 
+import android.content.Context;
+
+import com.example.liangge.indiana.R;
+
 /**
  * 清单实体 <br/>
  * Created by baoxing on 2015/12/17.
@@ -7,7 +11,7 @@ package com.example.liangge.indiana.model;
 public class InventoryEntity {
 
     /** 产品ID */
-    private int productId;
+    private long productId;
 
     /** 清单图片地址 */
     private String invertoryImgUrl;
@@ -25,7 +29,7 @@ public class InventoryEntity {
     private int buyCounts;
 
 
-    public InventoryEntity(int productId, String invertoryImgUrl, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
+    public InventoryEntity(long productId, String invertoryImgUrl, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
         this.productId = productId;
         this.invertoryImgUrl = invertoryImgUrl;
         this.titleDescribe = titleDescribe;
@@ -76,12 +80,24 @@ public class InventoryEntity {
     }
 
 
-    public int getProductId() {
+    public long getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(long productId) {
         this.productId = productId;
+    }
+
+
+    /**
+     * 返回参与描述
+     * @return
+     */
+    public String getJoinDescribe(Context context) {
+        String strJoninDescribeT = context.getResources().getString(R.string.f_shoppingcart_join_describe);
+        String strJoinDescribe = String.format(strJoninDescribeT, getNeedPeopleCounts(), getLackPeopleCounts());
+
+        return strJoinDescribe;
     }
 
     @Override
@@ -95,7 +111,6 @@ public class InventoryEntity {
                 ", buyCounts=" + buyCounts +
                 '}';
     }
-
 
 
 }

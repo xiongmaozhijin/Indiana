@@ -47,7 +47,13 @@ public class InventoryBuyWidget extends FrameLayout{
          * 购买次数回调
          * @param curBuyCnt
          */
-        void onBuyCntChange(int curBuyCnt);
+        void onBuyCntChange(long orderId, int curBuyCnt);
+
+        /**
+         * 购买次数回调
+         * @param inventoryEntity
+         */
+        void onBuyCntChange(InventoryEntity inventoryEntity);
     }
 
     public void setOnBuyCntChangeListener(OnBuyCntChangeListener listener) {
@@ -73,6 +79,13 @@ public class InventoryBuyWidget extends FrameLayout{
     public void initInventoryBuyWidget(InventoryEntity inventoryEntity) {
         this.mInventoryEntity = inventoryEntity;
         this.mIMaxBuyCnt = mInventoryEntity.getNeedPeopleCounts();
+        post(new Runnable() {
+            @Override
+            public void run() {
+                mEdtNumber.setText(mInventoryEntity.getBuyCounts()+"");
+            }
+        });
+
     }
 
 
@@ -169,14 +182,16 @@ public class InventoryBuyWidget extends FrameLayout{
                     mEdtNumber.setText(mICurBuyCnt + "");
                 }
 
-                notifyListener(mICurBuyCnt);
+                if ( beforeChanged != mICurBuyCnt) {
+                    notifyListener(mICurBuyCnt);
+                    LogUtils.w(TAG, "iCurBuyCnt=%d", mICurBuyCnt);
 
-                LogUtils.w(TAG, "iCurBuyCnt=%d", mICurBuyCnt);
+                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                LogUtils.w(TAG, "afterTextChanged() s=%s", s.toString());
             }
         });
 
@@ -186,12 +201,14 @@ public class InventoryBuyWidget extends FrameLayout{
 
     private void notifyListener(int iCurBuyCnt) {
         LogUtils.w(TAG, "notifyListener(). iCurBuyCnt=%d", iCurBuyCnt);
-        if (this.mInventoryEntity != null) {
-            this.mInventoryEntity.setBuyCounts(iCurBuyCnt);
-        }
 
         if (this.mOnBuyCntChangeListener != null) {
-            this.mOnBuyCntChangeListener.onBuyCntChange(iCurBuyCnt);
+            if (this.mInventoryEntity != null) {
+                this.mInventoryEntity.setBuyCounts(iCurBuyCnt);
+            }
+            this.mOnBuyCntChangeListener.onBuyCntChange(this.mInventoryEntity.getProductId(), iCurBuyCnt);
+            this.mOnBuyCntChangeListener.onBuyCntChange(this.mInventoryEntity);
+
         }
 
 
