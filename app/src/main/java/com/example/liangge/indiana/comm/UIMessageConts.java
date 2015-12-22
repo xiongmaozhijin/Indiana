@@ -82,4 +82,46 @@ public class UIMessageConts {
     }
 
 
+    /**
+     * 商品（奖品）详情
+     */
+    public interface DetailInfo {
+
+        /** 奖品信息开始请求 */
+        public static final String M_DETAILINFO_PRODUCT_ACTIVITY_REQ_START = "m_detailinfo_product_activity_req_start";
+
+        /** 奖品信息请求成功 */
+        public static final String M_DETAILINFO_PRODUCT_ACTIVITY_REQ_SUCCEED = "m_detailinfo_product_activity_req_success";
+
+        /** 奖品信息请求失败 */
+        public static final String M_DETAILINFO_PRODUCT_ACTIVITY_REQ_FAILED = "m_detailinfo_product_activity_req_failed";
+
+        /** 是否参与开始请求 */
+        public static final String M_DETAILINFO_REQ_WHETHER_PLAY_REQ_START = "m_detailinfo_req_whether_play_req_start";
+
+        /** 是否参与请求成功 */
+        public static final String M_DETAILINFO_REQ_WHETHER_PLAY_REQ_SUCCESS = "m_detailinfo_req_whether_play_req_success";
+
+        /** 是否参与请求失败 */
+        public static final String M_DETAILINFO_REQ_WHETHER_PLAY_REQ_FAILED = "m_detailinfo_req_whether_play_req_failed";
+
+        /** 开始请求参与记录 */
+        public static final String M_DETAILINFO_REQ_PLAYRECORD_REQ_START = "m_detailinfo_req_playrecord_req_start";
+
+        /** 请求参与记录成功 */
+        public static final String M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED = "m_detailinfo_req_playrecord_success";
+
+        /** 请求参与记录失败 */
+        public static final String M_DETAILINFO_REQ_PLAYRECORED_FAILED = "m_detailinfo_req_playrecord_failed";
+
+
+    }
+
+
+
+
+
+
+
+
 }

@@ -127,7 +127,7 @@
                     android:id="@+id/activity_productdetailinfo_process_done_wrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/secondary_text_dark_nodisable">
+                    android:background="@android:color/holo_orange_dark">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -138,7 +138,7 @@
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:src="@drawable/main_banner_img_load_fail"
-                            android:layout_above="@id/activity_productdetailinfo_bingo_bottom_wrapper"
+                            android:layout_above="@+id/activity_productdetailinfo_bingo_bottom_wrapper"
                             android:layout_centerVertical="true"
                             android:layout_alignParentLeft="true"/>
 

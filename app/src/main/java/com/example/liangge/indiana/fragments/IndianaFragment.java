@@ -23,6 +23,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ProductItemEntity;
+import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
@@ -139,6 +140,8 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "item click. position=%d", position);
+                //TODO
+                startActivity(new Intent(getActivity(), ProductDetailInfoActivity.class));
             }
         });
 
