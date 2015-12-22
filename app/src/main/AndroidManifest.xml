@@ -18,6 +18,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".ui.UIBaseActivity" >
         </activity>
@@ -35,6 +37,11 @@
         <activity android:name=".ui.test.SurfaceViewTestActivity" >
         </activity>
         <activity android:name=".ui.ProductDetailInfoActivity" >
+        </activity>
+        <activity android:name=".ui.test.VolleyTestActivity" >
+
+
+
         </activity>
     </application>
 

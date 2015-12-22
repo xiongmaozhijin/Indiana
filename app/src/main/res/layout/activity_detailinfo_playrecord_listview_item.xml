@@ -19,6 +19,7 @@
 
         <TextView
             android:id="@+id/productdetail_playrecord_info"
+            android:maxLines="2"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/productdetail_playrecord_user_portain"
             android:layout_width="wrap_content"
