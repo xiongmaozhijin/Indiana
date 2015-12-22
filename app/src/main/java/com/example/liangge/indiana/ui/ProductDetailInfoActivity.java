@@ -8,7 +8,11 @@ import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -43,12 +47,29 @@ public class ProductDetailInfoActivity extends Activity {
     /** 进行中View的Wrapper */
     private View mViewProcessIngWrapper;
 
+    private TextView mTxvProductDetailInfoProcessIngDesc1;
+    private ProgressBar mProgressBarProcessIng;
+    private TextView mTxvProductDetailInfoProcessIngDesc2;
+
+
     /** 已揭晓 */
     private View mViewProcessDoneWrapper;
+    private ImageView mImgBingoUserPortain;
+    private TextView mTxvBingoInfo;
+    private TextView mTxvLunckNumber;
+    private Button mBtnCalcDetail;
 
+    /** 揭晓中 */
+    private View mViewBingoIngWrapper;
 
+    /** 是否参与到本次夺宝 */
+    private TextView mTxvHasJoinHint;
 
+    /** 图文详细 */
+    private TextView mTxvMoreDetailInfo;
 
+    /** 所有参与记录 */
+    private ListView mPlayRecordListView;
 
 
     @Override
@@ -66,6 +87,48 @@ public class ProductDetailInfoActivity extends Activity {
     }
 
     private void initView() {
+        mBtnBack = (ImageButton) findViewById(R.id.activity_productdetailinfo_btn_back);
+        mBannerView = (BannerView) findViewById(R.id.activity_productdetailinfo_bannerview);
+        mTxvProductInfoTitleDescribe1 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe1);
+        mTxvProductInfoTitleDescribe2 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe2);
+
+        mViewProcessIngWrapper = findViewById(R.id.activity_productdetailinfo_process_ing_wrapper);
+        mTxvProductDetailInfoProcessIngDesc1 = (TextView) findViewById(R.id.activity_productdetailinfo_process_ing_desc1);
+        mProgressBarProcessIng = (ProgressBar) findViewById(R.id.activity_productdetailinfo_process_ing_process);
+        mTxvProductDetailInfoProcessIngDesc2 = (TextView) findViewById(R.id.activity_productdetailinfo_process_ing_desc2);
+
+        mViewProcessDoneWrapper = findViewById(R.id.activity_productdetailinfo_process_done_wrapper);
+        mImgBingoUserPortain = (ImageView) findViewById(R.id.activity_productdetailinfo_bingo_user_portain);
+        mTxvBingoInfo = (TextView) findViewById(R.id.activity_productdetailinfo_bingo_info);
+        mTxvLunckNumber = (TextView) findViewById(R.id.activity_productdetailinfo_luncky_number);
+        mBtnCalcDetail = (Button) findViewById(R.id.activity_productdetailinfo_btn_calc_detail);
+
+
+        mViewBingoIngWrapper = findViewById(R.id.activity_productdetailinfo_bingo_ing_wrapper);
+
+        mTxvMoreDetailInfo = (TextView) findViewById(R.id.activity_productdetailinfo_more_info);
+
+        mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
+
+    }
+
+    private void initViewRes() {
+        mBtnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        mTxvMoreDetailInfo.setClickable(true);
+        mTxvMoreDetailInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.w(TAG, "图文详细");
+            }
+        });
+
+
+
 
     }
 

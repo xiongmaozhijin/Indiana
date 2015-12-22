@@ -42,5 +42,6 @@
     <string name="activity_productdetailinfo_bingo_ing_hint">正在揭晓中...</string>
     <string name="activity_productdetailinfo_more_info">图文详细（建议WIFI下查看）</string>
     <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
+    <string name="activity_productdetailinfo_progressing_des2">剩余%1$d次</string>
 
 </resources>

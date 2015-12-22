@@ -115,7 +115,7 @@
                             android:id="@+id/activity_productdetailinfo_process_ing_desc2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/activity_productdetailinfo_progressing_des1"/>
+                            android:text="@string/activity_productdetailinfo_progressing_des2"/>
                     </LinearLayout>
 
                 </FrameLayout>
@@ -125,6 +125,7 @@
                 <!-- 已揭晓 -->
                 <FrameLayout
                     android:id="@+id/activity_productdetailinfo_process_done_wrapper"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/holo_orange_dark">
@@ -167,6 +168,7 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/activity_productdetailinfo_luncky_number"
                                 android:layout_gravity="left|center_vertical"
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
@@ -175,6 +177,7 @@
                                 android:text="@string/activity_productdetailinfo_lucky_number"/>
 
                             <Button
+                                android:id="@+id/activity_productdetailinfo_btn_calc_detail"
                                 android:layout_gravity="center_vertical|right"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -193,6 +196,7 @@
                 <!-- 揭晓中 -->
                 <FrameLayout
                     android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

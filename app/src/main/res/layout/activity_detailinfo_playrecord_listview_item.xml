@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <RelativeLayout
+        android:background="@android:color/holo_orange_light"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/productdetail_playrecord_user_portain"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/comm_loading_view"/>
+
+        <TextView
+            android:id="@+id/productdetail_playrecord_info"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/productdetail_playrecord_user_portain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="%1$s:(%2$s IP:%3$s)\n参与了%4$d次 %5$s"    />
+
+
+    </RelativeLayout>
+
+</FrameLayout>
