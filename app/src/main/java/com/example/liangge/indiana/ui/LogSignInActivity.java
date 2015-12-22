@@ -1,0 +1,19 @@
+package com.example.liangge.indiana.ui;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+import com.example.liangge.indiana.R;
+
+/**
+ * 登录/注册Activity
+ */
+public class LogSignInActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_log_sign_in);
+
+    }
+}

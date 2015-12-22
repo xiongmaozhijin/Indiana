@@ -43,5 +43,12 @@
     <string name="activity_productdetailinfo_more_info">图文详细（建议WIFI下查看）</string>
     <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
     <string name="activity_productdetailinfo_progressing_des2">剩余%1$d次</string>
+    <string name="f_personal_btn_log_signup">登录/注册</string>
+    <string name="f_personal_txvbtn_indiana_record">夺宝记录</string>
+    <string name="f_personal_txvbtn_bingo_record">中奖记录</string>
+    <string name="f_personal_takeovergoods_address">收货地址</string>
+    <string name="f_personal_account_detail">账户明细</string>
+    <string name="f_personal_contact_customer_service">联系客服</string>
+    <string name="activity_logsignin_title">用户注册登录</string>
 
 </resources>

@@ -3,8 +3,102 @@
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.PersonalCenterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="PersonalCenterFragment" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/darker_gray">
+
+        <!-- 上半部分 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/holo_orange_dark"
+            android:layout_marginBottom="11dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp">
+
+                <ImageView
+                    android:id="@+id/f_personal_user_portain"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/main_banner_img_load_empty_uri"
+                    android:background="@android:color/holo_orange_light"/>
+
+                <Button
+                    android:id="@+id/f_personal_log_signup_logout"
+                    android:background="@drawable/selector_f_personal_btn_bg"
+                    android:layout_marginLeft="25dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/f_personal_user_portain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/f_personal_btn_log_signup"/>
+
+                <ImageButton
+                    android:background="@drawable/selector_f_personal_btn_bg"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:scaleType="center"
+                    android:src="@android:drawable/ic_popup_reminder"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/f_personal_log_signup_logout"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <!-- 下半部分 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/darker_gray">
+
+
+            <Button
+                android:layout_width="match_parent"
+                style="@style/f_personal_txvbtn"
+                android:text="@string/f_personal_txvbtn_indiana_record"/>
+
+            <Button
+                android:layout_width="match_parent"
+                style="@style/f_personal_txvbtn"
+                android:text="@string/f_personal_txvbtn_bingo_record"/>
+
+            <Button
+                android:layout_width="match_parent"
+                style="@style/f_personal_txvbtn"
+                android:text="@string/f_personal_takeovergoods_address"/>
+
+            <Button
+                android:layout_width="match_parent"
+                style="@style/f_personal_txvbtn"
+                android:text="@string/f_personal_account_detail"/>
+
+            <Button
+                android:layout_width="match_parent"
+                style="@style/f_personal_txvbtn"
+                android:text="@string/f_personal_contact_customer_service"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
 
 </FrameLayout>
