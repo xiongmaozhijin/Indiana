@@ -3,7 +3,7 @@ package com.example.liangge.indiana.model;
 import java.util.Random;
 
 /**
- * 产品信息实体
+ * 商品活动信息实体
  * Created by baoxing on 2015/12/15.
  */
 public class ProductItemEntity {
