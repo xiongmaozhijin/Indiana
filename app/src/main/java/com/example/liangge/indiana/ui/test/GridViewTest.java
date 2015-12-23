@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LogUtils;
-import com.example.liangge.indiana.model.ProductItemEntity;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,7 +39,7 @@ public class GridViewTest extends AppCompatActivity {
 
     private View mFixMenu;
 
-    private List<ProductItemEntity> mListData = new ArrayList<>();
+    private List<ActivityProductItemEntity> mListData = new ArrayList<>();
     private static DisplayImageOptions mDisplayImageOptions;
 
     @Override
@@ -59,14 +59,14 @@ public class GridViewTest extends AppCompatActivity {
         String url3 = "http://pic13.nipic.com/20110419/2290512_182044467100_2.jpg";
         String url4 = "http://img3.3lian.com/2013/s1/17/d/15aa.jpg";
 
-        ProductItemEntity item1 = new ProductItemEntity(url1, "name1", 23, "23%");
-        ProductItemEntity item2 = new ProductItemEntity(url2, "name2", 100, "100%");
-        ProductItemEntity item3 = new ProductItemEntity(url3, "name3", 45, "45%");
+        ActivityProductItemEntity item1 = new ActivityProductItemEntity(url1, "name1", 23, "23%");
+        ActivityProductItemEntity item2 = new ActivityProductItemEntity(url2, "name2", 100, "100%");
+        ActivityProductItemEntity item3 = new ActivityProductItemEntity(url3, "name3", 45, "45%");
         mListData.add(item1);
         mListData.add(item2);
         mListData.add(item3);
         for (int i=0; i<9; i++) {
-            ProductItemEntity item = new ProductItemEntity(url4, "产品名"+i, i, i+"%");
+            ActivityProductItemEntity item = new ActivityProductItemEntity(url4, "产品名"+i, i, i+"%");
             mListData.add(item);
         }
         mListData.add(item3);
@@ -193,7 +193,7 @@ public class GridViewTest extends AppCompatActivity {
             }
 
 
-            final ProductItemEntity item = mListData.get(position);
+            final ActivityProductItemEntity item = mListData.get(position);
             viewHolder.adapterData(item);
 
             return convertView;
@@ -220,7 +220,7 @@ public class GridViewTest extends AppCompatActivity {
             this.btnShoppingCart = (ImageButton) view.findViewById(R.id.f_indiana_product_item_shopping_cart_btn);
         }
 
-        public void adapterData(ProductItemEntity itemInfo) {
+        public void adapterData(ActivityProductItemEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductImgUrl(), this.imgProductImg, mDisplayImageOptions);
             this.txvProductName.setText(itemInfo.getName());
             this.txvBingoProgress.setText(itemInfo.getStrBingoProgress());

@@ -125,7 +125,7 @@
                 <!-- 已揭晓 -->
                 <FrameLayout
                     android:id="@+id/activity_productdetailinfo_process_done_wrapper"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/holo_orange_dark">
@@ -196,7 +196,7 @@
                 <!-- 揭晓中 -->
                 <FrameLayout
                     android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

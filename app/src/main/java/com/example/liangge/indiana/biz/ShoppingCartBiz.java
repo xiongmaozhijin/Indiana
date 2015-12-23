@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.liangge.indiana.biz.daoimpl.DBManager;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.InventoryEntity;
-import com.example.liangge.indiana.model.ProductItemEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.liangge.databasedao.Order;
 
@@ -159,11 +159,11 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      * 1.写数据库
      * 2.写存在的内存列表
      * 3.更新ui
-     * @param productItemEntity
+     * @param activityProductItemEntity
      */
-    public void addProductToShoppingCart(ProductItemEntity productItemEntity) {
+    public void addProductToShoppingCart(ActivityProductItemEntity activityProductItemEntity) {
         LogUtils.w(TAG, "addProductToShoppingCart()");
-        new AsyncAddProductThread(productItemEntity).start();
+        new AsyncAddProductThread(activityProductItemEntity).start();
     }
 
     /**
@@ -203,10 +203,10 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      */
     private class AsyncAddProductThread extends Thread {
 
-        private ProductItemEntity mAddProductItemEntity;
+        private ActivityProductItemEntity mAddActivityProductItemEntity;
 
-        public AsyncAddProductThread(ProductItemEntity productItemEntity) {
-            this.mAddProductItemEntity = productItemEntity;
+        public AsyncAddProductThread(ActivityProductItemEntity activityProductItemEntity) {
+            this.mAddActivityProductItemEntity = activityProductItemEntity;
         }
 
         @Override
@@ -238,7 +238,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
             InventoryEntity inventoryEntityItem;
             for (int i=0, len=mListInventorys.size(); i<len; i++) {
                 inventoryEntityItem = mListInventorys.get(i);
-                if (inventoryEntityItem.getProductId() == mAddProductItemEntity.getProductId()) {
+                if (inventoryEntityItem.getProductId() == mAddActivityProductItemEntity.getActivityId()) {
                     int iCurBuyCnt = inventoryEntityItem.getBuyCounts();
                     inventoryEntityItem.setBuyCounts(iCurBuyCnt+1);
                     bIsContain = true;
@@ -246,14 +246,14 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
                 }
             }
             if (!bIsContain) {
-                mListInventorys.add(Bizdto.changeToInventory(mAddProductItemEntity, 1));
+                mListInventorys.add(Bizdto.changeToInventory(mAddActivityProductItemEntity, 1));
             }
         }
 
         private void writeOrderToDatabase() {
-            Order orderDb = mDBManager.loadOrderEntity(mAddProductItemEntity.getProductId());
+            Order orderDb = mDBManager.loadOrderEntity(mAddActivityProductItemEntity.getActivityId());
             if (orderDb == null) {
-                orderDb = new Order(mAddProductItemEntity.getProductId(), 1);
+                orderDb = new Order(mAddActivityProductItemEntity.getActivityId(), 1);
                 mDBManager.addOrder(orderDb);
             } else {
                 int iCurBuyCnt = orderDb.getBuyCnt();

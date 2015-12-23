@@ -6,10 +6,10 @@ import java.util.Random;
  * 商品活动信息实体
  * Created by baoxing on 2015/12/15.
  */
-public class ProductItemEntity {
+public class ActivityProductItemEntity {
 
-    /** 产品ID */
-    private long productId;
+    /** 商品活动期次ID */
+    private long activityId;
 
     /** 产品展示图片 */
     private String productImgUrl;
@@ -32,8 +32,8 @@ public class ProductItemEntity {
     /** 剩余人数 */
     private int lackPeople;
 
-    public ProductItemEntity(long productId, String productImgUrl, String name, String tilteDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
-        this.productId = productId;
+    public ActivityProductItemEntity(long activityId, String productImgUrl, String name, String tilteDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
+        this.activityId = activityId;
         this.productImgUrl = productImgUrl;
         this.name = name;
         this.tilteDesc = tilteDesc;
@@ -50,7 +50,7 @@ public class ProductItemEntity {
      * @param process
      * @param strProcess
      */
-    public ProductItemEntity(String imgUrl, String name, int process, String strProcess) {
+    public ActivityProductItemEntity(String imgUrl, String name, int process, String strProcess) {
         this( new Random().nextInt(10), imgUrl, name, "titleDesc1", process, strProcess, 1320, 567);
 
     }
@@ -89,12 +89,12 @@ public class ProductItemEntity {
         this.strBingoProgress = strBingoProgress;
     }
 
-    public long getProductId() {
-        return productId;
+    public long getActivityId() {
+        return activityId;
     }
 
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
     }
 
     public String getTilteDesc() {
@@ -124,8 +124,8 @@ public class ProductItemEntity {
 
     @Override
     public String toString() {
-        return "ProductItemEntity{" +
-                "productId=" + productId +
+        return "ActivityProductItemEntity{" +
+                "activityId=" + activityId +
                 ", productImgUrl='" + productImgUrl + '\'' +
                 ", name='" + name + '\'' +
                 ", tilteDesc='" + tilteDesc + '\'' +

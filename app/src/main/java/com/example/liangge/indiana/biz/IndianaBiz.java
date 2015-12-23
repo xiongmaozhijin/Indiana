@@ -5,8 +5,8 @@ import android.content.Context;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.BannerInfo;
-import com.example.liangge.indiana.model.ProductItemEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class IndianaBiz {
     private List<BannerInfo> mListBanners;
 
     /** 产品数据 */
-    private List<ProductItemEntity> mListProducts;
+    private List<ActivityProductItemEntity> mListProducts;
 
     private IndianaBiz(Context context) {
         this.mContext = context;
@@ -88,20 +88,20 @@ public class IndianaBiz {
               } catch (InterruptedException e) {
                   e.printStackTrace();
               }
-              List<ProductItemEntity> list = new ArrayList<>();
+              List<ActivityProductItemEntity> list = new ArrayList<>();
               String url1 = "http://www.bz55.com/uploads/allimg/150309/139-150309101F7.jpg";
               String url2 = "http://pic33.nipic.com/20131008/13661616_190558208000_2.jpg";
               String url3 = "http://pic13.nipic.com/20110419/2290512_182044467100_2.jpg";
               String url4 = "http://img3.3lian.com/2013/s1/17/d/15aa.jpg";
 
-              ProductItemEntity item1 = new ProductItemEntity(url1, "name1", 23, "23%");
-              ProductItemEntity item2 = new ProductItemEntity(url2, "name2", 100, "100%");
-              ProductItemEntity item3 = new ProductItemEntity(url3, "name3", 45, "45%");
+              ActivityProductItemEntity item1 = new ActivityProductItemEntity(url1, "name1", 23, "23%");
+              ActivityProductItemEntity item2 = new ActivityProductItemEntity(url2, "name2", 100, "100%");
+              ActivityProductItemEntity item3 = new ActivityProductItemEntity(url3, "name3", 45, "45%");
               list.add(item1);
               list.add(item2);
               list.add(item3);
               for (int i=0; i<9; i++) {
-                  ProductItemEntity item = new ProductItemEntity(url4, "产品名"+i, i, i+"%");
+                  ActivityProductItemEntity item = new ActivityProductItemEntity(url4, "产品名"+i, i, i+"%");
                   list.add(item);
               }
               list.add(item3);
@@ -168,7 +168,7 @@ public class IndianaBiz {
      * 获取产品数据
      * @return
      */
-    public List<ProductItemEntity> getListProducts() {
+    public List<ActivityProductItemEntity> getListProducts() {
         return this.mListProducts;
     }
 

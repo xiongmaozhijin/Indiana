@@ -1,6 +1,9 @@
 package com.example;
 
+import com.example.model.ActivityProductDetailInfoEntity;
+import com.example.model.ActivityProductItemEntity;
 import com.example.model.BannerInfo;
+import com.example.model.LastestBingoEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,7 +15,45 @@ public class MyClass {
     public static void main(String[] args) throws Exception {
 //        gerationListBanner();
 //        reGerationListBanner();
+//        gerationListActivityProduct();
+//        gerationListLatest();
+//        gerationActivityEntity();
 
+        gerationProductDetailInfo();
+    }
+
+
+    private static void gerationProductDetailInfo() {
+        ActivityProductDetailInfoEntity item1 = new ActivityProductDetailInfoEntity(23214, new String[]{"imgUrl1", "imgUrl2", "imgUrl3"}, 1, "titleDescribe1", 31211, 2121, 21, true, "21231", new String[]{"productImgUrl1", "productImgUrl2", "productImgUrl3"}, 231231, "http：//userImg", "username", "userAddress", 5, "1232143");
+//        ActivityProductDetailInfoEntity item2 = new ActivityProductDetailInfoEntity(23214, new String[]{}, 1, "titleDescribe1", 31211, 2121, 21, true, "21231", new String[]{}, 231231, "http：//userImg", "username", "userAddress", 5, "1232143");
+//        ActivityProductDetailInfoEntity item3 = new ActivityProductDetailInfoEntity(23214, new String[]{}, 1, "titleDescribe1", 31211, 2121, 21, true, "21231", new String[]{}, 231231, "http：//userImg", "username", "userAddress", 5, "1232143");
+//        List<ActivityProductDetailInfoEntity> list = new ArrayList<>();
+//
+//        list.add(item1);
+//        list.add(item2);
+//        list.add(item3);
+
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(item1);
+
+        System.out.println(jsonStr);
+    }
+
+
+    private static void gerationActivityEntity() {
+//        ActivityProductItemEntity item1 = new ActivityProductItemEntity(23214, "imgUrl1", "name1", "title1", 34, "34%", 1243, 321);
+        long[] activytids = {12123, 3123, 34324321};
+        List<Long> lists = new ArrayList<>();
+        lists.add((long) 23123);
+        lists.add((long) 424234);
+
+        Gson gson = new Gson();
+
+        String json1 = gson.toJson(activytids);
+        String json2 = gson.toJson(lists);
+
+        System.out.println(json1);
+        System.out.println(json2);
 
     }
 
@@ -35,13 +76,42 @@ public class MyClass {
     private static void reGerationListBanner() {
         String strJson = "[{\"imgUrl\":\"www.baidu.com/1img.png\",\"linkUrl\":\"www.baidu.com/seemore\",\"title\":\"title1\",\"keyword\":\"search word\",\"activityId\":2102192,\"action\":1},{\"imgUrl\":\"www.baidu.com/1img.png\",\"linkUrl\":\"www.baidu.com/seemore\",\"title\":\"title1\",\"keyword\":\"search word\",\"activityId\":2102192,\"action\":2},{\"imgUrl\":\"www.baidu.com/1img.png\",\"linkUrl\":\"www.baidu.com/seemore\",\"title\":\"title1\",\"keyword\":\"search word\",\"activityId\":2102192,\"action\":3}]";
         Gson gson = new Gson();
-        List<BannerInfo> list = gson.fromJson(strJson, new TypeToken<List<BannerInfo>>(){}.getType());
+        List<BannerInfo> list = gson.fromJson(strJson, new TypeToken<List<BannerInfo>>() {
+        }.getType());
         System.out.println( String.format("size=%d, info0=%s", list.size(), list.get(0).toString()));
     }
 
 
+    private static void gerationListActivityProduct() {
+        ActivityProductItemEntity item1 = new ActivityProductItemEntity(23214, "imgUrl1", "name1", "title1", 34, "34%", 1243, 321);
+        ActivityProductItemEntity item2 = new ActivityProductItemEntity(23214, "imgUrl1", "name1", "title1", 34, "34%", 1243, 321);
+        ActivityProductItemEntity item3 = new ActivityProductItemEntity(23214, "imgUrl1", "name1", "title1", 34, "34%", 1243, 321);
+        List<ActivityProductItemEntity> list = new ArrayList<>();
+        list.add(item1);
+        list.add(item2);
+        list.add(item3);
 
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        System.out.println(json);
+    }
 
+    private static void gerationListLatest() {
+        LastestBingoEntity item1 = new LastestBingoEntity("imgUrl", "titleDescribe", "bingoUser", "123121", 4, 2132141232, 0);
+        LastestBingoEntity item2 = new LastestBingoEntity("imgUrl", "titleDescribe", "bingoUser", "123121", 4, 2132141232, 0);
+        LastestBingoEntity item3 = new LastestBingoEntity("imgUrl", "titleDescribe", "bingoUser", "123121", 4, 2132141232, 0);
+        LastestBingoEntity item4 = new LastestBingoEntity("imgUrl", "titleDescribe", "bingoUser", "123121", 4, 2132141232, 0);
+        List<LastestBingoEntity> list = new ArrayList<>();
+        list.add(item1);
+        list.add(item2);
+        list.add(item3);
+        list.add(item4);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+
+        System.out.println(json);
+    }
 
 
 

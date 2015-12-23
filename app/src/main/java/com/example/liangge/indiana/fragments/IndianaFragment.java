@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
-import com.example.liangge.indiana.model.ProductItemEntity;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
@@ -129,7 +128,7 @@ public class IndianaFragment extends BaseFragment {
 
         mAdapter.setOnShoppingCartClickListener(new IndianaProductGridViewAdapter.OnShoppingCartClickListener() {
             @Override
-            public void onShoppoingCartClick(ProductItemEntity item) {
+            public void onShoppoingCartClick(ActivityProductItemEntity item) {
                 LogUtils.i(TAG, "shopping cart click. item=%s", item.toString());
                 //TODO 添加物品
                 ShoppingCartBiz.getInstance(getActivity()).addProductToShoppingCart(item);

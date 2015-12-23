@@ -2,7 +2,6 @@ package com.example.liangge.indiana.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,8 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
-import com.example.liangge.indiana.comm.LogUtils;
-import com.example.liangge.indiana.model.ProductItemEntity;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -25,7 +23,7 @@ import java.util.List;
 public class IndianaProductGridViewAdapter extends BaseAdapter {
 
     /** 产品数据 */
-    public List<ProductItemEntity> mListProducts = new ArrayList<>();
+    public List<ActivityProductItemEntity> mListProducts = new ArrayList<>();
 
     private Context mContext;
 
@@ -37,7 +35,7 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
      * 购物车点击事件
      */
     public interface OnShoppingCartClickListener {
-        void onShoppoingCartClick(ProductItemEntity item);
+        void onShoppoingCartClick(ActivityProductItemEntity item);
 
     }
 
@@ -79,10 +77,10 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
      * 重置数据并更新列表
      * @param list
      */
-    public void setDataAndNotify(List<ProductItemEntity> list) {
+    public void setDataAndNotify(List<ActivityProductItemEntity> list) {
         if (list != null) {
             this.mListProducts.clear();
-            ProductItemEntity item;
+            ActivityProductItemEntity item;
             for (int i=0; i<list.size(); i++) {
                 item = list.get(i);
                 this.mListProducts.add(item);
@@ -121,7 +119,7 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
         }
 
 
-        final ProductItemEntity item = mListProducts.get(position);
+        final ActivityProductItemEntity item = mListProducts.get(position);
         viewHolder.adapterData(item);
 
         return convertView;
@@ -145,7 +143,7 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
             this.btnShoppingCart = (ImageButton) view.findViewById(R.id.f_indiana_product_item_shopping_cart_btn);
         }
 
-        public void adapterData(final ProductItemEntity itemInfo) {
+        public void adapterData(final ActivityProductItemEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductImgUrl(), this.imgProductImg, mDisplayImageOptions);
             this.txvProductName.setText(itemInfo.getName());
             this.txvBingoProgress.setText(itemInfo.getStrBingoProgress());
