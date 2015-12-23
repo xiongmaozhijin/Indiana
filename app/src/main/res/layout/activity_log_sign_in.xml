@@ -15,6 +15,7 @@
 
         <ImageButton
             android:id="@+id/activity_logsignin_btn_back"
+            android:onClick="onBtnBack"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
@@ -31,9 +32,19 @@
             android:textSize="24sp"
             android:layout_centerInParent="true"/>
 
+        <ImageButton
+            android:id="@+id/activity_logsignin_btn_switch"
+            android:onClick="onBtnLogSigninSwitch"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_dialog_map"/>
+
     </RelativeLayout>
 
     <ImageView
+        android:layout_marginBottom="9dp"
         android:layout_width="84dp"
         android:layout_height="84dp"
         android:scaleType="fitXY"
@@ -46,37 +57,281 @@
 
         <!-- 登录 -->
         <FrameLayout
+            android:visibility="visible"
             android:id="@+id/activity_logsignin_log_wrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
+                        android:paddingLeft="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="phone"
+                        android:hint="@string/activity_logsignin_edt_phonenum_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
+                        android:paddingLeft="9dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:inputType="textWebPassword"
+                        android:layout_height="match_parent"
+                        android:hint="@string/activity_logsignin_edt_password_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+
+                    <Button
+                        android:onClick="onBtnForgetPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="忘记密码"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <Button
+                        android:onClick="onBtnLogIn"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:textSize="28sp"
+                        android:layout_gravity="center"
+                        android:layout_width="210dp"
+                        android:layout_height="54dp"
+                        android:text="登录"/>
+                </LinearLayout>
+                
+                
+            </LinearLayout>
             
 
-        </FrameLayout>
+
+
+                    
+            
+            
+
+
+        </FrameLayout>      <!-- end 登录-->
 
         <!-- 注册 -->
         <FrameLayout
             android:id="@+id/activity_logsingin_signin_wrapper"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </FrameLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
+                        android:inputType="phone"
+                        android:paddingLeft="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/activity_signin_phonenum_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
+                        android:inputType="textWebPassword"
+                        android:paddingLeft="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/activity_signin_password1"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
+                        android:inputType="textWebPassword"
+                        android:paddingLeft="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/activity_signin_password1_comfirn"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="9dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:hint="@string/activity_logsignin_verification_code"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+                    
+                    <Button
+                        android:onClick="onBtnRetryVeticationCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="重发"/>
+
+                </LinearLayout>
+                
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        
+                        <CheckBox
+                            android:id="@+id/activity_logsignin_checkbox_readprocotol"
+                            android:onClick="onCheckBoxAgressProcotol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true" />
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="我已阅读并同意"/>
+
+                        <TextView
+                            android:onClick="onTextClickProcotol"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:text="@string/activity_logsignin_protocol"/>
+                        
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <Button
+                            android:onClick="onBtnSignIn"
+                            android:textSize="28sp"
+                            android:textColor="@android:color/holo_orange_dark"
+                            android:gravity="center"
+                            android:layout_gravity="center"
+                            android:layout_width="210dp"
+                            android:layout_height="54dp"
+                            android:text="@string/activity_logsignin_btn_signin"/>
+                    </LinearLayout>
+                    
+                </LinearLayout>
+                
+
+            </LinearLayout>
+
+
+            </ScrollView>
+
+
+
+        </FrameLayout>  <!-- end 注册-->
 
 
 
 
-    </FrameLayout>
-
-
-
-
-
-
-
-
-
-
-
+    </FrameLayout>      <!-- end 注册/登录 -->
 
 
 </LinearLayout>

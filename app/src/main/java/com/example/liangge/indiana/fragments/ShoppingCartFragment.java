@@ -185,6 +185,7 @@ public class ShoppingCartFragment extends BaseFragment {
             mReceive = new UIReceiveBroadcat();
             IntentFilter filter = new IntentFilter(UIMessageConts.UI_MESSAGE_ACTION);
             getActivity().registerReceiver(mReceive, filter);
+
         }
     }
 

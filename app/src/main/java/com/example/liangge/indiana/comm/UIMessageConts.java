@@ -78,6 +78,10 @@ public class UIMessageConts {
     }
 
     public interface PersonalCenterMessage {
+        /** 初始化登录信息 */
+        public static final String M_INIT_LOGIN_INFO = "m_init_login_info";
+
+
 
     }
 

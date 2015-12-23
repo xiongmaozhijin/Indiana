@@ -44,6 +44,7 @@
                     android:text="@string/f_personal_btn_log_signup"/>
 
                 <ImageButton
+                    android:id="@+id/f_personal_software_info"
                     android:background="@drawable/selector_f_personal_btn_bg"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -68,27 +69,38 @@
             <Button
                 android:layout_width="match_parent"
                 style="@style/f_personal_txvbtn"
-                android:text="@string/f_personal_txvbtn_indiana_record"/>
+                android:text="@string/f_personal_txvbtn_indiana_record"
+                android:id="@+id/f_personal_txvbtn_indiana_record" />
 
             <Button
                 android:layout_width="match_parent"
                 style="@style/f_personal_txvbtn"
-                android:text="@string/f_personal_txvbtn_bingo_record"/>
+                android:text="@string/f_personal_txvbtn_bingo_record"
+                android:id="@+id/f_personal_txvbtn_bingo_record" />
 
             <Button
                 android:layout_width="match_parent"
                 style="@style/f_personal_txvbtn"
-                android:text="@string/f_personal_takeovergoods_address"/>
+                android:text="@string/f_personal_takeovergoods_address"
+                android:id="@+id/f_personal_takeovergoods_address" />
+
+            <Button
+            android:layout_width="match_parent"
+            style="@style/f_personal_txvbtn"
+            android:text="@string/f_personal_account_detail"
+                android:id="@+id/f_personal_account_detail" />
 
             <Button
                 android:layout_width="match_parent"
                 style="@style/f_personal_txvbtn"
-                android:text="@string/f_personal_account_detail"/>
+                android:text="@string/f_personal_personinfo"
+                android:id="@+id/f_personal_personinfo" />
 
             <Button
                 android:layout_width="match_parent"
                 style="@style/f_personal_txvbtn"
-                android:text="@string/f_personal_contact_customer_service"/>
+                android:text="@string/f_personal_contact_customer_service"
+                android:id="@+id/f_personal_contact_customer_service" />
 
 
         </LinearLayout>

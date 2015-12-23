@@ -2,6 +2,7 @@ package com.example.liangge.indiana.ui;
 
 import android.app.Application;
 
+import com.example.liangge.indiana.comm.SharedPrefUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -13,8 +14,16 @@ public class App extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        initImageLoaderConf();
+        initRes();
+    }
 
+    private void initRes() {
+        initImageLoaderConf();
+        initSharedPref();
+    }
+
+    private void initSharedPref() {
+        SharedPrefUtils.init(getApplicationContext());
     }
 
     /**

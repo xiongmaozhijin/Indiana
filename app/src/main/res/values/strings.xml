@@ -50,5 +50,14 @@
     <string name="f_personal_account_detail">账户明细</string>
     <string name="f_personal_contact_customer_service">联系客服</string>
     <string name="activity_logsignin_title">用户注册登录</string>
+    <string name="activity_logsignin_edt_phonenum_hint">手机号码</string>
+    <string name="activity_logsignin_edt_password_hint">密码</string>
+    <string name="activity_signin_phonenum_hint">请输入手机号码</string>
+    <string name="activity_signin_password1">请设置6-12位的登录密码</string>
+    <string name="activity_signin_password1_comfirn">再次输入密码</string>
+    <string name="activity_logsignin_verification_code">手机验证码</string>
+    <string name="activity_logsignin_protocol">《夺宝协议》</string>
+    <string name="activity_logsignin_btn_signin">一键注册</string>
+    <string name="f_personal_personinfo">个人信息</string>
 
 </resources>
