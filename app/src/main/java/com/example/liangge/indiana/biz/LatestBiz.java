@@ -265,6 +265,12 @@ public class LatestBiz extends BaseFragmentBiz{
     private class SlaveSingleRequestLatestInfoThread extends Thread {
 
 
+        private LastestBingoEntity mUpdateEntity;
+
+        public SlaveSingleRequestLatestInfoThread(LastestBingoEntity updateEntity) {
+            this.mUpdateEntity = updateEntity;
+        }
+
         @Override
         public void run() {
             super.run();
@@ -288,6 +294,7 @@ public class LatestBiz extends BaseFragmentBiz{
         }
 
         private String getJsonBody() {
+            //使用传进的实体期次id构造请求格式
             return "";
         }
 
@@ -333,7 +340,7 @@ public class LatestBiz extends BaseFragmentBiz{
      * @param entity
      */
     public void onTimeUp(LastestBingoEntity entity) {
-       new SlaveSingleRequestLatestInfoThread().start();
+       new SlaveSingleRequestLatestInfoThread(entity).start();
 
     }
 

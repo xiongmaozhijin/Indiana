@@ -51,7 +51,8 @@ public class PersonalCenterBiz {
      * @return
      */
     public synchronized boolean isLogin() {
-        return SharedPrefUtils.getSharedPreferences().getBoolean(Constant.SharedPerfer.KEY_IS_LOGIN, false);
+//        return SharedPrefUtils.getSharedPreferences().getBoolean(Constant.SharedPerfer.KEY_IS_LOGIN, false);
+        return true;
     }
 
     /**

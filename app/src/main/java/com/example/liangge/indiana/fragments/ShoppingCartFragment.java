@@ -24,6 +24,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.ui.HomeActivity;
+import com.example.liangge.indiana.ui.InventoryPayActivity;
 import com.example.liangge.indiana.ui.widget.ExRadioButton;
 import com.example.liangge.indiana.ui.widget.RotateImageView;
 import com.jauker.widget.BadgeView;
@@ -174,7 +175,14 @@ public class ShoppingCartFragment extends BaseFragment {
         });
 
 
-
+        mBtnCommitPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.i(TAG, "mBtnCommitPay#onClick()");
+                Intent i = new Intent(getActivity(), InventoryPayActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 

@@ -69,6 +69,7 @@
     <string name="actiivty_state_runlottory_done">已揭晓</string>
     <string name="actiivty_state_runlottory_play_ing">进行中</string>
     <string name="activity_detail_bingouser_info">获奖用户:%1$s\n用户地址:%2$s\n参与次数:%3$d\n揭晓时间:%4$s</string>
+    <string name="activity_inventory_pay_balance">余额支付（账户余额:%1$d夺宝币）</string>
 
 
 </resources>

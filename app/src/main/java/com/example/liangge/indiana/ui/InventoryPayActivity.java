@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,9 @@ public class InventoryPayActivity extends BaseActivity {
     private TextView mTxvReCharge;
 
     private InventoryPayBiz mInventoryPayBiz;
+
+
+    private UIMsgReceive mUIMsgReceive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,12 +85,19 @@ public class InventoryPayActivity extends BaseActivity {
 
     @Override
     protected void registerUIReceive() {
-
+        if (mUIMsgReceive == null) {
+            mUIMsgReceive = new UIMsgReceive();
+            IntentFilter filter = new IntentFilter(UIMessageConts.UI_MESSAGE_ACTION);
+            registerReceiver(mUIMsgReceive, filter);
+        }
     }
 
     @Override
     protected void unRegisterUIReceive() {
-
+        if (mUIMsgReceive != null) {
+            unregisterReceiver(mUIMsgReceive);
+            mUIMsgReceive = null;
+        }
     }
 
 
@@ -124,17 +135,21 @@ public class InventoryPayActivity extends BaseActivity {
     private void handleUIInit() {
         mTxvTotalGold.setText(mInventoryPayBiz.getTotalPayGolds()+"");
         mTxvInventoryInfo.setText(mInventoryPayBiz.getHummanReadableOrdersInfo());
-        mTxvAccountInfo.setText(mInventoryPayBiz.getAccoutGold()+"");
+        String strBalanceFormat = getResources().getString(R.string.activity_inventory_pay_balance);
+        String strBalanceHint = String.format(strBalanceFormat, mInventoryPayBiz.getAccoutGold());
+        mTxvAccountInfo.setText(strBalanceHint);
 
     }
 
 
     public void onBtnBack(View view) {
         finish();
+
     }
 
     //一键支付
     public void onBtnCommitPay(View view) {
+        LogUtils.w(TAG, "onBtnCommitPay()");
 
     }
 

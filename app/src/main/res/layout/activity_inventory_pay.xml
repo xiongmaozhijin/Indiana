@@ -89,7 +89,7 @@
             android:layout_marginTop="17dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="余额支付（账户余额:%1$d夺宝币）"/>
+            android:text="@string/activity_inventory_pay_balance"/>
 
 
         <RelativeLayout
