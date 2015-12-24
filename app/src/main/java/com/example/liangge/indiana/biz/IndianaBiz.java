@@ -2,12 +2,16 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.UIMessageEntity;
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +36,16 @@ public class IndianaBiz extends BaseFragmentBiz{
     /** 产品数据 */
     private List<ActivityProductItemEntity> mListProducts;
 
+    private VolleyBiz mVolleyBiz;
+
+    /** 加载活动信息线程 */
+    private SlaveLoadActivityProductInfoThread mSlaveLoadActivityProductInfoThread;
+
     private IndianaBiz(Context context) {
         this.mContext = context;
         mMessageManager = MessageManager.getInstance(context);
+        mVolleyBiz = VolleyBiz.getInstance();
+        mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
     }
 
     /**
@@ -48,6 +59,14 @@ public class IndianaBiz extends BaseFragmentBiz{
      * 进行请求的相关信息
      */
     private static class RequestInfo {
+
+        /** 当前标签页 */
+        public static String iCurTag = Constant.IndianaFragment.TAG_HOTS;
+
+        /** 当前的页码 */
+        public static int iCurPage = 0;
+
+
 
     }
 
@@ -66,22 +85,42 @@ public class IndianaBiz extends BaseFragmentBiz{
 
 
     /**
+     * @deprecated
      * 加载活动产品信息
      */
     public void loadActivityProductInfo() {
         LogUtils.i(TAG, "loadActivityProductInfo()");
-        String strAction = UIMessageConts.IndianaMessage.MESSAGE_LOADING_PRODUCT_DATA;
-        UIMessageEntity info = new UIMessageEntity();
-        info.setMessageAction(strAction);
-        mMessageManager.sendMessage(info);
         loadProductTest();
     }
 
+
+    //TODO
+
+    /**
+     * 加载活动信息
+     * @param tag   标签页
+     * @param loadMore  是否加载更多; true:加载更多；false:重新加载
+     */
+    public void loadActivityProductInfo(String tag, boolean loadMore) {
+        LogUtils.w(TAG, "loadActivityProductInfo().tag=%s", tag);
+//        loadProductTest();
+        mVolleyBiz.cancelAll();
+        
+    }
 
     /**
      * 加载活动产品信息
      */
     private class SlaveLoadActivityProductInfoThread extends Thread {
+
+        public static final String REQUEST_TAG = "SlaveLoadActivityProductInfoThread";
+
+        @Override
+        public void run() {
+            super.run();
+
+
+        }
 
     }
 
@@ -93,6 +132,9 @@ public class IndianaBiz extends BaseFragmentBiz{
       new Thread(){
           @Override
       public void run() {
+              UIMessageEntity msg1 = new UIMessageEntity(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START);
+              mMessageManager.sendMessage(msg1);
+
               try {
                   Thread.sleep(5000);
               } catch (InterruptedException e) {
@@ -118,7 +160,7 @@ public class IndianaBiz extends BaseFragmentBiz{
 
               mListProducts = list;
 
-              UIMessageEntity info = new UIMessageEntity(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS);
+              UIMessageEntity info = new UIMessageEntity(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS);
               mMessageManager.sendMessage(info);
           }
       }.start();
@@ -210,7 +252,7 @@ public class IndianaBiz extends BaseFragmentBiz{
 
         } else {
             loadBanner();
-            loadActivityProductInfo();
+//            loadActivityProductInfo();
 
         }
 

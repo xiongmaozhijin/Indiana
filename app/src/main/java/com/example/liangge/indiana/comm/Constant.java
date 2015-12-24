@@ -13,4 +13,21 @@ public class Constant {
 
     }
 
+
+    public interface IndianaFragment {
+
+        /** 人气 */
+        public static final String TAG_HOTS = "hot";
+
+        /** 最新 */
+        public static final String TAG_NEWS = "new";
+
+        /** 进度 */
+        public static final String TAG_SHARE = "share";
+
+
+
+    }
+
+
 }

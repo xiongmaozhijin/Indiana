@@ -32,11 +32,11 @@ public class UIMessageConts {
         public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCESS = "message_indianamessage_loading_product_successd";
 
         /** 开始加载子分标签的数据 */
-        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START = "m_log_category_activity_product_info_start";
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START = "m_log_tag_activity_product_info_start";
 
-        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL = "m_log_category_activity_product_info_fail";
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL = "m_log_tag_activity_product_info_fail";
 
-        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS = "m_log_category_activity_product_info_success";
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS = "m_log_tag_activity_product_info_success";
 
 
 

@@ -11,19 +11,19 @@
         android:id="@+id/f_indiana_all_content_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
     <com.example.liangge.indiana.ui.widget.ExScrollView
         android:id="@+id/f_indiana_main_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_orange_dark">
+        android:background="@android:color/darker_gray">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/holo_orange_light"
+            android:background="@android:color/darker_gray"
             android:orientation="vertical">
 
             <!-- 图片轮播部分 -->
@@ -44,18 +44,30 @@
                     android:orientation="vertical">
 
                     <!-- 分类浮动菜单 -->
-                    <include layout="@layout/f_indiana_content_float_menu" />
+                    <include layout="@layout/f_indiana_content_float_menu" android:id="@+id/f_indiana_fix_menu"/>
 
-                    <!-- 产品展示, GridView -->
-                    <com.example.liangge.indiana.ui.widget.ExGridView
-                        android:id="@+id/f_indiana_product_content_gridview"
+                    <!-- 产品展示或正在加载 -->
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/darker_gray"
-                        android:gravity="center"
-                        android:horizontalSpacing="1dp"
-                        android:numColumns="2"
-                        android:verticalSpacing="1dp" />
+                        android:layout_height="match_parent">
+
+                        <include layout="@layout/layout_not_network" android:id="@+id/f_indiana_tag_net_hint_wrapper" />
+
+                        <!-- 产品展示, GridView -->
+                        <com.example.liangge.indiana.ui.widget.ExGridView
+                            android:visibility="visible"
+                            android:id="@+id/f_indiana_product_content_gridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/darker_gray"
+                            android:gravity="center"
+                            android:horizontalSpacing="1dp"
+                            android:numColumns="2"
+                            android:verticalSpacing="1dp" />
+
+                    </FrameLayout>
+
+
 
                     <!-- 加载更多 -->
                     <FrameLayout

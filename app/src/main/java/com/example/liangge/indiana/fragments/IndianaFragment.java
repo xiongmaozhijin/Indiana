@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
@@ -62,6 +61,9 @@ public class IndianaFragment extends BaseFragment {
 
     private View mViewAllContentWrapper;
 
+    /** 加载子标签时的网络加载提示 */
+    private View mViewTagNetInfoDataInfoWrapper;
+
     public IndianaFragment() {
         // Required empty public constructor
 
@@ -76,9 +78,80 @@ public class IndianaFragment extends BaseFragment {
         View view =  inflater.inflate(R.layout.fragment_indiana, container, false);
 
         initWidget(view);
-
+        initMenuBtn(view);
 
         return view;
+    }
+
+    private void initMenuBtn(View view) {
+        View fixMenuWrapper = view.findViewById(R.id.f_indiana_fix_menu);
+        View fixFloatMenuWrapper = view.findViewById(R.id.f_indiana_product_fit_float_menu);
+
+        fixMenuWrapper.findViewById(R.id.indian_product_category_rb_hots).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnHots();
+            }
+        });
+
+        fixMenuWrapper.findViewById(R.id.indian_product_category_rb_lastest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnLatest();
+            }
+        });
+        fixMenuWrapper.findViewById(R.id.indian_product_category_rb_schedule).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnSchedule();
+            }
+        });
+        fixMenuWrapper.findViewById(R.id.indian_product_category_rb_need_peoples).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnNeed();
+            }
+        });
+        fixMenuWrapper.findViewById(R.id.indian_product_category_rb_category_items).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnCategory();
+            }
+        });
+        //
+        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_hots).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnHots();
+            }
+        });
+
+        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_lastest).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnLatest();
+            }
+        });
+        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_schedule).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnSchedule();
+            }
+        });
+        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_need_peoples).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnNeed();
+            }
+        });
+        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_category_items).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnCategory();
+            }
+        });
+
+
     }
 
     @Override
@@ -105,6 +178,9 @@ public class IndianaFragment extends BaseFragment {
     private void initWidget(View view) {
         mViewNotNetworkOrFirstLoadWrapper = view.findViewById(R.id.f_indian_not_network_first_load_wrapper);
         mViewAllContentWrapper = view.findViewById(R.id.f_indiana_all_content_wrapper);
+
+        mViewTagNetInfoDataInfoWrapper = view.findViewById(R.id.f_indiana_tag_net_hint_wrapper);
+
 
         mViewProductLoading = view.findViewById(R.id.f_indiana_product_loading_more_wrapper);
 
@@ -155,7 +231,7 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onScrollBottom() {
                 LogUtils.w(TAG, "onScrollBottom()");
-                mIndianaBiz.loadActivityProductInfo();
+
             }
         });
 
@@ -179,16 +255,10 @@ public class IndianaFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initManager();
-        initInfo();
     }
 
     private void initManager() {
         mIndianaBiz = IndianaBiz.getInstance(getActivity());
-    }
-
-
-    private void initInfo() {
-        mIndianaBiz.init();
     }
 
 
@@ -216,10 +286,15 @@ public class IndianaFragment extends BaseFragment {
 
                         } else if ( (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_FAIL)) || (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS)) ||
                                 (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOADING_PRODUCT_DATA))) {
-                            handleUIProduct(strUIAction);
 
                         } else if (strUIAction.equals(UIMessageConts.CommResponse.MESSAGE_COMM_NO_NETWORK)) {
                             handleCommResponse();
+
+                        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START)
+                                        || strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL)
+                                        || strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS) ) {
+                            handleUITagProduct(strUIAction);
+
                         }
 
 
@@ -231,28 +306,27 @@ public class IndianaFragment extends BaseFragment {
     }
 
     /**
-     *
-     * @param isLoading 是否要提示正在加载
-     * @param isSuccess 是否加载成功
+     * 处理加载子tag时的信息
+     * @param strUIAction
      */
-    public void setProductLoadingUI(boolean isLoading, boolean isSuccess) {
-        LogUtils.w(TAG, "isLoading=%b, isSuccess=%b", isLoading, isSuccess);
+    private void handleUITagProduct(String strUIAction) {
+        if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START)) {
+            mGridviewProducts.setVisibility(View.GONE);
+            mViewTagNetInfoDataInfoWrapper.setVisibility(View.VISIBLE);
+            mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
+            mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
 
-        if (isSuccess) {
-            mViewAllContentWrapper.setVisibility(View.VISIBLE);
-            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.GONE);
-            mViewProductLoading.setVisibility(View.GONE);
-        } else {
-            if (isLoading) {    //正在加载
-                mViewProductLoading.setVisibility(View.VISIBLE);
+        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL)) {
+            mGridviewProducts.setVisibility(View.GONE);
+            mViewProductContentWrapper.setVisibility(View.VISIBLE);
+            mViewProductContentWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
 
-            } else {    //加载失败
-                ((TextView)mViewProductLoading.findViewById(R.id.product_loading_txv_hint)).setText(getResources().getString(R.string.f_indian_product_load_fail_hint));
-
-            }
+        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS)) {
+            mViewTagNetInfoDataInfoWrapper.setVisibility(View.GONE);
+            mGridviewProducts.setVisibility(View.VISIBLE);
+            mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
         }
-
-
     }
 
 
@@ -261,28 +335,9 @@ public class IndianaFragment extends BaseFragment {
      * 处理公共问题，比如没有联网
      */
     private void handleCommResponse() {
-
+        //TODO
     }
 
-    /**
-     * 处理产品数据UI
-     * @param strUIAction
-     */
-    private void handleUIProduct(String strUIAction) {
-        LogUtils.i(TAG, "handleUIProduct()");
-
-        if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCESS)) {
-            mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
-            setProductLoadingUI(false, true);
-
-        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOADING_PRODUCT_DATA)) {
-            setProductLoadingUI(true, false);
-
-        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_PRODUCT_DATA_FAIL)) {
-            setProductLoadingUI(false, false);
-        }
-
-    }
 
     /**
      * 处理图片轮播ui驱动响应
@@ -292,20 +347,67 @@ public class IndianaFragment extends BaseFragment {
         LogUtils.i(TAG, "handleUIBanner()");
 
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_FAIL)) {
+            mViewAllContentWrapper.setVisibility(View.GONE);
+            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.VISIBLE);
+            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
+            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOADING_BANNER)) {
+            mViewAllContentWrapper.setVisibility(View.GONE);
+            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.VISIBLE);
+            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_SUCCESS)) {
+            mViewAllContentWrapper.setVisibility(View.VISIBLE);
+            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.GONE);
+            mViewProductLoading.setVisibility(View.GONE);
             mBannerView.setDatasAndNotify(mIndianaBiz.getListBanners());
-
+            //TODO
+            onBtnHots();
         }
+
     }
 
-    private void initFirstLoadingUI() {
-        mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.VISIBLE);
-        mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
-        mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
+
+    /**
+     * 人气
+     */
+    public void onBtnHots() {
+        LogUtils.w(TAG, "onBtnHots()");
     }
+
+    /**
+     * 最新
+     */
+    public void onBtnLatest() {
+        LogUtils.w(TAG, "onBtnLatest()");
+    }
+
+    /**
+     * 进度
+     */
+    public void onBtnSchedule() {
+        LogUtils.w(TAG, "onBtnSchedule()");
+
+    }
+
+    /**
+     * 总需
+     */
+    public void onBtnNeed() {
+        LogUtils.w(TAG, "onBtnNeed()");
+    }
+
+    /**
+     * 分类
+     */
+    public void onBtnCategory() {
+        LogUtils.w(TAG, "onBtnCategory()");
+
+    }
+
+
 
 
 
@@ -331,7 +433,8 @@ public class IndianaFragment extends BaseFragment {
     @Override
     public void onFirstEnter() {
         super.onFirstEnter();
-        initFirstLoadingUI();
+        mIndianaBiz.onFirstEnter();
+
     }
 
     @Override
