@@ -2,12 +2,20 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.daoimpl.DBManager;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.comm.net.JsonStringRequest;
+import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.InventoryEntity;
+import com.example.liangge.indiana.model.LastestBingoEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.liangge.databasedao.Order;
 
 import java.util.ArrayList;
@@ -32,8 +40,13 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
     private static DBManager mDBManager;
 
+    private VolleyBiz mVolleyBiz;
+
+
     /** 当前购物车数量 */
     private int mICurCntShoppingItem = 0;
+
+    private SlaveRequsetActivityProductInfoThread mSlaveRequsetActivityProductInfoThread;
 
 
     private static class DataInfo {
@@ -55,6 +68,8 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     private void initRes() {
         mMessageManager = MessageManager.getInstance(mContext);
         mDBManager = DBManager.getInstance(mContext);
+        mVolleyBiz = VolleyBiz.getInstance();
+        mSlaveRequsetActivityProductInfoThread = new SlaveRequsetActivityProductInfoThread();
     }
 
 
@@ -297,13 +312,9 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     private void onThisFrament() {
         notifyOrderDatas();
 
-        if (!bIsWorking) {
-            bIsWorking = true;
-            new TestRequest().start();
-
-        }
-
-
+        mSlaveRequsetActivityProductInfoThread.cancelAll();
+        mSlaveRequsetActivityProductInfoThread = new SlaveRequsetActivityProductInfoThread();
+        mSlaveRequsetActivityProductInfoThread.start();
     }
 
 
@@ -328,9 +339,89 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
     }
 
-    /** 正在网络请求操作 */
+
+    /**
+     * 更据期号id查询活动信息
+     */
+    private class SlaveRequsetActivityProductInfoThread extends Thread {
+
+        private static final String REQUEST_TAG = "SlaveRequsetActivityProductInfo_ShoppingCartBiz";
+
+
+        @Override
+        public void run() {
+            super.run();
+            notifyStart();
+            final List<Order> queryList = getQueryList();
+            String jsonData = getJsonBody(queryList);
+
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, "url", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    Gson gson = new Gson();
+                    List<ActivityProductItemEntity> list = gson.fromJson(s, new TypeToken<List<ActivityProductItemEntity>>(){}.getType());
+                    mListInventorys = Bizdto.changeToInventory(list, queryList);
+                    notifySuccess();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    LogUtils.e(TAG, "volleyError=%s", volleyError.getLocalizedMessage());
+                    notifyFail();
+
+                }
+            }, jsonData);
+
+            request.setTag(REQUEST_TAG);
+            mVolleyBiz.addRequest(request);
+        }
+
+        private String getJsonBody(List<Order> queryList) {
+            //TODO
+            return "";
+        }
+
+        private List<Order> getQueryList() {
+            List<Order> allDatas = mDBManager.selectAllOrder();
+            List<Order> queryDatas = getDiffDatas(mListInventorys, allDatas);
+
+            return queryDatas;
+        }
+
+        private void notifyStart() {
+            sendMsg(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_STARTS);
+        }
+        private void notifySuccess() {
+            sendMsg(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
+            notifyOrderDatas();
+        }
+        private void notifyFail() {
+            sendMsg(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_FAILED);
+        }
+
+        private void sendMsg(String uiMsg) {
+            UIMessageEntity item = new UIMessageEntity(uiMsg);
+            mMessageManager.sendMessage(item);
+        }
+
+        public void cancelAll() {
+            mVolleyBiz.cancelAll(REQUEST_TAG);
+            notifyFail();
+        }
+
+
+    }
+
+
+
+
+
+    /** @deprecated  正在网络请求操作 */
     private volatile boolean bIsWorking = false;
 
+    /**
+     * @deprecated
+     */
     private class TestRequest extends Thread {
         @Override
         public void run() {
