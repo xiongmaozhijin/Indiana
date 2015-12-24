@@ -50,12 +50,22 @@ public class UIMessageConts {
 
     public interface LatestAnnouncementMessage {
 
+        //加载
         public static final String MESSAGE_LOADING_PRODUCT_DATA = "message_latest_loading_productdata";
 
         public static final String MESSAGE_LOAD_PRODUCT_DATA_FAILED = "message_latest_load_failed";
 
         public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCEED = "message_latest_load_success";
 
+        //加载更多
+        public static final String MESSAGE_LOADING_PRODUCT_DATA_MORE = "message_latest_loading_productdata_more";
+
+        public static final String MESSAGE_LOAD_PRODUCT_DATA_FAILED_MORE = "message_latest_load_failed_more";
+
+        public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCEED_MORE = "message_latest_load_success_more";
+
+        /** 更新中奖用户信息 */
+        public static final String MSG_UPDATE_BINGO_INFO = "msg_update_bingo_info";
 
     }
 

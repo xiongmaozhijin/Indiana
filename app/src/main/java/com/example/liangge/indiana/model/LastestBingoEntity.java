@@ -1,9 +1,5 @@
 package com.example.liangge.indiana.model;
 
-import android.content.Context;
-
-import com.example.liangge.indiana.R;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,6 +9,9 @@ import java.util.Date;
  * Created by baoxing on 2015/12/16.
  */
 public class LastestBingoEntity {
+
+    /** 活动期号 */
+    private long activityId;
 
     /** 产品图片url */
     private String productUrl;
@@ -24,7 +23,7 @@ public class LastestBingoEntity {
     private String bingoUser;
 
     /** 幸运号码 */
-    private String lunckyNumeber;
+    private String luckyNumeber;
 
     /** 参与次数 */
     private int buyTimes;
@@ -35,13 +34,25 @@ public class LastestBingoEntity {
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd");
 
 
-    public LastestBingoEntity(String productUrl, String titleDescribe, String bingoUser, String lunckyNumeber, int buyTimes, long runLotteryTime) {
+    public LastestBingoEntity() {
+    }
+
+    public LastestBingoEntity(long activityId, String productUrl, String titleDescribe, String bingoUser, String luckyNumeber, int buyTimes, long runLotteryTime) {
+        this.activityId = activityId;
         this.productUrl = productUrl;
         this.titleDescribe = titleDescribe;
         this.bingoUser = bingoUser;
-        this.lunckyNumeber = lunckyNumeber;
+        this.luckyNumeber = luckyNumeber;
         this.buyTimes = buyTimes;
         this.runLotteryTime = runLotteryTime;
+    }
+
+    public long getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(long activityId) {
+        this.activityId = activityId;
     }
 
     public String getProductUrl() {
@@ -68,12 +79,12 @@ public class LastestBingoEntity {
         this.bingoUser = bingoUser;
     }
 
-    public String getLunckyNumeber() {
-        return lunckyNumeber;
+    public String getLuckyNumeber() {
+        return luckyNumeber;
     }
 
-    public void setLunckyNumeber(String lunckyNumeber) {
-        this.lunckyNumeber = lunckyNumeber;
+    public void setLuckyNumeber(String luckyNumeber) {
+        this.luckyNumeber = luckyNumeber;
     }
 
     /**
@@ -138,16 +149,34 @@ public class LastestBingoEntity {
         return str;
     }
 
+    /**
+     *
+     * @param srcObj
+     */
+    public void copyfrom(LastestBingoEntity srcObj) {
+        setActivityId(srcObj.getActivityId());
+        setBingoUser(srcObj.getBingoUser());
+        setBuyTimes(srcObj.getBuyTimes());
+        setLuckyNumeber(srcObj.getLuckyNumeber());
+        setProductUrl(srcObj.getProductUrl());
+        setRunLotteryTime(srcObj.getRunLotteryTime());
+        setTitleDescribe(srcObj.getTitleDescribe());
+    }
+
 
     @Override
     public String toString() {
         return "LastestBingoEntity{" +
-                "productUrl='" + productUrl + '\'' +
+                "runLotteryTime=" + runLotteryTime +
+                ", activityId=" + activityId +
+                ", productUrl='" + productUrl + '\'' +
                 ", titleDescribe='" + titleDescribe + '\'' +
                 ", bingoUser='" + bingoUser + '\'' +
-                ", lunckyNumeber='" + lunckyNumeber + '\'' +
+                ", luckyNumeber='" + luckyNumeber + '\'' +
                 ", buyTimes=" + buyTimes +
-                ", runLotteryTime=" + runLotteryTime +
                 '}';
     }
+
+
+
 }

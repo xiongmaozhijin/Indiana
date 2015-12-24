@@ -14,10 +14,12 @@ import android.widget.AdapterView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.LatestProductGridViewAdapter;
+import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.LatestBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.LastestBingoEntity;
+import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.ExGridView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
@@ -46,6 +48,7 @@ public class LatestAnnouncementFragment extends BaseFragment {
 
     private LatestBiz mLatestBiz;
 
+    private DetailInfoBiz mDetailInfoBiz;
 
     public LatestAnnouncementFragment() {
         // Required empty public constructor
@@ -93,7 +96,11 @@ public class LatestAnnouncementFragment extends BaseFragment {
 
                         }
 
-                    }
+                        if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MSG_UPDATE_BINGO_INFO)) {
+                            handleUIUpdateBingoUser();
+                        }
+
+                    } //!=null
 
                 }
 
@@ -102,6 +109,14 @@ public class LatestAnnouncementFragment extends BaseFragment {
         }
 
 
+    }
+
+    /**
+     * 更新中奖用户信息（揭晓时间到了）
+     */
+    private void handleUIUpdateBingoUser() {
+        LogUtils.i(TAG, "handleUIUpdateBingoUser()");
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -119,9 +134,17 @@ public class LatestAnnouncementFragment extends BaseFragment {
     private void handleUIProductData(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA)) {
             //正在加载产品数据
+            mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
+            mViewContentWrapper.setVisibility(View.GONE);
+            mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
+            mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
 
 
         } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED)) {
+            mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
+            mViewContentWrapper.setVisibility(View.GONE);
+            mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
+            mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
 
 
         } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED)){
@@ -142,6 +165,7 @@ public class LatestAnnouncementFragment extends BaseFragment {
 
     private void initManager() {
         mLatestBiz = LatestBiz.getInstance(getActivity());
+        mDetailInfoBiz = DetailInfoBiz.getInstance(getActivity());
 
     }
 
@@ -174,7 +198,10 @@ public class LatestAnnouncementFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.w(TAG, "onItemClick(). position=%d, info=", position, parent.getAdapter().getItem(position).toString());
-
+                LastestBingoEntity item = (LastestBingoEntity) parent.getAdapter().getItem(position);
+                mDetailInfoBiz.setActivityId(item.getActivityId());
+                Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
+                startActivity(i);
             }
         });
 
@@ -182,7 +209,7 @@ public class LatestAnnouncementFragment extends BaseFragment {
             @Override
             public void onTimeUp(LastestBingoEntity lastestBingoEntity) {
                 LogUtils.w(TAG, "onTimeUp(). itemInfo=%s", lastestBingoEntity.toString());
-
+                mLatestBiz.onTimeUp(lastestBingoEntity);
             }
         });
 
@@ -231,14 +258,7 @@ public class LatestAnnouncementFragment extends BaseFragment {
     public void onFirstEnter() {
         super.onFirstEnter();
         mLatestBiz.onFirstEnter();
-        initFirstLoadingUI();
 
-    }
-
-    private void initFirstLoadingUI() {
-        mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
-        mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
-        mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
     }
 
     @Override

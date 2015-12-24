@@ -1,11 +1,9 @@
 package com.example.liangge.indiana.ui.test;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,8 +16,6 @@ import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.LastestBingoEntity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
-import com.example.liangge.indiana.ui.widget.RunLottoryView;
-import com.example.liangge.indiana.ui.widget.RunLottoryView2;
 import com.example.liangge.indiana.ui.widget.RunLottoryView3;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -28,7 +24,6 @@ import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
@@ -73,9 +68,9 @@ public class PullRefreshActivity extends AppCompatActivity {
 
         String[] imgs = {url1, url2, url3, url4, url5};
 
-        LastestBingoEntity item1 = new LastestBingoEntity(url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
-        LastestBingoEntity item2 = new LastestBingoEntity(url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
-        LastestBingoEntity item3 = new LastestBingoEntity(url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
+        LastestBingoEntity item1 = new LastestBingoEntity(2313, url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
+        LastestBingoEntity item2 = new LastestBingoEntity(41321,url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
+        LastestBingoEntity item3 = new LastestBingoEntity(3243241, url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -87,14 +82,14 @@ public class PullRefreshActivity extends AppCompatActivity {
             long time1 = System.currentTimeMillis() - random;
             long time2 = System.currentTimeMillis() + random;
 
-            entity = new LastestBingoEntity(imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
+            entity = new LastestBingoEntity(3413,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
 
             mListLatestDatas.add(entity);
         }
 
-        item1 = new LastestBingoEntity(url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
-        item2 = new LastestBingoEntity(url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
-        item3 = new LastestBingoEntity(url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
+        item1 = new LastestBingoEntity(331231, url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
+        item2 = new LastestBingoEntity(2313,url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
+        item3 = new LastestBingoEntity(23213, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -331,7 +326,7 @@ public class PullRefreshActivity extends AppCompatActivity {
 
             bingoUser.setText(itemInfo.getBingoUser());
             buyCounts.setText(itemInfo.getHumanBuyTimes() );
-            luckyNumber.setText(itemInfo.getLunckyNumeber());
+            luckyNumber.setText(itemInfo.getLuckyNumeber());
             alreadyRunLottoryTime.setText(itemInfo.getHumanAlreadyRunLotteryTime() );
         }
 

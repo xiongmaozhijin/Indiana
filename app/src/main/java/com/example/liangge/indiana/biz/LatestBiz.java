@@ -2,11 +2,20 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.comm.net.JsonStringRequest;
+import com.example.liangge.indiana.comm.net.VolleyBiz;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.LastestBingoEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,21 +35,30 @@ public class LatestBiz extends BaseFragmentBiz{
     /** 消息管理实例 */
     private MessageManager mMessageManager;
 
+    private VolleyBiz mVolleyBiz;
+
+    private SlaveLoadLatestInfoThread mSlaveLoadLatestInfoThread;
+
     /** 最新揭晓产品数据 */
     private List<LastestBingoEntity> mLatestDatas = new ArrayList<>();
 
     /**
      * 封装请求数据请求字段
      */
-    private static class RequestFiled {
+    private static class RequestInfo {
         /** 数据起始字段 */
-        public int iLimitStart = 0;
+        public static int startPage = 1;
+
+        /** 是否加载更多 */
+        public static boolean bIsLoadMore = false;
 
     }
 
     private LatestBiz(Context context) {
         this.mContext = context;
         mMessageManager = MessageManager.getInstance(context);
+        mVolleyBiz = VolleyBiz.getInstance();
+        mSlaveLoadLatestInfoThread = new SlaveLoadLatestInfoThread();
 
     }
 
@@ -89,9 +107,9 @@ public class LatestBiz extends BaseFragmentBiz{
 
         String[] imgs = {url1, url2, url3, url4, url5};
 
-        LastestBingoEntity item1 = new LastestBingoEntity(url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
-        LastestBingoEntity item2 = new LastestBingoEntity(url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
-        LastestBingoEntity item3 = new LastestBingoEntity(url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
+        LastestBingoEntity item1 = new LastestBingoEntity(12,url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
+        LastestBingoEntity item2 = new LastestBingoEntity(144, url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
+        LastestBingoEntity item3 = new LastestBingoEntity(3523432,url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -103,14 +121,14 @@ public class LatestBiz extends BaseFragmentBiz{
             long time1 = System.currentTimeMillis() - random;
             long time2 = System.currentTimeMillis() + random;
 
-            entity = new LastestBingoEntity(imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
+            entity = new LastestBingoEntity(342341,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
 
             mListLatestDatas.add(entity);
         }
 
-        item1 = new LastestBingoEntity(url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
-        item2 = new LastestBingoEntity(url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
-        item3 = new LastestBingoEntity(url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
+        item1 = new LastestBingoEntity(23213,url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
+        item2 = new LastestBingoEntity(42341, url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
+        item3 = new LastestBingoEntity(3141321, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -119,6 +137,180 @@ public class LatestBiz extends BaseFragmentBiz{
         mListLatestDatas.add(item2);
         mListLatestDatas.add(item3);
     }
+
+
+
+
+    //TODO
+
+    /**
+     * 加载最新揭晓信息
+     */
+    public void loadLastDataInfo(boolean isLoadMore) {
+        RequestInfo.bIsLoadMore = isLoadMore;
+
+        if (isLoadMore) {
+            if (!mSlaveLoadLatestInfoThread.isWorking()) {
+                RequestInfo.startPage++;
+                mSlaveLoadLatestInfoThread = new SlaveLoadLatestInfoThread();
+                mSlaveLoadLatestInfoThread.start();
+            }
+
+        } else {
+            RequestInfo.startPage = 1;
+            mSlaveLoadLatestInfoThread.cancelAll();
+            mSlaveLoadLatestInfoThread = new SlaveLoadLatestInfoThread();
+            mSlaveLoadLatestInfoThread.start();
+        }
+
+    }
+
+
+    private class SlaveLoadLatestInfoThread extends Thread {
+
+        private static final String REQUEST_TAG = "SlaveLoadLatestInfoThread";
+
+        private boolean bIsWorking = false;
+
+        @Override
+        public void run() {
+            super.run();
+            notifyStart();
+            String jsonData = getJsonBody();
+
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.LATEST_PRODUCT_INFO, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    LogUtils.i(TAG, "onResponse=%s", s);
+                    Gson gson = new Gson();
+                    mLatestDatas = gson.fromJson(s, new TypeToken<List<LastestBingoEntity>>(){}.getType());
+                    notifySuccess();
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    LogUtils.e(TAG, "onErrorResponse=%s", volleyError.toString() );
+                    notifyFail();
+
+                }
+            }, jsonData);
+
+            request.setTag(REQUEST_TAG);
+            mVolleyBiz.addRequest(request);
+        }
+
+        private String getJsonBody() {
+            String jsonBody = String.format("{\"page\":%d}", RequestInfo.startPage);
+
+            return jsonBody;
+        }
+
+
+        private void notifyStart() {
+            this.bIsWorking = false;
+            UIMessageEntity item = new UIMessageEntity();
+
+            if (RequestInfo.bIsLoadMore) {
+                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA_MORE);
+
+            } else {
+                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA);
+
+            }
+
+            mMessageManager.sendMessage(item);
+        }
+
+        private void notifySuccess() {
+            this.bIsWorking = true;
+            UIMessageEntity item = new UIMessageEntity();
+
+            if (RequestInfo.bIsLoadMore) {
+                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED_MORE);
+
+            } else {
+                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED);
+            }
+
+            mMessageManager.sendMessage(item);
+        }
+
+        private void notifyFail() {
+            this.bIsWorking = true;
+            UIMessageEntity item = new UIMessageEntity();
+
+            if (RequestInfo.bIsLoadMore) {
+                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED_MORE);
+
+            } else {
+                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED);
+            }
+
+            mMessageManager.sendMessage(item);
+        }
+
+
+        public boolean isWorking() {
+            return this.bIsWorking;
+        }
+
+        public void cancelAll() {
+            mVolleyBiz.cancelAll(REQUEST_TAG);
+        }
+
+    }
+
+
+    private class SlaveSingleRequestLatestInfoThread extends Thread {
+
+
+        @Override
+        public void run() {
+            super.run();
+            String jsonData = getJsonBody();
+
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, "url", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    LogUtils.i(TAG, "onRsponse=%s", s);
+                    Gson gson = new Gson();
+                    LastestBingoEntity item = gson.fromJson(s, LastestBingoEntity.class);
+                    updateLatestBingoInfo(item);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    LogUtils.e(TAG, "volleyError=%s", volleyError.getLocalizedMessage());
+
+                }
+            }, jsonData);
+        }
+
+        private String getJsonBody() {
+            return "";
+        }
+
+        /**
+         * 更新中奖用户信息
+         */
+        private void updateLatestBingoInfo(LastestBingoEntity entity) {
+            LogUtils.w(TAG, "updateLatestBingoInfo()");
+            LastestBingoEntity item;
+            for (int i=0, len=mLatestDatas.size(); i<len; i++) {
+                item = mLatestDatas.get(i);
+                if (item.getActivityId() == entity.getActivityId() ) {
+                    item.copyfrom(entity);
+                    break;
+                }
+            } //end for
+
+            UIMessageEntity msgItem = new UIMessageEntity(UIMessageConts.LatestAnnouncementMessage.MSG_UPDATE_BINGO_INFO);
+            mMessageManager.sendMessage(msgItem);
+        }
+
+    }
+
 
     /**
      * 返回产品数据
@@ -135,27 +327,29 @@ public class LatestBiz extends BaseFragmentBiz{
 
     }
 
+
+    /**
+     * 当当前页面的某个item项的时间到的时候
+     * @param entity
+     */
+    public void onTimeUp(LastestBingoEntity entity) {
+       new SlaveSingleRequestLatestInfoThread().start();
+
+    }
+
+
     //1.判断网络连接
     //2.加载数据
     @Override
     public void onFirstEnter() {
-        boolean bIsNetConn = NetworkUtils.isNetworkConnected(mContext);
-        if (!bIsNetConn) {
-            UIMessageEntity messageEntity = new UIMessageEntity(UIMessageConts.CommResponse.MESSAGE_COMM_NO_NETWORK);
-            mMessageManager.sendMessage(messageEntity);
-
-        } else {
-            requestDatas();
-
-        }
-
+        loadLastDataInfo(false);
     }
 
     /**
      * 当进入到LatestFragment界面时
      */
     public void onEnter() {
-
+        loadLastDataInfo(false);
     }
 
     @Override

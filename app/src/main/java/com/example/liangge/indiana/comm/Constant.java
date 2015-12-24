@@ -41,6 +41,9 @@ public class Constant {
         /** 产品活动详情 */
         public static final String INDIANA_ACTIVITY_DETAIL_INFO = "http://192.168.1.199/index.php/Admin/Api/goodsdetail";
 
+        /** 最新揭晓详情 */
+        public static final String LATEST_PRODUCT_INFO = "http://192.168.1.199/index.php/Admin/Api/goodstoreveal";
+
     }
 
 
