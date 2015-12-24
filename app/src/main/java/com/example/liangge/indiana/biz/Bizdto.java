@@ -1,7 +1,11 @@
 package com.example.liangge.indiana.biz;
 
+import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by baoxing on 2015/12/20.
@@ -16,4 +20,17 @@ public class Bizdto {
 
         return item;
     }
+
+    public static List<BannerInfo> changeToBannerInfo(String[] imgUrls) {
+        List<BannerInfo> list = new ArrayList<>();
+        if (imgUrls != null) {
+            for (int i=0, len=imgUrls.length; i<len; i++) {
+                BannerInfo item = new BannerInfo(imgUrls[i]);
+                list.add(item);
+            }
+        }
+
+        return list;
+    }
+
 }

@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.Bizdto;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.ui.widget.BannerView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 商品详情页
@@ -32,6 +36,13 @@ public class ProductDetailInfoActivity extends Activity {
     private DetailInfoBiz mDetailInfoBiz;
 
     private UIMsgReceive mUIMsgReceive;
+
+    /** 加载或没有网络View Wrapper */
+    private View mViewNetWrapper;
+
+    /** 所有的内容View Wrapper */
+    private View mViewAllContentWrapper;
+
 
     /** 返回键 */
     private ImageButton mBtnBack;
@@ -66,10 +77,12 @@ public class ProductDetailInfoActivity extends Activity {
     private TextView mTxvHasJoinHint;
 
     /** 图文详细 */
-    private TextView mTxvMoreDetailInfo;
+    private Button mTxvMoreDetailInfo;
 
     /** 所有参与记录 */
     private ListView mPlayRecordListView;
+
+    private DisplayImageOptions mDisplayImageOptions;
 
 
     @Override
@@ -79,6 +92,23 @@ public class ProductDetailInfoActivity extends Activity {
 
         initView();
         initManager();
+        initImageLoaderConf();
+    }
+
+    /**
+     * 配置开源组件ImageLoader的参数
+     */
+    private void initImageLoaderConf() {
+        mDisplayImageOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
+                .showImageOnFail(R.drawable.main_banner_img_load_fail)
+                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .build();
+
     }
 
     private void initManager() {
@@ -87,6 +117,9 @@ public class ProductDetailInfoActivity extends Activity {
     }
 
     private void initView() {
+        mViewNetWrapper = findViewById(R.id.activity_detailinfo_net_error_wrapper);
+        mViewAllContentWrapper = findViewById(R.id.activity_detailinfo_allcontent_wrapper);
+
         mBtnBack = (ImageButton) findViewById(R.id.activity_productdetailinfo_btn_back);
         mBannerView = (BannerView) findViewById(R.id.activity_productdetailinfo_bannerview);
         mTxvProductInfoTitleDescribe1 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe1);
@@ -103,10 +136,11 @@ public class ProductDetailInfoActivity extends Activity {
         mTxvLunckNumber = (TextView) findViewById(R.id.activity_productdetailinfo_luncky_number);
         mBtnCalcDetail = (Button) findViewById(R.id.activity_productdetailinfo_btn_calc_detail);
 
+        mTxvHasJoinHint = (TextView) findViewById(R.id.activity_hasjoin_txv_hint);
 
         mViewBingoIngWrapper = findViewById(R.id.activity_productdetailinfo_bingo_ing_wrapper);
 
-        mTxvMoreDetailInfo = (TextView) findViewById(R.id.activity_productdetailinfo_more_info);
+        mTxvMoreDetailInfo = (Button) findViewById(R.id.activity_productdetailinfo_more_info);
 
         mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
 
@@ -163,12 +197,11 @@ public class ProductDetailInfoActivity extends Activity {
             if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_START)
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_FAILED)
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_SUCCEED) ) {
-                handleProductInfoUI(uiAciton);
+                handleActivityProductDetailInfoUI(uiAciton);
 
             } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_WHETHER_PLAY_REQ_START)
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_WHETHER_PLAY_REQ_FAILED)
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_WHETHER_PLAY_REQ_SUCCESS)) {
-                handleWhetherPlayUI(uiAciton);
 
             } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START)
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED)
@@ -183,15 +216,117 @@ public class ProductDetailInfoActivity extends Activity {
 
     }
 
+    /**
+     * 处理参与记录
+     * @param uiAciton
+     */
     private void handlePlayRecord(String uiAciton) {
 
     }
 
-    private void handleWhetherPlayUI(String uiAciton) {
+
+    /**
+     * 处理活动及产品详情
+     * @param uiAciton
+     */
+    private void handleActivityProductDetailInfoUI(String uiAciton) {
+        if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_START)) {
+            mViewAllContentWrapper.setVisibility(View.GONE);
+            mViewNetWrapper.setVisibility(View.VISIBLE);
+            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
+            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+
+        } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_FAILED)) {
+            mViewAllContentWrapper.setVisibility(View.GONE);
+            mViewNetWrapper.setVisibility(View.VISIBLE);
+            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
+            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+
+        } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_SUCCEED)) {
+            handleUIActivityProductInfoLoadSuccess();
+
+        }
 
     }
 
-    private void handleProductInfoUI(String uiAciton) {
+    /**
+     * 加载成功，适配信息
+     */
+    private void handleUIActivityProductInfoLoadSuccess() {
+        //TODO
+        mViewAllContentWrapper.setVisibility(View.VISIBLE);
+        mViewNetWrapper.setVisibility(View.GONE);
+
+        ActivityProductDetailInfoEntity detailEntity = mDetailInfoBiz.getDetailEntity();
+
+        mBannerView.setDatasAndNotify(Bizdto.changeToBannerInfo(detailEntity.getProductImgUrls()));
+        mTxvProductInfoTitleDescribe2.setText(detailEntity.getTitleDescribe());
+
+        int activityState = detailEntity.getActivityState();
+        if (activityState == 0) {   //已揭晓
+            mViewProcessIngWrapper.setVisibility(View.GONE);
+            mViewProcessDoneWrapper.setVisibility(View.VISIBLE);
+            mViewBingoIngWrapper.setVisibility(View.GONE);
+
+            mTxvProductInfoTitleDescribe1.setText(getResources().getString(R.string.actiivty_state_runlottory_done));
+
+//            LogUtils.e(TAG, "imgUrl=%s, view=%s", detailEntity.getBingoUserPortain(), mImgBingoUserPortain.toString());
+
+            ImageLoader.getInstance().displayImage(detailEntity.getBingoUserPortain(), mImgBingoUserPortain, mDisplayImageOptions);
+
+
+            String bingUserInfoFormat = getResources().getString(R.string.activity_detail_bingouser_info);
+            String bingUserInfo = String.format(bingUserInfoFormat,
+                    detailEntity.getBingoUserName(), detailEntity.getBingoUserAddress(),
+                    detailEntity.getBingoBuyCnts(), detailEntity.getHumanAlreadyRunLotteryTime());
+            mTxvBingoInfo.setText(bingUserInfo);
+            String luckyNumFormat = getResources().getString(R.string.activity_productdetailinfo_lucky_number);
+            String luckyNum = String.format(luckyNumFormat, detailEntity.getLuckyNumber());
+            mTxvLunckNumber.setText(luckyNum);
+
+
+        } else if (activityState == 1) {    //进行中
+            mViewProcessIngWrapper.setVisibility(View.VISIBLE);
+            mViewProcessDoneWrapper.setVisibility(View.GONE);
+            mViewBingoIngWrapper.setVisibility(View.GONE);
+
+            mTxvProductInfoTitleDescribe1.setText(getResources().getString(R.string.actiivty_state_runlottory_play_ing));
+            String desc1Format = getResources().getString(R.string.activity_productdetailinfo_progressing_des1);
+            String desc2Format = getResources().getString(R.string.activity_productdetailinfo_progressing_des2);
+            String desc1 = String.format(desc1Format, detailEntity.getNeedPeople());
+            String desc2 = String.format(desc2Format, detailEntity.getLackPeople());
+            int progress = (detailEntity.getNeedPeople()-detailEntity.getLackPeople()) / detailEntity.getNeedPeople();
+            mTxvProductDetailInfoProcessIngDesc1.setText(desc1);
+            mTxvProductDetailInfoProcessIngDesc2.setText(desc2);
+            mProgressBarProcessIng.setProgress(progress);
+
+        } else if (activityState == 2) {    //揭晓中
+            mViewProcessIngWrapper.setVisibility(View.GONE);
+            mViewProcessDoneWrapper.setVisibility(View.GONE);
+            mViewBingoIngWrapper.setVisibility(View.VISIBLE);
+
+            mTxvProductInfoTitleDescribe1.setText(getResources().getString(R.string.actiivty_state_runlottory_ing));
+
+        }
+
+        if (detailEntity.isPlay()) {
+            String hintFormat = getResources().getString(R.string.activity_productdetailinfo_hasjoin_hint_join);
+            String hint  = String.format(hintFormat, detailEntity.getMyIndianaNum());
+            mTxvHasJoinHint.setText(hint);
+
+        } else {
+            String hint = getResources().getString(R.string.activity_productdetailinfo_hasjoin_hint);
+            mTxvHasJoinHint.setText(hint);
+
+        }
+
+
+
+    }
+
+
+    public void onBtnMoreProductInfo(View view) {
+        LogUtils.w(TAG, "onBtnMoreProductInfo()");
 
     }
 
@@ -212,6 +347,10 @@ public class ProductDetailInfoActivity extends Activity {
             mUIMsgReceive = null;
         }
 
+    }
+
+    public void onBtnBack(View view) {
+        finish();
     }
 
 

@@ -37,6 +37,7 @@
     <string name="activity_productdetailinfo_titlebar_title">商品详情</string>
     <string name="activity_productdetailinfo_progressing_des1">总需:%1$d次</string>
     <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝</string>
+    <string name="activity_productdetailinfo_hasjoin_hint_join">已参与,我的夺宝号[%1$s]</string>
     <string name="activity_productdetailinfo_lucky_number">幸运号码:%1$s</string>
     <string name="activity_productdetailinfo_btn_why_calc">计算详细</string>
     <string name="activity_productdetailinfo_bingo_ing_hint">正在揭晓中...</string>
@@ -62,5 +63,12 @@
     <string name="activity_inventorypay_title">订单支付</string>
     <string name="activity_inventorypay_productcount">商品合计</string>
     <string name="title_activity_base">BaseActivity</string>
+
+    <!-- 活动状态 -->
+    <string name="actiivty_state_runlottory_ing">揭晓中</string>
+    <string name="actiivty_state_runlottory_done">已揭晓</string>
+    <string name="actiivty_state_runlottory_play_ing">进行中</string>
+    <string name="activity_detail_bingouser_info">获奖用户:%1$s\n用户地址:%2$s\n参与次数:%3$d\n揭晓时间:%4$s</string>
+
 
 </resources>

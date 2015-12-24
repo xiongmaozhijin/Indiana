@@ -21,6 +21,8 @@ public class MyClass {
 
 //        gerationProductDetailInfo();
 
+        gerationProductDetailInfo();
+
     }
 
 
@@ -44,6 +46,10 @@ public class MyClass {
         String jsonStr = gson.toJson(item1);
 
         System.out.println(jsonStr);
+
+        ActivityProductDetailInfoEntity activityProductDetailInfoEntity = gson.fromJson(jsonStr, ActivityProductDetailInfoEntity.class);
+        System.out.println("item=" + activityProductDetailInfoEntity.toString());
+
     }
 
 

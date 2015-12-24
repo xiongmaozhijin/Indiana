@@ -58,7 +58,8 @@
             style="@style/ProgressBar_Mini"
             android:max="100"
             android:progress="50"
-            android:layout_marginTop="5dp"/>
+            android:layout_marginTop="5dp"
+            android:indeterminate="false" />
 
         <ImageButton
             android:id="@+id/f_indiana_product_item_shopping_cart_btn"

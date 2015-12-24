@@ -2,14 +2,17 @@ package com.example.liangge.indiana.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -136,17 +139,22 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
 
         private ImageButton btnShoppingCart;
 
+        private ProgressBar progressBar;
+
         public ViewHolder(View view) {
             this.imgProductImg = (ImageView) view.findViewById(R.id.indiana_product_item_img);
             this.txvProductName = (TextView) view.findViewById(R.id.indiana_product_item_name_txv);
             this.txvBingoProgress = (TextView) view.findViewById(R.id.indiana_product_item_bingo_process_txv);
             this.btnShoppingCart = (ImageButton) view.findViewById(R.id.f_indiana_product_item_shopping_cart_btn);
+            this.progressBar = (ProgressBar) view.findViewById(R.id.f_indiana_product_item_progressbar);
         }
 
         public void adapterData(final ActivityProductItemEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductImgUrl(), this.imgProductImg, mDisplayImageOptions);
             this.txvProductName.setText(itemInfo.getName());
             this.txvBingoProgress.setText(itemInfo.getStrBingoProgress());
+//            int progress = ( (itemInfo.getNeedPeople()-itemInfo.getLackPeople()) / itemInfo.getNeedPeople() ) * 100;
+            this.progressBar.setProgress(itemInfo.getBingoProgress());
             this.btnShoppingCart.setOnClickListener(new View.OnClickListener(){
 
                 @Override

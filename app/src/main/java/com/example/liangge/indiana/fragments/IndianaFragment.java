@@ -15,6 +15,7 @@ import android.widget.GridView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
+import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.comm.Constant;
@@ -37,6 +38,9 @@ public class IndianaFragment extends BaseFragment {
     private BannerView mBannerView;
 
     private IndianaBiz mIndianaBiz;
+
+    private DetailInfoBiz mDetailInfoBiz;
+
 
     private UIReceive mUIReceive;
 
@@ -64,6 +68,9 @@ public class IndianaFragment extends BaseFragment {
 
     /** 加载子标签时的网络加载提示 */
     private View mViewTagNetInfoDataInfoWrapper;
+
+
+
 
     public IndianaFragment() {
         // Required empty public constructor
@@ -217,6 +224,8 @@ public class IndianaFragment extends BaseFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "item click. position=%d", position);
                 //TODO
+                ActivityProductItemEntity item = (ActivityProductItemEntity) parent.getAdapter().getItem(position);
+                mDetailInfoBiz.setActivityId(item.getActivityId());
                 startActivity(new Intent(getActivity(), ProductDetailInfoActivity.class));
             }
         });
@@ -260,6 +269,8 @@ public class IndianaFragment extends BaseFragment {
 
     private void initManager() {
         mIndianaBiz = IndianaBiz.getInstance(getActivity());
+        mDetailInfoBiz = DetailInfoBiz.getInstance(getActivity());
+
     }
 
 

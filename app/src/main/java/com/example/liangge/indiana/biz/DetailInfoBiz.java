@@ -2,9 +2,18 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
-import com.example.liangge.indiana.model.BannerInfo;
-
-import java.util.List;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.liangge.indiana.comm.Constant;
+import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.comm.net.JsonStringRequest;
+import com.example.liangge.indiana.comm.net.VolleyBiz;
+import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.model.UIMessageEntity;
+import com.google.gson.Gson;
 
 /**
  * 商品详细Biz
@@ -13,64 +22,30 @@ import java.util.List;
 public class DetailInfoBiz {
 
 
+    private static final String TAG = DetailInfoBiz.class.getSimpleName();
+
     private static DetailInfoBiz mInstance;
 
     private static Context mContext;
 
+    private MessageManager mMessageManager;
+
+    private VolleyBiz mVolleyBiz;
+
+    private SlaveLoadDetailInfoThread mSlaveLoadDetailInfoThread;
+
     /**
      * 请求字段
      */
-    private static class RequestField {
+    private static class RequestInfo {
         /** 活动期次 */
         public static long lActivityId;
 
 
     }
 
-
-
-    /**
-     * 数据信息
-     */
     private static class DataInfo {
-
-        /** 奖品图片轮播数据 */
-        public List<BannerInfo> listBannerInfo;
-
-        /** 进度提示代码 */
-        public int processHintCode;
-
-        /** 进度提示（进行中/揭晓中/已揭晓）*/
-        public String processHint;
-
-        /** 活动产品标题描述 */
-        public String activityProductTitle;
-
-        /** 总需人次 */
-        public int needPeopleTimes;
-
-        /** 参与购买人次 */
-        public int buyJoinTimes;
-
-        /** 剩余人次 */
-        public int lackTimes;
-
-        /** 获奖用户 */
-        public String luckyDog;
-
-        /** 用户地址 */
-        public String userAddress;
-
-        /** 获奖用户参与次数*/
-        public int luckDogBuyCnt;
-
-        /** 开奖时间 */
-        public String sRunLottoryTime;
-
-        /** 幸运号码 */
-        public String luckyNumber;
-
-
+        public static ActivityProductDetailInfoEntity activityProductItemEntity;
     }
 
 
@@ -78,6 +53,9 @@ public class DetailInfoBiz {
 
     private DetailInfoBiz(Context context) {
         this.mContext = context;
+        mMessageManager = MessageManager.getInstance(context);
+        mVolleyBiz = VolleyBiz.getInstance();
+        mSlaveLoadDetailInfoThread = new SlaveLoadDetailInfoThread();
     }
 
 
@@ -89,13 +67,95 @@ public class DetailInfoBiz {
         return mInstance;
     }
 
+    /**
+     * 返回数据实体
+     * @return
+     */
+    public ActivityProductDetailInfoEntity getDetailEntity() {
+        return DataInfo.activityProductItemEntity;
+    }
 
 
+    /**
+     * 设置活动期次
+     */
+    public void setActivityId(long activityId) {
+        LogUtils.i(TAG,"activityId=%d", activityId);
+        RequestInfo.lActivityId = activityId;
+
+    }
 
 
+    private void loadDetailInfo() {
+        if (!mSlaveLoadDetailInfoThread.isWorking()) {
+            mSlaveLoadDetailInfoThread = new SlaveLoadDetailInfoThread();
+            mSlaveLoadDetailInfoThread.start();
+        }
+
+    }
 
 
+    private class SlaveLoadDetailInfoThread extends Thread {
 
+        private static final String REQUEST_TAG = "SlaveLoadDetailInfoThread";
+
+        private boolean bIsWorking = false;
+
+        @Override
+        public void run() {
+            super.run();
+            notifyStart();
+            String jsonData = getJsonBody();
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_ACTIVITY_DETAIL_INFO, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    LogUtils.i(TAG, "inResponse=%s", s);
+                    Gson gson = new Gson();
+                    DataInfo.activityProductItemEntity = gson.fromJson(s, ActivityProductDetailInfoEntity.class);
+                    notifySuccess();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    LogUtils.e(TAG, "volleryError=%s", volleyError.getLocalizedMessage());
+                    notifyFail();
+                }
+            }, jsonData);
+
+            request.setTag(REQUEST_TAG);
+            mVolleyBiz.addRequest(request);
+        }
+
+        private String getJsonBody() {
+            String jsonBody = String.format("{\"issue_id\":%d}", RequestInfo.lActivityId);
+            return jsonBody;
+        }
+
+        private void notifyStart() {
+            this.bIsWorking = true;
+            UIMessageEntity item = new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_START);
+            mMessageManager.sendMessage(item);
+        }
+
+        private void notifyFail() {
+            this.bIsWorking = false;
+            UIMessageEntity item = new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_FAILED);
+            mMessageManager.sendMessage(item);
+        }
+
+        private void notifySuccess() {
+            this.bIsWorking = false;
+            UIMessageEntity item = new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_SUCCEED);
+            mMessageManager.sendMessage(item);
+        }
+
+        /** 是否还在工作 */
+        public boolean isWorking() {
+            return this.bIsWorking;
+        }
+
+
+    }
 
 
 
@@ -104,7 +164,7 @@ public class DetailInfoBiz {
     }
 
     public void onResume() {
-
+        loadDetailInfo();
     }
 
 

@@ -9,6 +9,7 @@ public class BannerInfo {
     /** 图片地址 */
     private String imgUrl;
 
+
     public String getImgUrl() {
         return imgUrl;
     }
@@ -17,6 +18,12 @@ public class BannerInfo {
         this.imgUrl = imgUrl;
     }
 
+    public BannerInfo() {
+    }
+
+    public BannerInfo(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     @Override
     public String toString() {
