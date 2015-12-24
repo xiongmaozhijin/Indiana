@@ -48,6 +48,7 @@
 
                     <!-- 产品展示或正在加载 -->
                     <FrameLayout
+                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 

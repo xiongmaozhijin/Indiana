@@ -2,14 +2,20 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.comm.net.JsonStringRequest;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.ls.LSOutput;
 
@@ -64,9 +70,9 @@ public class IndianaBiz extends BaseFragmentBiz{
         public static String iCurTag = Constant.IndianaFragment.TAG_HOTS;
 
         /** 当前的页码 */
-        public static int iCurPage = 0;
+        public static int iCurPage = 1;
 
-
+        public static boolean bIsLoadMore = false;
 
     }
 
@@ -97,15 +103,31 @@ public class IndianaBiz extends BaseFragmentBiz{
     //TODO
 
     /**
-     * 加载活动信息
+     * 加载活动标签信息/及加载更多
      * @param tag   标签页
-     * @param loadMore  是否加载更多; true:加载更多；false:重新加载
      */
-    public void loadActivityProductInfo(String tag, boolean loadMore) {
-        LogUtils.w(TAG, "loadActivityProductInfo().tag=%s", tag);
+    public void loadActivityProductInfo(String tag, boolean isLoadMore) {
+        LogUtils.w(TAG, "loadActivityProductInfo().tag=%s, isLoadMore=%b", tag, isLoadMore);
 //        loadProductTest();
-        mVolleyBiz.cancelAll();
-        
+
+        RequestInfo.bIsLoadMore = isLoadMore;
+
+        if (isLoadMore) {
+            if (!mSlaveLoadActivityProductInfoThread.isWorking()) {
+                RequestInfo.iCurPage++;
+                mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
+                mSlaveLoadActivityProductInfoThread.start();
+            }
+
+        } else {
+            RequestInfo.iCurTag = tag;
+            RequestInfo.iCurPage = 1;
+            mSlaveLoadActivityProductInfoThread.cancelNetRequest();
+            mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
+            mSlaveLoadActivityProductInfoThread.start();
+
+        }
+
     }
 
     /**
@@ -113,16 +135,109 @@ public class IndianaBiz extends BaseFragmentBiz{
      */
     private class SlaveLoadActivityProductInfoThread extends Thread {
 
-        public static final String REQUEST_TAG = "SlaveLoadActivityProductInfoThread";
+        /** 请求TAG，用于取消 */
+        private static final String REQUEST_TAG = "SlaveLoadActivityProductInfoThread";
+
+        private boolean bIsWorking = false;
 
         @Override
         public void run() {
             super.run();
+            LogUtils.w(TAG, "SlaveLoadActivityProductInfoThread#run()");
+            notifyStart();
 
+            String jsonBody = getJsonBody();
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_GOODS_API, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String s) {
+                    LogUtils.i(TAG, "onResposne().s=%s", s);
+
+                    Gson gson = new Gson();
+                    mListProducts = gson.fromJson(s, new TypeToken<List<ActivityProductItemEntity>>(){}.getType());
+
+                    notifySuccess();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    LogUtils.e(TAG, "volleyError=%s", volleyError.toString());
+
+                    notifyFail();
+                }
+            }, jsonBody);
+
+            request.setTag(REQUEST_TAG);
+            mVolleyBiz.addRequest(request);
+
+        }   //end run
+
+        private String getJsonBody() {
+           return String.format("{\"type\":\"%s\", \"page\":%d}", RequestInfo.iCurTag, RequestInfo.iCurPage);
+        }
+
+
+        /**
+         * 取消网络请求
+         */
+        public void cancelNetRequest() {
+            mVolleyBiz.cancelAll(REQUEST_TAG);
 
         }
 
+        private void notifyStart() {
+            this.bIsWorking = true;
+
+            UIMessageEntity item = new UIMessageEntity();
+            if (RequestInfo.bIsLoadMore) {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START);
+
+            } else {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START);
+            }
+            mMessageManager.sendMessage(item);
+        }
+
+        private void notifyFail() {
+            this.bIsWorking = false;
+
+            UIMessageEntity item =  new UIMessageEntity();
+            if (RequestInfo.bIsLoadMore) {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL);
+
+            } else {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL);
+            }
+
+            mMessageManager.sendMessage(item);
+        }
+
+        private void notifySuccess() {
+            this.bIsWorking = false;
+
+            UIMessageEntity item = new UIMessageEntity();
+            if (RequestInfo.bIsLoadMore) {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS);
+
+            } else {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS);
+
+            }
+
+            mMessageManager.sendMessage(item);
+        }
+
+        /**
+         * 是否还在工作
+         * @return
+         */
+        public boolean isWorking() {
+            return this.bIsWorking;
+        }
+
     }
+
+
+
 
 
     /**

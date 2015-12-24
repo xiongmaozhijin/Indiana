@@ -17,6 +17,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
@@ -375,6 +376,7 @@ public class IndianaFragment extends BaseFragment {
      */
     public void onBtnHots() {
         LogUtils.w(TAG, "onBtnHots()");
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_HOTS, false);
     }
 
     /**
@@ -382,6 +384,7 @@ public class IndianaFragment extends BaseFragment {
      */
     public void onBtnLatest() {
         LogUtils.w(TAG, "onBtnLatest()");
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_NEWS, false);
     }
 
     /**
@@ -389,6 +392,7 @@ public class IndianaFragment extends BaseFragment {
      */
     public void onBtnSchedule() {
         LogUtils.w(TAG, "onBtnSchedule()");
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_PROGRESS, false);
 
     }
 
@@ -397,6 +401,7 @@ public class IndianaFragment extends BaseFragment {
      */
     public void onBtnNeed() {
         LogUtils.w(TAG, "onBtnNeed()");
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_SHARE, false);
     }
 
     /**

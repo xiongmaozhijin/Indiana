@@ -38,7 +38,12 @@ public class UIMessageConts {
 
         public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS = "m_log_tag_activity_product_info_success";
 
+        /** 开始加载相应分标签<b>更多</b>的数据 */
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START = "m_log_tag_activity_product_info_start";
 
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL = "m_log_tag_activity_product_info_fail";
+
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS = "m_log_tag_activity_product_info_success";
 
 
     }

@@ -22,8 +22,25 @@ public class Constant {
         /** 最新 */
         public static final String TAG_NEWS = "new";
 
-        /** 进度 */
+        /** 总需 */
         public static final String TAG_SHARE = "share";
+
+        /** 进度 */
+        public static final String TAG_PROGRESS = "progress";
+
+
+
+    }
+
+
+    public interface WebServiceAPI {
+
+        /** 夺宝页活动详情 */
+        public static final String INDIANA_GOODS_API = "http://192.168.1.199/index.php/Admin/Api/goodslist";
+
+
+
+
 
 
 
