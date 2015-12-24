@@ -28,6 +28,24 @@ public class PersonalCenterBiz {
         return mInstance;
     }
 
+
+    private static class DataInfo {
+        /** 账户金额 */
+        public static int accountGold;
+
+    }
+
+
+    /**
+     * 获取账号的金额
+     * @return
+     */
+    public int getAccountGold() {
+        return DataInfo.accountGold;
+    }
+
+
+
     /**
      * 用户是否登录了
      * @return

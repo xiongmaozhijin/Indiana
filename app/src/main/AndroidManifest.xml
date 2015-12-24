@@ -40,6 +40,12 @@
         </activity>
         <activity android:name=".ui.LogSignInActivity" >
         </activity>
+        <activity android:name=".ui.InventoryPayActivity" >
+        </activity>
+        <activity android:name=".ui.test.VolleyPostJsonActivityTest" >
+        </activity>
+        <activity android:name=".ui.WebViewActivity" >
+        </activity>
     </application>
 
 </manifest>

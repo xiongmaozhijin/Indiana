@@ -16,6 +16,7 @@ public class UIMessageConts {
     }
 
     public interface IndianaMessage {
+
         /** 正在加载轮播图片 */
         public static final String MESSAGE_LOADING_BANNER = "message_indiannamessage_loading_banner";
 
@@ -29,6 +30,13 @@ public class UIMessageConts {
         public static final String MESSAGE_LOAD_PRODUCT_DATA_FAIL = "message_indiannamessage_loading_product_fail";
 
         public static final String MESSAGE_LOAD_PRODUCT_DATA_SUCCESS = "message_indianamessage_loading_product_successd";
+
+        /** 开始加载子分标签的数据 */
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START = "m_log_category_activity_product_info_start";
+
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL = "m_log_category_activity_product_info_fail";
+
+        public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS = "m_log_category_activity_product_info_success";
 
 
 
@@ -122,6 +130,19 @@ public class UIMessageConts {
     }
 
 
+    /**
+     *  订单支付
+     */
+    public interface InventoryPay {
+
+        /** 初始化订单信息 */
+        public static final String M_INIT_INVENTORY_INFO = "m_init_inventory_info";
+
+
+
+
+
+    }
 
 
 

@@ -16,6 +16,9 @@ public class InventoryEntity {
     /** 清单图片地址 */
     private String invertoryImgUrl;
 
+    /** 标题名字 */
+    private String titleName;
+
     /** 清单标题描述 */
     private String titleDescribe;
 
@@ -29,13 +32,22 @@ public class InventoryEntity {
     private int buyCounts;
 
 
-    public InventoryEntity(long productId, String invertoryImgUrl, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
+    public InventoryEntity(long productId, String invertoryImgUrl, String titleName, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
         this.productId = productId;
         this.invertoryImgUrl = invertoryImgUrl;
+        this.titleName = titleName;
         this.titleDescribe = titleDescribe;
         this.needPeopleCounts = needPeopleCounts;
         this.lackPeopleCounts = lackPeopleCounts;
         this.buyCounts = buyCounts;
+    }
+
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
     }
 
     public int getBuyCounts() {

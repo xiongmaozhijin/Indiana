@@ -14,7 +14,7 @@ public class ActivityProductItemEntity {
     /** 产品展示图片 */
     private String productImgUrl;
 
-    /** 产品名字 */
+    /** 产品名字标题 */
     private String name;
 
     /** 清单标题描述 */
@@ -31,6 +31,10 @@ public class ActivityProductItemEntity {
 
     /** 剩余人数 */
     private int lackPeople;
+
+
+    public ActivityProductItemEntity() {
+    }
 
     public ActivityProductItemEntity(long activityId, String productImgUrl, String name, String tilteDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
         this.activityId = activityId;

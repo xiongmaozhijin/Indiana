@@ -59,5 +59,8 @@
     <string name="activity_logsignin_protocol">《夺宝协议》</string>
     <string name="activity_logsignin_btn_signin">一键注册</string>
     <string name="f_personal_personinfo">个人信息</string>
+    <string name="activity_inventorypay_title">订单支付</string>
+    <string name="activity_inventorypay_productcount">商品合计</string>
+    <string name="title_activity_base">BaseActivity</string>
 
 </resources>

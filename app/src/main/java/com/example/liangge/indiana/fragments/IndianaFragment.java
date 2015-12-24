@@ -155,7 +155,7 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onScrollBottom() {
                 LogUtils.w(TAG, "onScrollBottom()");
-                mIndianaBiz.loadProduct();
+                mIndianaBiz.loadActivityProductInfo();
             }
         });
 

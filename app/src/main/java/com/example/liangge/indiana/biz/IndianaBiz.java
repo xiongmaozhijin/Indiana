@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by baoxing on 2015/12/15.
  */
-public class IndianaBiz {
+public class IndianaBiz extends BaseFragmentBiz{
 
     private static final String TAG = IndianaBiz.class.getSimpleName();
 
@@ -37,6 +37,25 @@ public class IndianaBiz {
         mMessageManager = MessageManager.getInstance(context);
     }
 
+    /**
+     * 要保存的一些数据
+     */
+    private static class DataInfo {
+
+    }
+
+    /**
+     * 进行请求的相关信息
+     */
+    private static class RequestInfo {
+
+    }
+
+
+
+
+
+
     public static synchronized IndianaBiz getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new IndianaBiz(context);
@@ -45,36 +64,27 @@ public class IndianaBiz {
         return mInstance;
     }
 
-    /**
-     * 做一些初始化的工作，比如检查网络，或者从本地取数据
-     */
-    public void init() {
-        LogUtils.i(TAG, "init()");
-        boolean bIsNetOK = NetworkUtils.isNetworkConnected(mContext.getApplicationContext());
-
-        if (!bIsNetOK) {
-            String strAction = UIMessageConts.CommResponse.MESSAGE_COMM_NO_NETWORK;
-            UIMessageEntity info = new UIMessageEntity();
-            info.setMessageAction(strAction);
-            mMessageManager.sendMessage(info);
-
-        } else {
-            loadBanner();
-            loadProduct();
-        }
-    }
 
     /**
-     * 加载产品
+     * 加载活动产品信息
      */
-    public void loadProduct() {
-        LogUtils.i(TAG, "loadProduct()");
+    public void loadActivityProductInfo() {
+        LogUtils.i(TAG, "loadActivityProductInfo()");
         String strAction = UIMessageConts.IndianaMessage.MESSAGE_LOADING_PRODUCT_DATA;
         UIMessageEntity info = new UIMessageEntity();
         info.setMessageAction(strAction);
         mMessageManager.sendMessage(info);
         loadProductTest();
     }
+
+
+    /**
+     * 加载活动产品信息
+     */
+    private class SlaveLoadActivityProductInfoThread extends Thread {
+
+    }
+
 
     /**
      * @deprecated
@@ -181,4 +191,38 @@ public class IndianaBiz {
 
     }
 
+    @Override
+    public void onViewCreated() {
+
+    }
+
+    //做一些初始化的工作，比如检查网络，或者取数据
+    @Override
+    public void onFirstEnter() {
+        LogUtils.i(TAG, "onFirstEnter()");
+        boolean bIsNetOK = NetworkUtils.isNetworkConnected(mContext.getApplicationContext());
+
+        if (!bIsNetOK) {
+            String strAction = UIMessageConts.CommResponse.MESSAGE_COMM_NO_NETWORK;
+            UIMessageEntity info = new UIMessageEntity();
+            info.setMessageAction(strAction);
+            mMessageManager.sendMessage(info);
+
+        } else {
+            loadBanner();
+            loadActivityProductInfo();
+
+        }
+
+    }
+
+    @Override
+    public void onEnter() {
+
+    }
+
+    @Override
+    public void onLeave() {
+
+    }
 }

@@ -19,7 +19,14 @@ public class MyClass {
 //        gerationListLatest();
 //        gerationActivityEntity();
 
-        gerationProductDetailInfo();
+//        gerationProductDetailInfo();
+
+    }
+
+
+
+    private static void sendPostJson() {
+
     }
 
 
@@ -112,6 +119,9 @@ public class MyClass {
 
         System.out.println(json);
     }
+
+    
+
 
 
 
