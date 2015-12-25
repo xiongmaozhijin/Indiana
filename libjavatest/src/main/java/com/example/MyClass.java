@@ -3,6 +3,7 @@ package com.example;
 import com.example.model.ActivityProductDetailInfoEntity;
 import com.example.model.ActivityProductItemEntity;
 import com.example.model.BannerInfo;
+import com.example.model.BingoRecordEntity;
 import com.example.model.IndianaRecordEntity;
 import com.example.model.LastestBingoEntity;
 import com.google.gson.Gson;
@@ -26,8 +27,23 @@ public class MyClass {
 
 //        gerationIndianaRecordInfo();
 
-        dump();
+//        dump();
 
+        gerationBingoRecordInfo();
+
+    }
+
+    private static void gerationBingoRecordInfo() {
+        BingoRecordEntity item1 = new BingoRecordEntity(312, "imgUrl1", "title", "tilteDesc", 321, 0, 21, "123", "123", 23213123);
+        BingoRecordEntity item2 = new BingoRecordEntity(312, "imgUrl1", "title", "tilteDesc", 321, 0, 21, "123", "123", 23213123);
+        List<BingoRecordEntity> list = new ArrayList<>();
+        list.add(item1);
+        list.add(item2);
+
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(list);
+
+        System.out.println(jsonData);
     }
 
     private static void dump() {
@@ -149,12 +165,5 @@ public class MyClass {
 
         System.out.println(json);
     }
-
-    
-
-
-
-
-
 
 }

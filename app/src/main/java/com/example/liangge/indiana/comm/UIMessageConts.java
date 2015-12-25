@@ -173,7 +173,22 @@ public class UIMessageConts {
 
     }
 
+    /**
+     * 中奖记录
+     */
+    public interface BingoRecord {
 
+        /** 重新加载/初始化加载 开始 */
+        public static final String M_RELOAD_START = "m_reload_start";
+        public static final String M_RELOAD_SUCCESS = "m_reload_success";
+        public static final String M_RELOAD_FAIL = "m_reload_fail";
+
+        /** 加载更多 开始 */
+        public static final String M_RELOAD_START_MORE = "m_reload_start_more";
+        public static final String M_RELOAD_SUCCESS_MORE = "m_reload_success_more";
+        public static final String M_RELOAD_FAIL_MORE = "m_reload_fail_more";
+
+    }
 
 
 }
