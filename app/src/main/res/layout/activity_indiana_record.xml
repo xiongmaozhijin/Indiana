@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.liangge.indiana.ui.user.IndianaRecordActivity">
+
+    <!-- Titlebar-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@android:color/holo_red_dark">
+
+        <ImageButton
+            android:id="@+id/activity_indianrecord_btn_back"
+            android:onClick="onBtnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/selector_f_shopping_btn_pay"
+            android:src="@android:drawable/ic_menu_revert"/>
+
+        <TextView
+            android:id="@+id/main_titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_indianrecord_titlebar_title"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- 标签 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:onClick="onBtnTagAll"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    style="@style/indianarecord_category_item"
+                    android:text="@string/activity_indiana_record_tag_all"/>
+
+                <RadioButton
+                    android:onClick="onBtnTagIng"
+                    android:layout_width="0dp"
+                    style="@style/indianarecord_category_item"
+                    android:layout_height="match_parent"
+                    android:text="@string/activity_indiana_record_run_ing"/>
+
+                <RadioButton
+                    android:onClick="onBtnDone"
+                    android:layout_width="0dp"
+                    style="@style/indianarecord_category_item"
+                    android:layout_height="match_parent"
+                    android:text="@string/activity_indianarecord_tag_run_done"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <com.example.liangge.indiana.ui.widget.ExScrollView
+            android:id="@+id/activity_indianarecord_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray">
+
+        <!-- 内容 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/layout_not_network" android:id="@+id/activity_indianarecord_net_wrapper" />
+
+            <FrameLayout
+                android:id="@+id/activity_indianarecord_tagcontent_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.example.liangge.indiana.ui.widget.ExListView
+                    android:id="@+id/activity_indianarecord_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dividerHeight="1dp">
+
+                </com.example.liangge.indiana.ui.widget.ExListView>
+
+            </FrameLayout>
+
+
+
+
+        </FrameLayout>
+
+
+        </com.example.liangge.indiana.ui.widget.ExScrollView>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

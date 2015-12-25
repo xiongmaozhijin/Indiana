@@ -10,6 +10,7 @@ public class UIMessageConts {
     public static final String UI_MESSAGE_KEY = "com.example.liangge.indiana.ui_message_key";
 
     public interface CommResponse {
+
         /** 没有网络，没有连接网络 */
         public static final String MESSAGE_COMM_NO_NETWORK = "message_comm_no_network";
 
@@ -153,13 +154,24 @@ public class UIMessageConts {
         /** 初始化订单信息 */
         public static final String M_INIT_INVENTORY_INFO = "m_init_inventory_info";
 
-
-
-
-
     }
 
+    /**
+     * 夺宝记录
+     */
+    public interface IndianaRecord {
 
+        /** 重新加载/初始化加载 开始 */
+        public static final String M_RELOAD_START = "m_reload_start";
+        public static final String M_RELOAD_SUCCESS = "m_reload_success";
+        public static final String M_RELOAD_FAIL = "m_reload_fail";
+
+        /** 加载更多 开始 */
+        public static final String M_RELOAD_START_MORE = "m_reload_start_more";
+        public static final String M_RELOAD_SUCCESS_MORE = "m_reload_success_more";
+        public static final String M_RELOAD_FAIL_MORE = "m_reload_fail_more";
+
+    }
 
 
 

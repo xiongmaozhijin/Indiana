@@ -46,6 +46,8 @@
         </activity>
         <activity android:name=".ui.WebViewActivity" >
         </activity>
+        <activity android:name=".ui.user.IndianaRecordActivity" >
+        </activity>
     </application>
 
 </manifest>

@@ -34,6 +34,17 @@
         <item name="android:layout_weight">1</item>
     </style>
 
+
+    <!-- indiana record item -->
+    <style name="indianarecord_category_item">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@drawable/selector_f_indiana_text_color</item>
+        <item name="android:checkable">true</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
     <style name="latest_item_bingo_info">
         <item name="android:textColor">@android:color/darker_gray</item>
     </style>
