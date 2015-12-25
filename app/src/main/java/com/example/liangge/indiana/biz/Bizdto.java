@@ -19,7 +19,7 @@ public class Bizdto {
     public static InventoryEntity changeToInventory(ActivityProductItemEntity activityProductItemEntity, int buyCnt) {
         InventoryEntity item = new InventoryEntity(activityProductItemEntity.getActivityId(), activityProductItemEntity.getProductImgUrl(),
                                                         activityProductItemEntity.getName(),
-                                                        activityProductItemEntity.getTilteDesc(),
+                                                        activityProductItemEntity.getTitleDesc(),
                                                         activityProductItemEntity.getNeedPeople(), activityProductItemEntity.getLackPeople(), buyCnt);
 
         return item;

@@ -17,8 +17,6 @@ import com.example.liangge.indiana.model.UIMessageEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +145,7 @@ public class IndianaBiz extends BaseFragmentBiz{
             notifyStart();
 
             String jsonBody = getJsonBody();
-            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_GOODS_API, new Response.Listener<String>() {
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_GOODS_LIST_API, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
                     LogUtils.i(TAG, "onResposne().s=%s", s);

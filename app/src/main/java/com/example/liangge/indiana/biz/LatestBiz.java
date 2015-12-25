@@ -276,7 +276,7 @@ public class LatestBiz extends BaseFragmentBiz{
             super.run();
             String jsonData = getJsonBody();
 
-            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, "url", new Response.Listener<String>() {
+            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.LATEST_PRODUCT_INFO, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
                     LogUtils.i(TAG, "onRsponse=%s", s);
@@ -294,8 +294,9 @@ public class LatestBiz extends BaseFragmentBiz{
         }
 
         private String getJsonBody() {
-            //使用传进的实体期次id构造请求格式
-            return "";
+            //使用传进的实体期次id构造请求格式 TODO
+            String jsonData = String.format("{\"activityId\":[%d], \"page\":%d}", this.mUpdateEntity.getActivityId(), 1);
+            return jsonData;
         }
 
         /**

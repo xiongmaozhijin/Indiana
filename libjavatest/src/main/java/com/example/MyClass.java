@@ -3,6 +3,7 @@ package com.example;
 import com.example.model.ActivityProductDetailInfoEntity;
 import com.example.model.ActivityProductItemEntity;
 import com.example.model.BannerInfo;
+import com.example.model.IndianaRecordEntity;
 import com.example.model.LastestBingoEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -21,10 +22,33 @@ public class MyClass {
 
 //        gerationProductDetailInfo();
 
-        gerationProductDetailInfo();
+//        gerationProductDetailInfo();
+
+//        gerationIndianaRecordInfo();
+
+        dump();
 
     }
 
+    private static void dump() {
+        int[] temp = {1, 2, 4};
+        Gson gson = new Gson();
+
+        System.out.println(gson.toJson(temp));
+    }
+
+    private static void gerationIndianaRecordInfo() {
+        IndianaRecordEntity item1 = new IndianaRecordEntity(2213, 1, "imgUrl", "titleDesc1", "23132", 213, 21, 21, 12, "23123", "libai", 2, "32432", 21323132);
+        IndianaRecordEntity item2 = new IndianaRecordEntity(2213, 1, "imgUrl", "titleDesc1", "23132", 213, 21, 21, 12, "23123", "libai", 2, "32432", 21323132);
+        List<IndianaRecordEntity> list = new ArrayList<>();
+        list.add(item1);
+        list.add(item2);
+
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(list);
+
+        System.out.println(jsonData);
+    }
 
 
     private static void sendPostJson() {

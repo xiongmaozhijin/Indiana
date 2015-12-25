@@ -17,6 +17,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.LogSignInActivity;
+import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -200,7 +201,8 @@ public class PersonalCenterFragment extends BaseFragment {
     //夺宝记录
     public void onBtnIndianaRecord() {
         if (judgeLoginOrStartActivity()) {
-
+            Intent intent = new Intent(getActivity(), IndianaRecordActivity.class);
+            startActivity(intent);
         }
     }
 

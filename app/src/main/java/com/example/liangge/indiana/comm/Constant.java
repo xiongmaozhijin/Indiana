@@ -32,11 +32,17 @@ public class Constant {
 
     }
 
+    public interface IndianaRecord {
+        public static final String TAG_ALL = "tag_all";
+        public static final String TAG_ING = "tag_ing";
+        public static final String TAG_DONE = "tag_done";
+    }
+
 
     public interface WebServiceAPI {
 
         /** 夺宝页活动详情 */
-        public static final String INDIANA_GOODS_API = "http://192.168.1.199/index.php/Admin/Api/goodslist";
+        public static final String INDIANA_GOODS_LIST_API = "http://192.168.1.199/index.php/Admin/Api/goodslist";
 
         /** 产品活动详情 */
         public static final String INDIANA_ACTIVITY_DETAIL_INFO = "http://192.168.1.199/index.php/Admin/Api/goodsdetail";

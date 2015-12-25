@@ -6,13 +6,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.daoimpl.DBManager;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.JsonStringRequest;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.InventoryEntity;
-import com.example.liangge.indiana.model.LastestBingoEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -351,41 +351,87 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         @Override
         public void run() {
             super.run();
-            notifyStart();
-            final List<Order> queryList = getQueryList();
-            String jsonData = getJsonBody(queryList);
+//            final List<Order> queryList = getQueryList();
+            final List<Order> queryList = getAllOrderList();
 
-            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, "url", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String s) {
-                    Gson gson = new Gson();
-                    List<ActivityProductItemEntity> list = gson.fromJson(s, new TypeToken<List<ActivityProductItemEntity>>(){}.getType());
-                    mListInventorys = Bizdto.changeToInventory(list, queryList);
-                    notifySuccess();
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    LogUtils.e(TAG, "volleyError=%s", volleyError.getLocalizedMessage());
-                    notifyFail();
+            LogUtils.e(TAG, "queryList.size=%d", queryList.size());
 
-                }
-            }, jsonData);
+            if (queryList.size() > 0) {
+                notifyStart();
 
-            request.setTag(REQUEST_TAG);
-            mVolleyBiz.addRequest(request);
+                String jsonData = getJsonBody(queryList);
+
+                JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_GOODS_LIST_API, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        LogUtils.w(TAG, "onResponse=%s", s);
+                        Gson gson = new Gson();
+                        List<ActivityProductItemEntity> responseList = gson.fromJson(s, new TypeToken<List<ActivityProductItemEntity>>(){}.getType());
+                        List<InventoryEntity> newRequestList = Bizdto.changeToInventory(responseList, queryList);
+                        //TODO
+                        mListInventorys = newRequestList;
+                        notifySuccess();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        LogUtils.e(TAG, "volleyError=%s", volleyError.getLocalizedMessage());
+                        notifyFail();
+
+                    }
+                }, jsonData);
+
+                request.setTag(REQUEST_TAG);
+                mVolleyBiz.addRequest(request);
+
+            }
+
+
         }
+
+        /**
+         * 更新内存中的数据
+         * @param newLatestData
+         */
+        private void updateDataLists(List<InventoryEntity> newLatestData) {
+
+        }
+
+
 
         private String getJsonBody(List<Order> queryList) {
-            //TODO
-            return "";
+            long[] qInts = new long[queryList.size()];
+
+            Order item;
+            for (int i=0, len=queryList.size(); i<len; i++) {
+                item = queryList.get(i);
+
+                qInts[i] = item.getProductId();
+            }
+
+            String jsonDataArr = new Gson().toJson(qInts);
+            String jsonData = String.format("{\"activityId\":%s}", jsonDataArr);
+
+            LogUtils.w(TAG, "getJsonBody(). return=%s", jsonData);
+
+            return jsonData;
         }
 
+        /**
+         * @deprecated
+         *
+         * @return
+         */
         private List<Order> getQueryList() {
             List<Order> allDatas = mDBManager.selectAllOrder();
             List<Order> queryDatas = getDiffDatas(mListInventorys, allDatas);
 
             return queryDatas;
+        }
+
+        private List<Order> getAllOrderList() {
+            List<Order> allDatas = mDBManager.selectAllOrder();
+            return allDatas;
         }
 
         private void notifyStart() {
@@ -395,6 +441,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
             sendMsg(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
             notifyOrderDatas();
         }
+
         private void notifyFail() {
             sendMsg(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_FAILED);
         }

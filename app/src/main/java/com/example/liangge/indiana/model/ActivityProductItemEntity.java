@@ -18,7 +18,7 @@ public class ActivityProductItemEntity {
     private String name;
 
     /** 清单标题描述 */
-    private String tilteDesc;
+    private String titleDesc;
 
     /** 开奖进度 */
     private int bingoProgress;
@@ -36,11 +36,11 @@ public class ActivityProductItemEntity {
     public ActivityProductItemEntity() {
     }
 
-    public ActivityProductItemEntity(long activityId, String productImgUrl, String name, String tilteDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
+    public ActivityProductItemEntity(long activityId, String productImgUrl, String name, String titleDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
         this.activityId = activityId;
         this.productImgUrl = productImgUrl;
         this.name = name;
-        this.tilteDesc = tilteDesc;
+        this.titleDesc = titleDesc;
         this.bingoProgress = bingoProgress;
         this.strBingoProgress = strBingoProgress;
         this.needPeople = needPeople;
@@ -101,12 +101,12 @@ public class ActivityProductItemEntity {
         this.activityId = activityId;
     }
 
-    public String getTilteDesc() {
-        return tilteDesc;
+    public String getTitleDesc() {
+        return titleDesc;
     }
 
-    public void setTilteDesc(String tilteDesc) {
-        this.tilteDesc = tilteDesc;
+    public void setTitleDesc(String titleDesc) {
+        this.titleDesc = titleDesc;
     }
 
     public int getNeedPeople() {
@@ -132,7 +132,7 @@ public class ActivityProductItemEntity {
                 "activityId=" + activityId +
                 ", productImgUrl='" + productImgUrl + '\'' +
                 ", name='" + name + '\'' +
-                ", tilteDesc='" + tilteDesc + '\'' +
+                ", titleDesc='" + titleDesc + '\'' +
                 ", bingoProgress=" + bingoProgress +
                 ", strBingoProgress='" + strBingoProgress + '\'' +
                 ", needPeople=" + needPeople +

@@ -53,6 +53,7 @@
 
                 <RadioButton
                     android:onClick="onBtnTagAll"
+                    android:checked="true"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     style="@style/indianarecord_category_item"

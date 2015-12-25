@@ -14,12 +14,13 @@ public abstract class NetRequestThread extends Thread{
 
     private VolleyBiz mVolleyBiz;
 
-    private boolean mIsLoadMore = false;
+
+    /** 是否正在工作 */
+    private boolean mIsWorking = false;
 
     public NetRequestThread() {
         REQUEST_TAG = getRequestTag();
         mVolleyBiz = VolleyBiz.getInstance();
-        mIsLoadMore  = isLoadMore();
 
     }
 
@@ -52,19 +53,23 @@ public abstract class NetRequestThread extends Thread{
 
 
     public void cancelAll() {
-
+        mVolleyBiz.cancelAll(REQUEST_TAG);
     }
 
-    private void notifyStart() {
-
+    public boolean isWorking() {
+        return this.mIsWorking;
     }
 
-    private void notifySuccess() {
-
+    protected void notifyStart() {
+        this.mIsWorking = true;
     }
 
-    private void notifyFail() {
+    protected void notifySuccess() {
+        this.mIsWorking = false;
+    }
 
+    protected void notifyFail() {
+        this.mIsWorking = false;
     }
 
     protected abstract String getJsonBody();
@@ -74,10 +79,6 @@ public abstract class NetRequestThread extends Thread{
     protected abstract void onResponseErrorListener(VolleyError volleyError);
 
     protected abstract String getRequestTag();
-
-    protected abstract boolean isLoadMore();
-
-    protected abstract int startPage();
 
     protected abstract String getWebServiceAPI();
 

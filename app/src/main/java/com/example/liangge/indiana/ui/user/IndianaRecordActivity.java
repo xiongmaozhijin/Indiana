@@ -14,6 +14,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.user.IndianaRecordListViewAdapter;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.user.IndianaRecordBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
@@ -50,6 +51,12 @@ public class IndianaRecordActivity extends BaseActivity2 {
 
         initView();
         initManager();
+
+        initOnCreate();
+    }
+
+    private void initOnCreate() {
+        mIndianaRecordBiz.onCreate();
     }
 
     private void initView() {
@@ -138,19 +145,19 @@ public class IndianaRecordActivity extends BaseActivity2 {
     //全部
     public void onBtnTagAll(View view) {
         LogUtils.i(TAG, "onBtnTagAll()");
-
+        mIndianaRecordBiz.loadIndianaRecord(Constant.IndianaRecord.TAG_ALL, false);
     }
 
     //进行中
     public void onBtnTagIng(View view) {
         LogUtils.i(TAG, "onBtnTagIng");
-
+        mIndianaRecordBiz.loadIndianaRecord(Constant.IndianaRecord.TAG_ING, false);
     }
 
     //已揭晓
     public void onBtnDone(View view) {
         LogUtils.i(TAG, "onBtnDone()");
-
+        mIndianaRecordBiz.loadIndianaRecord(Constant.IndianaRecord.TAG_DONE, false);
     }
 
 
