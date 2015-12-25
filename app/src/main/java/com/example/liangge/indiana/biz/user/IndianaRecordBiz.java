@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.BaseActivityBiz;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.MessageManager;
+import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
@@ -35,6 +36,8 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
     private MessageManager mMessageManager;
 
+    private PersonalCenterBiz mPersonalCenterBiz;
+
     private SlaveLoadIndianaRecordInfThread mSlaveLoadIndianaRecordInfThread;
 
 
@@ -62,6 +65,7 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
     private void initManager(Context context) {
         mMessageManager = MessageManager.getInstance(context);
+        mPersonalCenterBiz = PersonalCenterBiz.getInstance(context);
         mSlaveLoadIndianaRecordInfThread = new SlaveLoadIndianaRecordInfThread();
 
     }
@@ -77,7 +81,10 @@ public class IndianaRecordBiz extends BaseActivityBiz {
     }
 
 
-
+    /**
+     * 返回参与记录数据
+     * @return
+     */
     public List<IndianaRecordEntity> getData() {
         return DataInfo.mListData;
     }
@@ -163,7 +170,8 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
         @Override
         protected String getJsonBody() {
-            return "";
+            String jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, mPersonalCenterBiz.getUserID(), RequestInfo.iStartPage);
+            return jsonData;
         }
 
         @Override
@@ -185,7 +193,7 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
         @Override
         protected String getWebServiceAPI() {
-            return "";
+            return Constant.WebServiceAPI.PLAY_INDIANA_RECORD;
         }
 
     }

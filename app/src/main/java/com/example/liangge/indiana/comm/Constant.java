@@ -33,9 +33,12 @@ public class Constant {
     }
 
     public interface IndianaRecord {
-        public static final String TAG_ALL = "tag_all";
-        public static final String TAG_ING = "tag_ing";
-        public static final String TAG_DONE = "tag_done";
+        /** 全部 */
+        public static final String TAG_ALL = "all";
+        /** 进行中 */
+        public static final String TAG_ING = "progress";
+        /** 已揭晓 */
+        public static final String TAG_DONE = "revealed";
     }
 
 
@@ -49,6 +52,9 @@ public class Constant {
 
         /** 最新揭晓详情 */
         public static final String LATEST_PRODUCT_INFO = "http://192.168.1.199/index.php/Admin/Api/goodstoreveal";
+
+        /** 参与记录 */
+        public static final String PLAY_INDIANA_RECORD = "http://192.168.1.199/index.php/Admin/Api/participation";
 
     }
 

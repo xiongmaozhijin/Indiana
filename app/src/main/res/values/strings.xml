@@ -79,8 +79,8 @@
         %1$s \n 参与期号:%2$s \n参与次数:%3$d \t 我的号码(%4$s) \n\n
         获奖者:%5$s\n
         参与次数:%6$d\n
-        开奖号码:%7$d\n
-        揭晓时间:%8$d\n\n
+        开奖号码:%7$s\n
+        揭晓时间:%8$s\n\n
     </string>
     <string name="activity_indianarecord_userinfo_2">
         %1$s \n 参与期号:%2$s \n参与次数:%3$d \t 我的号码(%4$s) \n\n

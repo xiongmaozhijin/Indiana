@@ -47,13 +47,14 @@
             android:orientation="horizontal">
 
             <RadioGroup
+                android:checkedButton="@+id/activity_indiana_record_rb_tag_all"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:orientation="horizontal">
 
                 <RadioButton
+                    android:id="@+id/activity_indiana_record_rb_tag_all"
                     android:onClick="onBtnTagAll"
-                    android:checked="true"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     style="@style/indianarecord_category_item"

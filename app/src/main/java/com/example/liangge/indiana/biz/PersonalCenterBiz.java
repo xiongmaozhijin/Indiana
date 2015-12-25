@@ -2,9 +2,6 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
-import com.example.liangge.indiana.comm.Constant;
-import com.example.liangge.indiana.comm.SharedPrefUtils;
-
 /**
  * Created by baoxing on 2015/12/23.
  */
@@ -33,6 +30,8 @@ public class PersonalCenterBiz {
         /** 账户金额 */
         public static int accountGold;
 
+        /** 用户ID */
+        public static long userID;
     }
 
 
@@ -45,6 +44,13 @@ public class PersonalCenterBiz {
     }
 
 
+    /**
+     * 获取用户ID
+     * @return
+     */
+    public long getUserID() {
+        return DataInfo.userID;
+    }
 
     /**
      * 用户是否登录了

@@ -130,7 +130,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
         } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_SUCCESS)) {
             mViewNetHintWrapper.setVisibility(View.GONE);
             mViewTagContentWrapper.setVisibility(View.VISIBLE);
-            //TODO
+            mAdapter.resetDataAndNotify(mIndianaRecordBiz.getData());
 
         } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_START)) {
             mViewNetHintWrapper.setVisibility(View.VISIBLE);

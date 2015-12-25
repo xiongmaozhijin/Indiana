@@ -121,7 +121,7 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
             int activityState = item.getActivityState();
             if (activityState == 0) {      //已揭晓
                 indianaInfoFormat = mContext.getResources().getString(R.string.activity_indianarecord_userinfo_1);
-                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getActivityId(), item.getBuyCnt(), item.getMyIndianaNum(),
+                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getJoinActivityNum(), item.getBuyCnt(), item.getMyIndianaNum(),
                                                 item.getBingoUser(), item.getBingoBuyCnt(), item.getLuckyNumber(), item.getHumanAlreadyRunLotteryTime());
             } else if (activityState == 1) {    //进行中
                 indianaInfoFormat = mContext.getResources().getString(R.string.activity_indianarecord_userinfo_2);
