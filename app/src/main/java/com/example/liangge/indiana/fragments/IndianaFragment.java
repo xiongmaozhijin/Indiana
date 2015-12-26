@@ -15,6 +15,7 @@ import android.widget.GridView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
+import com.example.liangge.indiana.biz.BannerInfoBiz;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
@@ -41,6 +42,7 @@ public class IndianaFragment extends BaseFragment {
 
     private DetailInfoBiz mDetailInfoBiz;
 
+    private BannerInfoBiz mBannerInfoBiz;
 
     private UIReceive mUIReceive;
 
@@ -207,6 +209,7 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onClick(BannerInfo item) {
                 LogUtils.i(TAG, "onBannerInfo click. item=%s", item.toString());
+                mBannerInfoBiz.onItemClick(item);
             }
         });
 
@@ -270,6 +273,7 @@ public class IndianaFragment extends BaseFragment {
     private void initManager() {
         mIndianaBiz = IndianaBiz.getInstance(getActivity());
         mDetailInfoBiz = DetailInfoBiz.getInstance(getActivity());
+        mBannerInfoBiz = BannerInfoBiz.getInstance(getActivity());
 
     }
 

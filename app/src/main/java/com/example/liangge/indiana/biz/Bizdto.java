@@ -4,6 +4,8 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.model.user.ResponseLogEntity;
+import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.liangge.databasedao.Order;
 
 import java.util.ArrayList;
@@ -66,5 +68,18 @@ public class Bizdto {
 
         return list;
     }
+
+
+    public static UserInfoEntity changeToUserInfoEntity(ResponseLogEntity item) {
+        UserInfoEntity userInfo = new UserInfoEntity();
+
+        userInfo.setUserId(item.getId());
+        userInfo.setBalance(item.getBalance());
+        userInfo.setPhoto(item.getPhoto());
+        userInfo.setToken(item.getToken());
+
+        return userInfo;
+    }
+
 
 }

@@ -105,6 +105,12 @@ public class UIMessageConts {
         /** 初始化登录信息 */
         public static final String M_INIT_LOGIN_INFO = "m_init_login_info";
 
+        //退出
+        public static final String M_LOGOUT_START = "M_LOGOUT_START";
+        public static final String M_LOGOUT_FAILED = "M_LOGOUT_FAILED";
+        public static final String M_LOGOUT_SUCCESS = "M_LOGOUT_SUCCESS";
+
+
 
 
     }
@@ -189,6 +195,40 @@ public class UIMessageConts {
         public static final String M_RELOAD_FAIL_MORE = "m_reload_BingoRecord_fail_more";
 
     }
+
+
+    /**
+     * 登录或注册
+     */
+    public interface LogSignIn {
+
+        /** 注册 */
+        public static final String M_LOGSINGIN_SINGIN_START = "M_LOGSINGIN_SINGIN_START";
+        public static final String M_LOGSINGIN_SINGIN_SUCCESS = "M_LOGSINGIN_SINGIN_SUCCESS";
+        public static final String M_LOGSINGIN_SINGIN_FAILED = "M_LOGSINGIN_SINGIN_FAILED";
+
+
+        /** 登录 */
+        public static final String M_LOGSINGIN_LOG_START = "M_LOGSINGIN_LOG_START";
+        public static final String M_LOGSINGIN_LOG_SUCCESS = "M_LOGSINGIN_LOG_SUCCESS";
+        public static final String M_LOGSINGIN_LOG_FAILED = "M_LOGSINGIN_LOG_FAILED";
+
+
+        /** 验证码 */
+        public static final String M_LOGSINGIN_VETICATIONCODE_START = "M_LOGSINGIN_VETICATIONCODE_START";
+        public static final String M_LOGSINGIN_VETICATIONCODE_SUCCESS = "M_LOGSINGIN_VETICATIONCODE_SUCCESS";
+        public static final String M_LOGSINGIN_VETICATIONCODE_FAILED = "M_LOGSINGIN_VETICATIONCODE_FAILED";
+
+
+    }
+
+
+
+
+
+
+
+
 
 
 }

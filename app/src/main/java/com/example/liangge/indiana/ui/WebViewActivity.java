@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -51,6 +52,11 @@ public class WebViewActivity extends Activity {
 
     private void setTitle(String title) {
         mTxvTitlebarTitle.setText(title);
+    }
+
+
+    public void onBtnBack(View view) {
+        finish();
     }
 
     private void loadUrl(String url) {

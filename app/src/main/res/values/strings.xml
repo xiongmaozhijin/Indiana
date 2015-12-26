@@ -45,6 +45,7 @@
     <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
     <string name="activity_productdetailinfo_progressing_des2">剩余%1$d次</string>
     <string name="f_personal_btn_log_signup">登录/注册</string>
+    <string name="f_personal_btn_log_signup_2">退出</string>
     <string name="f_personal_txvbtn_indiana_record">夺宝记录</string>
     <string name="f_personal_txvbtn_bingo_record">中奖记录</string>
     <string name="f_personal_takeovergoods_address">收货地址</string>
@@ -98,6 +99,17 @@
 
     <string name="activity_bingorecord_bingoinfo">%1$s \n参与期号:%2$s \n总需人次:%3$d \t参与次数:%4$d \n开奖号码:%5$s\t\n\n开奖时间:%6$s\n</string>
 
+    <string name="activity_logsignin_signin_read_protocal_hint">请阅读《夺宝协议》并同意</string>
+
+    <string name="activity_logsignin_singin_password_not_same">请输入相同的密码</string>
+    <string name="activity_logsignin_log_not_complete">请填写完整</string>
+    <string name="activity_logsignin_log_account_not_exiset">账号不存在</string>
+    <string name="activity_logsignin_log_password_error">密码错误</string>
+    <string name="activity_logsignin_log_success">注册成功</string>
+    <string name="activity_logsignin_sign_vertication_code_hint1">请先输入手机号</string>
+
+    <string name="f_personalcenter_logouting_hint">退出中...</string>
+    <string name="f_personalcenter_logouting_hint_fail">网络错误，退出失败</string>
 
 
 </resources>

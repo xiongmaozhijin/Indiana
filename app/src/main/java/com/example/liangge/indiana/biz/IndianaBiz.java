@@ -10,6 +10,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.JsonStringRequest;
+import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.BannerInfo;
@@ -45,11 +46,15 @@ public class IndianaBiz extends BaseFragmentBiz{
     /** 加载活动信息线程 */
     private SlaveLoadActivityProductInfoThread mSlaveLoadActivityProductInfoThread;
 
+    /** 加载Banner轮播信息 */
+    private SlaveLoadBannerThread mSlaveLoadBannerThread;
+
     private IndianaBiz(Context context) {
         this.mContext = context;
         mMessageManager = MessageManager.getInstance(context);
         mVolleyBiz = VolleyBiz.getInstance();
         mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
+        mSlaveLoadBannerThread = new SlaveLoadBannerThread();
     }
 
     /**
@@ -284,12 +289,70 @@ public class IndianaBiz extends BaseFragmentBiz{
      */
     private void loadBanner() {
         LogUtils.i(TAG, "loadBanner()");
-        String strAction = UIMessageConts.IndianaMessage.MESSAGE_LOADING_BANNER;
-        UIMessageEntity info = new UIMessageEntity();
-        info.setMessageAction(strAction);
-        mMessageManager.sendMessage(info);
-        loadBannerTest();
+        mSlaveLoadBannerThread.cancelAll();
+        mSlaveLoadBannerThread = new SlaveLoadBannerThread();
+        mSlaveLoadBannerThread.start();
     }
+
+    /**
+     * 加载Banner轮播图片
+     */
+    private class SlaveLoadBannerThread extends NetRequestThread {
+
+        private static final String REQUEST_TAG = "SlaveLoadBannerThread";
+
+
+        @Override
+        protected void notifyStart() {
+            super.notifyStart();
+            String strAction = UIMessageConts.IndianaMessage.MESSAGE_LOADING_BANNER;
+            UIMessageEntity info = new UIMessageEntity();
+            info.setMessageAction(strAction);
+            mMessageManager.sendMessage(info);
+        }
+
+        @Override
+        protected void notifySuccess() {
+            super.notifySuccess();
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_SUCCESS));
+        }
+
+        @Override
+        protected void notifyFail() {
+            super.notifyFail();
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_FAIL));
+        }
+
+        @Override
+        protected String getJsonBody() {
+            return "";
+        }
+
+        @Override
+        protected void onResponseListener(String s) {
+            LogUtils.i(TAG, "onResponseListener=%s", s);
+            Gson gson = new Gson();
+            List<BannerInfo> list = gson.fromJson(s, new TypeToken<List<BannerInfo>>(){}.getType());
+            mListBanners = list;
+        }
+
+        @Override
+        protected void onResponseErrorListener(VolleyError volleyError) {
+            LogUtils.e(TAG, "VolleyError=%s", volleyError.getLocalizedMessage());
+
+        }
+
+        @Override
+        protected String getRequestTag() {
+            return REQUEST_TAG;
+        }
+
+        @Override
+        protected String getWebServiceAPI() {
+            return Constant.WebServiceAPI.BANNER_INFO;
+        }
+    }
+
 
     /**
      * @deprecated
@@ -343,7 +406,12 @@ public class IndianaBiz extends BaseFragmentBiz{
     }
 
     public void onDestroy() {
-
+        if (mSlaveLoadBannerThread != null) {
+            mSlaveLoadBannerThread.cancelAll();
+        }
+        if (mSlaveLoadActivityProductInfoThread != null) {
+            mSlaveLoadActivityProductInfoThread.cancelNetRequest();
+        }
     }
 
     @Override

@@ -38,7 +38,7 @@
         </activity>
         <activity android:name=".ui.test.VolleyTestActivity" >
         </activity>
-        <activity android:name=".ui.LogSignInActivity" >
+        <activity android:name=".ui.user.LogSignInActivity" >
         </activity>
         <activity android:name=".ui.InventoryPayActivity" >
         </activity>
@@ -49,6 +49,8 @@
         <activity android:name=".ui.user.IndianaRecordActivity" >
         </activity>
         <activity android:name=".ui.user.BingoRecordActivity" >
+        </activity>
+        <activity android:name=".ui.user.UserInfoActivity" >
         </activity>
     </application>
 

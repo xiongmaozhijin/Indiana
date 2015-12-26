@@ -2,18 +2,38 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.android.volley.VolleyError;
+import com.example.liangge.indiana.biz.user.LogSignInBiz;
+import com.example.liangge.indiana.comm.Constant;
+import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.SharedPrefUtils;
+import com.example.liangge.indiana.comm.net.NetRequestThread;
+import com.example.liangge.indiana.model.user.UserInfoEntity;
+
 /**
  * Created by baoxing on 2015/12/23.
  */
 public class PersonalCenterBiz {
+
+    private static final String TAG = PersonalCenterBiz.class.getSimpleName();
 
     private static PersonalCenterBiz mInstance;
 
     private static Context mContext;
 
 
+    private static LogSignInBiz mLogSignInBiz;
+
+
+
     private PersonalCenterBiz(Context context) {
         this.mContext = context;
+        initManager();
+    }
+
+    private void initManager() {
+        mLogSignInBiz = LogSignInBiz.getInstance(mContext);
+
     }
 
 
@@ -27,29 +47,14 @@ public class PersonalCenterBiz {
 
 
     private static class DataInfo {
-        /** 账户金额 */
-        public static int accountGold;
 
-        /** 用户ID */
-        public static long userID;
+        public static UserInfoEntity userInfo = new UserInfoEntity();
+
     }
 
 
-    /**
-     * 获取账号的金额
-     * @return
-     */
-    public int getAccountGold() {
-        return DataInfo.accountGold;
-    }
-
-
-    /**
-     * 获取用户ID
-     * @return
-     */
-    public long getUserID() {
-        return DataInfo.userID;
+    public UserInfoEntity getUserInfo() {
+        return DataInfo.userInfo;
     }
 
     /**
@@ -57,9 +62,31 @@ public class PersonalCenterBiz {
      * @return
      */
     public synchronized boolean isLogin() {
-//        return SharedPrefUtils.getSharedPreferences().getBoolean(Constant.SharedPerfer.KEY_IS_LOGIN, false);
-        return true;
+        return SharedPrefUtils.getSharedPreferences().getBoolean(Constant.SharedPerfer.KEY_IS_LOGIN, false);
+//        return false;
     }
+
+    /**
+     * 用户登录()
+     */
+    public void logIn() {
+        _setLogin(true);
+        DataInfo.userInfo = Bizdto.changeToUserInfoEntity(mLogSignInBiz.getResponseLogEntity());
+    }
+
+    /**
+     * 退出登录
+     */
+    public void logOut() {
+        _setLogin(false);
+        DataInfo.userInfo = new UserInfoEntity();
+    }
+
+
+    private synchronized void _setLogin(boolean isLogin) {
+        SharedPrefUtils.save(Constant.SharedPerfer.KEY_IS_LOGIN, isLogin);
+    }
+
 
     /**
      * 初始化登录信息
@@ -70,7 +97,51 @@ public class PersonalCenterBiz {
 
 
 
+    private class SlaveLogOutThread extends NetRequestThread {
 
+        private static final String REQUEST_TAG = "SlaveLogOutThread";
+
+        @Override
+        protected void notifyStart() {
+            super.notifyStart();
+        }
+
+        @Override
+        protected void notifySuccess() {
+            super.notifySuccess();
+        }
+
+        @Override
+        protected void notifyFail() {
+            super.notifyFail();
+        }
+
+        @Override
+        protected String getJsonBody() {
+            return null;
+
+        }
+
+        @Override
+        protected void onResponseListener(String s) {
+            LogUtils.w(TAG, "SignOut:onResponse=%s", s);
+        }
+
+        @Override
+        protected void onResponseErrorListener(VolleyError volleyError) {
+            LogUtils.e(TAG, "SignOut:volleyError", volleyError.getLocalizedMessage());
+        }
+
+        @Override
+        protected String getRequestTag() {
+            return REQUEST_TAG;
+        }
+
+        @Override
+        protected String getWebServiceAPI() {
+            return null;
+        }
+    }
 
 
 

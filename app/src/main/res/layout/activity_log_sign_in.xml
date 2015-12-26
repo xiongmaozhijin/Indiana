@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.liangge.indiana.ui.LogSignInActivity">
+    tools:context="com.example.liangge.indiana.ui.user.LogSignInActivity">
 
 
 
@@ -79,6 +79,7 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_log_phone_number"
                         android:paddingLeft="9dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -104,6 +105,7 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_log_password"
                         android:paddingLeft="9dp"
                         android:layout_width="0dp"
                         android:layout_weight="1"
@@ -176,6 +178,7 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_phone_number"
                         android:inputType="phone"
                         android:paddingLeft="9dp"
                         android:layout_width="match_parent"
@@ -201,6 +204,7 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_password1"
                         android:inputType="textWebPassword"
                         android:paddingLeft="9dp"
                         android:layout_width="match_parent"
@@ -226,6 +230,7 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_password2"
                         android:inputType="textWebPassword"
                         android:paddingLeft="9dp"
                         android:layout_width="match_parent"
@@ -251,6 +256,7 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_vertication_code"
                         android:inputType="numberDecimal"
                         android:paddingLeft="9dp"
                         android:layout_width="0dp"
@@ -306,6 +312,7 @@
                         android:gravity="center">
 
                         <Button
+                            android:id="@+id/btn_signin"
                             android:onClick="onBtnSignIn"
                             android:textSize="28sp"
                             android:textColor="@android:color/holo_orange_dark"

@@ -37,6 +37,11 @@ public class BannerInfo {
         this.action = action;
     }
 
+    public BannerInfo(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+
     public String getImgUrl() {
         return imgUrl;
     }

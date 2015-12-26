@@ -4,6 +4,8 @@ package com.example.liangge.indiana.fragments;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,10 +17,14 @@ import android.widget.ImageView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
+import com.example.liangge.indiana.biz.user.LogSignInBiz;
+import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
-import com.example.liangge.indiana.ui.LogSignInActivity;
+import com.example.liangge.indiana.ui.user.LogSignInActivity;
 import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,6 +34,13 @@ public class PersonalCenterFragment extends BaseFragment {
     private static final String TAG = PersonalCenterFragment.class.getSimpleName();
 
     private PersonalCenterBiz mPersonalCenterBiz;
+
+    private LogSignInBiz mLogSignInBiz;
+
+
+    private UIMsgRecevie mUIMsgRecevie;
+
+
 
     /** 用户头像 */
     private ImageView mImgViewUserPortain;
@@ -56,6 +69,8 @@ public class PersonalCenterFragment extends BaseFragment {
     //联系客服
     private Button mBtnContactCustomer;
 
+
+    private DisplayImageOptions mDisplayImageOptions;
 
 
     public PersonalCenterFragment() {
@@ -88,7 +103,7 @@ public class PersonalCenterFragment extends BaseFragment {
         mBtnLogHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                judgeLoginOrStartActivity();
+                onBtnLogInOrLogOut();
 
             }
         });
@@ -135,11 +150,28 @@ public class PersonalCenterFragment extends BaseFragment {
 
     }
 
+    /**
+     * 登录注册/退出
+     */
+    private void onBtnLogInOrLogOut() {
+        LogUtils.i(TAG, "onBtnLogInOrLogOut()");
+       if (judgeLoginOrStartActivity()) {
+           //退出 TODO
+
+       }
+
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initManager();
+        initRes();
+    }
+
+    private void initRes() {
+        initImageLoaderConf();
     }
 
     @Override
@@ -150,15 +182,41 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void initManager() {
         mPersonalCenterBiz = PersonalCenterBiz.getInstance(getActivity());
+        mLogSignInBiz = LogSignInBiz.getInstance(getActivity());
+
     }
+
+
+    private void initImageLoaderConf() {
+        mDisplayImageOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
+                .showImageOnFail(R.drawable.main_banner_img_load_fail)
+                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .build();
+    }
+
+
 
     @Override
     protected void registerUIBroadCast() {
+        if (mUIMsgRecevie == null) {
+            mUIMsgRecevie = new UIMsgRecevie();
+            IntentFilter filter = new IntentFilter(UIMessageConts.UI_MESSAGE_ACTION);
+            getActivity().registerReceiver(mUIMsgRecevie, filter);
+        }
 
     }
 
     @Override
     protected void unRegisterUIBroadCast() {
+        if (mUIMsgRecevie != null) {
+            getActivity().unregisterReceiver(mUIMsgRecevie);
+            mUIMsgRecevie = null;
+        }
 
     }
 
@@ -181,6 +239,30 @@ public class PersonalCenterFragment extends BaseFragment {
     private void handleUIMsg(String uiAction) {
         if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_INIT_LOGIN_INFO)) {
             handleUIInitInfo();
+
+        } else if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_START)
+                        || uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_FAILED)
+                        || uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_SUCCESS)){
+
+            handleUILogOut(uiAction);
+        }
+
+    }
+
+    /**
+     * 处理退出登录
+     */
+    private void handleUILogOut(String uiAction) {
+        if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_START)) {
+            String hint = getResources().getString(R.string.f_personalcenter_logouting_hint);
+            LogUtils.toastShortMsg(getActivity(), hint);
+
+        } else if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_FAILED)) {
+            String hint = getResources().getString(R.string.f_personalcenter_logouting_hint_fail);
+            LogUtils.toastShortMsg(getActivity(), hint);
+
+        } else if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_SUCCESS)) {
+            initLogOutState();
         }
 
     }
@@ -245,10 +327,28 @@ public class PersonalCenterFragment extends BaseFragment {
 
 
 
-
-
     private void onThisFragment() {
         mPersonalCenterBiz.initLogInInfo();
+        if (mPersonalCenterBiz.isLogin()) {
+            initLogInUIState();
+        } else {
+            initLogOutState();
+        }
+
+    }
+
+    private void initLogOutState() {
+        LogUtils.i(TAG, "initLogOutState()");
+        mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup_2));
+        ImageLoader.getInstance().displayImage(mPersonalCenterBiz.getUserInfo().getPhoto(), mImgViewUserPortain, mDisplayImageOptions);
+
+    }
+
+    private void initLogInUIState() {
+        LogUtils.i(TAG, "initLogInUIState()");
+        mImgViewUserPortain.setImageResource(R.drawable.comm_loading_view);
+        mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup));
+
     }
 
 
