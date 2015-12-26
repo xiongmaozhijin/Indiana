@@ -93,7 +93,11 @@
     <string name="activity_indianarecord_userinfo_4">
        服务端参数错误
     </string>
+
     <string name="activity_bingo_record_titlebar_title">中奖记录</string>
-    <string name="activity_bingorecord_bingoinfo">%1$s\n参与期号:%2$s\n总需人次:%3$d\t参与次数:%4$d\n开奖号码:%5%s\t\n\n开奖时间:%6$s\n</string>
+
+    <string name="activity_bingorecord_bingoinfo">%1$s \n参与期号:%2$s \n总需人次:%3$d \t参与次数:%4$d \n开奖号码:%5$s\t\n\n开奖时间:%6$s\n</string>
+
+
 
 </resources>

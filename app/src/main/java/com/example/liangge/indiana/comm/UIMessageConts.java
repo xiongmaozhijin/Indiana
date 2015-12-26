@@ -162,14 +162,14 @@ public class UIMessageConts {
     public interface IndianaRecord {
 
         /** 重新加载/初始化加载 开始 */
-        public static final String M_RELOAD_START = "m_reload_start";
-        public static final String M_RELOAD_SUCCESS = "m_reload_success";
-        public static final String M_RELOAD_FAIL = "m_reload_fail";
+        public static final String M_RELOAD_START = "m_reload_IndianaRecord_start";
+        public static final String M_RELOAD_SUCCESS = "m_reload_IndianaRecord_success";
+        public static final String M_RELOAD_FAIL = "m_reload_IndianaRecord_fail";
 
         /** 加载更多 开始 */
-        public static final String M_RELOAD_START_MORE = "m_reload_start_more";
-        public static final String M_RELOAD_SUCCESS_MORE = "m_reload_success_more";
-        public static final String M_RELOAD_FAIL_MORE = "m_reload_fail_more";
+        public static final String M_RELOAD_START_MORE = "m_reload_IndianaRecord_start_more";
+        public static final String M_RELOAD_SUCCESS_MORE = "m_reload_IndianaRecord_success_more";
+        public static final String M_RELOAD_FAIL_MORE = "m_reload_IndianaRecord_fail_more";
 
     }
 
@@ -179,14 +179,14 @@ public class UIMessageConts {
     public interface BingoRecord {
 
         /** 重新加载/初始化加载 开始 */
-        public static final String M_RELOAD_START = "m_reload_start";
-        public static final String M_RELOAD_SUCCESS = "m_reload_success";
-        public static final String M_RELOAD_FAIL = "m_reload_fail";
+        public static final String M_RELOAD_START = "m_reload_BingoRecord_start";
+        public static final String M_RELOAD_SUCCESS = "m_reload_BingoRecord_success";
+        public static final String M_RELOAD_FAIL = "m_reload_BingoRecord_fail";
 
         /** 加载更多 开始 */
-        public static final String M_RELOAD_START_MORE = "m_reload_start_more";
-        public static final String M_RELOAD_SUCCESS_MORE = "m_reload_success_more";
-        public static final String M_RELOAD_FAIL_MORE = "m_reload_fail_more";
+        public static final String M_RELOAD_START_MORE = "m_reload_BingoRecord_start_more";
+        public static final String M_RELOAD_SUCCESS_MORE = "m_reload_BingoRecord_success_more";
+        public static final String M_RELOAD_FAIL_MORE = "m_reload_BingoRecord_fail_more";
 
     }
 

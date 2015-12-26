@@ -56,6 +56,10 @@ public class Constant {
         /** 参与记录 */
         public static final String PLAY_INDIANA_RECORD = "http://192.168.1.199/index.php/Admin/Api/participation";
 
+        /** 中奖记录 */
+        public static final String BINGO_RECORED = "http://192.168.1.199/index.php/Admin/Api/prize";
+
+
     }
 
 

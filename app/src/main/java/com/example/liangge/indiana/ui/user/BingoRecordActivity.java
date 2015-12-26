@@ -1,15 +1,21 @@
 package com.example.liangge.indiana.ui.user;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.user.BingoRecordListViewAdapter;
+import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.user.BingoRecordBiz;
+import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
+import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 
 /**
  * 中奖记录页面
@@ -19,6 +25,8 @@ public class BingoRecordActivity extends BaseActivity2 {
     private static final String TAG = BingoRecordActivity.class.getSimpleName();
 
     private BingoRecordBiz mBingoRecordBiz;
+
+    private DetailInfoBiz mDetailInfoBiz;
 
     private ListView mListView;
 
@@ -45,6 +53,18 @@ public class BingoRecordActivity extends BaseActivity2 {
         mListView = (ListView) findViewById(R.id.listview);
         mAdapter = new BingoRecordListViewAdapter(this);
         mListView.setAdapter(mAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogUtils.i(TAG, "onItemClick=%d", position);
+                final BingoRecordEntity item = (BingoRecordEntity) parent.getAdapter().getItem(position);
+                mDetailInfoBiz.setActivityId(item.getActivityId());
+                Intent intent = new Intent(BingoRecordActivity.this, ProductDetailInfoActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
 
     }
 
@@ -73,6 +93,7 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     private void initManager() {
         mBingoRecordBiz = BingoRecordBiz.getInstance(this);
+        mDetailInfoBiz = DetailInfoBiz.getInstance(this);
     }
 
 
@@ -105,7 +126,7 @@ public class BingoRecordActivity extends BaseActivity2 {
         } else if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_SUCCESS)) {
             mViewNetWrapper.setVisibility(View.GONE);
             mViewContentWrapper.setVisibility(View.VISIBLE);
-            mAdapter.resetDataAndNotify(mBingoRecordBiz.get);
+            mAdapter.resetDataAndNotify(mBingoRecordBiz.getBingoRecordList());
 
         }
 

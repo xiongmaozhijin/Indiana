@@ -15,7 +15,7 @@ import java.util.List;
 public class MyClass {
 
     public static void main(String[] args) throws Exception {
-//        gerationListBanner();
+        gerationListBanner();
 //        reGerationListBanner();
 //        gerationListActivityProduct();
 //        gerationListLatest();
@@ -29,7 +29,7 @@ public class MyClass {
 
 //        dump();
 
-        gerationBingoRecordInfo();
+//        gerationBingoRecordInfo();
 
     }
 
@@ -129,8 +129,7 @@ public class MyClass {
     private static void reGerationListBanner() {
         String strJson = "[{\"imgUrl\":\"www.baidu.com/1img.png\",\"linkUrl\":\"www.baidu.com/seemore\",\"title\":\"title1\",\"keyword\":\"search word\",\"activityId\":2102192,\"action\":1},{\"imgUrl\":\"www.baidu.com/1img.png\",\"linkUrl\":\"www.baidu.com/seemore\",\"title\":\"title1\",\"keyword\":\"search word\",\"activityId\":2102192,\"action\":2},{\"imgUrl\":\"www.baidu.com/1img.png\",\"linkUrl\":\"www.baidu.com/seemore\",\"title\":\"title1\",\"keyword\":\"search word\",\"activityId\":2102192,\"action\":3}]";
         Gson gson = new Gson();
-        List<BannerInfo> list = gson.fromJson(strJson, new TypeToken<List<BannerInfo>>() {
-        }.getType());
+        List<BannerInfo> list = gson.fromJson(strJson, new TypeToken<List<BannerInfo>>() {}.getType());
         System.out.println( String.format("size=%d, info0=%s", list.size(), list.get(0).toString()));
     }
 

@@ -17,6 +17,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.LogSignInActivity;
+import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
 
 /**
@@ -209,7 +210,8 @@ public class PersonalCenterFragment extends BaseFragment {
     //中奖记录
     public void onBtnBingoRecord() {
         if (judgeLoginOrStartActivity()) {
-
+            Intent intent = new Intent(getActivity(), BingoRecordActivity.class);
+            startActivity(intent);
         }
     }
 
