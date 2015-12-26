@@ -8,12 +8,14 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
@@ -47,6 +49,9 @@ public class PersonalCenterFragment extends BaseFragment {
 
     /** 登录/注册/已登录 */
     private Button mBtnLogHint;
+
+
+    private TextView mTxvUserInfo;
 
     /** 软件相关信息按钮 */
     private ImageButton mImgBtnInfo;
@@ -95,6 +100,7 @@ public class PersonalCenterFragment extends BaseFragment {
         mBtnAccountDetail = (Button) view.findViewById(R.id.f_personal_account_detail);
         mBtnPersonalInfo = (Button) view.findViewById(R.id.f_personal_personinfo);
         mBtnContactCustomer = (Button) view.findViewById(R.id.f_personal_contact_customer_service);
+        mTxvUserInfo = (TextView) view.findViewById(R.id.f_personal_userinfo_1);
 
         mBtnLogHint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,10 +153,12 @@ public class PersonalCenterFragment extends BaseFragment {
         LogUtils.i(TAG, "onBtnLogInOrLogOut()");
        if (judgeLoginOrStartActivity()) {
            //退出 TODO
-
+            mPersonalCenterBiz.logOut();
        }
 
     }
+
+
 
 
     @Override
@@ -218,7 +226,7 @@ public class PersonalCenterFragment extends BaseFragment {
             if (intent != null) {
                 String intentAction = intent.getAction();
                 if (intentAction !=  null) {
-                    String uiAction = intent.getStringExtra(UIMessageConts.UI_MESSAGE_ACTION);
+                    String uiAction = intent.getStringExtra(UIMessageConts.UI_MESSAGE_KEY);
                     if (uiAction != null) {
                         handleUIMsg(uiAction);
                     }
@@ -321,7 +329,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void onThisFragment() {
         mPersonalCenterBiz.initLogInInfo();
-        if (!mPersonalCenterBiz.isLogin()) {
+        if (mPersonalCenterBiz.isLogin()) {
             initLogInUIState();
         } else {
             initLogOutState();
@@ -329,17 +337,30 @@ public class PersonalCenterFragment extends BaseFragment {
 
     }
 
+    /**
+     * 处理退出时的ui变化
+     */
     private void initLogOutState() {
         LogUtils.i(TAG, "initLogOutState()");
-        mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup_2));
-        ImageLoader.getInstance().displayImage(mPersonalCenterBiz.getUserInfo().getPhoto(), mImgViewUserPortain, mDisplayImageOptions);
-
+        mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup));
+        mImgViewUserPortain.setImageResource(R.drawable.main_banner_img_load_empty_uri);
+        mTxvUserInfo.setText("");
+        mTxvUserInfo.setVisibility(View.INVISIBLE);
     }
 
+    /**
+     * 处理登录了得ui变化
+     */
     private void initLogInUIState() {
         LogUtils.i(TAG, "initLogInUIState()");
-        mImgViewUserPortain.setImageResource(R.drawable.comm_loading_view);
-        mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup));
+        mTxvUserInfo.setVisibility(View.VISIBLE);
+        String strUserInfoFormat = getResources().getString(R.string.f_personal_userinfo_1);
+        String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getUserId(), mPersonalCenterBiz.getUserInfo().getBalance());
+        ImageLoader.getInstance().displayImage(mPersonalCenterBiz.getUserInfo().getPhoto(), mImgViewUserPortain, mDisplayImageOptions);
+        mTxvUserInfo.setText(strUserInfo);
+
+
+        mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup_2));
 
     }
 

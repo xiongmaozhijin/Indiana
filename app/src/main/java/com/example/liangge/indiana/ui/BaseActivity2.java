@@ -22,10 +22,10 @@ public abstract class BaseActivity2 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initRes();
+        initResource();
     }
 
-    private void initRes() {
+    private void initResource() {
         TAG = getDebugTag();
     }
 

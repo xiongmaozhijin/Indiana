@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ResponsePayInventoryEntity;
+import com.example.liangge.indiana.ui.user.LogSignInActivity;
 
 /**
  * 订单支付界面
@@ -54,6 +55,7 @@ public class InventoryPayActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory_pay);
+        LogUtils.w(TAG, "onCreate()");
         initView();
         initManager();
     }
@@ -90,6 +92,8 @@ public class InventoryPayActivity extends BaseActivity {
             mInventoryPayBiz.onResume();
 
         } else {    //没有登录
+            Intent intent = new Intent(this, LogSignInActivity.class);
+            startActivity(intent);
             finish();
 
         }

@@ -272,6 +272,11 @@
                         android:text="@string/activity_productdetailinfo_alljoin_record"/>
 
 
+                    <TextView
+                        android:id="@+id/temp_alljoin_records"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
                     <com.example.liangge.indiana.ui.widget.ExListView
                         android:id="@+id/activity_productdetailinfo_listview_records"
                         android:layout_width="match_parent"

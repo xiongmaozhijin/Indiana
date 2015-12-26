@@ -236,7 +236,11 @@ public class InventoryPayBiz {
 
 
             //TODO
-            mShoppingCartBiz.clearShoppingCart();
+            if (responsePayResult.getStatus() == Constant.InventoryPay.ORDER_PAY_RESULT_CODE_SUCCESS) {
+                mShoppingCartBiz.clearShoppingCart();
+
+            }
+
         }
 
         @Override

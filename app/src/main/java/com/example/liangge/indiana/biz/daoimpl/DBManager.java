@@ -76,6 +76,16 @@ public class DBManager {
     }
 
     /**
+     * 删除全部订单
+     */
+    public void deleteAllOrder() {
+        LogUtils.w(TAG, "deleteAllOrder()");
+        OrderDao orderDao = mDaoSession.getOrderDao();
+        orderDao.deleteAll();
+
+    }
+
+    /**
      * 更新一条订单记录
      * @param productId
      * @param buyCnt

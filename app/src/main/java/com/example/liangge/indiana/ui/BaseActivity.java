@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.example.liangge.indiana.R;
 
+/**
+ * @deprecated
+ */
 public abstract class BaseActivity extends Activity {
 
     @Override

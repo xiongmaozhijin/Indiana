@@ -2,9 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.liangge.indiana.ui.user.UserInfoActivity">
 
 
+    <ImageView
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/imgview_user_portain"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:src="@drawable/comm_loading_view"/>
+
+    <TextView
+        android:id="@+id/txv_user_info"
+        android:paddingLeft="45dp"
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_user_info_info"/>
 
 
 </LinearLayout>

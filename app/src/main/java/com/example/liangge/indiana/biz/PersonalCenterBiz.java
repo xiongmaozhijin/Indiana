@@ -7,13 +7,15 @@ import com.example.liangge.indiana.biz.user.LogSignInBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.SharedPrefUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
+import com.example.liangge.indiana.model.UIMessageEntity;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 
 /**
  * Created by baoxing on 2015/12/23.
  */
-public class PersonalCenterBiz {
+public class PersonalCenterBiz extends BaseFragmentBiz{
 
     private static final String TAG = PersonalCenterBiz.class.getSimpleName();
 
@@ -25,6 +27,7 @@ public class PersonalCenterBiz {
     private static LogSignInBiz mLogSignInBiz;
 
 
+    private MessageManager mMessageManager;
 
     private PersonalCenterBiz(Context context) {
         this.mContext = context;
@@ -33,7 +36,7 @@ public class PersonalCenterBiz {
 
     private void initManager() {
         mLogSignInBiz = LogSignInBiz.getInstance(mContext);
-
+        mMessageManager = MessageManager.getInstance(mContext);
     }
 
 
@@ -43,6 +46,30 @@ public class PersonalCenterBiz {
         }
 
         return mInstance;
+    }
+
+    @Override
+    public void onViewCreated() {
+
+    }
+
+    @Override
+    public void onFirstEnter() {
+
+    }
+
+    @Override
+    public void onEnter() {
+
+    }
+
+    @Override
+    public void onLeave() {
+
+    }
+
+    public void onDestory() {
+        logOut();
     }
 
 
@@ -78,8 +105,12 @@ public class PersonalCenterBiz {
      * 退出登录
      */
     public void logOut() {
+        LogUtils.w(TAG, "logOut()");
+        //TODO 改到 LogSignInBiz ？？
         _setLogin(false);
         DataInfo.userInfo = new UserInfoEntity();
+
+        mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.PersonalCenterMessage.M_LOGOUT_SUCCESS));
     }
 
 

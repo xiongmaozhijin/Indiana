@@ -9,6 +9,7 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.JsonStringRequest;
+import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
@@ -34,6 +35,8 @@ public class DetailInfoBiz {
 
     private SlaveLoadDetailInfoThread mSlaveLoadDetailInfoThread;
 
+    private SlaveLoadAllPalyRecordsThread mSlaveLoadAllPalyRecordsThread;
+
     /**
      * 请求字段
      */
@@ -56,6 +59,7 @@ public class DetailInfoBiz {
         mMessageManager = MessageManager.getInstance(context);
         mVolleyBiz = VolleyBiz.getInstance();
         mSlaveLoadDetailInfoThread = new SlaveLoadDetailInfoThread();
+        mSlaveLoadAllPalyRecordsThread = new SlaveLoadAllPalyRecordsThread();
     }
 
 
@@ -95,6 +99,74 @@ public class DetailInfoBiz {
     }
 
 
+    /**
+     * 请求所有参与记录
+     */
+    private void loadAllPlayRecord() {
+        if (!mSlaveLoadAllPalyRecordsThread.isWorking()) {
+            mSlaveLoadAllPalyRecordsThread.cancelAll();
+            mSlaveLoadAllPalyRecordsThread = new SlaveLoadAllPalyRecordsThread();
+            mSlaveLoadAllPalyRecordsThread.start();
+        }
+    }
+
+    /**
+     * 请求所有的参与记录
+     */
+    private class SlaveLoadAllPalyRecordsThread extends NetRequestThread {
+
+        private static final String REQUERY_TAG = "SlaveLoadAllPalyRecordsThread";
+
+        @Override
+        protected void notifyStart() {
+            super.notifyStart();
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START));
+        }
+
+        @Override
+        protected void notifySuccess() {
+            super.notifySuccess();
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED));
+        }
+
+        @Override
+        protected void notifyFail() {
+            super.notifyFail();
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED));
+        }
+
+        @Override
+        protected String getJsonBody() {
+            return null;
+        }
+
+        @Override
+        protected void onResponseListener(String s) {
+            LogUtils.w(TAG, "SlaveLoadAllPalyRecordsThread onResponse=%s", s);
+
+        }
+
+        @Override
+        protected void onResponseErrorListener(VolleyError volleyError) {
+            LogUtils.e(TAG, "SlaveLoadAllPalyRecordsThread. volleyError=%s",volleyError.getLocalizedMessage());
+        }
+
+        @Override
+        protected String getRequestTag() {
+            return REQUERY_TAG;
+        }
+
+        @Override
+        protected String getWebServiceAPI() {
+            return null;
+        }
+    }
+
+
+
+    /**
+     * 商品活动详情
+     */
     private class SlaveLoadDetailInfoThread extends Thread {
 
         private static final String REQUEST_TAG = "SlaveLoadDetailInfoThread";
@@ -174,6 +246,12 @@ public class DetailInfoBiz {
 
 
     public void onDestroy() {
+        if (mSlaveLoadDetailInfoThread != null) {
+        }
+        if (mSlaveLoadAllPalyRecordsThread != null) {
+            mSlaveLoadAllPalyRecordsThread.cancelAll();
+
+        }
 
     }
 

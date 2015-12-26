@@ -109,7 +109,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      */
     public void clearShoppingCart() {
        this.mListInventorys.clear();
-
+        mDBManager.deleteAllOrder();
     }
 
 
