@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.Bizdto;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
+import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
@@ -85,6 +86,9 @@ public class ProductDetailInfoActivity extends Activity {
     private DisplayImageOptions mDisplayImageOptions;
 
 
+    private ImageViewBiz mImageViewBiz;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +117,7 @@ public class ProductDetailInfoActivity extends Activity {
 
     private void initManager() {
         mDetailInfoBiz = DetailInfoBiz.getInstance(this);
+        mImageViewBiz = ImageViewBiz.getInstance(this);
 
     }
 
@@ -324,9 +329,16 @@ public class ProductDetailInfoActivity extends Activity {
 
     }
 
-
+    //图文详情
     public void onBtnMoreProductInfo(View view) {
         LogUtils.w(TAG, "onBtnMoreProductInfo()");
+        String[] imgUrlArrays = mDetailInfoBiz.getDetailEntity().getProductDetailImgs();
+        if (imgUrlArrays != null) {
+            String imgUrl = imgUrlArrays[0];
+            mImageViewBiz.setDisplayImageView(imgUrl);
+            Intent intent = new Intent(this, ImageViewActivity.class);
+            startActivity(intent);
+        }
 
     }
 

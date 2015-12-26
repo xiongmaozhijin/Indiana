@@ -169,9 +169,6 @@ public class InventoryPayActivity extends BaseActivity {
 
         } else if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_SUCCESS)) {
             LogUtils.e(TAG, "网络返回成功");
-            mViewNetWrapper.setVisibility(View.GONE);
-            mViewInventoryDetailWrapper.setVisibility(View.GONE);
-            mViewPayResultWrapper.setVisibility(View.VISIBLE);
 
             handlePayResultCode();
 
@@ -189,10 +186,18 @@ public class InventoryPayActivity extends BaseActivity {
         int iStatus = payItem.getStatus();
         if (iStatus == Constant.InventoryPay.ORDER_PAY_RESULT_CODE_SUCCESS) {
             LogUtils.e(TAG, "订单支付成功");
+
+            mViewNetWrapper.setVisibility(View.GONE);
             mViewPayResultWrapper.setVisibility(View.VISIBLE);
             mViewInventoryDetailWrapper.setVisibility(View.INVISIBLE);
             TextView txvPayResult = (TextView) findViewById(R.id.pay_result);
             txvPayResult.setText(mInventoryPayBiz.getHumanReadablePayResultInfo());
+        } else {
+            //TODO
+            mViewNetWrapper.setVisibility(View.GONE);
+            mViewPayResultWrapper.setVisibility(View.GONE);
+            mViewInventoryDetailWrapper.setVisibility(View.VISIBLE);
+            LogUtils.toastShortMsg(this, "其他错误");
         }
 
     }

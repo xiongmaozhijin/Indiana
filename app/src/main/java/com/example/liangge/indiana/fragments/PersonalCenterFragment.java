@@ -57,9 +57,6 @@ public class PersonalCenterFragment extends BaseFragment {
     //中奖记录
     private Button mBtnBingoRecord;
 
-    //收货地址
-    private Button mBtnTakeOverGoods;
-
     //账户明细
     private Button mBtnAccountDetail;
 
@@ -95,7 +92,6 @@ public class PersonalCenterFragment extends BaseFragment {
 
         mBtnIndianaRecord = (Button) view.findViewById(R.id.f_personal_txvbtn_indiana_record);
         mBtnBingoRecord = (Button) view.findViewById(R.id.f_personal_txvbtn_bingo_record);
-        mBtnTakeOverGoods = (Button) view.findViewById(R.id.f_personal_takeovergoods_address);
         mBtnAccountDetail = (Button) view.findViewById(R.id.f_personal_account_detail);
         mBtnPersonalInfo = (Button) view.findViewById(R.id.f_personal_personinfo);
         mBtnContactCustomer = (Button) view.findViewById(R.id.f_personal_contact_customer_service);
@@ -119,12 +115,6 @@ public class PersonalCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 onBtnBingoRecord();
-            }
-        });
-        mBtnTakeOverGoods.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnTakeOverGoods();
             }
         });
         mBtnAccountDetail.setOnClickListener(new View.OnClickListener() {
@@ -331,7 +321,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void onThisFragment() {
         mPersonalCenterBiz.initLogInInfo();
-        if (mPersonalCenterBiz.isLogin()) {
+        if (!mPersonalCenterBiz.isLogin()) {
             initLogInUIState();
         } else {
             initLogOutState();

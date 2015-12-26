@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
@@ -251,7 +252,7 @@ public class InventoryPayBiz {
         @Override
         protected String getWebServiceAPI() {
             //TODO
-            return "";
+            return Constant.WebServiceAPI.REQUEST_PAY_ORDERS;
         }
     }
 

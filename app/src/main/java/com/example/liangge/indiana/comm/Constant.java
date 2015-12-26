@@ -106,6 +106,7 @@ public class Constant {
         public static final String REQUEST_LOG = WEBHOST + "/index.php/Admin/Api/login";
 
 
+        public static final String REQUEST_PAY_ORDERS = WEBHOST + "/index.php/Admin/Api/shopping";
 
 
     }

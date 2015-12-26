@@ -284,7 +284,7 @@ public class LogSignInBiz {
         }
     }
 
-
+    //登录
     private class SlaveLogThread extends NetRequestThread {
 
         private static final String REQUSET_TAG = "SlaveLogThread";
@@ -339,6 +339,34 @@ public class LogSignInBiz {
     }
 
 
+    //退出
+    private class SlaveLogOutThread extends NetRequestThread {
+
+        @Override
+        protected String getJsonBody() {
+            return "";
+        }
+
+        @Override
+        protected void onResponseListener(String s) {
+
+        }
+
+        @Override
+        protected void onResponseErrorListener(VolleyError volleyError) {
+
+        }
+
+        @Override
+        protected String getRequestTag() {
+            return null;
+        }
+
+        @Override
+        protected String getWebServiceAPI() {
+            return null;
+        }
+    }
 
 
 
