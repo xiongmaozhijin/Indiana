@@ -94,7 +94,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         List<InventoryEntity> listNewDatas = new ArrayList<>();
 
         InventoryEntity item;
-
+        //TODO
         for (int i=0, len=this.mListInventorys.size(); i<len; i++) {
             item = this.mListInventorys.get(i);
             listNewDatas.add(item);
@@ -103,6 +103,15 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
         return listNewDatas;
     }
+
+    /**
+     * 清空购物车数据
+     */
+    public void clearShoppingCart() {
+       this.mListInventorys.clear();
+
+    }
+
 
     /**
      * 共买了多少不同的商品

@@ -14,8 +14,10 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.InventoryPayBiz;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.ResponsePayInventoryEntity;
 
 /**
  * 订单支付界面
@@ -26,6 +28,13 @@ public class InventoryPayActivity extends BaseActivity {
 
     /** 共多少夺宝币 */
     private TextView mTxvTotalGold;
+
+
+    private View mViewInventoryDetailWrapper;
+
+    private View mViewPayResultWrapper;
+
+    private View mViewNetWrapper;
 
     /** 订单信息 */
     private TextView mTxvInventoryInfo;
@@ -54,6 +63,10 @@ public class InventoryPayActivity extends BaseActivity {
     }
 
     private void initView() {
+        mViewInventoryDetailWrapper = findViewById(R.id.activity_inventory_detail_wrapper);
+        mViewPayResultWrapper = findViewById(R.id.activity_inventory_pay_result_wrapper);
+        mViewNetWrapper = findViewById(R.id.net_hint_wrapper);
+
         mTxvTotalGold = (TextView) findViewById(R.id.activity_inventorypay_txv_total_gold);
         mTxvInventoryInfo = (TextView) findViewById(R.id.activity_inventorypay_inventoryinfo);
         mTxvAccountInfo = (TextView) findViewById(R.id.activity_inventorypay_txv_gold_account_info);
@@ -125,6 +138,61 @@ public class InventoryPayActivity extends BaseActivity {
     private void handleUIAction(String uiAciton) {
         if (uiAciton.equals(UIMessageConts.InventoryPay.M_INIT_INVENTORY_INFO)) {
             handleUIInit();
+        } else if (uiAciton.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_START)
+                || uiAciton.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_FAILED)
+                || uiAciton.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_SUCCESS)) {
+
+            handlePayResult(uiAciton);
+        }
+
+    }
+
+    /**
+     * 处理订单支付结果
+     */
+    private void handlePayResult(String uiAction) {
+        if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_START)) {
+//            LogUtils.toastShortMsg(this, "正在支付中...");
+            mViewNetWrapper.setVisibility(View.VISIBLE);
+            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+//            mViewNetWrapper.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            mViewInventoryDetailWrapper.setVisibility(View.VISIBLE);
+            mViewPayResultWrapper.setVisibility(View.GONE);
+
+        } else if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_FAILED)) {
+            LogUtils.toastShortMsg(this, "网络出错，支付失败");
+            mViewNetWrapper.setVisibility(View.VISIBLE);
+            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
+            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            mViewInventoryDetailWrapper.setVisibility(View.GONE);
+            mViewPayResultWrapper.setVisibility(View.GONE);
+
+        } else if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_SUCCESS)) {
+            LogUtils.e(TAG, "网络返回成功");
+            mViewNetWrapper.setVisibility(View.GONE);
+            mViewInventoryDetailWrapper.setVisibility(View.GONE);
+            mViewPayResultWrapper.setVisibility(View.VISIBLE);
+
+            handlePayResultCode();
+
+        }
+
+    }
+
+
+
+    /**
+     * 处理订单网络请求成功返回信息
+     */
+    private void handlePayResultCode() {
+        ResponsePayInventoryEntity payItem = mInventoryPayBiz.getResponsePayInventoryEntity();
+        int iStatus = payItem.getStatus();
+        if (iStatus == Constant.InventoryPay.ORDER_PAY_RESULT_CODE_SUCCESS) {
+            LogUtils.e(TAG, "订单支付成功");
+            mViewPayResultWrapper.setVisibility(View.VISIBLE);
+            mViewInventoryDetailWrapper.setVisibility(View.INVISIBLE);
+            TextView txvPayResult = (TextView) findViewById(R.id.pay_result);
+            txvPayResult.setText(mInventoryPayBiz.getHumanReadablePayResultInfo());
         }
 
     }
@@ -150,7 +218,7 @@ public class InventoryPayActivity extends BaseActivity {
     //一键支付
     public void onBtnCommitPay(View view) {
         LogUtils.w(TAG, "onBtnCommitPay()");
-
+        mInventoryPayBiz.onBtnCommitPay();
     }
 
 

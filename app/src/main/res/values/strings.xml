@@ -110,6 +110,7 @@
 
     <string name="f_personalcenter_logouting_hint">退出中...</string>
     <string name="f_personalcenter_logouting_hint_fail">网络错误，退出失败</string>
+    <string name="activity_inventory_pay_payresult">%1$s\n购买数量:%2$d\t购买成功数量:%3$d\n\n</string>
 
 
 </resources>

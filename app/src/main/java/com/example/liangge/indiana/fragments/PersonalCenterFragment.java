@@ -229,7 +229,9 @@ public class PersonalCenterFragment extends BaseFragment {
                 String intentAction = intent.getAction();
                 if (intentAction !=  null) {
                     String uiAction = intent.getStringExtra(UIMessageConts.UI_MESSAGE_ACTION);
-                    handleUIMsg(uiAction);
+                    if (uiAction != null) {
+                        handleUIMsg(uiAction);
+                    }
                 }
             }
         }

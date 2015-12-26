@@ -32,8 +32,17 @@
 
     </RelativeLayout>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <include layout="@layout/layout_not_network" android:id="@+id/net_hint_wrapper" />
+
+
     <!-- 订单信息 -->
     <LinearLayout
+        android:id="@+id/activity_inventory_detail_wrapper"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -123,6 +132,26 @@
 
 
     </LinearLayout>
+
+
+        <!-- 支付结果-->
+        <LinearLayout
+            android:id="@+id/activity_inventory_pay_result_wrapper"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/pay_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_inventory_pay_payresult"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
 
 
 </LinearLayout>

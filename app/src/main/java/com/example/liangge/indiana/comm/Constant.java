@@ -63,6 +63,16 @@ public class Constant {
 
     }
 
+    /**
+     * 订单支付
+     */
+    public interface InventoryPay {
+
+        int ORDER_PAY_RESULT_CODE_SUCCESS = 200;
+
+    }
+
+
 
     public interface WebServiceAPI {
 

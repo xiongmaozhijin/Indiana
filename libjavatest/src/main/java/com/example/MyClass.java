@@ -5,7 +5,9 @@ import com.example.model.ActivityProductItemEntity;
 import com.example.model.BannerInfo;
 import com.example.model.BingoRecordEntity;
 import com.example.model.IndianaRecordEntity;
+import com.example.model.InventoryEntity;
 import com.example.model.LastestBingoEntity;
+import com.example.model.PayEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,7 +17,7 @@ import java.util.List;
 public class MyClass {
 
     public static void main(String[] args) throws Exception {
-        gerationListBanner();
+//        gerationListBanner();
 //        reGerationListBanner();
 //        gerationListActivityProduct();
 //        gerationListLatest();
@@ -31,7 +33,57 @@ public class MyClass {
 
 //        gerationBingoRecordInfo();
 
+//        gerationInventroyInfo();
+
+        reGerationInventroyInfo();
     }
+
+    private static void reGerationInventroyInfo() {
+        InventoryEntity item1 = new InventoryEntity(21312, "imgUrl", "titleName", "dd", 3, 2, 32);
+        InventoryEntity item2 = new InventoryEntity(21312, "imgUrl", "titleName", "dd", 3, 2, 32);
+        InventoryEntity item3 = new InventoryEntity(21312, "imgUrl", "titleName", "dd", 3, 2, 32);
+
+        List<InventoryEntity> list = new ArrayList<>();
+        list.add(item1);
+        list.add(item2);
+        list.add(item3);
+
+        PayEntity pay = new PayEntity();
+        pay.setToken("token");
+        pay.setUserId(1231);
+        pay.setInventoryList(list);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(pay);
+
+        gson = new Gson();
+
+        PayEntity p = gson.fromJson(json, PayEntity.class);
+
+        System.out.println(p.toString());
+    }
+
+    private static void gerationInventroyInfo() {
+        InventoryEntity item1 = new InventoryEntity(21312, "imgUrl", "titleName", "dd", 3, 2, 32);
+        InventoryEntity item2 = new InventoryEntity(21312, "imgUrl", "titleName", "dd", 3, 2, 32);
+        InventoryEntity item3 = new InventoryEntity(21312, "imgUrl", "titleName", "dd", 3, 2, 32);
+
+        List<InventoryEntity> list = new ArrayList<>();
+        list.add(item1);
+        list.add(item2);
+        list.add(item3);
+
+        PayEntity pay = new PayEntity();
+        pay.setToken("token");
+        pay.setUserId(1231);
+        pay.setInventoryList(list);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(pay);
+
+        System.out.println(json);
+    }
+
 
     private static void gerationBingoRecordInfo() {
         BingoRecordEntity item1 = new BingoRecordEntity(312, "imgUrl1", "title", "tilteDesc", 321, 0, 21, "123", "123", 23213123);

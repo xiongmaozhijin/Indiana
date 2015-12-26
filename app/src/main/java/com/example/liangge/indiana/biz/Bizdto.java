@@ -4,6 +4,8 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.model.PayRequestEntity;
+import com.example.liangge.indiana.model.PayRequestItemEntitiy;
 import com.example.liangge.indiana.model.user.ResponseLogEntity;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.liangge.databasedao.Order;
@@ -80,6 +82,28 @@ public class Bizdto {
 
         return userInfo;
     }
+
+
+    public static PayRequestEntity changeToPayRequestEntity(long userId, String token, List<InventoryEntity> listInventory) {
+        LogUtils.w(TAG, "userId=%d, token=%s, listInventory.size=%d", userId, token, listInventory.size());
+        PayRequestEntity pay = new PayRequestEntity();
+        List listPayList = new ArrayList();
+
+        InventoryEntity inventoryEntity;
+        for (int i=0, len=listInventory.size(); i<len; i++) {
+            inventoryEntity = listInventory.get(i);
+            PayRequestItemEntitiy payRequestItemEntitiy = new PayRequestItemEntitiy(inventoryEntity.getProductId(), inventoryEntity.getBuyCounts());
+            listPayList.add(payRequestItemEntitiy);
+        }
+
+        pay.setId(userId);
+        pay.setToken(token);
+        pay.setPayList(listPayList);
+
+        return pay;
+    }
+
+
 
 
 }

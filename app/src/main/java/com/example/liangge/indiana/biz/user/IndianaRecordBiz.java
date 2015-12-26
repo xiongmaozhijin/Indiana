@@ -170,7 +170,7 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
         @Override
         protected String getJsonBody() {
-            String jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, mPersonalCenterBiz.getUserID(), RequestInfo.iStartPage);
+            String jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, mPersonalCenterBiz.getUserInfo().getUserId(), RequestInfo.iStartPage);
             return jsonData;
         }
 

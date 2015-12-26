@@ -160,6 +160,12 @@ public class UIMessageConts {
         /** 初始化订单信息 */
         public static final String M_INIT_INVENTORY_INFO = "m_init_inventory_info";
 
+        //订单支付网络请求结果
+        String INVENTORY_PAY_START = "INVENTORY_PAY_START";
+        String INVENTORY_PAY_SUCCESS = "INVENTORY_PAY_SUCCESS";
+        String INVENTORY_PAY_FAILED = "INVENTORY_PAY_FAILED";
+
+
     }
 
     /**

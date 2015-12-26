@@ -154,7 +154,7 @@ public class BingoRecordBiz extends BaseActivityBiz{
 
         @Override
         protected String getJsonBody() {
-            String jsonBody = String.format("{\"account_id\":%d, \"page\":%d}", mPersonalCenterBiz.getUserID(), RequestInfo.iStartPage);
+            String jsonBody = String.format("{\"account_id\":%d, \"page\":%d}", mPersonalCenterBiz.getUserInfo().getUserId(), RequestInfo.iStartPage);
 
             return jsonBody;
         }
