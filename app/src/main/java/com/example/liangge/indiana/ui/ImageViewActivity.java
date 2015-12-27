@@ -13,6 +13,8 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import uk.co.senab.photoview.PhotoViewAttacher;
+
 /**
  * temp,...
  */
@@ -26,6 +28,7 @@ public class ImageViewActivity extends BaseActivity2 {
 
     private ImageViewBiz mImageViewBiz;
 
+    private PhotoViewAttacher mAttacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public class ImageViewActivity extends BaseActivity2 {
         super.onResume();
         LogUtils.i(TAG, "onResume()");
         ImageLoader.getInstance().displayImage(mImageViewBiz.getDisplayImageView(), mImageView, mDisplayImageOptions);
-
+        mAttacher.update();
     }
 
     @Override
@@ -86,6 +89,7 @@ public class ImageViewActivity extends BaseActivity2 {
 
     private void initView() {
         mImageView = (ImageView) findViewById(R.id.imgview);
+        mAttacher = new PhotoViewAttacher(mImageView);
     }
 
 
