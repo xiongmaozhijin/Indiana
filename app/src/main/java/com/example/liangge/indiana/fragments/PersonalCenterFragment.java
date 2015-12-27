@@ -50,7 +50,7 @@ public class PersonalCenterFragment extends BaseFragment {
     /** 登录/注册/已登录 */
     private Button mBtnLogHint;
 
-
+    /** 简单的用户信息显示 */
     private TextView mTxvUserInfo;
 
     /** 软件相关信息按钮 */
@@ -175,7 +175,7 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        onThisFragment();
+//        onThisFragment();
     }
 
     private void initManager() {
@@ -238,13 +238,29 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void handleUIMsg(String uiAction) {
         if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_INIT_LOGIN_INFO)) {
-            handleUIInitInfo();
 
         } else if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_START)
                         || uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_FAILED)
                         || uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_SUCCESS)){
 
             handleUILogOut(uiAction);
+        } else if (uiAction.equals(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO)) {
+            handleUIUpdateUserInfo();
+        }
+
+    }
+
+    /**
+     * 更新个人信息
+     */
+    private void handleUIUpdateUserInfo() {
+        LogUtils.i(TAG, "handleUIUpdateUserInfo()");
+        if (mPersonalCenterBiz.isLogin()) {
+            initLogInUIState();
+
+        } else {
+            initLogOutState();
+
         }
 
     }
@@ -263,19 +279,6 @@ public class PersonalCenterFragment extends BaseFragment {
 
         } else if (uiAction.equals(UIMessageConts.PersonalCenterMessage.M_LOGOUT_SUCCESS)) {
             initLogOutState();
-        }
-
-    }
-
-    /**
-     * 处理进入到这个界面时的ui；是否登录分为两种
-     */
-    private void handleUIInitInfo() {
-        if (mPersonalCenterBiz.isLogin()) {
-            //TODO
-
-        } else {
-
         }
 
     }
@@ -327,16 +330,6 @@ public class PersonalCenterFragment extends BaseFragment {
 
 
 
-    private void onThisFragment() {
-        mPersonalCenterBiz.initLogInInfo();
-        if (mPersonalCenterBiz.isLogin()) {
-            initLogInUIState();
-        } else {
-            initLogOutState();
-        }
-
-    }
-
     /**
      * 处理退出时的ui变化
      */
@@ -384,23 +377,25 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
+
+
+
     @Override
     protected String getDeugTag() {
         return TAG;
     }
 
+
     @Override
     public void onFirstEnter() {
         super.onFirstEnter();
-//        onThisFragment();     //onResume()
-
+        mPersonalCenterBiz.onFirstEnter();
     }
 
     @Override
     public void onEnter() {
         super.onEnter();
-        onThisFragment();
-
+        mPersonalCenterBiz.onEnter();
     }
 
     @Override

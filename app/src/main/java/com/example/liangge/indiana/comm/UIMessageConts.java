@@ -110,7 +110,8 @@ public class UIMessageConts {
         public static final String M_LOGOUT_FAILED = "M_LOGOUT_FAILED";
         public static final String M_LOGOUT_SUCCESS = "M_LOGOUT_SUCCESS";
 
-
+        /** 更新用户信息 */
+        String PERSONALCENTER_M_UPDATE_USER_INFO = "PERSONALCENTER_M_UPDATE_USER_INFO";
 
 
     }

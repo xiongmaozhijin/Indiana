@@ -6,6 +6,7 @@ import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.PayRequestEntity;
 import com.example.liangge.indiana.model.PayRequestItemEntitiy;
+import com.example.liangge.indiana.model.ResponseUserInfoEntitiy;
 import com.example.liangge.indiana.model.user.ResponseLogEntity;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.liangge.databasedao.Order;
@@ -103,6 +104,12 @@ public class Bizdto {
         return pay;
     }
 
+
+    public static UserInfoEntity changeToUserInfoEntity(UserInfoEntity userItem, ResponseUserInfoEntitiy resItem) {
+        userItem.setBalance(resItem.getBalance());
+
+        return userItem;
+    }
 
 
 

@@ -73,6 +73,18 @@ public class Constant {
     }
 
 
+    /**
+     * 个人中心
+     */
+    public interface PersonalCenter {
+
+        //请求用户信息返回状态码
+        int REQUEST_USER_INFO_RESULT_CODE_SUCCESS = 200;
+        int REQUEST_USER_INFO_RESULT_CODE_FAILED = 400;
+
+
+    }
+
 
     public interface WebServiceAPI {
 
@@ -105,8 +117,11 @@ public class Constant {
         /** 登录接口 */
         public static final String REQUEST_LOG = WEBHOST + "/index.php/Admin/Api/login";
 
-
+        /** 订单支付接口 */
         public static final String REQUEST_PAY_ORDERS = WEBHOST + "/index.php/Admin/Api/shopping";
+
+        /** 请求用户信息接口 */
+        String REQUEST_USER_INFO = WEBHOST + "/index.php/Admin/Api/personalData";
 
 
     }
