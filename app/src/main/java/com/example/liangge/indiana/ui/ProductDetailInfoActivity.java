@@ -300,7 +300,9 @@ public class ProductDetailInfoActivity extends Activity {
             String desc2Format = getResources().getString(R.string.activity_productdetailinfo_progressing_des2);
             String desc1 = String.format(desc1Format, detailEntity.getNeedPeople());
             String desc2 = String.format(desc2Format, detailEntity.getLackPeople());
-            int progress = (detailEntity.getNeedPeople()-detailEntity.getLackPeople()) / detailEntity.getNeedPeople();
+            float progress1 = (float)(detailEntity.getNeedPeople()-detailEntity.getLackPeople()) / detailEntity.getNeedPeople();
+            int progress = (int) (progress1 * 1000);
+            LogUtils.e(TAG, "all=%d, lack=%d, pro1=%f, pro=%d", detailEntity.getNeedPeople(), detailEntity.getLackPeople(), progress1, progress);
             mTxvProductDetailInfoProcessIngDesc1.setText(desc1);
             mTxvProductDetailInfoProcessIngDesc2.setText(desc2);
             mProgressBarProcessIng.setProgress(progress);
@@ -315,8 +317,8 @@ public class ProductDetailInfoActivity extends Activity {
         }
 
         if (detailEntity.isPlay()) {
-            String hintFormat = getResources().getString(R.string.activity_productdetailinfo_hasjoin_hint_join);
-            String hint  = String.format(hintFormat, detailEntity.getMyIndianaNum());
+            String hintFormat = getResources().getString(R.string.activity_productdetailinfo_hasjoin_hint_join_2);
+            String hint  = String.format(hintFormat, detailEntity.getMyIndianaAmount());
             mTxvHasJoinHint.setText(hint);
 
         } else {

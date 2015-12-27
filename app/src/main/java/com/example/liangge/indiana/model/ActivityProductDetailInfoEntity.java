@@ -38,6 +38,9 @@ public class ActivityProductDetailInfoEntity {
     /** 我的夺宝号码 */
     private String myIndianaNum;
 
+    /** 用户参与夺宝的次数 */
+    private int myIndianaAmount;
+
     /** 图文详情 */
     private String[] productDetailImgs;
 
@@ -66,7 +69,7 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
-    public ActivityProductDetailInfoEntity(long activityId, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber) {
+    public ActivityProductDetailInfoEntity(long activityId, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber) {
         this.activityId = activityId;
         this.productImgUrls = productImgUrls;
         this.activityState = activityState;
@@ -76,6 +79,7 @@ public class ActivityProductDetailInfoEntity {
         this.lackPeople = lackPeople;
         this.isPlay = isPlay;
         this.myIndianaNum = myIndianaNum;
+        this.myIndianaAmount = myIndianaAmount;
         this.productDetailImgs = productDetailImgs;
         this.runLotteryTime = runLotteryTime;
         this.bingoUserPortain = bingoUserPortain;
@@ -84,6 +88,7 @@ public class ActivityProductDetailInfoEntity {
         this.bingoBuyCnts = bingoBuyCnts;
         this.luckyNumber = luckyNumber;
     }
+
 
 
     public long getActivityId() {
@@ -215,7 +220,13 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
+    public int getMyIndianaAmount() {
+        return myIndianaAmount;
+    }
 
+    public void setMyIndianaAmount(int myIndianaAmount) {
+        this.myIndianaAmount = myIndianaAmount;
+    }
 
     /**
      * 返回可读的已揭晓时间
@@ -225,7 +236,6 @@ public class ActivityProductDetailInfoEntity {
         return mDateFormatAlreadyRunLottory.format(new Date(getRunLotteryTime()));
 
     }
-
 
 
     @Override
@@ -240,6 +250,7 @@ public class ActivityProductDetailInfoEntity {
                 ", lackPeople=" + lackPeople +
                 ", isPlay=" + isPlay +
                 ", myIndianaNum='" + myIndianaNum + '\'' +
+                ", myIndianaAmount=" + myIndianaAmount +
                 ", productDetailImgs=" + Arrays.toString(productDetailImgs) +
                 ", runLotteryTime=" + runLotteryTime +
                 ", bingoUserPortain='" + bingoUserPortain + '\'' +
@@ -249,10 +260,5 @@ public class ActivityProductDetailInfoEntity {
                 ", luckyNumber='" + luckyNumber + '\'' +
                 '}';
     }
-
-
-
-
-
 
 }

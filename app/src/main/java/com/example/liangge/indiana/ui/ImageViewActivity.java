@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.ImageViewBiz;
+import com.example.liangge.indiana.comm.LogUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -68,6 +69,7 @@ public class ImageViewActivity extends BaseActivity2 {
     @Override
     protected void onResume() {
         super.onResume();
+        LogUtils.i(TAG, "onResume()");
         ImageLoader.getInstance().displayImage(mImageViewBiz.getDisplayImageView(), mImageView, mDisplayImageOptions);
 
     }

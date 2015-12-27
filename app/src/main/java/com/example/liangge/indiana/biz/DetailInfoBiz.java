@@ -27,6 +27,8 @@ public class DetailInfoBiz {
 
     private static DetailInfoBiz mInstance;
 
+    private static PersonalCenterBiz mPersonalCenterBiz;
+
     private static Context mContext;
 
     private MessageManager mMessageManager;
@@ -56,10 +58,19 @@ public class DetailInfoBiz {
 
     private DetailInfoBiz(Context context) {
         this.mContext = context;
-        mMessageManager = MessageManager.getInstance(context);
-        mVolleyBiz = VolleyBiz.getInstance();
+        initManager(context);
+        initRes();
+    }
+
+    private void initRes() {
         mSlaveLoadDetailInfoThread = new SlaveLoadDetailInfoThread();
         mSlaveLoadAllPalyRecordsThread = new SlaveLoadAllPalyRecordsThread();
+    }
+
+    private void initManager(Context context) {
+        mMessageManager = MessageManager.getInstance(context);
+        mVolleyBiz = VolleyBiz.getInstance();
+        mPersonalCenterBiz = PersonalCenterBiz.getInstance(mContext);
     }
 
 
@@ -181,7 +192,7 @@ public class DetailInfoBiz {
             JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_ACTIVITY_DETAIL_INFO, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
-                    LogUtils.i(TAG, "inResponse=%s", s);
+                    LogUtils.i(TAG, "SlaveLoadDetailInfoThread#onResponse=%s", s);
                     Gson gson = new Gson();
                     DataInfo.activityProductItemEntity = gson.fromJson(s, ActivityProductDetailInfoEntity.class);
                     notifySuccess();
@@ -189,7 +200,7 @@ public class DetailInfoBiz {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    LogUtils.e(TAG, "volleryError=%s", volleyError.getLocalizedMessage());
+                    LogUtils.e(TAG, "SlaveLoadDetailInfoThread#volleryError=%s", volleyError.getLocalizedMessage());
                     notifyFail();
                 }
             }, jsonData);
@@ -199,7 +210,12 @@ public class DetailInfoBiz {
         }
 
         private String getJsonBody() {
-            String jsonBody = String.format("{\"issue_id\":%d}", RequestInfo.lActivityId);
+//            String jsonBody = String.format("{\"issue_id\":%d}", RequestInfo.lActivityId);
+            String jsonBody = String.format("{\"issue_id\":%d, \"id\":%d, \"token\":\"%s\"}", RequestInfo.lActivityId,
+                                                mPersonalCenterBiz.getUserInfo().getUserId(), mPersonalCenterBiz.getUserInfo().getToken() );
+
+            LogUtils.i(TAG, "SlaveLoadDetailInfoThread#jsonBody=%s", jsonBody);
+
             return jsonBody;
         }
 

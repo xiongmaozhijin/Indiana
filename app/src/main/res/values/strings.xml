@@ -38,6 +38,7 @@
     <string name="activity_productdetailinfo_progressing_des1">总需:%1$d次</string>
     <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝</string>
     <string name="activity_productdetailinfo_hasjoin_hint_join">已参与,我的夺宝号[%1$s]</string>
+    <string name="activity_productdetailinfo_hasjoin_hint_join_2">已参与,参与次数[%1$d]</string>
     <string name="activity_productdetailinfo_lucky_number">幸运号码:%1$s</string>
     <string name="activity_productdetailinfo_btn_why_calc">计算详细</string>
     <string name="activity_productdetailinfo_bingo_ing_hint">正在揭晓中...</string>
