@@ -228,7 +228,7 @@
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:background="@android:color/darker_gray"
+                        android:background="@drawable/shape_corner_txv_bg"
                         android:text="@string/activity_productdetailinfo_hasjoin_hint"
                         android:textSize="16sp"/>
 
@@ -243,7 +243,7 @@
                         <Button
                             android:id="@+id/activity_productdetailinfo_more_info"
                             android:onClick="onBtnMoreProductInfo"
-                            android:background="@android:color/white"
+                            android:background="@drawable/selector_productdetail_moreinfo_btn"
                             android:gravity="center_vertical"
                             android:layout_width="match_parent"
                             android:layout_height="42dp"

@@ -36,4 +36,16 @@
         android:button="@null"
         android:drawableTop="@drawable/main_menu_shopping_cart_press"/>
 
+
+    <TextView
+        android:id="@+id/txv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12"/>
+    <TextView
+        android:id="@+id/txv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3232"/>
+
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -83,6 +84,9 @@ public class ProductDetailInfoActivity extends Activity {
     /** 所有参与记录 */
     private ListView mPlayRecordListView;
 
+    /** 所有参与记录 */
+    private TextView mTempAllPlayRecord;
+
     private DisplayImageOptions mDisplayImageOptions;
 
 
@@ -148,7 +152,7 @@ public class ProductDetailInfoActivity extends Activity {
         mTxvMoreDetailInfo = (Button) findViewById(R.id.activity_productdetailinfo_more_info);
 
         mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
-
+        mTempAllPlayRecord = (TextView) findViewById(R.id.temp_alljoin_records);
     }
 
     private void initViewRes() {
@@ -226,7 +230,8 @@ public class ProductDetailInfoActivity extends Activity {
      * @param uiAciton
      */
     private void handlePlayRecord(String uiAciton) {
-
+        //TODO
+        mTempAllPlayRecord.setText("");
     }
 
 
@@ -265,7 +270,8 @@ public class ProductDetailInfoActivity extends Activity {
         ActivityProductDetailInfoEntity detailEntity = mDetailInfoBiz.getDetailEntity();
 
         mBannerView.setDatasAndNotify(Bizdto.changeToBannerInfo(detailEntity.getProductImgUrls()));
-        mTxvProductInfoTitleDescribe2.setText(detailEntity.getTitleDescribe());
+//        mTxvProductInfoTitleDescribe2.setText(detailEntity.getTitleDescribe());
+        mTxvProductInfoTitleDescribe2.setText(Html.fromHtml(detailEntity.getTitleDescribe()));
 
         int activityState = detailEntity.getActivityState();
         if (activityState == 0) {   //已揭晓

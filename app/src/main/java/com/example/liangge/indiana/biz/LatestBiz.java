@@ -71,6 +71,7 @@ public class LatestBiz extends BaseFragmentBiz{
     }
 
     /**
+     * @deprecated
      * 请求需要的产品数据
      */
     public void requestDatas() {
@@ -166,6 +167,9 @@ public class LatestBiz extends BaseFragmentBiz{
     }
 
 
+    /**
+     * 加载最新揭晓信息
+     */
     private class SlaveLoadLatestInfoThread extends Thread {
 
         private static final String REQUEST_TAG = "SlaveLoadLatestInfoThread";
@@ -181,7 +185,7 @@ public class LatestBiz extends BaseFragmentBiz{
             JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.LATEST_PRODUCT_INFO, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
-                    LogUtils.i(TAG, "onResponse=%s", s);
+                    LogUtils.i(TAG, "SlaveLoadLatestInfoThread#onResponse=%s", s);
                     Gson gson = new Gson();
                     mLatestDatas = gson.fromJson(s, new TypeToken<List<LastestBingoEntity>>(){}.getType());
                     notifySuccess();
@@ -190,7 +194,7 @@ public class LatestBiz extends BaseFragmentBiz{
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    LogUtils.e(TAG, "onErrorResponse=%s", volleyError.toString() );
+                    LogUtils.e(TAG, "SlaveLoadLatestInfoThread#onErrorResponse=%s", volleyError.toString() );
                     notifyFail();
 
                 }
@@ -203,6 +207,7 @@ public class LatestBiz extends BaseFragmentBiz{
         private String getJsonBody() {
             String jsonBody = String.format("{\"page\":%d}", RequestInfo.startPage);
 
+            LogUtils.w(TAG, "SlaveLoadLatestInfoThread#jsonData=%s", jsonBody);
             return jsonBody;
         }
 
@@ -262,6 +267,9 @@ public class LatestBiz extends BaseFragmentBiz{
     }
 
 
+    /**
+     * 单个请求最新揭晓信息
+     */
     private class SlaveSingleRequestLatestInfoThread extends Thread {
 
 
@@ -279,7 +287,7 @@ public class LatestBiz extends BaseFragmentBiz{
             JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.LATEST_PRODUCT_INFO, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
-                    LogUtils.i(TAG, "onRsponse=%s", s);
+                    LogUtils.i(TAG, "SlaveSingleRequestLatestInfoThread#onRsponse=%s", s);
                     Gson gson = new Gson();
                     LastestBingoEntity item = gson.fromJson(s, LastestBingoEntity.class);
                     updateLatestBingoInfo(item);
@@ -287,15 +295,19 @@ public class LatestBiz extends BaseFragmentBiz{
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    LogUtils.e(TAG, "volleyError=%s", volleyError.getLocalizedMessage());
+                    LogUtils.e(TAG, "SlaveSingleRequestLatestInfoThread#volleyError=%s", volleyError.getLocalizedMessage());
 
                 }
             }, jsonData);
+
+            mVolleyBiz.addRequest(request);
         }
 
         private String getJsonBody() {
             //使用传进的实体期次id构造请求格式 TODO
             String jsonData = String.format("{\"activityId\":[%d], \"page\":%d}", this.mUpdateEntity.getActivityId(), 1);
+
+            LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#jsonBody=%s", jsonData);
             return jsonData;
         }
 
@@ -303,7 +315,7 @@ public class LatestBiz extends BaseFragmentBiz{
          * 更新中奖用户信息
          */
         private void updateLatestBingoInfo(LastestBingoEntity entity) {
-            LogUtils.w(TAG, "updateLatestBingoInfo()");
+            LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#updateLatestBingoInfo()");
             LastestBingoEntity item;
             for (int i=0, len=mLatestDatas.size(); i<len; i++) {
                 item = mLatestDatas.get(i);
