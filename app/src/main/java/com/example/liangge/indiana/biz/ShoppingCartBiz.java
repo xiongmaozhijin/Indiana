@@ -110,6 +110,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     public void clearShoppingCart() {
        this.mListInventorys.clear();
         mDBManager.deleteAllOrder();
+//        updateShoppingCartIconCnt();
     }
 
 
@@ -346,6 +347,8 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
         mMessageManager.sendMessage(msgInfo);
 
+        //更新底部的Menu的提示
+        updateShoppingCartIconCnt();
     }
 
 
@@ -544,6 +547,13 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
     }
 
 
+    /**
+     *
+     * @param isAlreadyEnter 是否已经进入过了
+     */
+    public void onResume(boolean isAlreadyEnter) {
+        onThisFrament();
+    }
 
     //1.查询是否有清单
     @Override

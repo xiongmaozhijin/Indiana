@@ -17,6 +17,8 @@ import com.example.liangge.indiana.comm.LogUtils;
  */
 public abstract class BaseFragment extends Fragment {
 
+    /** 已经进入过这个界面 */
+    private boolean bIsEnterAlready = false;
 
     public BaseFragment() {
         // Required empty public constructor
@@ -103,6 +105,14 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * 是否进入过这个界面
+     * @return
+     */
+    protected boolean isAlreadyEnter() {
+        return this.bIsEnterAlready;
+    }
+
+    /**
      * 注册UI广播
      */
     protected abstract void registerUIBroadCast();
@@ -121,6 +131,7 @@ public abstract class BaseFragment extends Fragment {
      */
     public void onFirstEnter() {
         LogUtils.w(getDeugTag(), "onFirstEnter()");
+        this.bIsEnterAlready = true;
         registerUIBroadCast();
     }
 
