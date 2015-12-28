@@ -80,6 +80,7 @@ public class Bizdto {
         userInfo.setBalance(item.getBalance());
         userInfo.setPhoto(item.getPhoto());
         userInfo.setToken(item.getToken());
+        userInfo.setNickname(item.getNickname());
 
         return userInfo;
     }
@@ -107,6 +108,7 @@ public class Bizdto {
 
     public static UserInfoEntity changeToUserInfoEntity(UserInfoEntity userItem, ResponseUserInfoEntitiy resItem) {
         userItem.setBalance(resItem.getBalance());
+        userItem.setNickname(resItem.getNickname());
 
         return userItem;
     }

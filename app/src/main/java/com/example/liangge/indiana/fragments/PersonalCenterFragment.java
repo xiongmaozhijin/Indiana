@@ -350,7 +350,7 @@ public class PersonalCenterFragment extends BaseFragment {
         LogUtils.i(TAG, "initLogInUIState()");
         mTxvUserInfo.setVisibility(View.VISIBLE);
         String strUserInfoFormat = getResources().getString(R.string.f_personal_userinfo_1);
-        String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getUserId(), mPersonalCenterBiz.getUserInfo().getBalance());
+        String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getNickname(), mPersonalCenterBiz.getUserInfo().getBalance());
         ImageLoader.getInstance().displayImage(mPersonalCenterBiz.getUserInfo().getPhoto(), mImgViewUserPortain, mDisplayImageOptions);
         mTxvUserInfo.setText(strUserInfo);
 

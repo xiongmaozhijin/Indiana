@@ -8,6 +8,8 @@ public class UserInfoEntity {
 
     private long userId;
 
+    private String nickname;
+
     private String token;
 
     private int balance;
@@ -18,12 +20,21 @@ public class UserInfoEntity {
     public UserInfoEntity() {
     }
 
+
     public long getUserId() {
         return userId;
     }
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getToken() {
@@ -54,9 +65,12 @@ public class UserInfoEntity {
     public String toString() {
         return "UserInfoEntity{" +
                 "userId=" + userId +
+                ", nickname='" + nickname + '\'' +
                 ", token='" + token + '\'' +
                 ", balance=" + balance +
                 ", photo='" + photo + '\'' +
                 '}';
     }
+
+
 }

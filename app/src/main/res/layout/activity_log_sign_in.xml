@@ -204,6 +204,32 @@
                         android:scaleType="fitXY"
                         android:src="@android:drawable/ic_dialog_map"/>
                     <EditText
+                        android:id="@+id/edt_username"
+                        android:inputType="text"
+                        android:paddingLeft="9dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/activity_logsign_signin_username_hint"
+                        android:textColor="@android:color/darker_gray"
+                        android:background="@null"/>
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:background="@drawable/shape_logsignin_edt_bg"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:scaleType="fitXY"
+                        android:src="@android:drawable/ic_dialog_map"/>
+                    <EditText
                         android:id="@+id/edt_password1"
                         android:inputType="textWebPassword"
                         android:paddingLeft="9dp"

@@ -20,6 +20,7 @@ public class ResponseLogEntity {
     /** 用户头像 */
     private String photo;
 
+    private String nickname;
 
 
     public ResponseLogEntity() {
@@ -75,6 +76,14 @@ public class ResponseLogEntity {
     }
 
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public String toString() {
         return "ResponseLogEntity{" +
@@ -84,6 +93,7 @@ public class ResponseLogEntity {
                 ", token='" + token + '\'' +
                 ", balance=" + balance +
                 ", photo='" + photo + '\'' +
+                ", nickname='" + nickname + '\'' +
                 '}';
     }
 }

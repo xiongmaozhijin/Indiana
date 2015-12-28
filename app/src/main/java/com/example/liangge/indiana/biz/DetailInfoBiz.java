@@ -164,6 +164,7 @@ public class DetailInfoBiz {
     public void onBtnGoNextHotActivity() {
         LogUtils.w(TAG, "onBtnGoNextHotActivity()");
         loadDetailInfo(true);
+        loadAllPlayRecord(false);
     }
 
 

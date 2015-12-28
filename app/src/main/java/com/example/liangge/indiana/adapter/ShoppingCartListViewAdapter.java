@@ -2,6 +2,7 @@ package com.example.liangge.indiana.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -185,7 +186,8 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
          */
         private void adapterData(InventoryEntity item) {
             ImageLoader.getInstance().displayImage(item.getInvertoryImgUrl(), this.mImgViewProduct, mDisplayImageOptions);
-            mTxvTitleDescribe.setText(item.getTitleDescribe());
+//            mTxvTitleDescribe.setText(item.getTitleDescribe());
+            mTxvTitleDescribe.setText(Html.fromHtml(item.getTitleDescribe()));
             mTxvJoinDescribe.setText(item.getJoinDescribe(mContext));
             mInventoryBuyWidget.initInventoryBuyWidget(item);
 

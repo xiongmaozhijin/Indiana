@@ -279,6 +279,7 @@
 
                     <TextView
                         android:id="@+id/temp_alljoin_records"
+                        android:isScrollContainer="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/holo_green_light"/>
@@ -306,7 +307,7 @@
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="#ff0000">
+        android:background="#ffffff">
 
         <!-- 添加到购物车 -->
         <FrameLayout

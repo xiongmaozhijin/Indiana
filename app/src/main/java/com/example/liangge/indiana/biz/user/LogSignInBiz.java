@@ -75,6 +75,9 @@ public class LogSignInBiz {
         /** 手机号码 */
         public static String phoneNumber = "";
 
+        /** 用户名 */
+        public static String username = "";
+
         /** 密码 */
         public static String password = "";
 
@@ -127,8 +130,9 @@ public class LogSignInBiz {
     /**
      * 一键注册
      */
-    public void onSignIn(String phoneNumber, String password, String verticationCode) {
+    public void onSignIn(String phoneNumber, String username, String password, String verticationCode) {
         RequestInfo.phoneNumber = phoneNumber;
+        RequestInfo.username = username;
         RequestInfo.password = password;
         RequestInfo.veticationCode = verticationCode;
 
@@ -197,8 +201,8 @@ public class LogSignInBiz {
         @Override
         protected String getJsonBody() {
 
-            String jsonBody = String.format("{\"phone_number\":\"%s\", \"password\":\"%s\", \"verificationCode\":\"%s\", \"type\":\"phone\"}"
-                                                , RequestInfo.phoneNumber, RequestInfo.password, RequestInfo.veticationCode);
+            String jsonBody = String.format("{\"phone_number\":\"%s\", \"password\":\"%s\", \"verificationCode\":\"%s\", \"type\":\"phone\", \"nickname\":\"%s\"}"
+                                                , RequestInfo.phoneNumber, RequestInfo.password, RequestInfo.veticationCode, RequestInfo.username);
 
             LogUtils.w(TAG, "SignIn requestJson=%s", jsonBody);
             return jsonBody;

@@ -47,6 +47,9 @@ public class LogSignInActivity extends BaseActivity2 {
 
     /** 登录手机号*/
     private EditText mEdtLogPhoneNumber;
+
+    private EditText mEdtUsername;
+
     /** 登录密码 */
     private EditText mEdtLogPassword;
 
@@ -95,6 +98,7 @@ public class LogSignInActivity extends BaseActivity2 {
         mBtnSwitch = (ImageButton) findViewById(R.id.activity_logsignin_btn_switch);
 
         mEdtPhoneNumber = (EditText) findViewById(R.id.edt_phone_number);
+        mEdtUsername = (EditText) findViewById(R.id.edt_username);
         mEdtPassword1 = (EditText) findViewById(R.id.edt_password1);
         mEdtPassword2 = (EditText) findViewById(R.id.edt_password2);
         mEdtVerticationCode = (EditText) findViewById(R.id.edt_vertication_code);
@@ -172,16 +176,21 @@ public class LogSignInActivity extends BaseActivity2 {
     public void onBtnSignIn(View view) {
         if (mCheckBoxReadProcotal.isChecked()) {
             String phoneNumber = mEdtPhoneNumber.getText().toString();
+            String username = mEdtUsername.getText().toString();
             String password1 = mEdtPassword1.getText().toString();
             String password2 = mEdtPassword2.getText().toString();
             String verticatonCode = mEdtVerticationCode.getText().toString();
 
-            if (password1.equals(password2)) {
-                mLogSignInBiz.onSignIn(phoneNumber,password1, verticatonCode);
-
-            } else {
+            if (!password1.equals(password2) ) {
                 String hintMsg = getResources().getString(R.string.activity_logsignin_singin_password_not_same);
                 LogUtils.toastShortMsg(this, hintMsg);
+
+            } else if (TextUtils.isEmpty(username) ) {
+                String hintMsg = getResources().getString(R.string.activity_logsignin_signin_username_not_empty);
+                LogUtils.toastShortMsg(this, hintMsg);
+
+            } else {
+                mLogSignInBiz.onSignIn(phoneNumber,username, password1, verticatonCode);
 
             }
 

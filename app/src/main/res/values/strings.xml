@@ -105,6 +105,7 @@
     <string name="activity_logsignin_signin_read_protocal_hint">请阅读《夺宝协议》并同意</string>
 
     <string name="activity_logsignin_singin_password_not_same">请输入相同的密码</string>
+    <string name="activity_logsignin_signin_username_not_empty">用户名不能为空</string>
     <string name="activity_logsignin_log_not_complete">请填写完整</string>
     <string name="activity_logsignin_log_account_not_exiset">账号不存在</string>
     <string name="activity_logsignin_log_password_error">密码错误</string>
@@ -116,9 +117,10 @@
     <string name="activity_inventory_pay_payresult">%1$s\n购买数量:%2$d\t购买成功数量:%3$d\n\n</string>
     <string name="activity_imgview_titlebar_title">图文详情</string>
     <string name="activity_user_info_info">\n用户ID:%1$s\n\n账户余额:%2$s</string>
-    <string name="f_personal_userinfo_1">%1$d \t余额:%2$d</string>
+    <string name="f_personal_userinfo_1">%1$s \t余额:%2$d</string>
     <string name="activity_detailinfo_addto_shoppingcart">一键购物</string>
     <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往火热下一期</string>
+    <string name="activity_logsign_signin_username_hint">请输入你的名字</string>
 
 
 </resources>

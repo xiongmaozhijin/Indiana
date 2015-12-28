@@ -9,6 +9,8 @@ public class ResponseUserInfoEntitiy {
     /** 返回的状态码 */
     private int status;
 
+    private String nickname;
+
     private String msg;
 
     private int balance;
@@ -41,16 +43,21 @@ public class ResponseUserInfoEntitiy {
     }
 
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     @Override
     public String toString() {
         return "ResponseUserInfoEntitiy{" +
                 "status=" + status +
+                ", nickname='" + nickname + '\'' +
                 ", msg='" + msg + '\'' +
                 ", balance=" + balance +
                 '}';
     }
-
-
-
-
 }
