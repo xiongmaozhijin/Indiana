@@ -25,6 +25,13 @@ public class UIBaseActivity extends FragmentActivity {
         initManager();
     }
 
+    //解决 getActivity() 返回 NULL 的问题
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+
+    }
+
     private void initManager() {
         mPersonalCenterBiz = PersonalCenterBiz.getInstance(this);
     }
