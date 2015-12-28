@@ -163,8 +163,9 @@ public class DetailInfoBiz {
      */
     public void onBtnGoNextHotActivity() {
         LogUtils.w(TAG, "onBtnGoNextHotActivity()");
+        RequestInfo.bLoadPlayRecordMore = false;
         loadDetailInfo(true);
-        loadAllPlayRecord(false);
+
     }
 
 
@@ -293,6 +294,7 @@ public class DetailInfoBiz {
                     LogUtils.i(TAG, "SlaveLoadDetailInfoThread#onResponse=%s", s);
                     Gson gson = new Gson();
                     DataInfo.activityProductItemEntity = gson.fromJson(s, ActivityProductDetailInfoEntity.class);
+                    RequestInfo.lActivityId = DataInfo.activityProductItemEntity.getActivityId();
                     notifySuccess();
                 }
             }, new Response.ErrorListener() {
@@ -332,6 +334,7 @@ public class DetailInfoBiz {
             this.bIsWorking = false;
             UIMessageEntity item = new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_SUCCEED);
             mMessageManager.sendMessage(item);
+            loadAllPlayRecord(RequestInfo.bLoadPlayRecordMore);
         }
 
         /** 是否还在工作 */
@@ -350,7 +353,7 @@ public class DetailInfoBiz {
 
     public void onResume() {
         loadDetailInfo(false);
-        loadAllPlayRecord(false);
+        RequestInfo.bLoadPlayRecordMore = false;
     }
 
 
