@@ -86,11 +86,11 @@ public class DBManager {
     }
 
     /**
-     * 更新一条订单记录
+     * 更新或插入一条订单记录
      * @param productId
      * @param buyCnt
      */
-    public void updateOrder(int productId, int buyCnt) {
+    public void updateOrder(long productId, int buyCnt) {
         LogUtils.w(TAG, "updateOrder().productId=%d, buyCnt=%d", productId, buyCnt);
         updateOrder(new Order(productId, buyCnt) );
     }

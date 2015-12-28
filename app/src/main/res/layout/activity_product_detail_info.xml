@@ -37,6 +37,11 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+    <!-- 所有内容 -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <!-- 没有网络或加载中 -->
         <include layout="@layout/layout_not_network" android:id="@+id/activity_detailinfo_net_error_wrapper" />
 
@@ -76,6 +81,7 @@
 
                         <TextView
                             android:id="@+id/activity_productdetailinfo_title_describe1"
+                            android:textColor="@android:color/holo_purple"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="已揭晓"/>
@@ -258,7 +264,7 @@
 
                 <!-- 下半部分 -->
                 <LinearLayout
-                    android:background="@android:color/darker_gray"
+                    android:background="@android:color/holo_green_light"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -268,14 +274,14 @@
                         android:layout_marginBottom="11dp"
                         android:layout_width="match_parent"
                         android:layout_height="42dp"
-                        android:background="@android:color/white"
                         android:text="@string/activity_productdetailinfo_alljoin_record"/>
 
 
                     <TextView
                         android:id="@+id/temp_alljoin_records"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/holo_green_light"/>
 
                     <com.example.liangge.indiana.ui.widget.ExListView
                         android:id="@+id/activity_productdetailinfo_listview_records"
@@ -295,5 +301,65 @@
 
     </FrameLayout>
 
+    <!-- 浮动购买 -->
+    <FrameLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="#ff0000">
+
+        <!-- 添加到购物车 -->
+        <FrameLayout
+            android:id="@+id/add_to_shoppingcart_wrapper"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:descendantFocusability="afterDescendants">
+
+            <Button
+                android:id="@+id/btn_add_to_shoppingcart"
+                android:onClick="onBtnAddToShoppingCart"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:background="@drawable/selector_detailinfo_buy_item_btn"
+                android:text="@string/activity_detailinfo_addto_shoppingcart"/>
+
+            <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
+                android:id="@+id/widget_buy_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        </FrameLayout>
+
+        <!-- 参与火热的下一期 -->
+        <FrameLayout
+            android:id="@+id/activity_join_next_hot_activity_wrapper"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:onClick="onBtnGoNextHotActivity"
+                android:background="@drawable/selector_detailinfo_buy_item_btn"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_detailinfo_btn_go_nexthot_acitivity"/>
+
+        </FrameLayout>
+
+
+    </FrameLayout>
+
+
+    </FrameLayout>
 
 </LinearLayout>

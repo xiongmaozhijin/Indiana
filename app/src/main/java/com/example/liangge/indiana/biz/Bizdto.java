@@ -47,7 +47,7 @@ public class Bizdto {
             for (int j=0, lenJ=orderList.size(); j<lenJ; j++) {
                 orderItem = orderList.get(j);
 
-                if (inventoryEntityItem.getProductId() == orderItem.getProductId()) {
+                if (inventoryEntityItem.getActivityID() == orderItem.getProductId()) {
                     inventoryEntityItem.setBuyCounts(orderItem.getBuyCnt());
                     break;
                 }
@@ -93,7 +93,7 @@ public class Bizdto {
         InventoryEntity inventoryEntity;
         for (int i=0, len=listInventory.size(); i<len; i++) {
             inventoryEntity = listInventory.get(i);
-            PayRequestItemEntitiy payRequestItemEntitiy = new PayRequestItemEntitiy(inventoryEntity.getProductId(), inventoryEntity.getBuyCounts());
+            PayRequestItemEntitiy payRequestItemEntitiy = new PayRequestItemEntitiy(inventoryEntity.getActivityID(), inventoryEntity.getBuyCounts());
             listPayList.add(payRequestItemEntitiy);
         }
 

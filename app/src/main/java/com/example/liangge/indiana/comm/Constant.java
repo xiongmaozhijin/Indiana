@@ -123,6 +123,8 @@ public class Constant {
         /** 请求用户信息接口 */
         String REQUEST_USER_INFO = WEBHOST + "/index.php/Admin/Api/personalData";
 
+        /** 一期活动用户参与记录 */
+        String REQUEST_ACTIVITY_PLAY_RECORDS = WEBHOST + "/index.php/Admin/Api/issueRecord";
 
     }
 

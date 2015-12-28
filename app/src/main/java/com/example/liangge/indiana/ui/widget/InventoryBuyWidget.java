@@ -74,15 +74,27 @@ public class InventoryBuyWidget extends FrameLayout{
 
     /**
      * 初始化购买控件
+     * @param maxBuyCnt
+     */
+    public void initInventoryBuyWidget(int maxBuyCnt) {
+        LogUtils.i(TAG, "initInventoryBuyWidget()maxBuyCnt=%d", maxBuyCnt);
+        this.mIMaxBuyCnt = maxBuyCnt;
+    }
+
+    /**
+     * 初始化购买控件
      * @param inventoryEntity
      */
     public void initInventoryBuyWidget(InventoryEntity inventoryEntity) {
         this.mInventoryEntity = inventoryEntity;
-        this.mIMaxBuyCnt = mInventoryEntity.getNeedPeopleCounts();
+        this.mIMaxBuyCnt = mInventoryEntity.getLackPeopleCounts();
         post(new Runnable() {
             @Override
             public void run() {
-                mEdtNumber.setText(mInventoryEntity.getBuyCounts()+"");
+                if (mInventoryEntity.getLackPeopleCounts() > 0) {
+                    mEdtNumber.setText(mInventoryEntity.getBuyCounts()+"");
+                }
+
             }
         });
 
@@ -116,77 +128,69 @@ public class InventoryBuyWidget extends FrameLayout{
         mBtnSub.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mICurBuyCnt--;
-                mEdtNumber.setText(mICurBuyCnt + "");
+                if (mIMaxBuyCnt > 0) {
+                    LogUtils.i(TAG, "onBtnSub()");
+                    mICurBuyCnt--;
+                    mEdtNumber.setText(mICurBuyCnt + "");
+                }
+
             }
         });
 
         mBtnPlus.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mICurBuyCnt++;
-                mEdtNumber.setText(mICurBuyCnt + "");
+                if (mIMaxBuyCnt > 0) {
+                    LogUtils.i(TAG, "onBtnPlus()");
+                    mICurBuyCnt++;
+                    mEdtNumber.setText(mICurBuyCnt + "");
+                }
+
             }
         });
 
         mEdtNumber.addTextChangedListener(new TextWatcher() {
 
-            private int beforeChanged;
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (s!=null && s!="") {
-                    try {
-                        beforeChanged = Integer.parseInt(s.toString());
-                    } catch (Exception e) {
-                        beforeChanged = 1;
-                    }
-                } else {
-                    beforeChanged = 1;
-                }
+                LogUtils.w(TAG, "beforTextChange=%s", s.toString());
 
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                LogUtils.w(TAG, "onTextChanged(). s=%s", s);
-                boolean bReset = false;
-//                int iCurBuyCntCopy = mI
-                if ((s != null) && (s != "")) {
+                LogUtils.w(TAG, "onTextChanged(). s=%s", s.toString());
+                String str = s.toString();
 
+                if (str==null || str.equals("")) {
+                    mEdtNumber.setText(1+"");
+                    notifyListener(1);
+
+                } else {
                     try {
-                        mICurBuyCnt = Integer.parseInt(s.toString());
-
-                        if (mICurBuyCnt <= 0) {
-                            mICurBuyCnt = beforeChanged;
-                            bReset = true;
-
-                        }  else if (mICurBuyCnt > mIMaxBuyCnt) {
-                            mICurBuyCnt = mIMaxBuyCnt;
-                            bReset = true;
+                        int number = Integer.parseInt(str);
+                        if (number<=0) {
+                            mEdtNumber.setText(1+"");
+                            notifyListener(1);
+                        } else if (number > mIMaxBuyCnt) {
+                            mEdtNumber.setText(mIMaxBuyCnt+"");
+                            notifyListener(mIMaxBuyCnt);
+                        } else {
+                            notifyListener(number);
 
                         }
 
-
                     } catch (Exception e) {
-                        bReset = true;
-
+                        mEdtNumber.setText(1+"");
+                        notifyListener(1);
                     }
 
 
-                } else {
-                    bReset = true;
-                }
-
-                if (bReset) {
-                    mEdtNumber.setText(mICurBuyCnt + "");
-                }
-
-                if ( beforeChanged != mICurBuyCnt) {
-                    notifyListener(mICurBuyCnt);
-                    LogUtils.w(TAG, "iCurBuyCnt=%d", mICurBuyCnt);
 
                 }
+
+
 
             }
 
@@ -201,18 +205,29 @@ public class InventoryBuyWidget extends FrameLayout{
 
     private void notifyListener(int iCurBuyCnt) {
         LogUtils.w(TAG, "notifyListener(). iCurBuyCnt=%d", iCurBuyCnt);
+        this.mICurBuyCnt = iCurBuyCnt;
 
         if (this.mOnBuyCntChangeListener != null) {
             if (this.mInventoryEntity != null) {
                 this.mInventoryEntity.setBuyCounts(iCurBuyCnt);
             }
-            this.mOnBuyCntChangeListener.onBuyCntChange(this.mInventoryEntity.getProductId(), iCurBuyCnt);
+            this.mOnBuyCntChangeListener.onBuyCntChange(this.mInventoryEntity.getActivityID(), iCurBuyCnt);
             this.mOnBuyCntChangeListener.onBuyCntChange(this.mInventoryEntity);
 
         }
 
 
     }
+
+    /**
+     * 获取购买次数
+     * @return
+     */
+    public int getCurBuyCnt() {
+        return this.mICurBuyCnt;
+    }
+
+
 
 
 }

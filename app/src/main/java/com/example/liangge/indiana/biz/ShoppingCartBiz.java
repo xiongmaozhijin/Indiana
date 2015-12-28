@@ -140,7 +140,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         new Thread() {
             @Override
             public void run() {
-                Order order = mDBManager.loadOrderEntity(item.getProductId());
+                Order order = mDBManager.loadOrderEntity(item.getActivityID());
                 if (order != null) {
                     order.setBuyCnt(item.getBuyCounts());
                     mDBManager.updateOrder(order);
@@ -190,6 +190,19 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         LogUtils.w(TAG, "addProductToShoppingCart()");
         new AsyncAddProductThread(activityProductItemEntity).start();
     }
+
+    /**
+     * 添加物品到购物车
+     * @param activityId
+     * @param buyCnt
+     */
+    public void addProductToShoppingCart(long activityId, int buyCnt) {
+        LogUtils.w(TAG, "addProductToShoppingCart().activityId=%d, buyCnt=%d", activityId, buyCnt);
+        //添加到数据库，消息提示
+        mDBManager.updateOrder(activityId, buyCnt);
+        mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT));
+    }
+
 
     /**
      * 请求清单结算信息
@@ -263,7 +276,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
             InventoryEntity inventoryEntityItem;
             for (int i=0, len=mListInventorys.size(); i<len; i++) {
                 inventoryEntityItem = mListInventorys.get(i);
-                if (inventoryEntityItem.getProductId() == mAddActivityProductItemEntity.getActivityId()) {
+                if (inventoryEntityItem.getActivityID() == mAddActivityProductItemEntity.getActivityId()) {
                     int iCurBuyCnt = inventoryEntityItem.getBuyCounts();
                     inventoryEntityItem.setBuyCounts(iCurBuyCnt+1);
                     bIsContain = true;
@@ -530,7 +543,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
             boolean bIsContain = false;
             for (int j=0, lenj=listInventory.size(); j<lenj; j++) {
                 inventoryItem = listInventory.get(j);
-                if (orderItem.getProductId() == inventoryItem.getProductId() ) {
+                if (orderItem.getProductId() == inventoryItem.getActivityID() ) {
                     bIsContain = true;
                 }
 

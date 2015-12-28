@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
@@ -13,8 +14,13 @@ import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商品详细Biz
@@ -46,8 +52,25 @@ public class DetailInfoBiz {
         /** 活动期次 */
         public static long lActivityId;
 
+        /** 是否加载更多参与记录 */
+        public static boolean bLoadPlayRecordMore = false;
+        /** 参与记录起始页 */
+        public static int iPlayRecordStartPage = 1;
+
+        /** 是否请求最新一期 */
+        public static boolean bIsNewestActivity = false;
+
 
     }
+
+
+    private static class ResponseInfo {
+        /** 某期用户的参与记录 */
+        public static List<ResponseActivityPlayRecordEntity> listAllPlayRecords = new ArrayList<>();
+
+
+    }
+
 
     private static class DataInfo {
         public static ActivityProductDetailInfoEntity activityProductItemEntity;
@@ -100,9 +123,13 @@ public class DetailInfoBiz {
 
     }
 
-
-    private void loadDetailInfo() {
+    /**
+     * 加载商品活动详情
+     * @param isNewestActivity  是否请求最新一期，原有的已经结束了
+     */
+    private void loadDetailInfo(boolean isNewestActivity) {
         if (!mSlaveLoadDetailInfoThread.isWorking()) {
+            RequestInfo.bIsNewestActivity = isNewestActivity;
             mSlaveLoadDetailInfoThread = new SlaveLoadDetailInfoThread();
             mSlaveLoadDetailInfoThread.start();
         }
@@ -111,14 +138,57 @@ public class DetailInfoBiz {
 
 
     /**
+     * 得到可读的所有参与记录
+     * @return
+     */
+    public String getHumanReadablePlayRecords() {
+        //TODO<string name="activity_productdetailinfo_all_join_record_format">\n%1$s\t参与记录:%2$d\n参与时间:%2$s</string>
+        String recordFormat = mContext.getResources().getString(R.string.activity_productdetailinfo_all_join_record_format);
+        String records = "";
+
+        List<ResponseActivityPlayRecordEntity> list = ResponseInfo.listAllPlayRecords;
+        ResponseActivityPlayRecordEntity item;
+        String strItem;
+        for (int i=0, len=list.size(); i<len; i++) {
+            item = list.get(i);
+            strItem = String.format(recordFormat, item.getNickname(), item.getOwn_share(), item.getRecord_time());
+            records += strItem;
+        }
+
+        return records;
+    }
+
+    /**
+     * 前往下一期
+     */
+    public void onBtnGoNextHotActivity() {
+        LogUtils.w(TAG, "onBtnGoNextHotActivity()");
+        loadDetailInfo(true);
+    }
+
+
+
+    /**
      * 请求所有参与记录
      */
-    private void loadAllPlayRecord() {
-        if (!mSlaveLoadAllPalyRecordsThread.isWorking()) {
+    private void loadAllPlayRecord(boolean bIsLoadMore) {
+        RequestInfo.bLoadPlayRecordMore = bIsLoadMore;
+
+        if (RequestInfo.bLoadPlayRecordMore) {
+            if (!mSlaveLoadAllPalyRecordsThread.isWorking()) {
+                RequestInfo.iPlayRecordStartPage++;
+                mSlaveLoadAllPalyRecordsThread = new SlaveLoadAllPalyRecordsThread();
+                mSlaveLoadAllPalyRecordsThread.start();
+            }
+
+        } else {
+            RequestInfo.iPlayRecordStartPage = 1;
             mSlaveLoadAllPalyRecordsThread.cancelAll();
             mSlaveLoadAllPalyRecordsThread = new SlaveLoadAllPalyRecordsThread();
             mSlaveLoadAllPalyRecordsThread.start();
+
         }
+
     }
 
     /**
@@ -131,35 +201,61 @@ public class DetailInfoBiz {
         @Override
         protected void notifyStart() {
             super.notifyStart();
-            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START));
+            if (RequestInfo.bLoadPlayRecordMore) {
+                mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START_MORE));
+
+            } else {
+                mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START));
+
+            }
+
         }
 
         @Override
         protected void notifySuccess() {
             super.notifySuccess();
-            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED));
+            if (RequestInfo.bLoadPlayRecordMore) {
+                mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED_MORE));
+
+            } else {
+                mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED));
+
+            }
+
         }
 
         @Override
         protected void notifyFail() {
             super.notifyFail();
-            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED));
+            if (RequestInfo.bLoadPlayRecordMore) {
+                mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED_MORE));
+
+            } else {
+                mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED));
+
+            }
+
         }
 
         @Override
         protected String getJsonBody() {
-            return null;
+            String jsonBody = String.format("{\"issue_id\":%d, \"page\":%d}", RequestInfo.lActivityId, RequestInfo.iPlayRecordStartPage);
+
+            LogUtils.w(TAG, "SlaveLoadAllPalyRecordsThread#jsonBody=%s", jsonBody);
+            return jsonBody;
         }
 
         @Override
         protected void onResponseListener(String s) {
             LogUtils.w(TAG, "SlaveLoadAllPalyRecordsThread onResponse=%s", s);
-
+            Gson gson = new Gson();
+            List<ResponseActivityPlayRecordEntity> list = gson.fromJson(s, new TypeToken<List<ResponseActivityPlayRecordEntity>>(){}.getType());
+            ResponseInfo.listAllPlayRecords = list;
         }
 
         @Override
         protected void onResponseErrorListener(VolleyError volleyError) {
-            LogUtils.e(TAG, "SlaveLoadAllPalyRecordsThread. volleyError=%s",volleyError.getLocalizedMessage());
+            LogUtils.e(TAG, "SlaveLoadAllPalyRecordsThread. volleyError=%s", volleyError.getLocalizedMessage());
         }
 
         @Override
@@ -169,8 +265,9 @@ public class DetailInfoBiz {
 
         @Override
         protected String getWebServiceAPI() {
-            return null;
+            return Constant.WebServiceAPI.REQUEST_ACTIVITY_PLAY_RECORDS;
         }
+
     }
 
 
@@ -210,9 +307,8 @@ public class DetailInfoBiz {
         }
 
         private String getJsonBody() {
-//            String jsonBody = String.format("{\"issue_id\":%d}", RequestInfo.lActivityId);
-            String jsonBody = String.format("{\"issue_id\":%d, \"id\":%d, \"token\":\"%s\"}", RequestInfo.lActivityId,
-                                                mPersonalCenterBiz.getUserInfo().getUserId(), mPersonalCenterBiz.getUserInfo().getToken() );
+            String jsonBody = String.format("{\"issue_id\":%d, \"id\":%d, \"token\":\"%s\", \"new\":%b}", RequestInfo.lActivityId,
+                                                mPersonalCenterBiz.getUserInfo().getUserId(), mPersonalCenterBiz.getUserInfo().getToken(), RequestInfo.bIsNewestActivity );
 
             LogUtils.i(TAG, "SlaveLoadDetailInfoThread#jsonBody=%s", jsonBody);
 
@@ -252,7 +348,8 @@ public class DetailInfoBiz {
     }
 
     public void onResume() {
-        loadDetailInfo();
+        loadDetailInfo(false);
+        loadAllPlayRecord(false);
     }
 
 

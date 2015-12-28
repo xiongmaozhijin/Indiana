@@ -74,7 +74,15 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     }
 
-
+    /**
+     *
+     * @param isAlreadyEnter 是否已经进入过
+     */
+    public void onResume(boolean isAlreadyEnter) {
+        if (isAlreadyEnter) {
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO));
+        }
+    }
 
 
     @Override

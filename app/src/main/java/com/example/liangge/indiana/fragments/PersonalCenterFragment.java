@@ -175,7 +175,9 @@ public class PersonalCenterFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        onThisFragment();
+        if (isAlreadyEnter()) {
+            mPersonalCenterBiz.onResume(true);
+        }
     }
 
     private void initManager() {

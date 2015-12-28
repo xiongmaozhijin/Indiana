@@ -11,6 +11,9 @@ public class ActivityProductItemEntity {
     /** 商品活动期次ID */
     private long activityId;
 
+    /** 商品ID */
+    private long commodity_id;
+
     /** 产品展示图片 */
     private String productImgUrl;
 
@@ -36,8 +39,9 @@ public class ActivityProductItemEntity {
     public ActivityProductItemEntity() {
     }
 
-    public ActivityProductItemEntity(long activityId, String productImgUrl, String name, String titleDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
+    public ActivityProductItemEntity(long activityId, long commodity_id, String productImgUrl, String name, String titleDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
         this.activityId = activityId;
+        this.commodity_id = commodity_id;
         this.productImgUrl = productImgUrl;
         this.name = name;
         this.titleDesc = titleDesc;
@@ -55,7 +59,7 @@ public class ActivityProductItemEntity {
      * @param strProcess
      */
     public ActivityProductItemEntity(String imgUrl, String name, int process, String strProcess) {
-        this( new Random().nextInt(10), imgUrl, name, "titleDesc1", process, strProcess, 1320, 567);
+        this(1, new Random().nextInt(10), imgUrl, name, "titleDesc1", process, strProcess, 1320, 567);
 
     }
 
@@ -126,10 +130,20 @@ public class ActivityProductItemEntity {
     }
 
 
+    public long getCommodity_id() {
+        return commodity_id;
+    }
+
+    public void setCommodity_id(long commodity_id) {
+        this.commodity_id = commodity_id;
+    }
+
+
     @Override
     public String toString() {
         return "ActivityProductItemEntity{" +
                 "activityId=" + activityId +
+                ", commodity_id=" + commodity_id +
                 ", productImgUrl='" + productImgUrl + '\'' +
                 ", name='" + name + '\'' +
                 ", titleDesc='" + titleDesc + '\'' +
@@ -139,10 +153,6 @@ public class ActivityProductItemEntity {
                 ", lackPeople=" + lackPeople +
                 '}';
     }
-
-
-
-
 
 
 }

@@ -150,6 +150,18 @@ public class UIMessageConts {
         public static final String M_DETAILINFO_REQ_PLAYRECORED_FAILED = "m_detailinfo_req_playrecord_failed";
 
 
+        /** 开始请求参与记录，更多 */
+        public static final String M_DETAILINFO_REQ_PLAYRECORD_REQ_START_MORE = "M_DETAILINFO_REQ_PLAYRECORD_REQ_START_MORE";
+
+        /** 请求参与记录成功，更多 */
+        public static final String M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED_MORE = "M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED_MORE";
+
+        /** 请求参与记录失败，更多 */
+        public static final String M_DETAILINFO_REQ_PLAYRECORED_FAILED_MORE = "M_DETAILINFO_REQ_PLAYRECORED_FAILED_MORE";
+
+        /** 加入购物车提示 */
+        String M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT = "M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT";
+
     }
 
 

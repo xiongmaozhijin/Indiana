@@ -14,6 +14,9 @@ public class ActivityProductDetailInfoEntity {
     /** 活动期次id */
     private long activityId;
 
+    /** 商品ID */
+    private long commodity_id;
+
     /** 商品轮播图片 */
     private String[] productImgUrls;
 
@@ -69,8 +72,9 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
-    public ActivityProductDetailInfoEntity(long activityId, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber) {
+    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber) {
         this.activityId = activityId;
+        this.commodity_id = commodity_id;
         this.productImgUrls = productImgUrls;
         this.activityState = activityState;
         this.titleDescribe = titleDescribe;
@@ -89,14 +93,20 @@ public class ActivityProductDetailInfoEntity {
         this.luckyNumber = luckyNumber;
     }
 
-
-
     public long getActivityId() {
         return activityId;
     }
 
     public void setActivityId(long activityId) {
         this.activityId = activityId;
+    }
+
+    public long getCommodity_id() {
+        return commodity_id;
+    }
+
+    public void setCommodity_id(long commodity_id) {
+        this.commodity_id = commodity_id;
     }
 
     public String[] getProductImgUrls() {
@@ -242,6 +252,7 @@ public class ActivityProductDetailInfoEntity {
     public String toString() {
         return "ActivityProductDetailInfoEntity{" +
                 "activityId=" + activityId +
+                ", commodity_id=" + commodity_id +
                 ", productImgUrls=" + Arrays.toString(productImgUrls) +
                 ", activityState=" + activityState +
                 ", titleDescribe='" + titleDescribe + '\'' +
@@ -260,5 +271,6 @@ public class ActivityProductDetailInfoEntity {
                 ", luckyNumber='" + luckyNumber + '\'' +
                 '}';
     }
+
 
 }

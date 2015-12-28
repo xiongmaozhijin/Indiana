@@ -20,10 +20,12 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.Bizdto;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.ImageViewBiz;
+import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.ui.widget.BannerView;
+import com.example.liangge.indiana.ui.widget.InventoryBuyWidget;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -87,10 +89,22 @@ public class ProductDetailInfoActivity extends Activity {
     /** 所有参与记录 */
     private TextView mTempAllPlayRecord;
 
+    /** 购买控件 */
+    private InventoryBuyWidget mInventoryBuyWidget;
+
+    /** 一键购买Wrapper */
+    private View mViewBuyProductWrapper;
+
+    /** 前往下一期 */
+    private View mViewGoNextHotActivityWrapper;
+
     private DisplayImageOptions mDisplayImageOptions;
 
 
     private ImageViewBiz mImageViewBiz;
+
+
+    private ShoppingCartBiz mShoppingCartBiz;
 
 
     @Override
@@ -100,7 +114,12 @@ public class ProductDetailInfoActivity extends Activity {
 
         initView();
         initManager();
+        initRes();
         initImageLoaderConf();
+    }
+
+    private void initRes() {
+        mShoppingCartBiz = ShoppingCartBiz.getInstance(this);
     }
 
     /**
@@ -153,6 +172,11 @@ public class ProductDetailInfoActivity extends Activity {
 
         mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
         mTempAllPlayRecord = (TextView) findViewById(R.id.temp_alljoin_records);
+
+        mInventoryBuyWidget = (InventoryBuyWidget) findViewById(R.id.widget_buy_item);
+
+        mViewBuyProductWrapper = findViewById(R.id.add_to_shoppingcart_wrapper);
+        mViewGoNextHotActivityWrapper = findViewById(R.id.activity_join_next_hot_activity_wrapper);
     }
 
     private void initViewRes() {
@@ -169,7 +193,6 @@ public class ProductDetailInfoActivity extends Activity {
                 LogUtils.w(TAG, "图文详细");
             }
         });
-
 
 
 
@@ -217,6 +240,9 @@ public class ProductDetailInfoActivity extends Activity {
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED) ) {
                 handlePlayRecord(uiAciton);
 
+            } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT)) {
+                handleUpdateAddToShoppingCart(uiAciton);
+
             }
 
         }
@@ -226,12 +252,25 @@ public class ProductDetailInfoActivity extends Activity {
     }
 
     /**
+     * 处理添加到购物车
+     * @param uiAciton
+     */
+    private void handleUpdateAddToShoppingCart(String uiAciton) {
+        LogUtils.i(TAG, "handleUpdateAddToShoppingCart(). uiAction=%s", uiAciton);
+        String hint = getResources().getString(R.string.activity_productdetailinfo_add_to_shoppingcart_hint1);
+        LogUtils.toastShortMsg(this, hint);
+    }
+
+    /**
      * 处理参与记录
      * @param uiAciton
      */
     private void handlePlayRecord(String uiAciton) {
-        //TODO
-        mTempAllPlayRecord.setText("");
+        LogUtils.w(TAG, "handlePlayRecord()");
+
+        mTempAllPlayRecord.setText(mDetailInfoBiz.getHumanReadablePlayRecords());
+
+
     }
 
 
@@ -263,6 +302,9 @@ public class ProductDetailInfoActivity extends Activity {
      * 加载成功，适配信息
      */
     private void handleUIActivityProductInfoLoadSuccess() {
+        //TODO 先添加到这里
+        mInventoryBuyWidget.initInventoryBuyWidget(mDetailInfoBiz.getDetailEntity().getLackPeople());
+
         //TODO
         mViewAllContentWrapper.setVisibility(View.VISIBLE);
         mViewNetWrapper.setVisibility(View.GONE);
@@ -278,6 +320,10 @@ public class ProductDetailInfoActivity extends Activity {
             mViewProcessIngWrapper.setVisibility(View.GONE);
             mViewProcessDoneWrapper.setVisibility(View.VISIBLE);
             mViewBingoIngWrapper.setVisibility(View.GONE);
+
+            mViewBuyProductWrapper.setVisibility(View.GONE);
+            mViewGoNextHotActivityWrapper.setVisibility(View.VISIBLE);
+
 
             mTxvProductInfoTitleDescribe1.setText(getResources().getString(R.string.actiivty_state_runlottory_done));
 
@@ -301,6 +347,9 @@ public class ProductDetailInfoActivity extends Activity {
             mViewProcessDoneWrapper.setVisibility(View.GONE);
             mViewBingoIngWrapper.setVisibility(View.GONE);
 
+            mViewBuyProductWrapper.setVisibility(View.VISIBLE);
+            mViewGoNextHotActivityWrapper.setVisibility(View.GONE);
+
             mTxvProductInfoTitleDescribe1.setText(getResources().getString(R.string.actiivty_state_runlottory_play_ing));
             String desc1Format = getResources().getString(R.string.activity_productdetailinfo_progressing_des1);
             String desc2Format = getResources().getString(R.string.activity_productdetailinfo_progressing_des2);
@@ -317,6 +366,10 @@ public class ProductDetailInfoActivity extends Activity {
             mViewProcessIngWrapper.setVisibility(View.GONE);
             mViewProcessDoneWrapper.setVisibility(View.GONE);
             mViewBingoIngWrapper.setVisibility(View.VISIBLE);
+
+            mViewBuyProductWrapper.setVisibility(View.GONE);
+            mViewGoNextHotActivityWrapper.setVisibility(View.VISIBLE);
+
 
             mTxvProductInfoTitleDescribe1.setText(getResources().getString(R.string.actiivty_state_runlottory_ing));
 
@@ -351,6 +404,16 @@ public class ProductDetailInfoActivity extends Activity {
     }
 
 
+    /**
+     * 前往火热的下一期
+     * @param view
+     */
+    public void onBtnGoNextHotActivity(View view) {
+        LogUtils.i(TAG, "onBtnGoNextHotActivity()");
+        mDetailInfoBiz.onBtnGoNextHotActivity();
+    }
+
+
 
     private void registerUIReceive() {
         if (mUIMsgReceive == null) {
@@ -372,6 +435,19 @@ public class ProductDetailInfoActivity extends Activity {
     public void onBtnBack(View view) {
         finish();
     }
+
+    /**
+     * 加入到购物车
+     * @param view
+     */
+    public void onBtnAddToShoppingCart(View view) {
+        LogUtils.i(TAG, "onBtnAddToShoppingCart()");
+
+        int buyCnt = mInventoryBuyWidget.getCurBuyCnt();
+        mShoppingCartBiz.addProductToShoppingCart(mDetailInfoBiz.getDetailEntity().getActivityId(), buyCnt);
+        LogUtils.w(TAG, "onBtnAddToShoppingCart(). id=%d, buyCnt=%d", mDetailInfoBiz.getDetailEntity().getActivityId(), buyCnt);
+    }
+
 
 
     @Override

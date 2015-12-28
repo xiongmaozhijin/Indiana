@@ -10,8 +10,8 @@ import com.example.liangge.indiana.R;
  */
 public class InventoryEntity {
 
-    /** 产品ID */
-    private long productId;
+    /** 活动期次ID */
+    private long activityID;
 
     /** 清单图片地址 */
     private String invertoryImgUrl;
@@ -32,8 +32,11 @@ public class InventoryEntity {
     private int buyCounts;
 
 
-    public InventoryEntity(long productId, String invertoryImgUrl, String titleName, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
-        this.productId = productId;
+    public InventoryEntity() {
+    }
+
+    public InventoryEntity(long activityID, String invertoryImgUrl, String titleName, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
+        this.activityID = activityID;
         this.invertoryImgUrl = invertoryImgUrl;
         this.titleName = titleName;
         this.titleDescribe = titleDescribe;
@@ -92,12 +95,12 @@ public class InventoryEntity {
     }
 
 
-    public long getProductId() {
-        return productId;
+    public long getActivityID() {
+        return activityID;
     }
 
-    public void setProductId(long productId) {
-        this.productId = productId;
+    public void setActivityID(long activityID) {
+        this.activityID = activityID;
     }
 
 
@@ -115,14 +118,13 @@ public class InventoryEntity {
     @Override
     public String toString() {
         return "InventoryEntity{" +
-                "productId=" + productId +
+                "activityID=" + activityID +
                 ", invertoryImgUrl='" + invertoryImgUrl + '\'' +
+                ", titleName='" + titleName + '\'' +
                 ", titleDescribe='" + titleDescribe + '\'' +
                 ", needPeopleCounts=" + needPeopleCounts +
                 ", lackPeopleCounts=" + lackPeopleCounts +
                 ", buyCounts=" + buyCounts +
                 '}';
     }
-
-
 }

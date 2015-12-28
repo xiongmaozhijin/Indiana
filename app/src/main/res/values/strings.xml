@@ -44,7 +44,9 @@
     <string name="activity_productdetailinfo_bingo_ing_hint">正在揭晓中...</string>
     <string name="activity_productdetailinfo_more_info">图文详细（建议WIFI下查看）</string>
     <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
+    <string name="activity_productdetailinfo_all_join_record_format">\n用户名:%1$s\t\t参与记录:%2$s\n参与时间:%3$s\n\n</string>
     <string name="activity_productdetailinfo_progressing_des2">剩余%1$d次</string>
+    <string name="activity_productdetailinfo_add_to_shoppingcart_hint1">添加成功</string>
     <string name="f_personal_btn_log_signup">登录/注册</string>
     <string name="f_personal_btn_log_signup_2">退出</string>
     <string name="f_personal_txvbtn_indiana_record">夺宝记录</string>
@@ -115,6 +117,8 @@
     <string name="activity_imgview_titlebar_title">图文详情</string>
     <string name="activity_user_info_info">\n用户ID:%1$s\n\n账户余额:%2$s</string>
     <string name="f_personal_userinfo_1">%1$d \t余额:%2$d</string>
+    <string name="activity_detailinfo_addto_shoppingcart">一键购物</string>
+    <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往火热下一期</string>
 
 
 </resources>
