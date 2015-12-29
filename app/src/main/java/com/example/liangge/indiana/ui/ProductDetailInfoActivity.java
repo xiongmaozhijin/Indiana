@@ -81,8 +81,8 @@ public class ProductDetailInfoActivity extends Activity {
     /** 是否参与到本次夺宝 */
     private TextView mTxvHasJoinHint;
 
-    /** 图文详细 */
-    private Button mTxvMoreDetailInfo;
+    /** 图文详细*/
+    private View mViewMoreInfo;
 
     /** 所有参与记录 */
     private ListView mPlayRecordListView;
@@ -167,7 +167,7 @@ public class ProductDetailInfoActivity extends Activity {
 
         mViewBingoIngWrapper = findViewById(R.id.activity_productdetailinfo_bingo_ing_wrapper);
 
-        mTxvMoreDetailInfo = (Button) findViewById(R.id.activity_productdetailinfo_more_info);
+        mViewMoreInfo = findViewById(R.id.activity_productdetailinfo_more_info_wrapper);
 
         mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
         mRecordAdapter = new DetailPlayRecordAdapter(this);
@@ -177,23 +177,16 @@ public class ProductDetailInfoActivity extends Activity {
 
         mViewBuyProductWrapper = findViewById(R.id.add_to_shoppingcart_wrapper);
         mViewGoNextHotActivityWrapper = findViewById(R.id.activity_join_next_hot_activity_wrapper);
-    }
 
-    private void initViewRes() {
-        mBtnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        mTxvMoreDetailInfo.setClickable(true);
-        mTxvMoreDetailInfo.setOnClickListener(new View.OnClickListener() {
+
+        mViewMoreInfo.setClickable(true);
+        mViewMoreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogUtils.w(TAG, "图文详细");
+                onBtnMoreProductInfo(null);
             }
         });
-
 
 
     }
@@ -337,12 +330,12 @@ public class ProductDetailInfoActivity extends Activity {
 
             String bingUserInfoFormat = getResources().getString(R.string.activity_detail_bingouser_info);
             String bingUserInfo = String.format(bingUserInfoFormat,
-                    detailEntity.getBingoUserName(), detailEntity.getBingoUserAddress(),
+                    detailEntity.getBingoUserName(), detailEntity.getBingoUserAddress()==""?"****":detailEntity.getBingoUserAddress(),
                     detailEntity.getBingoBuyCnts(), detailEntity.getHumanAlreadyRunLotteryTime());
-            mTxvBingoInfo.setText(bingUserInfo);
+            mTxvBingoInfo.setText(Html.fromHtml(bingUserInfo));
             String luckyNumFormat = getResources().getString(R.string.activity_productdetailinfo_lucky_number);
             String luckyNum = String.format(luckyNumFormat, detailEntity.getLuckyNumber());
-            mTxvLunckNumber.setText(luckyNum);
+            mTxvLunckNumber.setText(Html.fromHtml(luckyNum));
 
 
         } else if (activityState == 1) {    //进行中

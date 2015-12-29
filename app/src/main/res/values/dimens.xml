@@ -8,6 +8,9 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Indiana Indicator 的大小 -->
-    <dimen name="indiana_indicator_size">12dp</dimen>
+    <dimen name="indiana_indicator_size">7dp</dimen>
+    <dimen name="activity_detail_bingoinfo_bg_padding_1">7dp</dimen>
+    <dimen name="activity_detail_pading_side">9dp</dimen>
+    <dimen name="activity_detailinfo_menu_text_size">18sp</dimen>
 
 </resources>

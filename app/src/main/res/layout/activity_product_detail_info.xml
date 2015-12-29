@@ -61,8 +61,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="9dp"
-                    android:paddingRight="9dp">
+                    android:paddingLeft="@dimen/activity_detail_pading_side"
+                    android:paddingRight="@dimen/activity_detail_pading_side">
 
 
 
@@ -140,26 +140,29 @@
                         <!-- 已揭晓 -->
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_process_done_wrapper"
+                            android:padding="@dimen/activity_detail_bingoinfo_bg_padding_1"
                             android:visibility="visible"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/holo_orange_dark">
+                            android:background="@drawable/activity_detailinfo_bingoinfo_bg1">
 
                             <RelativeLayout
+                                android:paddingTop="9dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
                                 <ImageView
                                     android:id="@+id/activity_productdetailinfo_bingo_user_portain"
-                                    android:layout_width="64dp"
-                                    android:layout_height="64dp"
+                                    android:layout_marginLeft="9dp"
+                                    android:layout_width="32dp"
+                                    android:layout_height="32dp"
                                     android:src="@drawable/main_banner_img_load_fail"
-                                    android:layout_above="@+id/activity_productdetailinfo_bingo_bottom_wrapper"
-                                    android:layout_centerVertical="true"
-                                    android:layout_alignParentLeft="true"/>
+                                    android:layout_alignParentTop="true"
+                                    android:layout_centerVertical="true" />
 
                                 <LinearLayout
                                     android:id="@+id/activity_productdetailinfo_bingo_info_wrapper"
+                                    android:layout_marginLeft="7dp"
                                     android:layout_toRightOf="@id/activity_productdetailinfo_bingo_user_portain"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -175,14 +178,16 @@
 
                                 <LinearLayout
                                     android:id="@+id/activity_productdetailinfo_bingo_bottom_wrapper"
+                                    android:layout_marginTop="5dp"
                                     android:layout_below="@id/activity_productdetailinfo_bingo_info_wrapper"
                                     android:gravity="center_vertical"
-                                    android:background="@android:color/holo_red_dark"
                                     android:layout_width="match_parent"
-                                    android:layout_height="54dp"
+                                    android:layout_height="45dp"
+                                    android:background="@drawable/detial_bingoinfo_lucky_num_bg_r"
                                     android:orientation="horizontal">
 
                                     <TextView
+                                        android:layout_marginLeft="11dp"
                                         android:id="@+id/activity_productdetailinfo_luncky_number"
                                         android:layout_gravity="left|center_vertical"
                                         android:layout_width="0dp"
@@ -192,10 +197,15 @@
                                         android:text="@string/activity_productdetailinfo_lucky_number"/>
 
                                     <Button
+                                        android:layout_marginRight="11dp"
+                                        android:paddingLeft="7dp"
+                                        android:paddingRight="7dp"
                                         android:id="@+id/activity_productdetailinfo_btn_calc_detail"
                                         android:layout_gravity="center_vertical|right"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="27dp"
+                                        android:textColor="@android:color/white"
+                                        android:background="@drawable/selector_activity_detailuserinfo_calc_btn"
                                         android:text="@string/activity_productdetailinfo_btn_why_calc"/>
 
 
@@ -211,7 +221,7 @@
                         <!-- 揭晓中 -->
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -234,42 +244,65 @@
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:background="@drawable/shape_corner_txv_bg"
+                        android:textColor="#9a9a9a"
+                        android:background="#f3f3f3"
                         android:text="@string/activity_productdetailinfo_hasjoin_hint"
-                        android:textSize="16sp"/>
+                        android:textSize="12sp"/>
 
-                    <LinearLayout
-                        android:id="@+id/activity_productdetailinfo_more_info_wrapper"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginTop="11dp"
-                        android:layout_marginBottom="11dp">
 
-                        <Button
-                            android:id="@+id/activity_productdetailinfo_more_info"
-                            android:onClick="onBtnMoreProductInfo"
-                            android:background="@drawable/selector_productdetail_moreinfo_btn"
-                            android:gravity="center_vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:text="@string/activity_productdetailinfo_more_info"/>
-
-                    </LinearLayout>
 
 
                 </LinearLayout>
 
 
+                <!-- 中间部分 menu 选项 -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:paddingLeft="@dimen/activity_detail_pading_side"
+                        android:paddingRight="@dimen/activity_detail_pading_side"
+                        android:id="@+id/activity_productdetailinfo_more_info_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/white"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginBottom="11dp">
+
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="42dp"
+                            android:textColor="@color/activity_detail_menu_txv"
+                            android:textSize="@dimen/activity_detailinfo_menu_text_size"
+                            android:text="@string/activity_productdetailinfo_more_info"/>
+                        <TextView
+                            android:layout_gravity="center_vertical|right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#9a9a9a"
+                            android:textSize="12sp"
+                            android:text="@string/activity_productdetialinfo_more_info_1"/>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
 
                 <!-- 下半部分 -->
                 <LinearLayout
-                    android:background="@android:color/holo_green_light"
+                    android:background="#f1eeec"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
+                        android:paddingLeft="@dimen/activity_detail_pading_side"
+                        android:background="@android:color/white"
+                        android:textSize="@dimen/activity_detailinfo_menu_text_size"
                         android:gravity="center_vertical"
                         android:layout_marginBottom="11dp"
                         android:layout_width="match_parent"
@@ -278,6 +311,7 @@
 
 
                     <com.example.liangge.indiana.ui.widget.ExListView
+                        android:paddingLeft="@dimen/activity_detail_pading_side"
                         android:id="@+id/activity_productdetailinfo_listview_records"
                         android:paddingBottom="19dp"
                         android:layout_marginBottom="64dp"
@@ -301,15 +335,14 @@
     <FrameLayout
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="#ffffff">
+        android:layout_height="wrap_content">
 
         <!-- 添加到购物车 -->
         <FrameLayout
             android:id="@+id/add_to_shoppingcart_wrapper"
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="64dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -338,17 +371,42 @@
         <!-- 参与火热的下一期 -->
         <FrameLayout
             android:id="@+id/activity_join_next_hot_activity_wrapper"
-            android:visibility="gone"
+            android:visibility="visible"
+            android:background="@android:color/white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="48dp">
 
-            <Button
-                android:onClick="onBtnGoNextHotActivity"
-                android:background="@drawable/selector_detailinfo_buy_item_btn"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_detailinfo_btn_go_nexthot_acitivity"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="@drawable/activity_detailinfo_ll_bg"
+                android:paddingLeft="@dimen/activity_detail_pading_side"
+                android:paddingRight="@dimen/activity_detail_pading_side"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/activity_detail_menu_txv"
+                    android:text="@string/activity_detail_go_next_hot_activity_hint"/>
+
+                <Button
+                    android:onClick="onBtnGoNextHotActivity"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:background="@drawable/selector_detailinfo_buy_item_btn"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:text="@string/activity_detailinfo_btn_go_nexthot_acitivity"/>
+
+            </LinearLayout>
+
+
 
         </FrameLayout>
 

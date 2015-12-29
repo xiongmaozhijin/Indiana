@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <selector>
+            <item android:state_pressed="true">
+                <shape>
+                    <solid android:color="@color/activity_detail_btn_press" />
+                    <corners android:radius="7dp" />
+                </shape>
+            </item>
 
-    <item android:state_pressed="true" android:drawable="@android:color/holo_blue_light" />
-    <item android:drawable="@android:color/holo_purple" />
+            <item>
+                <shape>
+                    <solid android:color="@color/activity_detail_btn_normal" />
+                    <corners android:radius="7dp" />
+                </shape>
 
-</selector>
+            </item>
+
+        </selector>
+    </item>
+
+</layer-list>

@@ -36,13 +36,18 @@
     <string name="f_shoppingcart_pay_hint">共: %1$d夺宝币</string>
     <string name="activity_productdetailinfo_titlebar_title">商品详情</string>
     <string name="activity_productdetailinfo_progressing_des1">总需:%1$d次</string>
-    <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝</string>
+    <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝哦</string>
     <string name="activity_productdetailinfo_hasjoin_hint_join">已参与,我的夺宝号[%1$s]</string>
     <string name="activity_productdetailinfo_hasjoin_hint_join_2">已参与,参与次数[%1$d]</string>
-    <string name="activity_productdetailinfo_lucky_number">幸运号码:%1$s</string>
+    <string name="activity_productdetailinfo_lucky_number">
+         <![CDATA[
+              幸运号码:  <font size="19"><em>%1$s</em></font>
+        ]]>
+    </string>
     <string name="activity_productdetailinfo_btn_why_calc">计算详细</string>
     <string name="activity_productdetailinfo_bingo_ing_hint">正在揭晓中...</string>
-    <string name="activity_productdetailinfo_more_info">图文详细（建议WIFI下查看）</string>
+    <string name="activity_productdetailinfo_more_info">图文详细</string>
+    <string name="activity_productdetialinfo_more_info_1">建议WIFI下查看></string>
     <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
     <string name="activity_productdetailinfo_all_join_record_format">\n用户名:%1$s\t\t参与记录:%2$s\n参与时间:%3$s\n\n</string>
     <string name="activity_productdetailinfo_progressing_des2">剩余%1$d次</string>
@@ -72,7 +77,15 @@
     <string name="actiivty_state_runlottory_ing">揭晓中</string>
     <string name="actiivty_state_runlottory_done">已揭晓</string>
     <string name="actiivty_state_runlottory_play_ing">进行中</string>
-    <string name="activity_detail_bingouser_info">获奖用户:%1$s\n用户地址:%2$s\n参与次数:%3$d\n揭晓时间:%4$s</string>
+    <string name="activity_detail_bingouser_info">
+        <![CDATA[
+        获奖用户: <font color="blue">%1$s</font><br>
+        用户地址: %2$s<br>
+        参与次数: <font color="red">%3$d</font><br>
+        揭晓时间: %4$s<br>
+        ]]>
+    </string>
+
     <string name="activity_inventory_pay_balance">余额支付（账户余额:%1$d夺宝币）</string>
     <string name="activity_indianrecord_titlebar_title">夺宝记录</string>
     <string name="activity_indiana_record_tag_all">全部</string>
@@ -119,7 +132,7 @@
     <string name="activity_user_info_info">\n用户ID:%1$s\n\n账户余额:%2$s</string>
     <string name="f_personal_userinfo_1">%1$s \t余额:%2$d</string>
     <string name="activity_detailinfo_addto_shoppingcart">一键购物</string>
-    <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往火热下一期</string>
+    <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往</string>
     <string name="activity_logsign_signin_username_hint">请输入你的名字</string>
 
     <string name="activity_detailinfo_listview_item_txv_info_format">
@@ -137,6 +150,7 @@
         </html>
         ]]>
     </string>
+    <string name="activity_detail_go_next_hot_activity_hint">新一期正在火热进行中...</string>
 
 
 </resources>

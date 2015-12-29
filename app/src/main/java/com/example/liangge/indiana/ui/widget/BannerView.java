@@ -124,6 +124,9 @@ public class BannerView extends FrameLayout{
         updateIndicator(0);
     }
 
+    /**
+     * 生成指示器
+     */
     private void generateIndicatos() {
         LogUtils.e(TAG, "generateIndicators()");
         int iCounts = this.mBannerListInfo.size();
