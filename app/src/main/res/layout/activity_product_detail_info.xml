@@ -277,15 +277,10 @@
                         android:text="@string/activity_productdetailinfo_alljoin_record"/>
 
 
-                    <TextView
-                        android:id="@+id/temp_alljoin_records"
-                        android:isScrollContainer="true"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/holo_green_light"/>
-
                     <com.example.liangge.indiana.ui.widget.ExListView
                         android:id="@+id/activity_productdetailinfo_listview_records"
+                        android:paddingBottom="19dp"
+                        android:layout_marginBottom="64dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:dividerHeight="1dp"/>

@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.adapter.DetailPlayRecordAdapter;
 import com.example.liangge.indiana.biz.Bizdto;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.ImageViewBiz;
@@ -85,9 +86,7 @@ public class ProductDetailInfoActivity extends Activity {
 
     /** 所有参与记录 */
     private ListView mPlayRecordListView;
-
-    /** 所有参与记录 */
-    private TextView mTempAllPlayRecord;
+    private DetailPlayRecordAdapter mRecordAdapter;
 
     /** 购买控件 */
     private InventoryBuyWidget mInventoryBuyWidget;
@@ -171,7 +170,8 @@ public class ProductDetailInfoActivity extends Activity {
         mTxvMoreDetailInfo = (Button) findViewById(R.id.activity_productdetailinfo_more_info);
 
         mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
-        mTempAllPlayRecord = (TextView) findViewById(R.id.temp_alljoin_records);
+        mRecordAdapter = new DetailPlayRecordAdapter(this);
+        mPlayRecordListView.setAdapter(mRecordAdapter);
 
         mInventoryBuyWidget = (InventoryBuyWidget) findViewById(R.id.widget_buy_item);
 
@@ -268,7 +268,10 @@ public class ProductDetailInfoActivity extends Activity {
     private void handlePlayRecord(String uiAciton) {
         LogUtils.w(TAG, "handlePlayRecord()");
 
-        mTempAllPlayRecord.setText(mDetailInfoBiz.getHumanReadablePlayRecords());
+//        mTempAllPlayRecord.setText(mDetailInfoBiz.getHumanReadablePlayRecords());
+        if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED)) {
+            mRecordAdapter.reSetDataAndNotify(mDetailInfoBiz.getRecordListData() );
+        }
 
 
     }

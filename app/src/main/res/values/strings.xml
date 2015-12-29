@@ -122,5 +122,21 @@
     <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往火热下一期</string>
     <string name="activity_logsign_signin_username_hint">请输入你的名字</string>
 
+    <string name="activity_detailinfo_listview_item_txv_info_format">
+        <![CDATA[
+        <html>
+            <head><title></title></head>
+            <body>
+                <div>
+                    <font color="blue">%1$s</font><br></br>
+                    <font color="black">参与了</font><font color="red">%2$s</font>
+                    <font color="black">次</font>\t
+                    <font color="gray">%3$s</font>
+                </div>
+            </body>
+        </html>
+        ]]>
+    </string>
+
 
 </resources>

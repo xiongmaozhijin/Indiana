@@ -136,6 +136,17 @@ public class DetailInfoBiz {
 
     }
 
+    /**
+     * 返回该期的参与记录
+     * @return
+     */
+    public List<ResponseActivityPlayRecordEntity> getRecordListData() {
+        List<ResponseActivityPlayRecordEntity> list = ResponseInfo.listAllPlayRecords;
+        LogUtils.w(TAG, "getRecordListData().size=%d, info=%s", list.size(), list.toString());
+
+        return list;
+    }
+
 
     /**
      * 得到可读的所有参与记录

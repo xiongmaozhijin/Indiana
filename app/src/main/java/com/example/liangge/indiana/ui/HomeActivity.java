@@ -180,25 +180,25 @@ public class HomeActivity extends UIBaseActivity {
 
 
     public void onBtnIndiana(View view) {
-        changeItemFragmentByButton(I_TAG_FRAGMENT_INDIANA, true);
+        changeItemFragmentByButton(I_TAG_FRAGMENT_INDIANA, false);
         changeTitlebar(I_TAG_FRAGMENT_INDIANA);
 
     }
 
     public void onBtnLatestAnnouncement(View view) {
-        changeItemFragmentByButton(I_TAG_FRAGMENT_LASTEST, true);
+        changeItemFragmentByButton(I_TAG_FRAGMENT_LASTEST, false);
         changeTitlebar(I_TAG_FRAGMENT_LASTEST);
 
     }
 
     public void onBtnShoppingCart(View view) {
-        changeItemFragmentByButton(I_TAG_FRAGMENT_SHOPPING_CART, true);
+        changeItemFragmentByButton(I_TAG_FRAGMENT_SHOPPING_CART, false);
         changeTitlebar(I_TAG_FRAGMENT_SHOPPING_CART);
 
     }
 
     public void onBtnPersonalCenter(View view) {
-        changeItemFragmentByButton(I_TAG_FRAGMENT_PERSONAL_CENTER, true);
+        changeItemFragmentByButton(I_TAG_FRAGMENT_PERSONAL_CENTER, false);
         changeTitlebar(I_TAG_FRAGMENT_PERSONAL_CENTER);
 
     }
