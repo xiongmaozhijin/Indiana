@@ -13,8 +13,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.HomeBiz;
 import com.example.liangge.indiana.biz.MessageManager;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.fragments.BaseFragment;
 import com.example.liangge.indiana.fragments.IndianaFragment;
 import com.example.liangge.indiana.fragments.LatestAnnouncementFragment;
@@ -32,11 +34,11 @@ public class HomeActivity extends UIBaseActivity {
     private ViewPager mViewPager;
 
     //各个fragment对应viewpager的标签
-    private static final int I_TAG_FRAGMENT_INDIANA = 0;
-    private static final int I_TAG_FRAGMENT_LASTEST = 1;
-    private static final int I_TAG_FRAGMENT_SHOPPING_CART = 2;
-    private static final int I_TAG_FRAGMENT_PERSONAL_CENTER = 3;
-    private static final int I_TAG_FRAGMENT_INVALID = -1;
+    public static final int I_TAG_FRAGMENT_INDIANA = 0;
+    public static final int I_TAG_FRAGMENT_LASTEST = 1;
+    public static final int I_TAG_FRAGMENT_SHOPPING_CART = 2;
+    public static final int I_TAG_FRAGMENT_PERSONAL_CENTER = 3;
+    public static final int I_TAG_FRAGMENT_INVALID = -1;
 
     private static final int I_TAG_FRAGMENT_COUNTS = 4;
 
@@ -82,14 +84,32 @@ public class HomeActivity extends UIBaseActivity {
 
     private MessageManager mMessageManager;
 
-
+    private HomeBiz mHomeBiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initView();
+        initHomeActivityManager();
         initRes();
+    }
+
+    private void initHomeActivityManager() {
+        mHomeBiz = HomeBiz.getInstance(this);
+    }
+
+    @Override
+    protected void handleUIMessage(String uiAction) {
+        LogUtils.i(TAG, "handleUIMessage().uiAction=%s", uiAction);
+
+        if (uiAction.equals(UIMessageConts.HomeActivity.HOME_ACTIVITY_M_REPLACE_FLAGMENT)) {
+            handleReplaceFragment();
+        }
+    }
+
+    private void handleReplaceFragment() {
+        onGoToFragment(mHomeBiz.getReplaceFragmentFlag());
     }
 
     private void initView() {
@@ -101,6 +121,7 @@ public class HomeActivity extends UIBaseActivity {
 
     private void initRes() {
         mMessageManager = MessageManager.getInstance(this);
+
     }
 
     private void initOtherWidget() {
@@ -145,12 +166,22 @@ public class HomeActivity extends UIBaseActivity {
 
 
     /**
+     * @deprecated <br/>
+     * use {@link #onGoToFragment }
      * 马上去夺宝，ShoppingCart click which btn
      */
     public void onFragmentBtnGoIndiana() {
         changeItemFragmentByButton(I_TAG_FRAGMENT_INDIANA, false);
     }
 
+
+    /**
+     * 跳转到指定的Fragment
+     * @param fragmentFlag
+     */
+    private void onGoToFragment(int fragmentFlag) {
+        changeItemFragmentByButton(fragmentFlag, false);
+    }
 
 
     private void changeTitlebar(int iCurItem) {

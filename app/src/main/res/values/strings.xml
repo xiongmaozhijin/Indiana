@@ -35,7 +35,7 @@
     <string name="f_shoppingcart_join_describe">总需%1$d次，剩余%2$d次</string>
     <string name="f_shoppingcart_pay_hint">共: %1$d夺宝币</string>
     <string name="activity_productdetailinfo_titlebar_title">商品详情</string>
-    <string name="activity_productdetailinfo_progressing_des1">总需:%1$d次</string>
+    <string name="activity_productdetailinfo_progressing_des1"> 总需:%1$d次</string>
     <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝哦</string>
     <string name="activity_productdetailinfo_hasjoin_hint_join">已参与,我的夺宝号[%1$s]</string>
     <string name="activity_productdetailinfo_hasjoin_hint_join_2">已参与,参与次数[%1$d]</string>
@@ -50,7 +50,7 @@
     <string name="activity_productdetialinfo_more_info_1">建议WIFI下查看></string>
     <string name="activity_productdetailinfo_alljoin_record">所有参与记录</string>
     <string name="activity_productdetailinfo_all_join_record_format">\n用户名:%1$s\t\t参与记录:%2$s\n参与时间:%3$s\n\n</string>
-    <string name="activity_productdetailinfo_progressing_des2">剩余%1$d次</string>
+    <string name="activity_productdetailinfo_progressing_des2"> 剩余%1$d次</string>
     <string name="activity_productdetailinfo_add_to_shoppingcart_hint1">添加成功</string>
     <string name="f_personal_btn_log_signup">登录/注册</string>
     <string name="f_personal_btn_log_signup_2">退出</string>
@@ -131,7 +131,7 @@
     <string name="activity_imgview_titlebar_title">图文详情</string>
     <string name="activity_user_info_info">\n用户ID:%1$s\n\n账户余额:%2$s</string>
     <string name="f_personal_userinfo_1">%1$s \t余额:%2$d</string>
-    <string name="activity_detailinfo_addto_shoppingcart">一键购物</string>
+    <string name="activity_detailinfo_addto_shoppingcart">加入清单</string>
     <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往</string>
     <string name="activity_logsign_signin_username_hint">请输入你的名字</string>
 
@@ -151,6 +151,7 @@
         ]]>
     </string>
     <string name="activity_detail_go_next_hot_activity_hint">新一期正在火热进行中...</string>
+    <string name="activity_detailInfo_btn_yiyuanduobao">一元夺宝</string>
 
 
 </resources>

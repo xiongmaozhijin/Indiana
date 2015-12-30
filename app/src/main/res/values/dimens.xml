@@ -12,5 +12,6 @@
     <dimen name="activity_detail_bingoinfo_bg_padding_1">7dp</dimen>
     <dimen name="activity_detail_pading_side">9dp</dimen>
     <dimen name="activity_detailinfo_menu_text_size">18sp</dimen>
+    <dimen name="activity_detail_bottom_btn_height">32dp</dimen>
 
 </resources>

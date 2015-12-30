@@ -20,6 +20,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.DetailPlayRecordAdapter;
 import com.example.liangge.indiana.biz.Bizdto;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
+import com.example.liangge.indiana.biz.HomeBiz;
 import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.comm.LogUtils;
@@ -102,8 +103,9 @@ public class ProductDetailInfoActivity extends Activity {
 
     private ImageViewBiz mImageViewBiz;
 
-
     private ShoppingCartBiz mShoppingCartBiz;
+
+    private HomeBiz mHomeBiz;
 
 
     @Override
@@ -140,6 +142,7 @@ public class ProductDetailInfoActivity extends Activity {
     private void initManager() {
         mDetailInfoBiz = DetailInfoBiz.getInstance(this);
         mImageViewBiz = ImageViewBiz.getInstance(this);
+        mHomeBiz = HomeBiz.getInstance(this);
 
     }
 
@@ -439,11 +442,37 @@ public class ProductDetailInfoActivity extends Activity {
     public void onBtnAddToShoppingCart(View view) {
         LogUtils.i(TAG, "onBtnAddToShoppingCart()");
 
-        int buyCnt = mInventoryBuyWidget.getCurBuyCnt();
+//        int buyCnt = mInventoryBuyWidget.getCurBuyCnt();
+//        mShoppingCartBiz.addProductToShoppingCart(mDetailInfoBiz.getDetailEntity().getActivityId(), buyCnt);
+        //简单修改为添加一件商品
+        int buyCnt = 1;
         mShoppingCartBiz.addProductToShoppingCart(mDetailInfoBiz.getDetailEntity().getActivityId(), buyCnt);
+
         LogUtils.w(TAG, "onBtnAddToShoppingCart(). id=%d, buyCnt=%d", mDetailInfoBiz.getDetailEntity().getActivityId(), buyCnt);
     }
 
+    /**
+     * 一元夺宝
+     * 加入购物车并转到购物单节目
+     * @param view
+     */
+    public void onBtnYiYuanDuoBao(View view) {
+        LogUtils.i(TAG, "onBtnYiYuanDuoBao()");
+        int buyCnt = 1;
+        mShoppingCartBiz.addProductToShoppingCart(mDetailInfoBiz.getDetailEntity().getActivityId(), buyCnt);
+        mHomeBiz.replaceFragment(HomeActivity.I_TAG_FRAGMENT_SHOPPING_CART);
+        finish();
+    }
+
+
+    /**
+     * 点击购物称图标，跳转到购物车
+     * @param view
+     */
+    public void onBtnShoppingCart(View view) {
+        mHomeBiz.replaceFragment(HomeActivity.I_TAG_FRAGMENT_SHOPPING_CART);
+        finish();
+    }
 
 
     @Override

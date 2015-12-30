@@ -326,7 +326,7 @@ public class PullRefreshActivity extends AppCompatActivity {
 
             bingoUser.setText(itemInfo.getBingoUser());
             buyCounts.setText(itemInfo.getHumanBuyTimes() );
-            luckyNumber.setText(itemInfo.getLuckyNumeber());
+            luckyNumber.setText(itemInfo.getLuckyNumber());
             alreadyRunLottoryTime.setText(itemInfo.getHumanAlreadyRunLotteryTime() );
         }
 

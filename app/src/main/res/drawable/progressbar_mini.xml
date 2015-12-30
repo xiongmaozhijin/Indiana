@@ -3,11 +3,12 @@
     <item android:id="@android:id/background">
         <shape>
             <corners android:radius="5dip" />
-            <gradient
+            <solid android:color="#EEEEEE" />
+         <!--   <gradient
                 android:angle="270"
                 android:centerY="0.75"
                 android:endColor="#F5F5F5"
-                android:startColor="#BEBEBE" />
+                android:startColor="#BEBEBE" />-->
         </shape>
     </item>
 
@@ -28,11 +29,12 @@
         <clip>
             <shape>
                 <corners android:radius="5dip" />
-                <gradient
+                <solid android:color="#FDB41C" />
+               <!-- <gradient
                     android:angle="270"
                     android:centerY="0.75"
                     android:endColor="@android:color/holo_orange_dark"
-                    android:startColor="@android:color/holo_orange_light" />
+                    android:startColor="@android:color/holo_orange_light" />-->
             </shape>
         </clip>
     </item>

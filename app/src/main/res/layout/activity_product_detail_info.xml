@@ -60,9 +60,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/activity_detail_pading_side"
-                    android:paddingRight="@dimen/activity_detail_pading_side">
+                    android:orientation="vertical">
 
 
 
@@ -75,6 +73,8 @@
 
                     <!-- title content describe -->
                     <LinearLayout
+                        android:paddingLeft="@dimen/activity_detail_pading_side"
+                        android:paddingRight="@dimen/activity_detail_pading_side"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -106,28 +106,33 @@
                         <!--进行中 -->
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_process_ing_wrapper"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <LinearLayout
+                                android:paddingLeft="@dimen/activity_detail_pading_side"
+                                android:paddingRight="@dimen/activity_detail_pading_side"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
                                 <TextView
                                     android:id="@+id/activity_productdetailinfo_process_ing_desc1"
+                                    android:textColor="#CACACA"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/activity_productdetailinfo_progressing_des1"/>
                                 <ProgressBar
                                     android:id="@+id/activity_productdetailinfo_process_ing_process"
+                                    android:layout_marginLeft="2dp"
                                     android:layout_width="match_parent"
-                                    android:layout_height="14dp"
+                                    android:layout_height="7dp"
                                     style="@style/ProgressBar_Mini"
                                     android:max="1000"
                                     android:progress="45"/>
 
                                 <TextView
                                     android:id="@+id/activity_productdetailinfo_process_ing_desc2"
+                                    android:textColor="#CACACA"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/activity_productdetailinfo_progressing_des2"/>
@@ -141,7 +146,7 @@
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_process_done_wrapper"
                             android:padding="@dimen/activity_detail_bingoinfo_bg_padding_1"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/activity_detailinfo_bingoinfo_bg1">
@@ -240,6 +245,8 @@
 
                     <!-- 是否参与到这次夺宝 -->
                     <TextView
+                        android:layout_marginLeft="@dimen/activity_detail_pading_side"
+                        android:layout_marginRight="@dimen/activity_detail_pading_side"
                         android:id="@+id/activity_hasjoin_txv_hint"
                         android:gravity="center"
                         android:layout_width="match_parent"
@@ -340,27 +347,75 @@
         <!-- 添加到购物车 -->
         <FrameLayout
             android:id="@+id/add_to_shoppingcart_wrapper"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="64dp">
+            android:layout_height="48dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
+            android:background="@drawable/activity_detailinfo_ll_bg"
             android:descendantFocusability="afterDescendants">
 
-            <Button
-                android:id="@+id/btn_add_to_shoppingcart"
-                android:onClick="onBtnAddToShoppingCart"
-                android:layout_width="wrap_content"
-                android:layout_height="54dp"
-                android:background="@drawable/selector_detailinfo_buy_item_btn"
-                android:text="@string/activity_detailinfo_addto_shoppingcart"/>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:onClick="onBtnYiYuanDuoBao"
+                    android:layout_gravity="center"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:textColor="@android:color/white"
+                    android:layout_width="120dp"
+                    android:layout_height="@dimen/activity_detail_bottom_btn_height"
+                    android:background="@drawable/selector_detailinfo_buy_item_btn"
+                    android:text="@string/activity_detailInfo_btn_yiyuanduobao"/>
+            </FrameLayout>
 
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <Button
+                    android:layout_gravity="center"
+                    android:id="@+id/btn_add_to_shoppingcart"
+                    android:onClick="onBtnAddToShoppingCart"
+                    android:layout_width="120dp"
+                    android:layout_height="@dimen/activity_detail_bottom_btn_height"
+                    android:background="@drawable/selector_detailinfo_btn_2"
+                    android:textColor="#F2B2BB"
+                    android:text="@string/activity_detailinfo_addto_shoppingcart"/>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+
+                <ImageButton
+                    android:onClick="onBtnShoppingCart"
+                    android:layout_gravity="center"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/selector_detail_shoppingcart" />
+
+            </FrameLayout>
+
+
+
+
+
+
+
+            <!-- 修改，不显示这个 -->
             <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
                 android:id="@+id/widget_buy_item"
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -371,7 +426,7 @@
         <!-- 参与火热的下一期 -->
         <FrameLayout
             android:id="@+id/activity_join_next_hot_activity_wrapper"
-            android:visibility="visible"
+            android:visibility="gone"
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="48dp">
@@ -399,7 +454,7 @@
                     android:background="@drawable/selector_detailinfo_buy_item_btn"
                     android:layout_gravity="right|center_vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="@dimen/activity_detail_bottom_btn_height"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:text="@string/activity_detailinfo_btn_go_nexthot_acitivity"/>

@@ -23,7 +23,7 @@ public class LastestBingoEntity {
     private String bingoUser;
 
     /** 幸运号码 */
-    private String luckyNumeber;
+    private String luckyNumber;
 
     /** 参与次数 */
     private int buyTimes;
@@ -37,12 +37,12 @@ public class LastestBingoEntity {
     public LastestBingoEntity() {
     }
 
-    public LastestBingoEntity(long activityId, String productUrl, String titleDescribe, String bingoUser, String luckyNumeber, int buyTimes, long runLotteryTime) {
+    public LastestBingoEntity(long activityId, String productUrl, String titleDescribe, String bingoUser, String luckyNumber, int buyTimes, long runLotteryTime) {
         this.activityId = activityId;
         this.productUrl = productUrl;
         this.titleDescribe = titleDescribe;
         this.bingoUser = bingoUser;
-        this.luckyNumeber = luckyNumeber;
+        this.luckyNumber = luckyNumber;
         this.buyTimes = buyTimes;
         this.runLotteryTime = runLotteryTime;
     }
@@ -79,12 +79,12 @@ public class LastestBingoEntity {
         this.bingoUser = bingoUser;
     }
 
-    public String getLuckyNumeber() {
-        return luckyNumeber;
+    public String getLuckyNumber() {
+        return luckyNumber;
     }
 
-    public void setLuckyNumeber(String luckyNumeber) {
-        this.luckyNumeber = luckyNumeber;
+    public void setLuckyNumber(String luckyNumber) {
+        this.luckyNumber = luckyNumber;
     }
 
     /**
@@ -157,7 +157,7 @@ public class LastestBingoEntity {
         setActivityId(srcObj.getActivityId());
         setBingoUser(srcObj.getBingoUser());
         setBuyTimes(srcObj.getBuyTimes());
-        setLuckyNumeber(srcObj.getLuckyNumeber());
+        setLuckyNumber(srcObj.getLuckyNumber());
         setProductUrl(srcObj.getProductUrl());
         setRunLotteryTime(srcObj.getRunLotteryTime());
         setTitleDescribe(srcObj.getTitleDescribe());
@@ -172,7 +172,7 @@ public class LastestBingoEntity {
                 ", productUrl='" + productUrl + '\'' +
                 ", titleDescribe='" + titleDescribe + '\'' +
                 ", bingoUser='" + bingoUser + '\'' +
-                ", luckyNumeber='" + luckyNumeber + '\'' +
+                ", luckyNumber='" + luckyNumber + '\'' +
                 ", buyTimes=" + buyTimes +
                 '}';
     }

@@ -16,6 +16,17 @@ public class UIMessageConts {
 
     }
 
+
+    public interface HomeActivity {
+
+        /** 切换Fragment */
+        String HOME_ACTIVITY_M_REPLACE_FLAGMENT = "HOME_ACTIVITY_M_REPLACE_FLAGMENT";
+
+    }
+
+
+
+
     public interface IndianaMessage {
 
         /** 正在加载轮播图片 */

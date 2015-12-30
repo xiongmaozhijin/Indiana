@@ -213,7 +213,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
 
             bingoUser.setText(itemInfo.getBingoUser());
             buyCounts.setText(itemInfo.getHumanBuyTimes() );
-            luckyNumber.setText(itemInfo.getLuckyNumeber());
+            luckyNumber.setText(itemInfo.getLuckyNumber());
             alreadyRunLottoryTime.setText(itemInfo.getHumanAlreadyRunLotteryTime() );
         }
 
