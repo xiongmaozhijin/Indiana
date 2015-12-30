@@ -106,7 +106,7 @@
                         <!--进行中 -->
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_process_ing_wrapper"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <LinearLayout
@@ -226,11 +226,14 @@
                         <!-- 揭晓中 -->
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="48dp">
 
                             <TextView
+                                android:paddingLeft="@dimen/activity_detail_pading_side"
+                                android:layout_gravity="center_vertical"
+                                android:textColor="#CACACA"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/activity_productdetailinfo_bingo_ing_hint"/>
