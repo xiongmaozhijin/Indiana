@@ -1,1 +1,1 @@
-include ':app', ':generationdatabase', ':libjavatest'
+include ':app', ':generationdatabase', ':libjavatest', ':oneduobaowangyi'

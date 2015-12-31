@@ -26,6 +26,7 @@
     <string name="latest_bingo_info_run_lottory_time">揭晓时间：</string>
 
     <string name="latest_item_runninglottory_wait_hint">请稍后，正在计算...</string>
+    <string name="latest_item_runninglottory_request_hint1">请求结果中...</string>
     <string name="comm_not_network">没有网络，轻点重新加载</string>
     <string name="f_shoppingcart_item_buy_counts">购买次数</string>
     <string name="f_shoppingcart_empty_cart">您的购物车空空如也</string>

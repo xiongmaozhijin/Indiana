@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.netease.mail.oneduobaohydrid"
+    platformBuildVersionCode="23"
+    platformBuildVersionName="6.0-2166767">
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="com.netease.mail.oneduobaohydrid.READ_USER_INFO"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application android:allowBackup="false" android:fullBackupContent="false" android:icon="@drawable/ic_launcher_one" android:label="@string/one_app_name"
+        android:name="com.netease.nis.wrapper.MyApplication" android:theme="@style/AppTheme" android:uiOptions="splitActionBarWhenNarrow">
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/one_app_name" android:name="com.netease.mail.oneduobaohydrid.activity.LaunchActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Launch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/one_app_name" android:launchMode="singleTask" android:name="com.netease.mail.oneduobaohydrid.activity.IntentActivity" android:screenOrientation="portrait" android:theme="@style/AppTheme.Launch">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="1.163.com" android:pathPattern="/m/hd/.*" android:scheme="http"/>
+                <data android:host="m.1.163.com" android:pathPattern="/hd/.*" android:scheme="http"/>
+                <data android:host="1.163.com" android:pathPattern="/hd/.*" android:scheme="http"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.netease.mail.oneduobaohydrid.activity.ProxyActivity"/>
+        <activity android:label="@string/kind_browse" android:name="com.netease.mail.oneduobaohydrid.activity.KindActivity" android:screenOrientation="portrait"/>
+        <activity android:label="@string/shake_label" android:name="com.netease.mail.oneduobaohydrid.activity.ShakeActivity" android:screenOrientation="portrait" android:theme="@style/NoActionBar"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:name="com.netease.mail.oneduobaohydrid.activity.KindListActivity" android:screenOrientation="portrait" android:theme="@style/NoActionBar"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:launchMode="singleTask" android:name="com.netease.mail.oneduobaohydrid.activity.MainActivity" android:screenOrientation="portrait" android:theme="@style/MainActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_share_detail" android:name="com.netease.mail.oneduobaohydrid.activity.ShareDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_login" android:name="com.netease.mail.oneduobaohydrid.activity.LoginActivity" android:screenOrientation="portrait" android:theme="@style/MaskActivityTheme" android:windowSoftInputMode="stateHidden"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_register" android:name="com.netease.mail.oneduobaohydrid.activity.RegisterActivity" android:screenOrientation="portrait" android:theme="@style/MaskActivityTheme" android:windowSoftInputMode="stateHidden"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_order" android:name="com.netease.mail.oneduobaohydrid.activity.OrderActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_detail" android:name="com.netease.mail.oneduobaohydrid.activity.DetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_search" android:name="com.netease.mail.oneduobaohydrid.activity.SearchActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustResize"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_pay" android:name="com.netease.mail.oneduobaohydrid.activity.WebPayActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_recharge" android:name="com.netease.mail.oneduobaohydrid.activity.RechargeActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_mycode" android:name="com.netease.mail.oneduobaohydrid.activity.MyCodeActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_detailmore" android:name="com.netease.mail.oneduobaohydrid.activity.GoodsMoreActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_goodscala" android:name="com.netease.mail.oneduobaohydrid.activity.GoodsCalaActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_winrecord" android:name="com.netease.mail.oneduobaohydrid.activity.WinRecordActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_duobao_record" android:name="com.netease.mail.oneduobaohydrid.activity.DuobaoRecordActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_share_for_detail" android:name="com.netease.mail.oneduobaohydrid.activity.ShareForGoodsActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_ship_address_list" android:name="com.netease.mail.oneduobaohydrid.activity.ShipAddressListActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_ship_address_edit" android:name="com.netease.mail.oneduobaohydrid.activity.ShipAddressEditActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_myshare" android:name="com.netease.mail.oneduobaohydrid.activity.MyShareActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_share" android:name="com.netease.mail.oneduobaohydrid.activity.ShareActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_mywinrecord" android:name="com.netease.mail.oneduobaohydrid.activity.MyWinRecordActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="orientation|screenSize" android:label="@string/title_activity_addshare_notice" android:name="com.netease.mail.oneduobaohydrid.activity.AddShareActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_win_detail" android:name="com.netease.mail.oneduobaohydrid.activity.WinDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_user_center" android:name="com.netease.mail.oneduobaohydrid.activity.UserCenterActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_duobao_bonus_exchange" android:name="com.netease.mail.oneduobaohydrid.activity.DuobaoBonusExchangeActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_duobao_bonus" android:name="com.netease.mail.oneduobaohydrid.activity.DuobaoBonusActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_web_view" android:name="com.netease.mail.oneduobaohydrid.activity.WebViewActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_profile" android:name="com.netease.mail.oneduobaohydrid.activity.ProfileActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="orientation" android:label="@string/activity_order_code_list" android:name="com.netease.mail.oneduobaohydrid.activity.OrderCodeListActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="orientation" android:label="@string/activity_followlist" android:name="com.netease.mail.oneduobaohydrid.activity.FollowDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="orientation" android:label="@string/activity_follow" android:name="com.netease.mail.oneduobaohydrid.activity.FollowActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_nickname_edit" android:name="com.netease.mail.oneduobaohydrid.activity.ProfileNickameActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_mobile_edit" android:name="com.netease.mail.oneduobaohydrid.activity.ProfileMobileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_settings" android:name="com.netease.mail.oneduobaohydrid.activity.SettingsActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_charge_record" android:name="com.netease.mail.oneduobaohydrid.activity.ChargeRecordActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_preview_picture" android:name="com.netease.mail.oneduobaohydrid.activity.PreviewPictureActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_intro" android:name="com.netease.mail.oneduobaohydrid.activity.IntroActivity" android:screenOrientation="portrait" android:theme="@style/NoActionBar"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_pay_result" android:name="com.netease.mail.oneduobaohydrid.activity.PayResultActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_cashier_order" android:name="com.netease.mail.oneduobaohydrid.activity.CashierOrderActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_bonus_guide" android:name="com.netease.mail.oneduobaohydrid.activity.BonusGuideActivity" android:screenOrientation="portrait" android:theme="@style/NoActionBar"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_coupons" android:name="com.netease.mail.oneduobaohydrid.activity.CouponsActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_coupons_detail" android:name="com.netease.mail.oneduobaohydrid.activity.CouponsDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_wish_list" android:launchMode="singleTask" android:name="com.netease.mail.oneduobaohydrid.wishes.app.WishListActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_wish_create" android:name="com.netease.mail.oneduobaohydrid.wishes.app.WishCreateActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_wish_detail" android:name="com.netease.mail.oneduobaohydrid.wishes.app.WishDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_wish_choose" android:name="com.netease.mail.oneduobaohydrid.wishes.app.WishPickGoodsActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_wish_add_support" android:name="com.netease.mail.oneduobaohydrid.wishes.app.WishAddSupportActivity" android:screenOrientation="portrait"/>
+        <activity android:label="@string/title_activity_edit" android:name="com.netease.mail.oneduobaohydrid.wishes.app.EditActivity"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:label="@string/title_activity_wxentry" android:name="com.netease.mail.oneduobaohydrid.wxapi.WXEntryActivity" android:theme="@style/NoActionBar"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:exported="true" android:label="@string/title_activity_wxentry" android:launchMode="singleTop" android:name="com.netease.mail.oneduobaohydrid.wxapi.WXPayEntryActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.tencent.connect.common.AssistActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:launchMode="singleTask" android:name="com.tencent.tauth.AuthActivity" android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="tencent1103187380"/>
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.netease.mail.oneduobaohydrid.vender.qq.QQEntryActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:exported="false" android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser" android:windowSoftInputMode="adjustResize"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/title_activity_weibo_entry" android:launchMode="singleTask" android:name="com.netease.mail.oneduobaohydrid.vender.weibo.WeiboEntryActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity android:configChanges="keyboardHidden|orientation" android:launchMode="singleTask" android:name="com.netease.mail.oneduobaohydrid.vender.weibo.WeiboPayEntryActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:configChanges="keyboardHidden|orientation" android:launchMode="singleTask" android:name="com.netease.mail.oneduobaohydrid.vender.weibo.WeiboAuthActivity" android:theme="@style/NoActionBar"/>
+        <activity android:configChanges="keyboardHidden|navigation|orientation" android:exported="false" android:name="com.alipay.sdk.app.H5PayActivity" android:screenOrientation="behind" android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <service android:name="com.netease.mail.oneduobaohydrid.service.OneService"/>
+        <receiver android:name="com.netease.mail.oneduobaohydrid.vender.yixin.YXAppRegister" android:permission="im.yixin.sdk.permission.MM_MESSAGE">
+            <intent-filter>
+                <action android:name="im.yixin.sdk.api.Intent.ACTION_REFRESH_YXAPP"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.netease.mail.oneduobaohydrid.vender.weixin.AppRegister" android:permission="com.tencent.mm.plugin.permission.SEND">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.netease.mail.oneduobaohydrid.receiver.AlarmReceiver"/>
+        <receiver android:name="com.netease.mail.oneduobaohydrid.wzp.receiver.WzpBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </receiver>
+        <meta-data android:name="io.fabric.ApiKey" android:value="66e1a402c05199459cf0758722cd86210dc87455"/>
+        <meta-data android:name="com.netease.mail.oneduobaohydrid.hook.countly" android:value="@string/countly_hook_name"/>
+        <uses-library android:name="android.test.runner"/>
+    </application>
+</manifest>

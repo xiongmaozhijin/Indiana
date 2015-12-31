@@ -32,6 +32,19 @@ public class Constant {
 
     }
 
+    /**
+     * 最新揭晓
+     */
+    public interface LatestFragment {
+        /** 已揭晓 */
+        int CODE_ALREADY_RUN = 0;
+        /** 等待揭晓(揭晓中) */
+        int CODE_RUNNING = 2;
+        /** 计算中 */
+        int CODE_CLAC_ING = 3;
+
+    }
+
     public interface IndianaRecord {
         /** 全部 */
         public static final String TAG_ALL = "all";
@@ -88,25 +101,25 @@ public class Constant {
 
     public interface WebServiceAPI {
 
-        public static final String WEBHOST = "http://192.168.1.199";
+        public static final String WEBHOST = "http://192.168.199.100";
 
         /** 夺宝页活动详情 */
-        public static final String INDIANA_GOODS_LIST_API = "http://192.168.1.199/index.php/Admin/Api/goodslist";
+        public static final String INDIANA_GOODS_LIST_API = WEBHOST + "/index.php/Admin/Api/goodslist";
 
         /** 产品活动详情 */
-        public static final String INDIANA_ACTIVITY_DETAIL_INFO = "http://192.168.1.199/index.php/Admin/Api/goodsdetail";
+        public static final String INDIANA_ACTIVITY_DETAIL_INFO = WEBHOST + "/index.php/Admin/Api/goodsdetail";
 
         /** 最新揭晓详情 */
-        public static final String LATEST_PRODUCT_INFO = "http://192.168.1.199/index.php/Admin/Api/goodstoreveal";
+        public static final String LATEST_PRODUCT_INFO = WEBHOST + "/index.php/Admin/Api/goodstoreveal";
 
         /** 参与记录 */
-        public static final String PLAY_INDIANA_RECORD = "http://192.168.1.199/index.php/Admin/Api/participation";
+        public static final String PLAY_INDIANA_RECORD =  WEBHOST + "/index.php/Admin/Api/participation";
 
         /** 中奖记录 */
-        public static final String BINGO_RECORED = "http://192.168.1.199/index.php/Admin/Api/prize";
+        public static final String BINGO_RECORED = WEBHOST +"/index.php/Admin/Api/prize";
 
         /** Banner 轮播图片*/
-        public static final String BANNER_INFO = "http://192.168.1.199/index.php/Admin/Api/banner";
+        public static final String BANNER_INFO = WEBHOST + "/index.php/Admin/Api/banner";
 
         /** 获取验证码 */
         public static final String REQUEST_VETICATION_CODE = WEBHOST + "/index.php/Admin/Api/getVerificationCode";

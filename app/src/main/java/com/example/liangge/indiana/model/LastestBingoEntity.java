@@ -1,8 +1,11 @@
 package com.example.liangge.indiana.model;
 
+import com.example.liangge.indiana.comm.Constant;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * 最新揭晓实体
@@ -12,6 +15,12 @@ public class LastestBingoEntity {
 
     /** 活动期号 */
     private long activityId;
+
+    /** 状态码 */
+    private int status;
+
+    /** 剩余时间 */
+    private long timeLeft;
 
     /** 产品图片url */
     private String productUrl;
@@ -31,14 +40,16 @@ public class LastestBingoEntity {
     /** 开奖(揭晓)时间 */
     private long runLotteryTime;
 
-    private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd");
+    private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINESE);
 
 
     public LastestBingoEntity() {
     }
 
-    public LastestBingoEntity(long activityId, String productUrl, String titleDescribe, String bingoUser, String luckyNumber, int buyTimes, long runLotteryTime) {
+    public LastestBingoEntity(long activityId, int status, long timeLeft, String productUrl, String titleDescribe, String bingoUser, String luckyNumber, int buyTimes, long runLotteryTime) {
         this.activityId = activityId;
+        this.status = status;
+        this.timeLeft = timeLeft;
         this.productUrl = productUrl;
         this.titleDescribe = titleDescribe;
         this.bingoUser = bingoUser;
@@ -116,13 +127,24 @@ public class LastestBingoEntity {
         this.runLotteryTime = runLotteryTime;
     }
 
+/*
+    *//**
+     * 是否已经揭晓
+     * @return
+     *//*
+    public boolean isAlreadyRunLottory() {
+        return ( System.currentTimeMillis() - getRunLotteryTime() ) > 0 ? true : false;
+
+    }
+
+    */
+
     /**
      * 是否已经揭晓
      * @return
      */
     public boolean isAlreadyRunLottory() {
-        return ( System.currentTimeMillis() - getRunLotteryTime() ) > 0 ? true : false;
-
+        return (this.status== Constant.LatestFragment.CODE_ALREADY_RUN);
     }
 
     /**
@@ -132,6 +154,22 @@ public class LastestBingoEntity {
     public String getHumanAlreadyRunLotteryTime() {
         return mDateFormatAlreadyRunLottory.format(new Date(getRunLotteryTime()));
 
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public long getTimeLeft() {
+        return timeLeft;
+    }
+
+    public void setTimeLeft(long timeLeft) {
+        this.timeLeft = timeLeft;
     }
 
     /**
@@ -161,22 +199,23 @@ public class LastestBingoEntity {
         setProductUrl(srcObj.getProductUrl());
         setRunLotteryTime(srcObj.getRunLotteryTime());
         setTitleDescribe(srcObj.getTitleDescribe());
+        setTimeLeft(srcObj.getTimeLeft());
+        setStatus(srcObj.getStatus());
     }
 
 
     @Override
     public String toString() {
         return "LastestBingoEntity{" +
-                "runLotteryTime=" + runLotteryTime +
-                ", activityId=" + activityId +
+                "activityId=" + activityId +
+                ", status=" + status +
+                ", timeLeft=" + timeLeft +
                 ", productUrl='" + productUrl + '\'' +
                 ", titleDescribe='" + titleDescribe + '\'' +
                 ", bingoUser='" + bingoUser + '\'' +
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", buyTimes=" + buyTimes +
+                ", runLotteryTime=" + runLotteryTime +
                 '}';
     }
-
-
-
 }

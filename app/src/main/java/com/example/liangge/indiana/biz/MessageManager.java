@@ -11,7 +11,9 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.UIMessageEntity;
 
 import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 消息管理，发送
@@ -25,7 +27,7 @@ public class MessageManager {
 
     private Context mContext;
 
-    private BlockingDeque<UIMessageEntity> mMessageQueue = new LinkedBlockingDeque<>();
+    private BlockingQueue<UIMessageEntity> mMessageQueue = new LinkedBlockingQueue<>();
 
     private CustomerWorker mCustomerWorker;
 

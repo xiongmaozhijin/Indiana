@@ -7,11 +7,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
-import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.JsonStringRequest;
+import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
-import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.LastestBingoEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.google.gson.Gson;
@@ -19,6 +18,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 最新揭晓管理业务类
@@ -42,6 +43,9 @@ public class LatestBiz extends BaseFragmentBiz{
     /** 最新揭晓产品数据 */
     private List<LastestBingoEntity> mLatestDatas = new ArrayList<>();
 
+    private SlaveRequestQueueSingleBingoInfoComsumerThread mSingleBingoInfoComsumerThread;
+
+
     /**
      * 封装请求数据请求字段
      */
@@ -56,10 +60,20 @@ public class LatestBiz extends BaseFragmentBiz{
 
     private LatestBiz(Context context) {
         this.mContext = context;
+        initManager(context);
+        initRes();
+
+    }
+
+    private void initManager(Context context) {
         mMessageManager = MessageManager.getInstance(context);
         mVolleyBiz = VolleyBiz.getInstance();
-        mSlaveLoadLatestInfoThread = new SlaveLoadLatestInfoThread();
+    }
 
+    private void initRes() {
+        mSlaveLoadLatestInfoThread = new SlaveLoadLatestInfoThread();
+        mSingleBingoInfoComsumerThread = new SlaveRequestQueueSingleBingoInfoComsumerThread();
+        mSingleBingoInfoComsumerThread.start();
     }
 
     public static synchronized LatestBiz getInstance(Context context) {
@@ -108,9 +122,9 @@ public class LatestBiz extends BaseFragmentBiz{
 
         String[] imgs = {url1, url2, url3, url4, url5};
 
-        LastestBingoEntity item1 = new LastestBingoEntity(12,url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
-        LastestBingoEntity item2 = new LastestBingoEntity(144, url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
-        LastestBingoEntity item3 = new LastestBingoEntity(3523432,url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
+        LastestBingoEntity item1 = new LastestBingoEntity(12,2, 32,url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
+        LastestBingoEntity item2 = new LastestBingoEntity(144,2, 32, url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
+        LastestBingoEntity item3 = new LastestBingoEntity(3523432,2, 32,url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -122,14 +136,14 @@ public class LatestBiz extends BaseFragmentBiz{
             long time1 = System.currentTimeMillis() - random;
             long time2 = System.currentTimeMillis() + random;
 
-            entity = new LastestBingoEntity(342341,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
+            entity = new LastestBingoEntity(342341,2, 32,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
 
             mListLatestDatas.add(entity);
         }
 
-        item1 = new LastestBingoEntity(23213,url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
-        item2 = new LastestBingoEntity(42341, url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
-        item3 = new LastestBingoEntity(3141321, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
+        item1 = new LastestBingoEntity(23213,2, 32,url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
+        item2 = new LastestBingoEntity(42341, 2, 32,url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
+        item3 = new LastestBingoEntity(3141321,2, 32, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -266,53 +280,92 @@ public class LatestBiz extends BaseFragmentBiz{
 
     }
 
-
     /**
      * 单个请求最新揭晓信息
      */
-    private class SlaveSingleRequestLatestInfoThread extends Thread {
+    private class SlaveSingleRequestLatestInfoThread2 extends NetRequestThread {
 
+        private static final String REQUEST_TAG = "SlaveSingleRequestLatestInfoThread2";
 
         private LastestBingoEntity mUpdateEntity;
 
-        public SlaveSingleRequestLatestInfoThread(LastestBingoEntity updateEntity) {
+        public SlaveSingleRequestLatestInfoThread2(LastestBingoEntity updateEntity) {
             this.mUpdateEntity = updateEntity;
         }
 
         @Override
-        public void run() {
-            super.run();
-            String jsonData = getJsonBody();
-
-            JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.LATEST_PRODUCT_INFO, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String s) {
-                    LogUtils.i(TAG, "SlaveSingleRequestLatestInfoThread#onRsponse=%s", s);
-                    Gson gson = new Gson();
-                    LastestBingoEntity item = gson.fromJson(s, LastestBingoEntity.class);
-                    updateLatestBingoInfo(item);
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError volleyError) {
-                    LogUtils.e(TAG, "SlaveSingleRequestLatestInfoThread#volleyError=%s", volleyError.getLocalizedMessage());
-
-                }
-            }, jsonData);
-
-            mVolleyBiz.addRequest(request);
+        protected void notifyStart() {
+            super.notifyStart();
         }
 
-        private String getJsonBody() {
+        @Override
+        protected void notifySuccess() {
+            super.notifySuccess();
+        }
+
+        @Override
+        protected void notifyFail() {
+            super.notifyFail();
+        }
+
+        @Override
+        protected String getJsonBody() {
             //使用传进的实体期次id构造请求格式 TODO
             String jsonData = String.format("{\"activityId\":[%d], \"page\":%d}", this.mUpdateEntity.getActivityId(), 1);
 
-            LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#jsonBody=%s", jsonData);
+            LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread2#jsonBody=%s", jsonData);
             return jsonData;
         }
 
+        @Override
+        protected void onResponseListener(String s) {
+            LogUtils.i(TAG, "SlaveSingleRequestLatestInfoThread2#onRsponse=%s", s);
+            Gson gson = new Gson();
+            List<LastestBingoEntity> list;
+            list = gson.fromJson(s, new TypeToken<List<LastestBingoEntity>>(){}.getType());
+            if (list!=null && list.size()>0) {
+                LastestBingoEntity item = list.get(0);
+                if (item != null) {
+                    updateLatestBingoInfo(item);
+                    handleRetryRequest(item);
+                }
+
+            } else {
+                LogUtils.e(TAG, "SlaveSingleRequestLatestInfoThread2#onRespose()ERROR. list is null or size is 0");;
+            }
+
+        }
+
         /**
-         * 更新中奖用户信息
+         * 处理是否再次请求该实体信息
+         * @param item
+         */
+        private void handleRetryRequest(LastestBingoEntity item) {
+            //不是已经揭晓，继续请求
+            if (item.getStatus() != Constant.LatestFragment.CODE_ALREADY_RUN) {
+                SlaveSingleRequestLatestInfoThread2 requestItem = new SlaveSingleRequestLatestInfoThread2(item);
+                mSingleBingoInfoComsumerThread.addRequest(requestItem);
+            }
+        }
+
+        @Override
+        protected void onResponseErrorListener(VolleyError volleyError) {
+            LogUtils.e(TAG, "SlaveSingleRequestLatestInfoThread#volleyError=%s", volleyError.getLocalizedMessage());
+        }
+
+        @Override
+        protected String getRequestTag() {
+            return REQUEST_TAG;
+        }
+
+        @Override
+        protected String getWebServiceAPI() {
+            return Constant.WebServiceAPI.LATEST_PRODUCT_INFO;
+        }
+
+
+        /**
+         * 更新中奖用户信息/更新请求最新揭晓信息
          */
         private void updateLatestBingoInfo(LastestBingoEntity entity) {
             LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#updateLatestBingoInfo()");
@@ -333,6 +386,62 @@ public class LatestBiz extends BaseFragmentBiz{
 
 
     /**
+     * 一个线程不断的去请求最新的到点的揭晓数据，消费者
+     */
+    private static class SlaveRequestQueueSingleBingoInfoComsumerThread extends Thread {
+
+        private boolean mIsAlive = true;
+
+        private static BlockingQueue<SlaveSingleRequestLatestInfoThread2> mRequestQueue = new LinkedBlockingQueue<>();
+
+        @Override
+        public void run() {
+            super.run();
+            LogUtils.w(TAG, "SlaveRequestQueueSingleBingoInfo()#run...消费者线程启动");
+            while (mIsAlive) {
+                try {
+                    SlaveSingleRequestLatestInfoThread2 item = mRequestQueue.take();
+                    item.start();
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    LogUtils.e(TAG, "SlaveRequestQueueSingleBingoInfoComsumerThread#error");
+                }
+
+            } //end while
+        } //end run
+
+
+        public void setThreadAlive(boolean isAlive) {
+            this.mIsAlive = isAlive;
+        }
+
+        public void addRequest(SlaveSingleRequestLatestInfoThread2 item) {
+            LogUtils.i(TAG, "SlaveRequestQueueSingleBingoInfoComsumerThread#addRequest().item=%s", item.toString());
+            try {
+                this.mRequestQueue.put(item);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+
+            }
+
+        }
+
+
+        public void onDestroy() {
+            this.mIsAlive = false;
+            if (mRequestQueue != null) {
+                mRequestQueue.clear();
+            }
+        }
+
+    }
+
+
+
+
+    /**
      * 返回产品数据
      * @return
      */
@@ -349,12 +458,19 @@ public class LatestBiz extends BaseFragmentBiz{
 
 
     /**
-     * 当当前页面的某个item项的时间到的时候
+     * 当前页面的某个item项的时间到的时候
      * @param entity
      */
     public void onTimeUp(LastestBingoEntity entity) {
-       new SlaveSingleRequestLatestInfoThread(entity).start();
+        LogUtils.w(TAG, "onTimeUp(). entity=%s", entity.toString());
+//       new SlaveSingleRequestLatestInfoThread(entity).start();
+        if (mSingleBingoInfoComsumerThread == null) {
+            mSingleBingoInfoComsumerThread = new SlaveRequestQueueSingleBingoInfoComsumerThread();
+            mSingleBingoInfoComsumerThread.start();
+        }
 
+        SlaveSingleRequestLatestInfoThread2 requestItem = new SlaveSingleRequestLatestInfoThread2(entity);
+        mSingleBingoInfoComsumerThread.addRequest(requestItem);
     }
 
 
@@ -374,8 +490,12 @@ public class LatestBiz extends BaseFragmentBiz{
 
     @Override
     public void onLeave() {
-
+        if (mSingleBingoInfoComsumerThread != null) {
+            mSingleBingoInfoComsumerThread.onDestroy();
+            mSingleBingoInfoComsumerThread = null;
+        }
     }
+
 
 
 

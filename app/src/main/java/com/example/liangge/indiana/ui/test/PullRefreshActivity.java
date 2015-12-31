@@ -68,9 +68,9 @@ public class PullRefreshActivity extends AppCompatActivity {
 
         String[] imgs = {url1, url2, url3, url4, url5};
 
-        LastestBingoEntity item1 = new LastestBingoEntity(2313, url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
-        LastestBingoEntity item2 = new LastestBingoEntity(41321,url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
-        LastestBingoEntity item3 = new LastestBingoEntity(3243241, url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
+        LastestBingoEntity item1 = new LastestBingoEntity(2313, 21,21,url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
+        LastestBingoEntity item2 = new LastestBingoEntity(41321,21,21,url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
+        LastestBingoEntity item3 = new LastestBingoEntity(3243241,21,21, url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -82,14 +82,14 @@ public class PullRefreshActivity extends AppCompatActivity {
             long time1 = System.currentTimeMillis() - random;
             long time2 = System.currentTimeMillis() + random;
 
-            entity = new LastestBingoEntity(3413,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
+            entity = new LastestBingoEntity(3413,21,21,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
 
             mListLatestDatas.add(entity);
         }
 
-        item1 = new LastestBingoEntity(331231, url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
-        item2 = new LastestBingoEntity(2313,url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
-        item3 = new LastestBingoEntity(23213, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
+        item1 = new LastestBingoEntity(331231, 21,21,url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
+        item2 = new LastestBingoEntity(2313,21,21,url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
+        item3 = new LastestBingoEntity(23213,21,21, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
 
         mListLatestDatas.add(item1);
         mListLatestDatas.add(item2);
@@ -338,7 +338,7 @@ public class PullRefreshActivity extends AppCompatActivity {
             runLottoryWrapper.setVisibility(View.VISIBLE);
             bingoInfoWrapper.setVisibility(View.GONE);
 
-            runLottoryHint.init(itemInfo);
+            runLottoryHint.init2(itemInfo);
             runLottoryHint.setOnTimesUpListener(new SimpleOnTimeUpListenerAdapter());
         }
 

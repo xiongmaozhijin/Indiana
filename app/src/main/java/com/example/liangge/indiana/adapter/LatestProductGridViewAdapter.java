@@ -125,7 +125,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
 
         }
 
-        viewHolder.adapterDatas(lastestItem);
+        viewHolder.adapterDatas(lastestItem, parent, position);
 
         return convertView;
     }
@@ -177,7 +177,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
          * 适配数据
          * @param itemInfo
          */
-        public void adapterDatas(LastestBingoEntity itemInfo) {
+        public void adapterDatas(LastestBingoEntity itemInfo, ViewGroup parent, int position) {
 //            LogUtils.w(TAG, "itemInfo=%s", itemInfo.toString() );
             boolean isAreadyRunLottory = itemInfo.isAlreadyRunLottory();
 
@@ -187,7 +187,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
                 adapterDataBingoData(itemInfo);
 
             } else {
-                adapterDataRunLottory(itemInfo);
+                adapterDataRunLottory(itemInfo,parent, position);
 
             }
 
@@ -218,15 +218,19 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         }
 
         /**
-         * 适配正在揭晓情况数据
+         * 适配正在揭晓或计算中的情况数据
          * @param itemInfo
+         * @param parent
          */
-        private void adapterDataRunLottory(LastestBingoEntity itemInfo) {
-            runLottoryWrapper.setVisibility(View.VISIBLE);
-            bingoInfoWrapper.setVisibility(View.GONE);
+        private void adapterDataRunLottory(LastestBingoEntity itemInfo, ViewGroup parent, int position) {
+            if (position == parent.getChildCount() ) {
+                runLottoryWrapper.setVisibility(View.VISIBLE);
+                bingoInfoWrapper.setVisibility(View.GONE);
 
-            runLottoryHint.init(itemInfo);
-            runLottoryHint.setOnTimesUpListener(new SimpleOnTimeUpListenerAdapter());
+                runLottoryHint.init2(itemInfo);
+                runLottoryHint.setOnTimesUpListener(new SimpleOnTimeUpListenerAdapter());
+            }
+
         }
 
 
