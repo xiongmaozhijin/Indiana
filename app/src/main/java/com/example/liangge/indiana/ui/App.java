@@ -2,6 +2,7 @@ package com.example.liangge.indiana.ui;
 
 import android.app.Application;
 
+import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.SharedPrefUtils;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -22,6 +23,11 @@ public class App extends Application{
         initImageLoaderConf();
         initSharedPref();
         initVolley();
+        initOther();
+    }
+
+    private void initOther() {
+        LocalDisplay.init(this);
     }
 
     private void initVolley() {
