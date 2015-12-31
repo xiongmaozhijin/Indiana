@@ -28,6 +28,8 @@ public class ExScrollView extends ScrollView{
     /** 滚动的的浮动菜单的内容，这里具体是GridView */
     private View mFloatMenuContentViewWrapper;
 
+    /** Y轴滚动距离 */
+    private int mScrollY;
 
     private float iPrevY;
 
@@ -61,6 +63,15 @@ public class ExScrollView extends ScrollView{
 
     }
 
+    /**
+     * 返回滚动的记录(自身的getScrollY在Indiana获取不到)
+     * @return
+     */
+    public int getExScrollY() {
+        return this.mScrollY;
+    }
+
+
 
     public ExScrollView(Context context) {
         super(context);
@@ -78,6 +89,8 @@ public class ExScrollView extends ScrollView{
     protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
         handleFloatMenu();
+        this.mScrollY = scrollY;    //自身的getScrollY在Indiana获取不到
+        LogUtils.i(TAG,"scrollY=%d", scrollY);
     }
 
     @Override
@@ -113,6 +126,9 @@ public class ExScrollView extends ScrollView{
         }
     }
 
+    private static final int I_COUNT_SCROLL_DONE_CAMPUTURE = 3;
+    private int iCountScrollBottomDone = 0;
+
     private void handleOnScrollDone(MotionEvent ev) {
         final int iAction = ev.getAction();
         final int LIMIT_CANPTURE = 0;
@@ -127,14 +143,22 @@ public class ExScrollView extends ScrollView{
                     if (mOnScrollDoneListener != null) {
                         mOnScrollDoneListener.onScrollTop();
                     }
-                }
+                }   //end scroll top
 
                 if ( (iScrollY+iHeight) >= (iScrollViewMeasuredHeight-LIMIT_CANPTURE)) {
                     if (mOnScrollDoneListener != null) {
-                        mOnScrollDoneListener.onScrollBottom();
-                    }
-                }
+                        iCountScrollBottomDone++;
+                        LogUtils.e(TAG, "iCountScrollBottomDone=%d", iCountScrollBottomDone);
+                        if (iCountScrollBottomDone >= I_COUNT_SCROLL_DONE_CAMPUTURE) {
+                            mOnScrollDoneListener.onScrollBottom();
+                            iCountScrollBottomDone = 0;
+                        }
 
+                    }
+                } else {
+                    iCountScrollBottomDone = 0;
+
+                }   //end scroll bottom
 
 
         }

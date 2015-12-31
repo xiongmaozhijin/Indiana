@@ -50,7 +50,7 @@ public class IndianaFragment extends BaseFragment {
     private View mViewProductContentWrapper;
 
     /** 浮动菜单 */
-    private View mViewFitFloatMenu;
+//    private View mViewFitFloatMenu;
 
     /** 产品显示列表 */
     private GridView mGridviewProducts;
@@ -95,7 +95,7 @@ public class IndianaFragment extends BaseFragment {
 
     private void initMenuBtn(View view) {
         View fixMenuWrapper = view.findViewById(R.id.f_indiana_fix_menu);
-        View fixFloatMenuWrapper = view.findViewById(R.id.f_indiana_product_fit_float_menu);
+//        View fixFloatMenuWrapper = view.findViewById(R.id.f_indiana_product_fit_float_menu);
 
         fixMenuWrapper.findViewById(R.id.indian_product_category_rb_hots).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +129,8 @@ public class IndianaFragment extends BaseFragment {
             }
         });
         //
+
+     /*
         fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_hots).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,6 +163,7 @@ public class IndianaFragment extends BaseFragment {
             }
         });
 
+        */
 
     }
 
@@ -196,7 +199,7 @@ public class IndianaFragment extends BaseFragment {
 
         mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
         mViewProductContentWrapper = view.findViewById(R.id.f_indiana_product_content_wrapper);
-        mViewFitFloatMenu = view.findViewById(R.id.f_indiana_product_fit_float_menu);
+//        mViewFitFloatMenu = view.findViewById(R.id.f_indiana_product_fit_float_menu);
         mScrollViewMain = (ExScrollView) view.findViewById(R.id.f_indiana_main_scrollview);
 
         mGridviewProducts = (GridView) view.findViewById(R.id.f_indiana_product_content_gridview);
@@ -252,10 +255,10 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void shouldHiddle(boolean bShouldHiddle) {
                 if (bShouldHiddle) {
-                    mViewFitFloatMenu.setVisibility(View.GONE);
+//                    mViewFitFloatMenu.setVisibility(View.GONE);
 
                 } else {
-                    mViewFitFloatMenu.setVisibility(View.VISIBLE);
+//                    mViewFitFloatMenu.setVisibility(View.VISIBLE);
 
                 }
             }
@@ -339,9 +342,14 @@ public class IndianaFragment extends BaseFragment {
             mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS)) {
+//            int iScrollY = mScrollViewMain.getExScrollY();
+//            LogUtils.e(TAG, "iScrollY=%d", iScrollY);
+
             mViewTagNetInfoDataInfoWrapper.setVisibility(View.GONE);
             mGridviewProducts.setVisibility(View.VISIBLE);
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
+
+            mScrollViewMain.smoothScrollTo(0, 0);
         }
     }
 
