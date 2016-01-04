@@ -161,6 +161,11 @@
     <string name="f_indiana_top_menu_category">分类</string>
     <string name="f_indiana_top_menu_tenyuan_area">10元专区</string>
     <string name="f_indiana_top_menu_qaq">常见问题</string>
+    <string name="activity_category_search_hint">搜索商品</string>
+
+
+    <string name="activity_category_title">分类浏览</string>
+    <string name="activity_category_net_error">网络错误，请检查</string>
 
 
 </resources>

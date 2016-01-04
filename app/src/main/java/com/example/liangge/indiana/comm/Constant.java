@@ -141,6 +141,8 @@ public class Constant {
 
         /** 计算详细 */
         String REQUEST_CALC_DETAIL_INFO = WEBHOST + "/index.php/Admin/Api/calculation";
+
+        String REQUEST_CATEGORY = WEBHOST + "/index.php/Admin/Api/category";
     }
 
 

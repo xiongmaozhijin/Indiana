@@ -26,6 +26,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.ui.IndianaCategoryActivity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
@@ -81,6 +82,18 @@ public class IndianaFragment extends BaseFragment {
     /** 加载子标签时的网络加载提示 */
     private View mViewTagNetInfoDataInfoWrapper;
 
+
+    //top menu
+    /** 分类 */
+    private View mViewCategoryWrapper;
+
+    /** 10元专区 */
+    private View mViewTenYuanAreaWrapper;
+
+    /** 常见问题 */
+    private View mViewQAQ;
+
+
     /** 下拉刷新 */
 //    protected PtrFrameLayout mPtrFrameLayout;
 
@@ -102,8 +115,42 @@ public class IndianaFragment extends BaseFragment {
         initWidget(view);
         initRefreshView2(view);
         initMenuBtn(view);
+        initTopMenuView(view);
 
         return view;
+    }
+
+    private void initTopMenuView(View view) {
+        mViewCategoryWrapper = view.findViewById(R.id.top_menu_catory);
+        mViewTenYuanAreaWrapper = view.findViewById(R.id.top_menu_tenyuan_area);
+        mViewQAQ = view.findViewById(R.id.top_menu_qaq);
+
+        mViewCategoryWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.i(TAG, "分类");
+                Intent intent = new Intent(getActivity(), IndianaCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mViewTenYuanAreaWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.i(TAG, "10元专区");
+            }
+        });
+
+        mViewQAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.i(TAG, "常见问题");
+            }
+        });
+
+
+
+
     }
 
 /*

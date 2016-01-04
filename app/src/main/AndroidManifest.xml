@@ -13,15 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".ui.HomeActivity" >
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity android:name=".ui.UIBaseActivity" >
         </activity>
@@ -37,7 +33,6 @@
             android:hardwareAccelerated="false" >
         </activity>
         <activity android:name=".ui.test.SurfaceViewTestActivity" >
-
         </activity>
         <activity android:name=".ui.ProductDetailInfoActivity" >
         </activity>
@@ -58,6 +53,8 @@
         <activity android:name=".ui.user.UserInfoActivity" >
         </activity>
         <activity android:name=".ui.ImageViewActivity" >
+        </activity>
+        <activity android:name=".ui.IndianaCategoryActivity" >
         </activity>
     </application>
 

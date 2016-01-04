@@ -19,5 +19,6 @@
     <color name="activity_detail_btn_press">#E56C80</color>
     <color name="activity_detail_btn_normal">#DB3652</color>
 
+    <color name="activity_category_category_item">#EBECED</color>
 
 </resources>
