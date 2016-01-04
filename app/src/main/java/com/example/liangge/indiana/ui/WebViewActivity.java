@@ -38,6 +38,7 @@ public class WebViewActivity extends Activity {
     private void initView() {
         mTxvTitlebarTitle = (TextView) findViewById(R.id.activity_webview_titlebar_title);
         mWebView = (WebView) findViewById(R.id.activity_webview_webview);
+        mWebView.getSettings().setJavaScriptEnabled(true);
     }
 
 

@@ -92,6 +92,20 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
         }
     }
 
+    public void loadMoreProductDataAndNotify(List<ActivityProductItemEntity> newList) {
+        if (newList != null) {
+            ActivityProductItemEntity item;
+            for (int i=0, len=newList.size(); i<len; i++) {
+                item = newList.get(i);
+                this.mListProducts.add(item);
+            }
+
+            notifyDataSetChanged();
+        }
+    }
+
+
+
     @Override
     public int getCount() {
         return mListProducts.size();

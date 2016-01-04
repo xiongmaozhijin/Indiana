@@ -23,6 +23,8 @@ import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.HomeBiz;
 import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
+import com.example.liangge.indiana.biz.WebViewBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
@@ -107,6 +109,7 @@ public class ProductDetailInfoActivity extends Activity {
 
     private HomeBiz mHomeBiz;
 
+    private WebViewBiz mWebViewBiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +124,7 @@ public class ProductDetailInfoActivity extends Activity {
 
     private void initRes() {
         mShoppingCartBiz = ShoppingCartBiz.getInstance(this);
+        mWebViewBiz = WebViewBiz.getInstance(this);
     }
 
     /**
@@ -400,6 +404,18 @@ public class ProductDetailInfoActivity extends Activity {
             startActivity(intent);
         }
 
+    }
+
+    /**
+     * 计算详情
+     * @param view
+     */
+    public void onBtnCalcDetail(View view) {
+        String hintTitle = getResources().getString(R.string.activity_productdetailinfo_calc_detial_web_title);
+        String url = String.format("%s?issue_id=%d",Constant.WebServiceAPI.REQUEST_CALC_DETAIL_INFO,  mDetailInfoBiz.getDetailEntity().getActivityId() );
+        mWebViewBiz.setWebViewRes(hintTitle, url);
+        Intent i = new Intent(this, WebViewActivity.class);
+        startActivity(i);
     }
 
 

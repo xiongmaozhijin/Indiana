@@ -401,6 +401,15 @@ public class IndianaBiz extends BaseFragmentBiz{
     }
 
 
+    /**
+     * 返回当前的tag
+     * @return
+     */
+    public String getCurRequestTag() {
+        return RequestInfo.iCurTag;
+    }
+
+
     public void onStop() {
 
     }

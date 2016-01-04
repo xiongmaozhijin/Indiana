@@ -139,6 +139,8 @@ public class Constant {
         /** 一期活动用户参与记录 */
         String REQUEST_ACTIVITY_PLAY_RECORDS = WEBHOST + "/index.php/Admin/Api/issueRecord";
 
+        /** 计算详细 */
+        String REQUEST_CALC_DETAIL_INFO = WEBHOST + "/index.php/Admin/Api/calculation";
     }
 
 

@@ -49,6 +49,93 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- menu -->
+                    <LinearLayout
+                        android:gravity="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/top_menu_catory"
+                            android:gravity="center"
+                            android:layout_width="54dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/comm_loading_view"
+                                android:adjustViewBounds="true"/>
+                            <TextView
+                                android:layout_marginTop="3dp"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/f_indiana_top_menu_category"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="54dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/comm_loading_view"
+                                android:adjustViewBounds="true"/>
+                            <TextView
+                                android:layout_marginTop="3dp"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/f_indiana_top_menu_tenyuan_area"/>
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_width="54dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:src="@drawable/comm_loading_view"
+                                android:adjustViewBounds="true"/>
+                            <TextView
+                                android:layout_marginTop="3dp"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/f_indiana_top_menu_qaq"/>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                        <!-- notification -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="38dp"
+                            android:orientation="horizontal">
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
                     <!-- 内容部分，包括菜单，内容，加载更多提示部分 -->
                     <FrameLayout
                         android:id="@+id/f_indiana_product_content_wrapper"
@@ -107,23 +194,45 @@
                                 android:id="@+id/f_indiana_product_loading_more_wrapper"
                                 android:layout_width="match_parent"
                                 android:layout_height="64dp"
-                                android:visibility="gone">
+                                android:visibility="visible">
 
-                                <TextView
-                                    android:id="@+id/product_loading_txv_hint"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center"
+                                <LinearLayout
+                                    android:id="@+id/load_more_hint_loading_wrapper"
                                     android:gravity="center"
-                                    android:text="@string/f_indian_product_load_more_hint"
-                                    android:textSize="20sp" />
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/product_loading_progress"
-                                    style="?android:attr/progressBarStyle"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center" />
+                                <com.example.liangge.indiana.ui.widget.RotateImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:src="@drawable/comm_loading_view" />
+
+                                    <TextView
+                                        android:id="@+id/product_loading_txv_hint"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center"
+                                        android:gravity="center"
+                                        android:text="@string/f_indian_product_load_more_hint"
+                                        android:textSize="14sp" />
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:id="@+id/load_more_hint_wrapper"
+                                    android:gravity="center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <TextView
+                                        android:id="@+id/load_more_hint_text"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="已加载完全部"/>
+
+                                </LinearLayout>
 
                             </FrameLayout>
 
