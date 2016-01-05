@@ -8,7 +8,7 @@
         android:layout_height="240dp"
         android:orientation="vertical"
         android:background="@drawable/selector_f_indiana_product_item_bg"
-        android:padding="4dp">
+        android:padding="@dimen/fragment_gridview_padding">
 
         <!-- 上部 -->
         <LinearLayout
@@ -21,28 +21,27 @@
                 android:id="@+id/latest_product_item_img"
                 android:layout_width="match_parent"
                 android:layout_height="105dp"
-                android:background="@android:color/holo_orange_dark"
-                android:scaleType="fitXY"
+                android:background="@android:color/white"
+                android:scaleType="fitCenter"
                 android:src="@mipmap/ic_launcher"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="9dp"/>
+
             <TextView
+                android:layout_gravity="left"
+                android:paddingLeft="9dp"
                 android:id="@+id/latest_product_item_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="产品揭晓描述"
-                android:textColor="@android:color/black"
+                android:textSize="14sp"
+                android:textColor="@color/fragment_item_title"
                 android:singleLine="true"/>
 
         </LinearLayout>
 
         <!-- 中间分割线 -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@drawable/latest_gridview_item_split_line"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+
 
         <!-- 产品信息 -->
         <FrameLayout
@@ -53,7 +52,7 @@
             <!-- 正在揭晓情况 -->
             <LinearLayout
                 android:id="@+id/laset_item_runlottory_wrapper"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -66,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="9dp"
                     android:text="@string/lastest_item_runlottory_hint.xml"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
                     android:textColor="@android:color/white"
                     android:background="@android:color/holo_red_light"/>
 
@@ -75,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="24dp"
                     android:text="07:27:23"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textColor="@android:color/holo_red_dark"/>
 
             </LinearLayout>
@@ -83,7 +82,7 @@
             <!-- 揭晓信息情况-->
             <LinearLayout
                 android:id="@+id/latest_bingo_info_wrapper"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="9dp"
@@ -105,7 +104,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="用户3"
-                    android:textColor="#0000FF"/>
+                    android:textColor="#0278fe"/>
 
             </LinearLayout>
 
@@ -143,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1029382"
-                        android:textColor="@android:color/holo_red_dark"/>
+                        android:textColor="#da3651"/>
 
                 </LinearLayout>
 

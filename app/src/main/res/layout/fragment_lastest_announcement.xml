@@ -24,6 +24,7 @@
                 android:background="@android:color/darker_gray">
 
                 <com.example.liangge.indiana.ui.widget.ExGridView
+                    android:background="@color/fragment_gridview_split"
                     android:id="@+id/f_latest_gridview_product_data"
                     android:focusable="false"
                     android:fadingEdge="none"

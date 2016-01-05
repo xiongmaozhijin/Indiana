@@ -162,6 +162,7 @@ public class BannerView extends FrameLayout{
 
                ImageView imgView = new ImageView(mContext);
                ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+               imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                imgView.setLayoutParams(layoutParams);
                imgView.setScaleType(ImageView.ScaleType.FIT_XY);
                imgView.setClickable(true);

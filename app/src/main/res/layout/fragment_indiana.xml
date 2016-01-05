@@ -203,7 +203,7 @@
                                     android:id="@+id/f_indiana_product_content_gridview"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="#ededeb"
+                                    android:background="@color/fragment_gridview_split"
                                     android:gravity="center"
                                     android:horizontalSpacing="1dp"
                                     android:numColumns="2"

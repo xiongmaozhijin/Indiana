@@ -22,4 +22,7 @@
 
     <color name="activity_category_category_item">#EBECED</color>
 
+    <color name="fragment_gridview_split">#ededeb</color>
+    <color name="fragment_item_title">#686868</color>
+
 </resources>
