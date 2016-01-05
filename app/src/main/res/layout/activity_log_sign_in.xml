@@ -21,7 +21,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@drawable/selector_f_shopping_btn_pay"
-            android:src="@android:drawable/ic_menu_revert"/>
+            android:src="@drawable/btn_back_72"/>
 
         <TextView
             android:layout_width="wrap_content"

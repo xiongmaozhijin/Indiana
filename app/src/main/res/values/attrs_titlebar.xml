@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CommTitleBar">
+        <attr name="titlebar_title" format="string" />
+
+<!--
+        <attr name="exampleDimension" format="dimension" />
+        <attr name="exampleColor" format="color" />
+        <attr name="exampleDrawable" format="color|reference" />
+
+        -->
+    </declare-styleable>
+
+</resources>

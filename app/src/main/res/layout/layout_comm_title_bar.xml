@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <!-- Titlebar-->
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
         android:background="@android:color/holo_red_dark">
@@ -15,7 +18,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/selector_f_shopping_btn_pay"
             android:onClick="onBtnBack"
-            android:src="@android:drawable/ic_menu_revert" />
+            android:src="@drawable/btn_back_72" />
 
         <TextView
             android:id="@+id/titlebar_title"
@@ -28,3 +31,5 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
+</FrameLayout>

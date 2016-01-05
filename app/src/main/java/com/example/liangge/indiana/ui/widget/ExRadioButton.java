@@ -9,6 +9,7 @@ import android.os.Looper;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
 
+import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
 
@@ -49,7 +50,10 @@ public class ExRadioButton extends RadioButton{
     private void initRes() {
         LocalDisplay.init(getContext());
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mBgPaint = new Paint();
+        mTextPaint.setDither(true);
+        mBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mBgPaint.setDither(true);
+
     }
 
 
@@ -68,7 +72,7 @@ public class ExRadioButton extends RadioButton{
             //bg
             int x1 = w - iCircleSize;
             int y1 = iCircleSize;
-            mBgPaint.setColor(Color.RED);
+            mBgPaint.setColor(getResources().getColor(R.color.titlebar_color));
             mBgPaint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(x1, y1, iCircleSize, mBgPaint);
             //cnt

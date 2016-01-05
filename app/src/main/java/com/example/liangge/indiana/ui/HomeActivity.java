@@ -125,7 +125,7 @@ public class HomeActivity extends UIBaseActivity {
     }
 
     private void initOtherWidget() {
-        mTxvTitlebarTitle = (TextView) findViewById(R.id.main_titlebar_title);
+        mTxvTitlebarTitle = (TextView) findViewById(R.id.titlebar_title);
         mIconSearch = (ImageView) findViewById(R.id.main_btn_search);
         mIconRefresh = (RotateImageView) findViewById(R.id.main_btn_refresh_loading);
 

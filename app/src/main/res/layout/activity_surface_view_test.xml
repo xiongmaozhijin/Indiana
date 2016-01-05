@@ -28,6 +28,7 @@
         android:layout_height="wrap_content" />
 
     <!--<include layout="@layout/f_shoppingcart_item" />-->
+<!--
 
     <com.example.liangge.indiana.ui.widget.ExRadioButton
         android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
         android:text="购物车"
         android:button="@null"
         android:drawableTop="@drawable/main_menu_shopping_cart_press"/>
+-->
 
 
     <TextView

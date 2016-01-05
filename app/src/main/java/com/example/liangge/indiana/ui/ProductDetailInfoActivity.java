@@ -154,7 +154,7 @@ public class ProductDetailInfoActivity extends Activity {
         mViewNetWrapper = findViewById(R.id.activity_detailinfo_net_error_wrapper);
         mViewAllContentWrapper = findViewById(R.id.activity_detailinfo_allcontent_wrapper);
 
-        mBtnBack = (ImageButton) findViewById(R.id.activity_productdetailinfo_btn_back);
+        mBtnBack = (ImageButton) findViewById(R.id.titlebar_btn_back);
         mBannerView = (BannerView) findViewById(R.id.activity_productdetailinfo_bannerview);
         mTxvProductInfoTitleDescribe1 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe1);
         mTxvProductInfoTitleDescribe2 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe2);

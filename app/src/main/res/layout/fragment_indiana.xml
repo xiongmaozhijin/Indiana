@@ -129,8 +129,9 @@
 
 
                         <View
+                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
-                            android:layout_height="1px"
+                            android:layout_height="0.1dp"
                             android:background="#F5F3F1" />
 
                         <!-- notification -->
@@ -183,11 +184,15 @@
                                 android:id="@+id/f_indiana_fix_menu"
                                 layout="@layout/f_indiana_content_float_menu" />
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.1dp"
+                                android:background="#ededeb"/>
+
                             <!-- 产品展示或正在加载 -->
                             <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="2dp">
+                                android:layout_height="match_parent">
 
                                 <include
                                     android:id="@+id/f_indiana_tag_net_hint_wrapper"
@@ -198,23 +203,12 @@
                                     android:id="@+id/f_indiana_product_content_gridview"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@android:color/darker_gray"
+                                    android:background="#ededeb"
                                     android:gravity="center"
                                     android:horizontalSpacing="1dp"
                                     android:numColumns="2"
                                     android:verticalSpacing="1dp"
                                     android:visibility="visible" />
-
-                                <!--                 <GridView
-                                                     android:id="@+id/f_indiana_product_content_gridview"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="wrap_content"
-                                                     android:background="@android:color/darker_gray"
-                                                     android:gravity="center"
-                                                     android:horizontalSpacing="1dp"
-                                                     android:numColumns="2"
-                                                     android:verticalSpacing="1dp"
-                                                     android:visibility="visible" />-->
 
 
                             </FrameLayout>
