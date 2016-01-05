@@ -30,13 +30,23 @@
                 android:text="@string/f_shoppingcart_empty_cart"
                 android:layout_marginBottom="25dp"/>
 
-            <Button
+<!--            <Button
                 android:id="@+id/f_shoppingcart_btn_go_indiana"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/f_shoppingcart_go_indiana"
                 android:textColor="@android:color/white"
-                android:background="@drawable/selector_f_shopping_btn_pay"/>
+                android:background="@drawable/selector_f_shopping_btn_pay"/>-->
+
+            <Button
+                android:id="@+id/f_shoppingcart_btn_go_indiana"
+                style="@style/Button.main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20.0dip"
+                android:text="@string/f_shoppingcart_go_indiana" />
+
+
 
         </LinearLayout>
 
@@ -82,9 +92,85 @@
 
         </com.example.liangge.indiana.ui.widget.ExScrollView>
 
-
-
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@android:color/holo_orange_light"
+            android:gravity="center_vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/footer"
+                android:layout_width="fill_parent"
+                android:layout_height="56dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/tab_border"
+                android:paddingLeft="@dimen/cart_adjust_amount_margin"
+                android:paddingRight="10.0dip"
+                android:visibility="visible">
+
+                <Button
+                    android:id="@+id/f_shopping_content_item_btn_commit_pay"
+                    style="@style/Button.main"
+                    android:layout_width="@dimen/cart_adjust_submit_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:minHeight="36.0dip"
+                    android:padding="0.0dip"
+                    android:text="@string/f_shoppingcart_commit_pay" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@id/f_shopping_content_item_btn_commit_pay"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/amount_wrapper"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/f_shopping_content_item_txvdesc1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray"
+                            android:text="@string/f_shoppingcart_buycnt_hint"
+                            android:textSize="14.0sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/cart_total"
+                            android:textColor="@color/gray"
+                            android:textSize="14.0sp" />
+
+                        <TextView
+                            android:id="@+id/f_shopping_content_item_txvdesc2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:textColor="@color/impt"
+                            android:textSize="14.0sp"
+                            android:text="@string/f_shoppingcart_pay_hint"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+<!--        <LinearLayout
             android:layout_gravity="bottom|center_horizontal"
             android:background="@android:color/holo_orange_light"
             android:gravity="center_vertical"
@@ -115,7 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/f_shoppingcart_commit_pay"/>
 
-        </LinearLayout>
+        </LinearLayout>-->
 
 
     </FrameLayout>

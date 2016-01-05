@@ -35,10 +35,10 @@
     <string name="f_shoppingcart_item_buy_counts">购买次数</string>
     <string name="f_shoppingcart_empty_cart">您的购物车空空如也</string>
     <string name="f_shoppingcart_go_indiana">马上去夺宝</string>
-    <string name="f_shoppingcart_buycnt_hint">共参与%1$d件，</string>
-    <string name="f_shoppingcart_commit_pay">确认支付</string>
+    <string name="f_shoppingcart_buycnt_hint">共%1$d件，</string>
+    <string name="f_shoppingcart_commit_pay">结算</string>
     <string name="f_shoppingcart_join_describe">总需%1$d次，剩余%2$d次</string>
-    <string name="f_shoppingcart_pay_hint">共: %1$d夺宝币</string>
+    <string name="f_shoppingcart_pay_hint">%1$d夺宝币</string>
     <string name="activity_productdetailinfo_titlebar_title">商品详情</string>
     <string name="activity_productdetailinfo_progressing_des1"> 总需:%1$d次</string>
     <string name="activity_productdetailinfo_hasjoin_hint">你还没有参与本次夺宝哦</string>
@@ -166,6 +166,14 @@
 
     <string name="activity_category_title">分类浏览</string>
     <string name="activity_category_net_error">网络错误，请检查</string>
+    <string name="activity_category_detail_cnt_des">
+        <![CDATA[
 
+        总需:%1$d &nbsp;&nbsp;&nbsp;剩余:<font color="blue">%2$d</font>
+
+        ]]>
+    </string>
+
+    <string name="activity_category_detail_add_success">添加成功</string>
 
 </resources>

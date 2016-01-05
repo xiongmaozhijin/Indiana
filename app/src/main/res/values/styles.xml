@@ -72,6 +72,28 @@
     </style>
 
 
+    <style name="Button">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">64.0dip</item>
+        <item name="android:minHeight">40.0dip</item>
+    </style>
+
+    <style name="Button.main" parent="@style/Button">
+        <item name="android:textColor">@drawable/btn_main_color</item>
+        <item name="android:background">@drawable/btn_main</item>
+        <item name="android:paddingLeft">17.0dip</item>
+        <item name="android:paddingTop">6.0dip</item>
+        <item name="android:paddingRight">17.0dip</item>
+        <item name="android:paddingBottom">6.0dip</item>
+        <item name="android:clickable">true</item>
+        <item name="android:lineSpacingExtra">0.0sp</item>
+    </style>
+
 
 
     <style name="AppTheme.NoActionBar">

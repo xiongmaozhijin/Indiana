@@ -14,6 +14,13 @@ public class Constant {
     }
 
 
+    public interface Comm {
+        int REFRESH = 1;
+        int ENTER = 2;
+        int LOAD_MORE = 3;
+
+    }
+
     public interface IndianaFragment {
 
         /** 人气 */
@@ -99,6 +106,9 @@ public class Constant {
     }
 
 
+
+
+
     public interface WebServiceAPI {
 
         public static final String WEBHOST = "http://192.168.199.100";
@@ -142,7 +152,13 @@ public class Constant {
         /** 计算详细 */
         String REQUEST_CALC_DETAIL_INFO = WEBHOST + "/index.php/Admin/Api/calculation";
 
+        /** 请求有什么类别 */
         String REQUEST_CATEGORY = WEBHOST + "/index.php/Admin/Api/category";
+
+        /**请求类别详细*/
+        String REQUEST_CATEGORY_DETAIL =  WEBHOST + "/index.php/Admin/Api/categoryGoods";
+
+
     }
 
 

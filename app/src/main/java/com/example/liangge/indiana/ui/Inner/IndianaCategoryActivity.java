@@ -1,6 +1,7 @@
-package com.example.liangge.indiana.ui;
+package com.example.liangge.indiana.ui.Inner;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
-import com.example.liangge.indiana.adapter.IndianaCategoryAdapter;
+import com.example.liangge.indiana.adapter.inner.IndianaCategoryAdapter;
+import com.example.liangge.indiana.biz.inner.CategroyDetailBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
-import com.example.liangge.indiana.model.IndianaCategoryEntity;
+import com.example.liangge.indiana.model.inner.CategoryDetailEntitiy;
+import com.example.liangge.indiana.model.inner.IndianaCategoryEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -43,6 +46,7 @@ public class IndianaCategoryActivity extends Activity {
     /** 加载网络类别数据 */
     private SlaveLoadDataThread mSlaveLoadDataThread;
 
+    private CategroyDetailBiz mCategroyDetailBiz;
 
 
     @Override
@@ -50,10 +54,15 @@ public class IndianaCategoryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indiana_category);
 
+        initManager();
         initTitleBar();
         initView();
         initState();
         initNetRequest();
+    }
+
+    private void initManager() {
+        mCategroyDetailBiz = CategroyDetailBiz.getInstance(this);
     }
 
     private void initState() {
@@ -90,6 +99,7 @@ public class IndianaCategoryActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //跳转到搜索
+                LogUtils.i(TAG, "search activity");
             }
         });
 
@@ -98,6 +108,10 @@ public class IndianaCategoryActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //全部商品
+                LogUtils.i(TAG, "all category");
+                mCategroyDetailBiz.setRequestData(0);
+                Intent intent = new Intent(IndianaCategoryActivity.this, CategoryListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -105,6 +119,11 @@ public class IndianaCategoryActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //listview item click
+                LogUtils.i(TAG, "position=%d", position);
+                final IndianaCategoryEntity item = (IndianaCategoryEntity) parent.getAdapter().getItem(position);
+                mCategroyDetailBiz.setRequestData(item.getCategory_id());
+                Intent intent = new Intent(IndianaCategoryActivity.this, CategoryListActivity.class);
+                startActivity(intent);
             }
         });
 

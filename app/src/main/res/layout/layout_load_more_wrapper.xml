@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="gone"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+
+    <!-- 加载更多 -->
+    <FrameLayout
+        android:id="@+id/f_indiana_product_loading_more_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <LinearLayout
+            android:id="@+id/load_more_hint_loading_wrapper"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.example.liangge.indiana.ui.widget.RotateImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/comm_loading_view" />
+
+            <TextView
+                android:id="@+id/product_loading_txv_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/f_indian_product_load_more_hint"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/load_more_hint_wrapper"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/load_more_hint_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已加载完全部"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+
+</FrameLayout>

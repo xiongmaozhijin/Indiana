@@ -253,7 +253,26 @@ public class UIMessageConts {
     }
 
 
+    public interface CategoryDetailMessage {
+        String PREV = "CategoryDetailMessage";
+        //下拉刷新
+        String REFRESH_SUCCESS = PREV + "REFRESH_SUCCESS";
+        String REFRESH_FAILED = PREV + "REFRESH_FAILED";
+        //进入刷新
+        String ENTERY_REFRESH_START = PREV + "ENTERY_REFRESH_START";
+        String ENTERY_REFRESH_SUCCESS = PREV + "ENTERY_REFRESH_SUCCESS";
+        String ENTERY_REFRESH_FAILED = PREV + "ENTERY_REFRESH_FAILED";
 
+        //加载更多
+        String LOAD_MORE_START = PREV + "LOAD_MORE_START";
+        String LOAD_MORE_SUCCESS = PREV + "LOAD_MORE_SUCCESS";
+        String LOAD_MORE_FAILED = PREV + "LOAD_MORE_FAILED";
+
+        String LOAD_START = PREV + "LOAD_START";
+        String LOAD_FAILED = PREV + "LOAD_FAILED";
+        String LOAD_SUCCESS = PREV + "LOAD_SUCCESS";
+
+    }
 
 
 

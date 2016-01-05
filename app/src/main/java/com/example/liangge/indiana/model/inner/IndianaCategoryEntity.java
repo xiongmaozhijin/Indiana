@@ -1,4 +1,4 @@
-package com.example.liangge.indiana.model;
+package com.example.liangge.indiana.model.inner;
 
 /**
  * 返回的类别实体

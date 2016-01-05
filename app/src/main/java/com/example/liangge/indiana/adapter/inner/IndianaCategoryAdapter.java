@@ -1,4 +1,4 @@
-package com.example.liangge.indiana.adapter;
+package com.example.liangge.indiana.adapter.inner;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
-import com.example.liangge.indiana.biz.ImageViewBiz;
-import com.example.liangge.indiana.fragments.BaseFragment;
-import com.example.liangge.indiana.model.IndianaCategoryEntity;
+import com.example.liangge.indiana.model.inner.IndianaCategoryEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 

@@ -26,7 +26,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
-import com.example.liangge.indiana.ui.IndianaCategoryActivity;
+import com.example.liangge.indiana.ui.Inner.IndianaCategoryActivity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
