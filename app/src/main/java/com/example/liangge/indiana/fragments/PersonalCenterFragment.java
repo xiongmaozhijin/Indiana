@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +47,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private ImageView mImgViewUserPortain;
 
     /** 登录/注册/已登录 */
-    private Button mBtnLogHint;
+    private TextView mBtnLogHint;
 
     /** 简单的用户信息显示 */
     private TextView mTxvUserInfo;
@@ -56,20 +55,20 @@ public class PersonalCenterFragment extends BaseFragment {
     /** 软件相关信息按钮 */
     private ImageButton mImgBtnInfo;
 
-    //夺宝记录
-    private Button mBtnIndianaRecord;
+    /** 夺宝记录 */
+    private View mBtnIndianaRecord;
 
-    //中奖记录
-    private Button mBtnBingoRecord;
+    /** 中奖记录 */
+    private View mBtnBingoRecord;
 
-    //账户明细
-    private Button mBtnAccountDetail;
+    /** 充值记录 */
+    private View mBtnAccountDetail;
 
-    //个人信息
-    private Button mBtnPersonalInfo;
+    /** 充值 */
+    private View mViewRecharge;
 
-    //联系客服
-    private Button mBtnContactCustomer;
+    /** 正在进行 */
+    private View mViewOnGoing;
 
 
     private DisplayImageOptions mDisplayImageOptions;
@@ -84,65 +83,48 @@ public class PersonalCenterFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_personal_center, container, false);
-        initView(view);
+        View view =  inflater.inflate(R.layout.fragment_new_user, container, false);
+        initViewNew(view);
 
         return view;
     }
 
-    private void initView(View view) {
+    private void initViewNew(View view) {
         mImgViewUserPortain = (ImageView) view.findViewById(R.id.f_personal_user_portain);
-        mBtnLogHint = (Button) view.findViewById(R.id.f_personal_log_signup_logout);
+        mBtnLogHint = (TextView) view.findViewById(R.id.f_personal_log_signup_logout);
         mImgBtnInfo = (ImageButton) view.findViewById(R.id.f_personal_software_info);
-
-        mBtnIndianaRecord = (Button) view.findViewById(R.id.f_personal_txvbtn_indiana_record);
-        mBtnBingoRecord = (Button) view.findViewById(R.id.f_personal_txvbtn_bingo_record);
-        mBtnAccountDetail = (Button) view.findViewById(R.id.f_personal_account_detail);
-        mBtnPersonalInfo = (Button) view.findViewById(R.id.f_personal_personinfo);
-        mBtnContactCustomer = (Button) view.findViewById(R.id.f_personal_contact_customer_service);
         mTxvUserInfo = (TextView) view.findViewById(R.id.f_personal_userinfo_1);
+        mViewRecharge = view.findViewById(R.id.user_recharge);
 
-        mBtnLogHint.setOnClickListener(new View.OnClickListener() {
+        mBtnIndianaRecord = view.findViewById(R.id.f_personal_txvbtn_indiana_record);
+        mBtnBingoRecord = view.findViewById(R.id.f_personal_txvbtn_bingo_record);
+
+
+        mViewRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBtnLogInOrLogOut();
-
+                onRecharge();
             }
         });
-
         mBtnIndianaRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBtnIndianaRecord();
             }
         });
-
         mBtnBingoRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBtnBingoRecord();
             }
         });
-        mBtnAccountDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnAccountDetail();
-            }
-        });
 
-        mBtnPersonalInfo.setOnClickListener(new View.OnClickListener() {
+        mBtnLogHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onBtnPersonalInfo();
+                onBtnLogInOrLogOut();
             }
         });
-        mBtnContactCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnContactCustomer();
-            }
-        });
-
 
     }
 
@@ -330,6 +312,14 @@ public class PersonalCenterFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 充值
+     */
+    public void onRecharge() {
+
+    }
+
+
 
 
     /**
@@ -338,7 +328,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private void initLogOutState() {
         LogUtils.i(TAG, "initLogOutState()");
         mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup));
-        mImgViewUserPortain.setImageResource(R.drawable.main_banner_img_load_empty_uri);
+        mImgViewUserPortain.setImageResource(R.drawable.ic_avatar_default);
         mTxvUserInfo.setText("");
         mTxvUserInfo.setVisibility(View.INVISIBLE);
     }
@@ -377,6 +367,7 @@ public class PersonalCenterFragment extends BaseFragment {
         Intent i = new Intent(getActivity(), LogSignInActivity.class);
         startActivity(i);
     }
+
 
 
 

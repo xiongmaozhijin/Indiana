@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 style="@style/f_personal_txvbtn"
                 android:text="@string/f_personal_txvbtn_bingo_record"
-                android:id="@+id/f_personal_txvbtn_bingo_record" />
+                android:id="@+id/runlottery_ing" />
 
             <Button
             android:layout_width="match_parent"

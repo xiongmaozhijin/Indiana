@@ -38,6 +38,23 @@
                 android:src="@drawable/ic_avatar_default" />
 
             <TextView
+                android:id="@+id/f_personal_log_signup_logout"
+                android:background="@drawable/selector_f_personal_btn_bg"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/f_personal_user_portain"
+                android:layout_alignBottom="@id/f_personal_user_portain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#EEEEEE"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/f_personal_btn_log_signup"/>
+
+            <TextView
                 android:id="@+id/user_nickname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -424,7 +441,7 @@
             android:background="@color/main_top_bg_active" />
 
         <RelativeLayout
-            android:id="@+id/user_layout_charge"
+            android:id="@+id/f_personal_account_detail"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_10">
@@ -472,10 +489,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/user_layout_win_record"
+            android:id="@+id/f_personal_txvbtn_bingo_record"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
-            android:layout_below="@+id/user_layout_charge">
+            android:layout_below="@+id/f_personal_account_detail">
 
             <ImageButton
                 android:id="@+id/user_ic_win_record"
@@ -573,7 +590,7 @@
             android:id="@+id/user_layout_13"
             android:layout_width="fill_parent"
             android:layout_height="20.0dip"
-            android:layout_below="@+id/user_layout_win_record"
+            android:layout_below="@+id/f_personal_txvbtn_bingo_record"
             android:background="@color/main_top_bg_active" />
 
         <RelativeLayout
