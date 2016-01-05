@@ -1,8 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
     <!-- 没有网络或第一次加载 -->
@@ -10,23 +10,23 @@
         android:id="@+id/f_indian_not_network_first_load_wrapper"
         layout="@layout/layout_not_network" />
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/rotate_header_web_view_frame"
+    <FrameLayout
+        android:id="@+id/f_indiana_all_content_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/cube_mints_f1f1f1"
-        app:ptr_duration_to_close="200"
-        app:ptr_duration_to_close_header="1000"
-        app:ptr_keep_header_when_refresh="true"
-        app:ptr_pull_to_fresh="false"
-        app:ptr_ratio_of_header_height_to_refresh="1.2"
-        app:ptr_resistance="1.7">
+        android:visibility="visible">
 
-        <FrameLayout
-            android:id="@+id/f_indiana_all_content_wrapper"
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/rotate_header_web_view_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible">
+            android:background="@color/cube_mints_f1f1f1"
+            app:ptr_duration_to_close="200"
+            app:ptr_duration_to_close_header="1000"
+            app:ptr_keep_header_when_refresh="true"
+            app:ptr_pull_to_fresh="false"
+            app:ptr_ratio_of_header_height_to_refresh="1.2"
+            app:ptr_resistance="1.7">
 
 
             <com.example.liangge.indiana.ui.widget.ExScrollView
@@ -50,88 +50,94 @@
                         android:layout_height="120dp" />
 
                     <LinearLayout
-                        android:paddingTop="5dp"
-                        android:background="@android:color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:background="@android:color/white"
+                        android:orientation="vertical"
+                        android:paddingTop="5dp">
 
                         <!-- menu -->
-                    <LinearLayout
-                        android:gravity="center"
-                        android:layout_width="match_parent"
-                        android:layout_height="72dp"
-                        android:orientation="horizontal">
-
                         <LinearLayout
-                            android:id="@+id/top_menu_catory"
+                            android:layout_width="match_parent"
+                            android:layout_height="72dp"
                             android:gravity="center"
-                            android:layout_width="54dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/f_indiana_top_menu_category"
-                                android:adjustViewBounds="true"/>
-                            <TextView
-                                android:layout_marginTop="3dp"
-                                android:gravity="center"
-                                android:layout_width="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/top_menu_catory"
+                                android:layout_width="54dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/f_indiana_top_menu_category"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/top_menu_tenyuan_area"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:layout_width="54dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/f_indiana_ten_area"
-                                android:adjustViewBounds="true"/>
-                            <TextView
-                                android:layout_marginTop="3dp"
+                                android:layout_weight="1"
                                 android:gravity="center"
-                                android:layout_width="match_parent"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/f_indiana_top_menu_category" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:gravity="center"
+                                    android:text="@string/f_indiana_top_menu_category" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/top_menu_tenyuan_area"
+                                android:layout_width="54dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/f_indiana_top_menu_tenyuan_area"/>
-                        </LinearLayout>
-
-
-                        <LinearLayout
-                            android:id="@+id/top_menu_qaq"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:layout_width="54dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <ImageView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:src="@drawable/f_indiana_top_menu_qaq"
-                                android:adjustViewBounds="true"/>
-                            <TextView
-                                android:layout_marginTop="3dp"
+                                android:layout_weight="1"
                                 android:gravity="center"
-                                android:layout_width="match_parent"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/f_indiana_ten_area" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:gravity="center"
+                                    android:text="@string/f_indiana_top_menu_tenyuan_area" />
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:id="@+id/top_menu_qaq"
+                                android:layout_width="54dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/f_indiana_top_menu_qaq"/>
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="48dp"
+                                    android:layout_height="48dp"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/f_indiana_top_menu_qaq" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:gravity="center"
+                                    android:text="@string/f_indiana_top_menu_qaq" />
+                            </LinearLayout>
+
+
                         </LinearLayout>
-
-
-                    </LinearLayout>
 
 
                         <View
-                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="0.1dp"
+                            android:layout_marginTop="5dp"
                             android:background="#F5F3F1" />
 
                         <!-- notification -->
@@ -142,19 +148,19 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_marginLeft="14dp"
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/f_indiana_top_notice"/>
+                                android:layout_marginLeft="14dp"
+                                android:src="@drawable/f_indiana_top_notice" />
 
                             <TextView
-                                android:singleLine="true"
-                                android:layout_marginLeft="4dp"
                                 android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"
-                                android:layout_height="wrap_content"
-                                android:text="......"/>
+                                android:singleLine="true"
+                                android:text="......" />
 
 
                         </LinearLayout>
@@ -187,7 +193,7 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.1dp"
-                                android:background="#ededeb"/>
+                                android:background="#ededeb" />
 
                             <!-- 产品展示或正在加载 -->
                             <FrameLayout
@@ -223,15 +229,15 @@
 
                                 <LinearLayout
                                     android:id="@+id/load_more_hint_loading_wrapper"
-                                    android:gravity="center"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:gravity="center"
                                     android:orientation="horizontal">
 
-                                <com.example.liangge.indiana.ui.widget.RotateImageView
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:src="@drawable/comm_loading_view" />
+                                    <com.example.liangge.indiana.ui.widget.RotateImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:src="@drawable/comm_loading_view" />
 
                                     <TextView
                                         android:id="@+id/product_loading_txv_hint"
@@ -247,15 +253,15 @@
 
                                 <LinearLayout
                                     android:id="@+id/load_more_hint_wrapper"
-                                    android:gravity="center"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
+                                    android:layout_height="match_parent"
+                                    android:gravity="center">
 
                                     <TextView
                                         android:id="@+id/load_more_hint_text"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="已加载完全部"/>
+                                        android:text="已加载完全部" />
 
                                 </LinearLayout>
 
@@ -281,8 +287,9 @@
 
                    -->
 
-        </FrameLayout>
 
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+    </FrameLayout>
 
 </FrameLayout>

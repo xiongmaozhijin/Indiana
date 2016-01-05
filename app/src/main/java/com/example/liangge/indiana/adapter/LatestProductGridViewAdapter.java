@@ -79,6 +79,19 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         this.notifyDataSetChanged();
     }
 
+    public void loadMoreDataAndNotify(List<LastestBingoEntity> newList) {
+        if (newList != null) {
+            LastestBingoEntity item ;
+            for (int i=0, len=newList.size(); i<len; i++) {
+                item = newList.get(i);
+                this.mListLatestDatas.add(item);
+            }
+
+            this.notifyDataSetChanged();
+        }
+    }
+
+
     private void initImageLoaderConf(Context context) {
         mDisplayImageOptions = new DisplayImageOptions.Builder()
                 .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)

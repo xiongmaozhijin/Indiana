@@ -1,10 +1,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.LatestAnnouncementFragment">
 
     <!-- 没有网络时的加载情况 -->
-    <include layout="@layout/layout_not_network" android:id="@+id/f_latest_not_network_wrapper" />
+    <include
+        android:id="@+id/f_latest_not_network_wrapper"
+        layout="@layout/layout_not_network" />
 
     <!-- 产品显示布局 -->
 
@@ -13,37 +17,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.liangge.indiana.ui.widget.ExScrollView
-            android:id="@+id/f_latest_content_scrollview"
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/rotate_header_web_view_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_f1f1f1"
+            app:ptr_duration_to_close="200"
+            app:ptr_duration_to_close_header="1000"
+            app:ptr_keep_header_when_refresh="true"
+            app:ptr_pull_to_fresh="false"
+            app:ptr_ratio_of_header_height_to_refresh="1.2"
+            app:ptr_resistance="1.7">
 
-            <LinearLayout
+
+            <com.example.liangge.indiana.ui.widget.ExScrollView
+                android:id="@+id/f_latest_content_scrollview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/darker_gray">
+                android:layout_height="match_parent">
 
-                <com.example.liangge.indiana.ui.widget.ExGridView
-                    android:background="@color/fragment_gridview_split"
-                    android:id="@+id/f_latest_gridview_product_data"
-                    android:focusable="false"
-                    android:fadingEdge="none"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:numColumns="2"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:verticalSpacing="1dp"
-                    android:horizontalSpacing="1dp"
-                    android:gravity="center" />
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical">
+
+                    <com.example.liangge.indiana.ui.widget.ExGridView
+
+                        android:id="@+id/f_latest_gridview_product_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/fragment_gridview_split"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:fadingEdge="none"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:horizontalSpacing="1dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="1dp" />
 
 
-            </LinearLayout>
+                    <include
+                        android:id="@+id/load_more_wrapper"
+                        layout="@layout/layout_load_more_wrapper" />
 
-        </com.example.liangge.indiana.ui.widget.ExScrollView>
+
+                </LinearLayout>
+
+            </com.example.liangge.indiana.ui.widget.ExScrollView>
 
 
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
     </FrameLayout>
-
 
 </FrameLayout>

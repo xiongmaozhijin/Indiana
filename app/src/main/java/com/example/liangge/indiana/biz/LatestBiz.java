@@ -56,6 +56,8 @@ public class LatestBiz extends BaseFragmentBiz{
         /** 是否加载更多 */
         public static boolean bIsLoadMore = false;
 
+        public static int iLoadMode = Constant.Comm.ENTER;
+
     }
 
     private LatestBiz(Context context) {
@@ -84,85 +86,15 @@ public class LatestBiz extends BaseFragmentBiz{
         return mInstance;
     }
 
-    /**
-     * @deprecated
-     * 请求需要的产品数据
-     */
-    public void requestDatas() {
-        //这里模拟下先    TODO
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(4000);
-                    getProductDataTest();
-                    UIMessageEntity msgInfo = new UIMessageEntity(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED);
-                    mMessageManager.sendMessage(msgInfo);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-
-                }
-            }
-
-        }.start();
-    }
-
-    /**
-     * @deprecated
-     */
-    private void getProductDataTest() {
-        List<LastestBingoEntity> mListLatestDatas = mLatestDatas;
-
-        String url1 = "http://f.hiphotos.baidu.com/image/pic/item/3bf33a87e950352a230666de5743fbf2b3118b85.jpg";
-        String url2 = "http://b.hiphotos.baidu.com/image/pic/item/0823dd54564e925838c205c89982d158ccbf4e26.jpg";
-        String url3 = "http://pic13.nipic.com/20110419/2290512_182044467100_2.jpg";
-        String url4 = "http://img3.3lian.com/2013/s1/17/d/15aa.jpg";
-        String url5 = "http://pic33.nipic.com/20131008/13661616_190558208000_2.jpg";
-
-        String[] imgs = {url1, url2, url3, url4, url5};
-
-        LastestBingoEntity item1 = new LastestBingoEntity(12,2, 32,url1, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() + 50*1000);
-        LastestBingoEntity item2 = new LastestBingoEntity(144,2, 32, url2, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() + 10*1000);
-        LastestBingoEntity item3 = new LastestBingoEntity(3523432,2, 32,url3, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() + 100*1000);
-
-        mListLatestDatas.add(item1);
-        mListLatestDatas.add(item2);
-        mListLatestDatas.add(item3);
-
-        LastestBingoEntity entity;
-        for (int i=0; i<10; i++) {
-            int random = 30 * 1000; //TODO
-            long time1 = System.currentTimeMillis() - random;
-            long time2 = System.currentTimeMillis() + random;
-
-            entity = new LastestBingoEntity(342341,2, 32,imgs[i%5], "titleDescribe"+i, "user_for"+i, random+"", i, time1);
-
-            mListLatestDatas.add(entity);
-        }
-
-        item1 = new LastestBingoEntity(23213,2, 32,url4, "titledesc惠普电脑1irb1", "tom", "123212", 10, System.currentTimeMillis() - 50*1000);
-        item2 = new LastestBingoEntity(42341, 2, 32,url5, "title乐视电视descirb2", "小李", "941212", 1, System.currentTimeMillis() - 10*1000);
-        item3 = new LastestBingoEntity(3141321,2, 32, url4, "titledes小米手机irb2", "张李", "321212", 1, System.currentTimeMillis() - 100*1000);
-
-        mListLatestDatas.add(item1);
-        mListLatestDatas.add(item2);
-        mListLatestDatas.add(item3);
-        mListLatestDatas.add(item1);
-        mListLatestDatas.add(item2);
-        mListLatestDatas.add(item3);
-    }
-
-
-
 
     //TODO
 
     /**
      * 加载最新揭晓信息
      */
-    public void loadLastDataInfo(boolean isLoadMore) {
+    public void loadLastDataInfo(boolean isLoadMore, int loadMode) {
         RequestInfo.bIsLoadMore = isLoadMore;
+        RequestInfo.iLoadMode = loadMode;
 
         if (isLoadMore) {
             if (!mSlaveLoadLatestInfoThread.isWorking()) {
@@ -227,44 +159,26 @@ public class LatestBiz extends BaseFragmentBiz{
 
 
         private void notifyStart() {
-            this.bIsWorking = false;
+            this.bIsWorking = true;
             UIMessageEntity item = new UIMessageEntity();
 
-            if (RequestInfo.bIsLoadMore) {
-                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA_MORE);
-
-            } else {
-                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA);
-
-            }
+            item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA);
 
             mMessageManager.sendMessage(item);
         }
 
         private void notifySuccess() {
-            this.bIsWorking = true;
+            this.bIsWorking = false;
             UIMessageEntity item = new UIMessageEntity();
-
-            if (RequestInfo.bIsLoadMore) {
-                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED_MORE);
-
-            } else {
-                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED);
-            }
+            item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED);
 
             mMessageManager.sendMessage(item);
         }
 
         private void notifyFail() {
-            this.bIsWorking = true;
+            this.bIsWorking = false;
             UIMessageEntity item = new UIMessageEntity();
-
-            if (RequestInfo.bIsLoadMore) {
-                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED_MORE);
-
-            } else {
-                item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED);
-            }
+            item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED);
 
             mMessageManager.sendMessage(item);
         }
@@ -451,10 +365,30 @@ public class LatestBiz extends BaseFragmentBiz{
     }
 
 
+
+    public int getCurLoadMode() {
+        return RequestInfo.iLoadMode;
+    }
+
+
     @Override
     public void onViewCreated() {
 
     }
+
+    /**
+     * 底部加载更多
+     */
+    public void onScrollBottomLoadData() {
+        LogUtils.i(TAG, "onScrollBottomLoadData()");
+        RequestInfo.iLoadMode = Constant.Comm.LOAD_MORE;
+        RequestInfo.bIsLoadMore = true;
+
+        loadLastDataInfo(true, Constant.Comm.LOAD_MORE);
+    }
+
+
+
 
 
     /**
@@ -478,14 +412,14 @@ public class LatestBiz extends BaseFragmentBiz{
     //2.加载数据
     @Override
     public void onFirstEnter() {
-        loadLastDataInfo(false);
+        loadLastDataInfo(false, Constant.Comm.ENTER);
     }
 
     /**
      * 当进入到LatestFragment界面时
      */
     public void onEnter() {
-        loadLastDataInfo(false);
+        loadLastDataInfo(false, Constant.Comm.REFRESH);
     }
 
     @Override

@@ -19,6 +19,12 @@ public class Constant {
         int ENTER = 2;
         int LOAD_MORE = 3;
 
+        int LOAD_MORE_SUCCESS = 100;
+        int LOAD_MORE_START = 101;
+        int LOAD_MORE_FAILED = 102;
+
+
+
     }
 
     public interface IndianaFragment {

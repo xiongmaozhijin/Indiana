@@ -16,6 +16,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.LatestProductGridViewAdapter;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.LatestBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.LastestBingoEntity;
@@ -23,13 +24,20 @@ import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.ExGridView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LatestAnnouncementFragment extends BaseFragment {
+public class LatestAnnouncementFragment extends BaseRefreshFragment {
 
 
     private static final String TAG = LatestAnnouncementFragment.class.getSimpleName();
+
+    /** 加载更多提示 */
+    private View mViewLoadMoreHintWrapper;
+
+    private View mViewLayoutWrapper;
 
     /** 没有网络时的布局包裹 */
     private View mViewNotNetWorkWrpper;
@@ -49,6 +57,9 @@ public class LatestAnnouncementFragment extends BaseFragment {
     private LatestBiz mLatestBiz;
 
     private DetailInfoBiz mDetailInfoBiz;
+
+
+
 
     public LatestAnnouncementFragment() {
         // Required empty public constructor
@@ -133,27 +144,76 @@ public class LatestAnnouncementFragment extends BaseFragment {
      */
     private void handleUIProductData(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOADING_PRODUCT_DATA)) {
-            //正在加载产品数据
+            handleLoadStart();
+
+        } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED)) {
+
+            handleLoadFailed();
+
+        } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED)){
+            handleLoadSuccess();
+
+        }
+
+    }
+
+    private void handleLoadStart() {
+        int loadMode = mLatestBiz.getCurLoadMode();
+        if (loadMode == Constant.Comm.ENTER) {
             mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
             mViewContentWrapper.setVisibility(View.GONE);
             mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
             mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
 
+        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+            handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_START, false);
 
-        } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED)) {
+        } else if (loadMode == Constant.Comm.REFRESH) {
+
+        }
+    }
+
+    private void handleLoadFailed() {
+        int loadMode = mLatestBiz.getCurLoadMode();
+        if (loadMode == Constant.Comm.ENTER) {
             mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
             mViewContentWrapper.setVisibility(View.GONE);
             mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
             mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
 
 
-        } else if (strUIAction.equals(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_SUCCEED)){
+        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+            handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
+
+
+        } else if (loadMode == Constant.Comm.REFRESH) {
+            dismissRefreshUI();
+            LogUtils.toastShortMsg(getActivity(), getResources().getString(R.string.activity_category_net_error));
+
+        }
+    }
+
+    private void handleLoadSuccess() {
+        int loadMode = mLatestBiz.getCurLoadMode();
+        if (loadMode == Constant.Comm.ENTER) {
             mViewNotNetWorkWrpper.setVisibility(View.GONE);
             mViewContentWrapper.setVisibility(View.VISIBLE);
             mAdapter.setDatasAndNotify(mLatestBiz.getProductsData());
 
-        }
+        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+            List<LastestBingoEntity> list = mLatestBiz.getProductsData();
+            boolean isEmpty = list.size() > 0 ? false : true;
+            handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
+            if (!isEmpty) {
+                mAdapter.loadMoreDataAndNotify(list);
+            }
 
+        } else if (loadMode == Constant.Comm.REFRESH) {
+            dismissRefreshUI();
+            mViewNotNetWorkWrpper.setVisibility(View.GONE);
+            mViewContentWrapper.setVisibility(View.VISIBLE);
+            mAdapter.setDatasAndNotify(mLatestBiz.getProductsData());
+        }
     }
 
 
@@ -161,6 +221,24 @@ public class LatestAnnouncementFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initManager();
+    }
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return mExScrollView;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+        //TODO 加载数据
+        LogUtils.w(TAG, "onRefreshLoadData()");
+        handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+        mLatestBiz.loadLastDataInfo(false, Constant.Comm.REFRESH);
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return mViewLayoutWrapper;
     }
 
     private void initManager() {
@@ -184,6 +262,9 @@ public class LatestAnnouncementFragment extends BaseFragment {
      * @param view
      */
     private void initView(View view) {
+        mViewLayoutWrapper = view;
+
+        mViewLoadMoreHintWrapper = view.findViewById(R.id.load_more_wrapper);
         mViewNotNetWorkWrpper = view.findViewById(R.id.f_latest_not_network_wrapper);
         mViewContentWrapper = view.findViewById(R.id.f_latest_content_wrapper);
 
@@ -222,11 +303,20 @@ public class LatestAnnouncementFragment extends BaseFragment {
             @Override
             public void onScrollBottom() {
                 LogUtils.w(TAG, "onScrollBottom()");
+                onScrollBottomLoadData();
             }
         });
 
         //TODO
 
+    }
+
+    /**
+     * 滚动到底部加载更多
+     */
+    private void onScrollBottomLoadData() {
+        LogUtils.i(TAG, "onScrollBottomLoadData()");
+        mLatestBiz.onScrollBottomLoadData();
     }
 
     @Override
@@ -264,7 +354,9 @@ public class LatestAnnouncementFragment extends BaseFragment {
     @Override
     public void onEnter() {
         super.onEnter();
-        mLatestBiz.onEnter();
+//        mLatestBiz.onEnter();
+        mExScrollView.smoothScrollTo(0, 0);
+        onAutoRefreshUIShow();
     }
 
     @Override
