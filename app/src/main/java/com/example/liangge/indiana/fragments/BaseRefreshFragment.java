@@ -81,7 +81,10 @@ public abstract class BaseRefreshFragment extends BaseFragment {
      */
     protected void dismissRefreshUI() {
         if (this.mPtrFrame != null) {
-            this.mPtrFrame.refreshComplete();
+            if (mPtrFrame.isRefreshing()) {
+                this.mPtrFrame.refreshComplete();
+            }
+
         }
 
     }

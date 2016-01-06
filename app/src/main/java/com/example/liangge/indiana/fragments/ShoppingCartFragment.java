@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -27,14 +28,18 @@ import com.example.liangge.indiana.model.InventoryEntity;
 import com.example.liangge.indiana.ui.HomeActivity;
 import com.example.liangge.indiana.ui.InventoryPayActivity;
 import com.example.liangge.indiana.ui.widget.ExRadioButton;
+import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.RotateImageView;
 import com.jauker.widget.BadgeView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShoppingCartFragment extends BaseFragment {
+public class ShoppingCartFragment extends BaseRefreshFragment {
 
+    private View mViewLayoutWrapper;
+
+    private ExScrollView mExScrollView;
 
     /** 没有清单时的View */
     private View mViewEmptyWrapper;
@@ -70,8 +75,6 @@ public class ShoppingCartFragment extends BaseFragment {
     private ShoppingCartListViewAdapter mAdapter;
 
     private static final String TAG = ShoppingCartFragment.class.getSimpleName();
-
-
 
 
     private UIReceiveBroadcat mReceive;
@@ -123,6 +126,8 @@ public class ShoppingCartFragment extends BaseFragment {
      * @param view
      */
     private void initView(View view) {
+        mViewLayoutWrapper = view;
+        mExScrollView = (ExScrollView) view.findViewById(R.id.f_shopping_content_scrollview);
         mViewEmptyWrapper = view.findViewById(R.id.f_shoppingcart_empty_wrapper);
         mViewLoadOrNotNetWrapper = view.findViewById(R.id.f_shopping_not_network_wrapper);
         mViewContentWrapper = view.findViewById(R.id.f_shoppingcart_content_wrapper);
@@ -326,6 +331,7 @@ public class ShoppingCartFragment extends BaseFragment {
         mAdapter.resetDataAndNotify(mShoppingCartBiz.getListInventoryData());
         //请求更新付款信息
         mShoppingCartBiz.requestPayInfo();
+        dismissRefreshUI();
     }
 
     private void handleUIEmptyShoppingCart() {
@@ -359,6 +365,23 @@ public class ShoppingCartFragment extends BaseFragment {
 
     private void initOnFirstEnter() {
 
+    }
+
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return mExScrollView;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+        LogUtils.w(TAG, "onRefreshLoadData()");
+        mShoppingCartBiz.onRefreshLoadData();
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return mViewLayoutWrapper;
     }
 
     //TODO 暂时这样处理

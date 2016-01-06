@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.liangge.indiana.fragments.ShoppingCartFragment">
 
     <!-- 没有清单时的显示 -->
@@ -73,6 +74,19 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
+
+        <in.srain.cube.views.ptr.PtrClassicFrameLayout
+            android:id="@+id/rotate_header_web_view_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_f1f1f1"
+            app:ptr_duration_to_close="200"
+            app:ptr_duration_to_close_header="1000"
+            app:ptr_keep_header_when_refresh="true"
+            app:ptr_pull_to_fresh="false"
+            app:ptr_ratio_of_header_height_to_refresh="1.2"
+            app:ptr_resistance="1.7">
+
         <com.example.liangge.indiana.ui.widget.ExScrollView
             android:id="@+id/f_shopping_content_scrollview"
             android:layout_width="match_parent"
@@ -105,6 +119,11 @@
 
         </com.example.liangge.indiana.ui.widget.ExScrollView>
 
+        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+
+        <!-- 结算浮动栏 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="54dp"

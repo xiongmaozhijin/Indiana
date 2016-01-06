@@ -199,7 +199,7 @@ public class HomeActivity extends UIBaseActivity {
             case I_TAG_FRAGMENT_SHOPPING_CART:
                 mTxvTitlebarTitle.setText(R.string.main_titlebar_title_shopping_cart);
                 mIconSearch.setVisibility(View.INVISIBLE);
-                mIconRefresh.setVisibility(View.VISIBLE);
+                mIconRefresh.setVisibility(View.INVISIBLE);
                 break;
             case I_TAG_FRAGMENT_PERSONAL_CENTER:
                 mTxvTitlebarTitle.setText(R.string.main_titlebar_title_personal_center);

@@ -559,6 +559,10 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         return diffLists;
     }
 
+    public void onRefreshLoadData() {
+        onThisFrament();
+    }
+
 
     /**
      *
