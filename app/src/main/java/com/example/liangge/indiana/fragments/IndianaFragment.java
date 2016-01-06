@@ -20,6 +20,7 @@ import com.example.liangge.indiana.biz.BannerInfoBiz;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
+import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
@@ -28,6 +29,7 @@ import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.ui.Inner.IndianaCategoryActivity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.WebViewActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
@@ -54,6 +56,8 @@ public class IndianaFragment extends BaseFragment {
     private DetailInfoBiz mDetailInfoBiz;
 
     private BannerInfoBiz mBannerInfoBiz;
+
+    private WebViewBiz mWebViewBiz;
 
     private UIReceive mUIReceive;
 
@@ -145,9 +149,13 @@ public class IndianaFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 LogUtils.i(TAG, "常见问题");
+                String title = getResources().getString(R.string.webview_title_qaq);
+                String url = Constant.WebServiceAPI.REQUEST_QAQ;
+                mWebViewBiz.setWebViewRes(title, url);
+                Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                startActivity(intent);
             }
         });
-
 
 
 
@@ -463,6 +471,7 @@ public class IndianaFragment extends BaseFragment {
         mIndianaBiz = IndianaBiz.getInstance(getActivity());
         mDetailInfoBiz = DetailInfoBiz.getInstance(getActivity());
         mBannerInfoBiz = BannerInfoBiz.getInstance(getActivity());
+        mWebViewBiz = WebViewBiz.getInstance(getActivity());
 
     }
 

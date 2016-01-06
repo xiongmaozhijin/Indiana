@@ -164,6 +164,8 @@ public class Constant {
         /**请求类别详细*/
         String REQUEST_CATEGORY_DETAIL =  WEBHOST + "/index.php/Admin/Api/categoryGoods";
 
+        /** 常见问题接口 */
+        String REQUEST_QAQ = WEBHOST + "/index.php/Admin/Api/question";
 
     }
 
