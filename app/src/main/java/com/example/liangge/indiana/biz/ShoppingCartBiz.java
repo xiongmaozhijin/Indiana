@@ -119,7 +119,11 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      * @return
      */
     public int getTotalDiffProduct() {
-        return DataInfo.iTotalNum;
+        if (mListInventorys != null) {
+            return mListInventorys.size();
+        } else {
+            return 0;
+        }
     }
 
     /**

@@ -251,7 +251,8 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
      * 更新底部BadgeView的数量，或取消显示
      */
     private void handleUpdateBadgeViewCntWithoutShake() {
-        mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
+//        mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
+        mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getTotalDiffProduct());
     }
 
     /**
@@ -276,7 +277,8 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)) {
             //TODO
             //0.badgeview下次再画
-            mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
+//            mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
+            mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getTotalDiffProduct());
             mBtnShoppingCart.setBuyIconVisibility(true);
 
             //1.摇摆
