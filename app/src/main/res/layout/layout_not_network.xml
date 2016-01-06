@@ -1,25 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
-    android:visibility="gone"
-    android:gravity="center">
+    android:background="@color/bg_1"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
 
-    <TextView
-        android:id="@+id/comm_not_network_hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/comm_not_network"
-        android:layout_gravity="center"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <com.example.liangge.indiana.ui.widget.RotateImageView
-        android:id="@+id/comm_loading_icon"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/comm_loading_view"/>
 
+        <LinearLayout
+            android:id="@+id/not_network_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/no_network" />
+
+            <TextView
+                android:id="@+id/comm_not_network_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/comm_not_network"
+                android:textColor="#90918c" />
+
+            <Button
+                android:id="@+id/comm_reload"
+                style="@style/Button.main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20.0dip"
+                android:text="@string/comm_reload" />
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/comm_loading_icon"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <!--   <com.example.liangge.indiana.ui.widget.RotateImageView
+               android:id="@+id/comm_loading_icon"
+               android:layout_width="64dp"
+               android:layout_height="64dp"
+               android:src="@drawable/comm_loading_view"/>-->
+
+
+    </FrameLayout>
 
 </LinearLayout>

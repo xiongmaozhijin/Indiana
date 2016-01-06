@@ -182,6 +182,7 @@
 
     <string name="webview_title_qaq">常见问题</string>
     <string name="f_personal_center_recharge">充值</string>
+    <string name="comm_reload">重新加载</string>
 
 
 </resources>

@@ -25,4 +25,6 @@
     <color name="fragment_gridview_split">#ededeb</color>
     <color name="fragment_item_title">#686868</color>
 
+    <color name="bg_1">#efeeea</color>
+
 </resources>

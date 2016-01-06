@@ -44,9 +44,13 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class IndianaFragment extends BaseFragment {
+public class IndianaFragment extends BaseRefreshFragment {
 
     private static final String TAG = IndianaFragment.class.getSimpleName();
+
+
+    private View mViewLayout;
+
 
     /** 图片轮播 */
     private BannerView mBannerView;
@@ -101,7 +105,6 @@ public class IndianaFragment extends BaseFragment {
     /** 下拉刷新 */
 //    protected PtrFrameLayout mPtrFrameLayout;
 
-    private PtrClassicFrameLayout mPtrFrame;
 
     public IndianaFragment() {
         // Required empty public constructor
@@ -117,7 +120,6 @@ public class IndianaFragment extends BaseFragment {
         View view =  inflater.inflate(R.layout.fragment_indiana, container, false);
 
         initWidget(view);
-        initRefreshView2(view);
         initMenuBtn(view);
         initTopMenuView(view);
 
@@ -161,97 +163,6 @@ public class IndianaFragment extends BaseFragment {
 
     }
 
-/*
-    private void initRefreshView(View view) {
-        mPtrFrameLayout = (PtrFrameLayout) view.findViewById(R.id.material_style_ptr_frame);
-
-        // header
-        final MaterialHeader header = new MaterialHeader(getContext());
-        int[] colors = getResources().getIntArray(R.array.google_colors);
-        header.setColorSchemeColors(colors);
-        header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, LocalDisplay.dp2px(15), 0, LocalDisplay.dp2px(10));
-        header.setPtrFrameLayout(mPtrFrameLayout);
-
-        mPtrFrameLayout.setLoadingMinTime(1000);
-        mPtrFrameLayout.setDurationToCloseHeader(1500);
-        mPtrFrameLayout.setHeaderView(header);
-        mPtrFrameLayout.addPtrUIHandler(header);
-        mPtrFrameLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPtrFrameLayout.autoRefresh(false);
-            }
-        }, 100);
-
-        mPtrFrameLayout.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return true;
-            }
-
-            @Override
-            public void onRefreshBegin(final PtrFrameLayout frame) {
-                frame.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        frame.refreshComplete();
-                    }
-                }, 3000);
-            }
-        });
-
-
-
-    }
-
-  */
-
-
-    private void initRefreshView2(View view) {
-        mPtrFrame = (PtrClassicFrameLayout) view.findViewById(R.id.rotate_header_web_view_frame);
-
-        // header
-        final MaterialHeader header = new MaterialHeader(getContext());
-        int[] colors = getResources().getIntArray(R.array.google_colors);
-        header.setColorSchemeColors(colors);
-        header.setLayoutParams(new PtrFrameLayout.LayoutParams(-1, -2));
-        header.setPadding(0, LocalDisplay.dp2px(15), 0, LocalDisplay.dp2px(10));
-        header.setPtrFrameLayout(mPtrFrame);
-
-        mPtrFrame.setHeaderView(header);
-        mPtrFrame.addPtrUIHandler(header);
-//        mPtrFrame.setPinContent(true);
-
-//        mPtrFrame.setLastUpdateTimeRelateObject(this);
-        mPtrFrame.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, mScrollViewMain, header);
-            }
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-               //请求刷新
-                mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), false);
-
-            }
-        });
-
-        // the following are default settings
-        mPtrFrame.setResistance(1.7f);
-        mPtrFrame.setRatioOfHeaderHeightToRefresh(1.2f);
-        mPtrFrame.setDurationToClose(200);
-        mPtrFrame.setDurationToCloseHeader(1000);
-        // default is false
-        mPtrFrame.setPullToRefresh(false);
-        // default is true
-        mPtrFrame.setKeepHeaderWhenRefresh(true);
-
-
-    }
-
-
 
 
 
@@ -291,42 +202,6 @@ public class IndianaFragment extends BaseFragment {
                 onBtnCategory();
             }
         });
-        //
-
-     /*
-        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_hots).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnHots();
-            }
-        });
-
-        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_lastest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnLatest();
-            }
-        });
-        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_schedule).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnSchedule();
-            }
-        });
-        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_need_peoples).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnNeed();
-            }
-        });
-        fixFloatMenuWrapper.findViewById(R.id.indian_product_category_rb_category_items).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBtnCategory();
-            }
-        });
-
-        */
 
     }
 
@@ -352,6 +227,7 @@ public class IndianaFragment extends BaseFragment {
     }
 
     private void initWidget(View view) {
+        mViewLayout = view;
         mViewNotNetworkOrFirstLoadWrapper = view.findViewById(R.id.f_indian_not_network_first_load_wrapper);
         mViewAllContentWrapper = view.findViewById(R.id.f_indiana_all_content_wrapper);
 
@@ -465,6 +341,21 @@ public class IndianaFragment extends BaseFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initManager();
+    }
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return mScrollViewMain;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+        mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), false);
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return mViewLayout;
     }
 
     private void initManager() {
@@ -635,7 +526,7 @@ public class IndianaFragment extends BaseFragment {
      * 完成下拉刷新
      */
     private void handleCompleteRefreshUI() {
-        mPtrFrame.refreshComplete();
+        dismissRefreshUI();
     }
 
 
