@@ -20,6 +20,12 @@
         <item name="android:drawablePadding">2dp</item>
     </style>
 
+    <style name="titlebar_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+
     <!-- indiana category wrapper-->
     <style name="indiana_category_wrapper">
         <item name="android:layout_weight">1</item>

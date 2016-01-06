@@ -5,6 +5,51 @@
     android:layout_height="match_parent"
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Titlebar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titlebar_height"
+            android:background="@color/titlebar_color">
+
+            <TextView
+                android:id="@+id/titlebar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_titlebar_title_indiana"
+                style="@style/titlebar_title"
+                android:layout_centerInParent="true"/>
+
+            <ImageView
+                android:id="@+id/main_btn_search"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/search_white"
+                android:background="@drawable/selector_home_search"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="9dp"/>
+
+
+            <com.example.liangge.indiana.ui.widget.RotateImageView
+                android:id="@+id/main_btn_refresh_loading"
+                android:visibility="gone"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/comm_loading_view"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="9dp"/>
+
+        </RelativeLayout>
+
+
+
+
     <!-- 没有网络或第一次加载 -->
     <include
         android:id="@+id/f_indian_not_network_first_load_wrapper"
@@ -291,5 +336,8 @@
         </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
     </FrameLayout>
+
+
+    </LinearLayout>
 
 </FrameLayout>

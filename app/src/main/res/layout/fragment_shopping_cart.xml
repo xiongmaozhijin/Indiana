@@ -5,6 +5,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.liangge.indiana.fragments.ShoppingCartFragment">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Titlebar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titlebar_height"
+            android:background="@color/titlebar_color">
+
+            <TextView
+                android:id="@+id/titlebar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_titlebar_title_shopping_cart"
+                style="@style/titlebar_title"
+                android:layout_centerInParent="true"/>
+
+
+            <com.example.liangge.indiana.ui.widget.RotateImageView
+                android:id="@+id/main_btn_refresh_loading"
+                android:visibility="gone"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/comm_loading_view"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="9dp"/>
+
+        </RelativeLayout>
+
+
+
+
     <!-- 没有清单时的显示 -->
     <FrameLayout
         android:id="@+id/f_shoppingcart_empty_wrapper"
@@ -236,6 +271,6 @@
 
 
     </FrameLayout>
-
+    </LinearLayout>
 
 </FrameLayout>

@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Titlebar-->
+<!--
+    &lt;!&ndash; Titlebar&ndash;&gt;
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
@@ -41,6 +42,7 @@
             android:paddingRight="9dp"/>
 
     </RelativeLayout>
+-->
 
     <!-- 中间Fragment部分 -->
     <FrameLayout
@@ -68,6 +70,7 @@
         android:gravity="bottom">
         <RadioGroup
             android:id="@+id/main_menu_rg"
+            android:paddingTop="2dp"
             android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

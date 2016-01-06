@@ -42,13 +42,6 @@ public class HomeActivity extends UIBaseActivity {
 
     private static final int I_TAG_FRAGMENT_COUNTS = 4;
 
-    private TextView mTxvTitlebarTitle;
-
-    /** 夺宝界面Fragment中的搜索 **/
-    private ImageView mIconSearch;
-
-    /** 购物车界面的刷新加载icon */
-    private RotateImageView mIconRefresh;
 
     /** 夺宝的Fragment */
     private IndianaFragment mIndianaFragment;
@@ -125,9 +118,6 @@ public class HomeActivity extends UIBaseActivity {
     }
 
     private void initOtherWidget() {
-        mTxvTitlebarTitle = (TextView) findViewById(R.id.titlebar_title);
-        mIconSearch = (ImageView) findViewById(R.id.main_btn_search);
-        mIconRefresh = (RotateImageView) findViewById(R.id.main_btn_refresh_loading);
 
     }
 
@@ -156,9 +146,6 @@ public class HomeActivity extends UIBaseActivity {
     }
 
 
-    public RotateImageView getShoppingCartRefrshIconView() {
-        return this.mIconRefresh;
-    }
 
     public RadioButton getShoppingCartBtn() {
         return this.mRbShoppingCart;
@@ -185,28 +172,7 @@ public class HomeActivity extends UIBaseActivity {
 
 
     private void changeTitlebar(int iCurItem) {
-        switch (iCurItem) {
-            case I_TAG_FRAGMENT_INDIANA:
-                mTxvTitlebarTitle.setText(R.string.main_titlebar_title_indiana);
-                mIconSearch.setVisibility(View.VISIBLE);
-                mIconRefresh.setVisibility(View.GONE);
-                break;
-            case I_TAG_FRAGMENT_LASTEST:
-                mTxvTitlebarTitle.setText(R.string.main_titlebar_title_lastest_anno);
-                mIconSearch.setVisibility(View.INVISIBLE);
-                mIconRefresh.setVisibility(View.GONE);
-                break;
-            case I_TAG_FRAGMENT_SHOPPING_CART:
-                mTxvTitlebarTitle.setText(R.string.main_titlebar_title_shopping_cart);
-                mIconSearch.setVisibility(View.INVISIBLE);
-                mIconRefresh.setVisibility(View.INVISIBLE);
-                break;
-            case I_TAG_FRAGMENT_PERSONAL_CENTER:
-                mTxvTitlebarTitle.setText(R.string.main_titlebar_title_personal_center);
-                mIconSearch.setVisibility(View.INVISIBLE);
-                mIconRefresh.setVisibility(View.GONE);
-                break;
-        }
+
     }
 
 

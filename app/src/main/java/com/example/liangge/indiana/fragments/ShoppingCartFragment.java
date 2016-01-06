@@ -64,9 +64,6 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
     private ShoppingCartBiz mShoppingCartBiz;
 
-    /** 刷新加载图标 */
-    private RotateImageView mIconRefreshLoading;
-
     /** 底部菜单的购物车图标 */
     private ExRadioButton mBtnShoppingCart;
 
@@ -104,14 +101,6 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
     }
 
     private void initViewOnActivityCreate() {
-        mIconRefreshLoading = ((HomeActivity)getActivity()).getShoppingCartRefrshIconView();
-        mIconRefreshLoading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtils.w(TAG, "refresh icon click");
-            }
-        });
-
 
         mBtnShoppingCart = (ExRadioButton) ((HomeActivity)getActivity()).getShoppingCartBtn();
     }
@@ -308,13 +297,10 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
     private void handleUINetRequest(String uiAction) {
         if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_STARTS)) {
-            mIconRefreshLoading.startRotateview();
 
         } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS)) {
-             mIconRefreshLoading.stopRotateview();
 
         } else if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_FAILED)) {
-            mIconRefreshLoading.stopRotateview();
 
         }
 
