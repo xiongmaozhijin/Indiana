@@ -1,9 +1,13 @@
 package com.example.liangge.indiana.ui.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +63,16 @@ public class BannerView extends FrameLayout{
     /** 点击事件 */
     private OnClickListener mOnClickListener;
 
+    /** 普通的指示 */
+    private Drawable mDrawableNormalIndex;
+
+    /** 选中的指示 */
+    private Drawable mDrawableSelectIndex;
+
+    /** 间隔 */
+    private int mSpace;
+
+
     public BannerView(Context context) {
         this(context, null);
     }
@@ -69,9 +83,26 @@ public class BannerView extends FrameLayout{
 
     public BannerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttrs(context, attrs);
         initRes(context);
         initViewPager(context);
         initImageLoaderConf(context);
+    }
+
+    /**
+     * 获取属性
+     * @param context
+     * @param attrs
+     */
+    private void initAttrs(Context context, AttributeSet attrs) {
+        final TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BannerView);
+        mDrawableNormalIndex = ta.getDrawable(R.styleable.BannerView_normalIndexDrawable);
+        mDrawableSelectIndex = ta.getDrawable(R.styleable.BannerView_selectIndexDrawable);
+        mSpace = (int) ta.getDimension(R.styleable.BannerView_space, 12);
+
+        LogUtils.w(TAG, "mSpace=%d", mSpace);
+
+        ta.recycle();
     }
 
     private void initImageLoaderConf(Context context) {
@@ -133,10 +164,15 @@ public class BannerView extends FrameLayout{
         this.mLLViewIndicator.removeAllViews();
         this.mViewIndicators.clear();
         for (int i=0; i<iCounts; i++) {
-            View item = new View(mContext);
-            item.setBackgroundResource(R.drawable.main_banner_indicator_normal);
-            this.mLLViewIndicator.addView(item, (int)(getResources().getDimension(R.dimen.indiana_indicator_size)), (int)(getResources().getDimension(R.dimen.indiana_indicator_size)));
+            ImageView item = new ImageView(mContext);
+            this.mLLViewIndicator.addView(item);
             this.mViewIndicators.add(item);
+//            LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams mp = (LinearLayout.LayoutParams) item.getLayoutParams();
+            mp.setMargins(mSpace, 0, mSpace, 0);
+            item.setLayoutParams(mp);
+            item.setBackground(mDrawableNormalIndex);
+
         }
     }
 
@@ -161,10 +197,10 @@ public class BannerView extends FrameLayout{
                mCurItem = position;
 
                ImageView imgView = new ImageView(mContext);
-               ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+               ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
                imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                imgView.setLayoutParams(layoutParams);
-               imgView.setScaleType(ImageView.ScaleType.FIT_XY);
                imgView.setClickable(true);
                imgView.setOnClickListener(new ImgViewOnClick(bannerInfo));
                ImageLoader.getInstance().displayImage(bannerInfo.getImgUrl(), imgView, mDisplayImageOptions);
@@ -239,9 +275,11 @@ public class BannerView extends FrameLayout{
             dotView = mViewIndicators.get(i);
             bIsSelect = i != (position%iCounts);
             if (!bIsSelect) {
-                dotView.setBackgroundResource(R.drawable.main_banner_indicator_normal);
+//                dotView.setBackgroundResource(R.drawable.main_banner_indicator_normal);
+                dotView.setBackground(mDrawableNormalIndex);
             } else {
-                dotView.setBackgroundResource(R.drawable.main_banner_indicator_select);
+//                dotView.setBackgroundResource(R.drawable.main_banner_indicator_select);
+                dotView.setBackground(mDrawableSelectIndex);
             }
         }
     }

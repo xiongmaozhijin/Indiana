@@ -126,12 +126,12 @@
             android:id="@+id/f_shopping_content_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="54dp"
+            android:paddingBottom="54dp"
             android:background="@android:color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <com.example.liangge.indiana.ui.widget.ExListView
@@ -234,40 +234,6 @@
 
 
         </LinearLayout>
-
-
-        <!--        <LinearLayout
-                    android:layout_gravity="bottom|center_horizontal"
-                    android:background="@android:color/holo_orange_light"
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp">
-
-                    <TextView
-                        android:id="@+id/f_shopping_content_item_txvdesc1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/black"
-                        android:text="@string/f_shoppingcart_buycnt_hint"/>
-
-                    <TextView
-                        android:id="@+id/f_shopping_content_item_txvdesc2"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:layout_height="wrap_content"
-                        android:textColor="@android:color/holo_red_light"
-                        android:text="@string/f_shoppingcart_pay_hint"/>
-
-
-                    <Button
-                        android:id="@+id/f_shopping_content_item_btn_commit_pay"
-                        android:background="@drawable/selector_f_shopping_btn_pay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/f_shoppingcart_commit_pay"/>
-
-                </LinearLayout>-->
 
 
     </FrameLayout>

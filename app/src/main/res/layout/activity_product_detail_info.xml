@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical"
     tools:context="com.example.liangge.indiana.ui.ProductDetailInfoActivity">
 
@@ -49,8 +51,12 @@
                     <!-- 图片轮播部分 -->
                     <com.example.liangge.indiana.ui.widget.BannerView
                         android:id="@+id/activity_productdetailinfo_bannerview"
+                        xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
+                        appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
+                        appbannerview:selectIndexDrawable="@drawable/detail_banner_indicator_select"
+                        appbannerview:space="3dp"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp" />
+                        android:layout_height="180dp" />
 
                     <!-- title content describe -->
                     <LinearLayout

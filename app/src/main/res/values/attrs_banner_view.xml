@@ -1,8 +1,10 @@
 <resources>
     <declare-styleable name="BannerView">
-        <attr name="exampleString" format="string" />
+   <!--     <attr name="exampleString" format="string" />
         <attr name="exampleDimension" format="dimension" />
-        <attr name="exampleColor" format="color" />
-        <attr name="exampleDrawable" format="color|reference" />
+        <attr name="exampleColor" format="color" />-->
+        <attr name="space" format="dimension" />
+        <attr name="normalIndexDrawable" format="color|reference" />
+        <attr name="selectIndexDrawable" format="color|reference" />
     </declare-styleable>
 </resources>
