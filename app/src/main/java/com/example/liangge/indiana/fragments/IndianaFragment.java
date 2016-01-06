@@ -22,7 +22,6 @@ import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.comm.Constant;
-import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
@@ -34,12 +33,6 @@ import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
-
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.header.MaterialHeader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -315,27 +308,6 @@ public class IndianaFragment extends BaseRefreshFragment {
     }
 
 
-    private void loadMoreHintLoadMore() {
-        mViewProductLoadingWrapper.setVisibility(View.VISIBLE);
-        mViewProductLoadingWrapper.findViewById(R.id.load_more_hint_loading_wrapper).setVisibility(View.VISIBLE);
-        mViewProductLoadingWrapper.findViewById(R.id.load_more_hint_wrapper).setVisibility(View.GONE);
-    }
-
-    private void loadMoreHintLoadHint(String msg) {
-        mViewProductLoadingWrapper.setVisibility(View.VISIBLE);
-        mViewProductLoadingWrapper.findViewById(R.id.load_more_hint_loading_wrapper).setVisibility(View.GONE);
-        mViewProductLoadingWrapper.findViewById(R.id.load_more_hint_wrapper).setVisibility(View.VISIBLE);
-
-        TextView txvHint = (TextView) mViewProductLoadingWrapper.findViewById(R.id.load_more_hint_text);
-        txvHint.setText(msg);
-    }
-
-    private void loadMoreHintDismiss() {
-        mViewProductLoadingWrapper.setVisibility(View.GONE);
-
-    }
-
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -364,6 +336,11 @@ public class IndianaFragment extends BaseRefreshFragment {
         mBannerInfoBiz = BannerInfoBiz.getInstance(getActivity());
         mWebViewBiz = WebViewBiz.getInstance(getActivity());
 
+    }
+
+    @Override
+    protected void onBtnReload() {
+        LogUtils.w(TAG, "onBtnReload()");
     }
 
 
@@ -422,23 +399,21 @@ public class IndianaFragment extends BaseRefreshFragment {
         LogUtils.i(TAG, "handleUITagLoadMore().strUIAction=%s", strUIAction);
 
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START)) {
-            loadMoreHintLoadMore();
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_START, false);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL)) {
-            String hint = getResources().getString(R.string.comm_load_more_hint_fail);
-            loadMoreHintLoadHint(hint);
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS)) {
             //TODO
             List<ActivityProductItemEntity> requestListData = mIndianaBiz.getListProducts();
             if (requestListData != null) {
                 if (requestListData.size() > 0) {
-                    loadMoreHintDismiss();
+                    handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
                     mAdapter.loadMoreProductDataAndNotify(requestListData);
 
                 } else {
-                    String hint = getResources().getString(R.string.comm_load_more_hint_all_complete);
-                    loadMoreHintLoadHint(hint);
+                    handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
 
                 }
 
@@ -455,28 +430,26 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     private void handleUITagProduct(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START)) {
-            mGridviewProducts.setVisibility(View.GONE);
-            mViewTagNetInfoDataInfoWrapper.setVisibility(View.VISIBLE);
-            mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
-            mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            handleNetUI(INetState.LOADING, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL)) {
-            mGridviewProducts.setVisibility(View.GONE);
-            mViewProductContentWrapper.setVisibility(View.VISIBLE);
-            mViewProductContentWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
-            mViewTagNetInfoDataInfoWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
+            handleNetUI(INetState.FAILED_NO_NET, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+
             handleCompleteRefreshUI();
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS)) {
 //            int iScrollY = mScrollViewMain.getExScrollY();
 //            LogUtils.e(TAG, "iScrollY=%d", iScrollY);
 
-            mViewTagNetInfoDataInfoWrapper.setVisibility(View.GONE);
-            mGridviewProducts.setVisibility(View.VISIBLE);
+            handleNetUI(INetState.SUCCESS, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
 
             handleCompleteRefreshUI();
-            loadMoreHintDismiss();
 
             mScrollViewMain.smoothScrollTo(0, 0);
         }
@@ -497,24 +470,18 @@ public class IndianaFragment extends BaseRefreshFragment {
      * @param strUIAction
      */
     private void handleUIBanner(String strUIAction) {
-        LogUtils.i(TAG, "handleUIBanner()");
+        LogUtils.i(TAG, "handleUIBanner().uiAction=%s", strUIAction);
 
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_FAIL)) {
-            mViewAllContentWrapper.setVisibility(View.GONE);
-            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.VISIBLE);
-            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
-            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            handleNetUI(INetState.FAILED_NO_NET, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOADING_BANNER)) {
-            mViewAllContentWrapper.setVisibility(View.GONE);
-            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.VISIBLE);
-            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
-            mViewNotNetworkOrFirstLoadWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
+            handleNetUI(INetState.LOADING, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_SUCCESS)) {
-            mViewAllContentWrapper.setVisibility(View.VISIBLE);
-            mViewNotNetworkOrFirstLoadWrapper.setVisibility(View.GONE);
-            loadMoreHintDismiss();
+            handleNetUI(INetState.SUCCESS, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
+
             mBannerView.setDatasAndNotify(mIndianaBiz.getListBanners());
             //TODO
             onBtnHots();

@@ -202,6 +202,10 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
     }
 
+    @Override
+    protected void onBtnReload() {
+        LogUtils.w(TAG, "onBtnReload()");
+    }
 
 
     private class UIReceiveBroadcat extends BroadcastReceiver {

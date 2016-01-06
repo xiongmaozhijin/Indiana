@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:visibility="gone"
-    android:layout_width="match_parent" android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="gone">
 
 
     <!-- 加载更多 -->
     <FrameLayout
         android:id="@+id/f_indiana_product_loading_more_wrapper"
+        android:background="@color/bg_1"
         android:layout_width="match_parent"
         android:layout_height="64dp">
 
         <LinearLayout
             android:id="@+id/load_more_hint_loading_wrapper"
-            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <com.example.liangge.indiana.ui.widget.RotateImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/comm_loading_view" />
 
             <TextView
@@ -36,20 +38,19 @@
 
         <LinearLayout
             android:id="@+id/load_more_hint_wrapper"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/load_more_hint_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="已加载完全部"/>
+                android:text="" />
 
         </LinearLayout>
 
     </FrameLayout>
-
 
 
 </FrameLayout>

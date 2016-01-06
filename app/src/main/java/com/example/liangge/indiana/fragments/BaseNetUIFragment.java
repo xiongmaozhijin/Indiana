@@ -11,7 +11,7 @@ public abstract class BaseNetUIFragment extends BaseFragment{
 
 
     public interface INetState {
-        int NO_NET = -1;
+        int FAILED_NO_NET = -1;
         int LOADING = 1;
         int SUCCESS = 2;
     }
@@ -31,7 +31,7 @@ public abstract class BaseNetUIFragment extends BaseFragment{
         View notNetHintWrapper = view.findViewById(R.id.not_network_hint);
         View loadingHintWrapper = view.findViewById(R.id.comm_loading_icon);
 
-        if (netState==INetState.NO_NET) {
+        if (netState==INetState.FAILED_NO_NET) {
             allContentViewWrapper.setVisibility(View.GONE);
             view.setVisibility(View.VISIBLE);
             notNetHintWrapper.setVisibility(View.VISIBLE);

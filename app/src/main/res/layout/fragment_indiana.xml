@@ -6,6 +6,7 @@
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
     <LinearLayout
+        android:background="@color/bg_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -59,7 +60,7 @@
         android:id="@+id/f_indiana_all_content_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <in.srain.cube.views.ptr.PtrClassicFrameLayout
             android:id="@+id/rotate_header_web_view_frame"
@@ -85,7 +86,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/darker_gray"
+                    android:background="@color/bg_1"
                     android:orientation="vertical">
 
                     <!-- 图片轮播部分 -->
@@ -270,51 +271,12 @@
 
 
                             <!-- 加载更多 -->
-                            <FrameLayout
-                                android:id="@+id/f_indiana_product_loading_more_wrapper"
-                                android:layout_width="match_parent"
-                                android:layout_height="64dp"
-                                android:visibility="visible">
-
-                                <LinearLayout
-                                    android:id="@+id/load_more_hint_loading_wrapper"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <com.example.liangge.indiana.ui.widget.RotateImageView
-                                        android:layout_width="48dp"
-                                        android:layout_height="48dp"
-                                        android:src="@drawable/comm_loading_view" />
-
-                                    <TextView
-                                        android:id="@+id/product_loading_txv_hint"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_gravity="center"
-                                        android:gravity="center"
-                                        android:text="@string/f_indian_product_load_more_hint"
-                                        android:textSize="14sp" />
-
-                                </LinearLayout>
 
 
-                                <LinearLayout
-                                    android:id="@+id/load_more_hint_wrapper"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center">
+                                <include
+                                    android:id="@+id/f_indiana_product_loading_more_wrapper"
+                                    layout="@layout/layout_load_more_wrapper" />
 
-                                    <TextView
-                                        android:id="@+id/load_more_hint_text"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="已加载完全部" />
-
-                                </LinearLayout>
-
-                            </FrameLayout>
 
                         </LinearLayout>
 

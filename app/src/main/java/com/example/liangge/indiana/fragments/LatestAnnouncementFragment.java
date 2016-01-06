@@ -65,6 +65,11 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
         // Required empty public constructor
     }
 
+    @Override
+    protected void onBtnReload() {
+        LogUtils.w(TAG, "onBtnReload()");
+    }
+
 
     /**
      * UI消息接收
@@ -160,10 +165,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     private void handleLoadStart() {
         int loadMode = mLatestBiz.getCurLoadMode();
         if (loadMode == Constant.Comm.ENTER) {
-            mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
-            mViewContentWrapper.setVisibility(View.GONE);
-            mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
-            mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            handleNetUI(INetState.LOADING, mViewNotNetWorkWrpper, mViewContentWrapper);
 
         } else if (loadMode == Constant.Comm.LOAD_MORE) {
             handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_START, false);
@@ -176,10 +178,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     private void handleLoadFailed() {
         int loadMode = mLatestBiz.getCurLoadMode();
         if (loadMode == Constant.Comm.ENTER) {
-            mViewNotNetWorkWrpper.setVisibility(View.VISIBLE);
-            mViewContentWrapper.setVisibility(View.GONE);
-            mViewNotNetWorkWrpper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
-            mViewNotNetWorkWrpper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            handleNetUI(INetState.FAILED_NO_NET, mViewNotNetWorkWrpper, mViewContentWrapper);
 
 
         } else if (loadMode == Constant.Comm.LOAD_MORE) {
@@ -196,8 +195,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     private void handleLoadSuccess() {
         int loadMode = mLatestBiz.getCurLoadMode();
         if (loadMode == Constant.Comm.ENTER) {
-            mViewNotNetWorkWrpper.setVisibility(View.GONE);
-            mViewContentWrapper.setVisibility(View.VISIBLE);
+            handleNetUI(INetState.SUCCESS, mViewNotNetWorkWrpper, mViewContentWrapper);
             mAdapter.setDatasAndNotify(mLatestBiz.getProductsData());
 
         } else if (loadMode == Constant.Comm.LOAD_MORE) {

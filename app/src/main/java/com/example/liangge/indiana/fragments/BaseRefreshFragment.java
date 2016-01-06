@@ -18,7 +18,7 @@ import in.srain.cube.views.ptr.header.MaterialHeader;
 /**
  * Created by baoxing on 2016/1/5.
  */
-public abstract class BaseRefreshFragment extends BaseFragment {
+public abstract class BaseRefreshFragment extends BaseNetUIFragment {
 
     /** 下拉刷新 */
     private PtrClassicFrameLayout mPtrFrame;
