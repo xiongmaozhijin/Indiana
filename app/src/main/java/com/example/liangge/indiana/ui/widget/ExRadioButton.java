@@ -17,7 +17,7 @@ import com.example.liangge.indiana.comm.LogUtils;
  * 扩展RadioButton，使其支持Badgeview
  * Created by baoxing on 2015/12/21.
  */
-public class ExRadioButton extends RadioButton{
+public class ExRadioButton extends ExBaseRadioButton{
 
     private static final String TAG = ExRadioButton.class.getSimpleName();
 
