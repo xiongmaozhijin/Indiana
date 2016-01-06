@@ -159,11 +159,19 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:layout_alignParentBottom="true"
+                android:background="@color/common_line" />
 
         </RelativeLayout>
 
+
+
         <RelativeLayout
             android:id="@+id/f_personal_txvbtn_indiana_record"
+            android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_3">
@@ -204,6 +212,7 @@
 
         <RelativeLayout
             android:id="@+id/user_layout_coupon"
+            android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_5">
@@ -253,6 +262,7 @@
 
         <RelativeLayout
             android:id="@+id/user_layout_wish"
+            android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_coupon">
@@ -407,6 +417,7 @@
 
         <RelativeLayout
             android:id="@+id/f_personal_account_detail"
+            android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_10">
@@ -455,6 +466,7 @@
 
         <RelativeLayout
             android:id="@+id/f_personal_txvbtn_bingo_record"
+            android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/f_personal_account_detail">
@@ -560,6 +572,7 @@
 
         <RelativeLayout
             android:id="@+id/user_layout_setting"
+            android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_13">

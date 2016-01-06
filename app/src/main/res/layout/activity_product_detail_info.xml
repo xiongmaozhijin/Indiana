@@ -50,6 +50,7 @@
                     <!-- 商品图片轮播 -->
                     <!-- 图片轮播部分 -->
                     <com.example.liangge.indiana.ui.widget.BannerView
+                        android:visibility="visible"
                         android:id="@+id/activity_productdetailinfo_bannerview"
                         xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
                         appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
@@ -62,18 +63,21 @@
                     <LinearLayout
                         android:paddingLeft="@dimen/activity_detail_pading_side"
                         android:paddingRight="@dimen/activity_detail_pading_side"
+                        android:background="@android:color/white"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/activity_productdetailinfo_title_describe1"
+                            android:layout_marginLeft="4dp"
                             android:textColor="@android:color/holo_purple"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="已揭晓"/>
                         <TextView
                             android:id="@+id/activity_productdetailinfo_title_describe2"
+                            android:lineSpacingMultiplier="1.2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:maxLines="2"
@@ -133,7 +137,7 @@
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_process_done_wrapper"
                             android:padding="@dimen/activity_detail_bingoinfo_bg_padding_1"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/activity_detailinfo_bingoinfo_bg1">
@@ -162,6 +166,7 @@
 
                                     <TextView
                                         android:id="@+id/activity_productdetailinfo_bingo_info"
+                                        android:lineSpacingMultiplier="1.5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="@string/activity_detail_bingouser_info"/>
@@ -180,23 +185,33 @@
 
                                     <TextView
                                         android:layout_marginLeft="11dp"
-                                        android:id="@+id/activity_productdetailinfo_luncky_number"
+                                        android:layout_marginRight="4dp"
                                         android:layout_gravity="left|center_vertical"
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:textColor="@android:color/white"
-                                        android:text="@string/activity_productdetailinfo_lucky_number"/>
+                                        android:text="@string/activity_productdetailinfo_lucky_number_1"/>
+
+                                    <TextView
+                                        android:id="@+id/activity_productdetailinfo_luncky_number"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="22sp"
+                                        android:text="@string/activity_productdetailinfo_lucky_number"
+                                        />
 
                                     <Button
                                         android:layout_marginRight="11dp"
+                                        android:textSize="14sp"
                                         android:onClick="onBtnCalcDetail"
                                         android:paddingLeft="7dp"
                                         android:paddingRight="7dp"
                                         android:id="@+id/activity_productdetailinfo_btn_calc_detail"
                                         android:layout_gravity="center_vertical|right"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="27dp"
+                                        android:layout_height="22dp"
                                         android:textColor="@android:color/white"
                                         android:background="@drawable/selector_activity_detailuserinfo_calc_btn"
                                         android:text="@string/activity_productdetailinfo_btn_why_calc"/>
@@ -214,7 +229,7 @@
                         <!-- 揭晓中 -->
                         <FrameLayout
                             android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="48dp">
 
