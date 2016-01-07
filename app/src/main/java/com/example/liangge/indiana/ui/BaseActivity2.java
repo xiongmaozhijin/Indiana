@@ -10,7 +10,10 @@ import android.os.Bundle;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 
-public abstract class BaseActivity2 extends Activity {
+/**
+ * 处理了消息接收, 封装了下拉刷新，网络状况
+ */
+public abstract class BaseActivity2 extends BaseUIActivity {
 
     private static String TAG = "undefine";
 

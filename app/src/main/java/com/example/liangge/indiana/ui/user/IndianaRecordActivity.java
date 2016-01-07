@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.user.IndianaRecordListViewAdapter;
@@ -21,6 +23,7 @@ import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 /**
  * 夺宝记录
@@ -42,6 +45,15 @@ public class IndianaRecordActivity extends BaseActivity2 {
 
     private ListView mListView;
 
+    private View mViewLayout;
+
+    private ExScrollView mExScrollView;
+
+
+    private RadioGroup mRadioGroup;
+    private RadioButton mBtnTagAll;
+    private RadioButton mBtnTagIng;
+    private RadioButton mBtnTagDone;
 
 
     @Override
@@ -56,12 +68,34 @@ public class IndianaRecordActivity extends BaseActivity2 {
     }
 
     private void initOnCreate() {
-        mIndianaRecordBiz.onCreate();
+//        mIndianaRecordBiz.onCreate();
+        String curTag = mIndianaRecordBiz.getCurRequestTag();
+        if (curTag == Constant.IndianaRecord.TAG_ALL) {
+            mRadioGroup.check(mBtnTagAll.getId());
+            onBtnTagAll(null);
+
+        } else if (curTag== Constant.IndianaRecord.TAG_ING) {
+            mRadioGroup.check(mBtnTagIng.getId());
+            onBtnTagIng(null);
+
+        } else if (curTag==Constant.IndianaRecord.TAG_DONE) {
+            mRadioGroup.check(mBtnTagDone.getId());
+            onBtnDone(null);
+
+        }
+
     }
 
     private void initView() {
+        mViewLayout = View.inflate(this, R.layout.activity_indiana_record, null);
         mViewNetHintWrapper = findViewById(R.id.activity_indianarecord_net_wrapper);
         mViewTagContentWrapper = findViewById(R.id.activity_indianarecord_tagcontent_wrapper);
+        mExScrollView = (ExScrollView) findViewById(R.id.activity_indianarecord_scrollview);
+
+        mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+        mBtnTagAll = (RadioButton) findViewById(R.id.rb_tag_all);
+        mBtnTagIng = (RadioButton) findViewById(R.id.rb_tag_ing);
+        mBtnTagDone = (RadioButton) findViewById(R.id.rb_tag_done);
 
         mListView = (ListView) findViewById(R.id.activity_indianarecord_listview);
         mAdapter = new IndianaRecordListViewAdapter(this);
@@ -122,21 +156,14 @@ public class IndianaRecordActivity extends BaseActivity2 {
 
     private void handleReloadUI(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_FAIL)) {
-            mViewNetHintWrapper.setVisibility(View.VISIBLE);
-            mViewTagContentWrapper.setVisibility(View.GONE);
-            mViewNetHintWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
-            mViewNetHintWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetHintWrapper, mViewTagContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_SUCCESS)) {
-            mViewNetHintWrapper.setVisibility(View.GONE);
-            mViewTagContentWrapper.setVisibility(View.VISIBLE);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNetHintWrapper, mViewTagContentWrapper);
             mAdapter.resetDataAndNotify(mIndianaRecordBiz.getData());
 
         } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_START)) {
-            mViewNetHintWrapper.setVisibility(View.VISIBLE);
-            mViewTagContentWrapper.setVisibility(View.GONE);
-            mViewNetHintWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
-            mViewNetHintWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNetHintWrapper, mViewTagContentWrapper);
 
         }
 
@@ -166,11 +193,31 @@ public class IndianaRecordActivity extends BaseActivity2 {
         finish();
     }
 
+
     @Override
     protected String getDebugTag() {
         return TAG;
     }
 
 
+    @Override
+    protected void onBtnReload() {
+        LogUtils.w(TAG, "onBtnReload()");
 
+    }
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return mExScrollView;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+        LogUtils.w(TAG, "onRefreshLoadData()");
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return null;
+    }
 }

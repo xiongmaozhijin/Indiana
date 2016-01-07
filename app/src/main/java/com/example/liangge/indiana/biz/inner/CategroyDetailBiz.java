@@ -78,7 +78,6 @@ public class CategroyDetailBiz extends BaseActivityBiz{
         /** 类别数据 */
         public static List<CategoryDetailEntitiy> listData = new ArrayList<>();
 
-
     }
 
 
@@ -87,6 +86,9 @@ public class CategroyDetailBiz extends BaseActivityBiz{
         return DataInfo.strTitle;
     }
 
+    public void setTitle(String title) {
+        DataInfo.strTitle = title;
+    }
 
     public int getCurLoadMode() {
         return RequestInfo.iLoadMode;

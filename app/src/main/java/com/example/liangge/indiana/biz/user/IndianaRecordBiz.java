@@ -89,6 +89,20 @@ public class IndianaRecordBiz extends BaseActivityBiz {
         return DataInfo.mListData;
     }
 
+
+    /**
+     *
+     * @param tagFlag {@link Constant.IndianaRecord}
+     */
+    public void setCurRequestTag(String tagFlag) {
+        RequestInfo.tag = tagFlag;
+    }
+
+    public String getCurRequestTag() {
+        return RequestInfo.tag;
+    }
+
+
     /**
      * 请求加载数据 {当加载更多时，参数tag无效}
      * @param tag
@@ -207,7 +221,7 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
     @Override
     public void onCreate() {
-        loadIndianaRecord(Constant.IndianaRecord.TAG_ALL, false);
+        loadIndianaRecord(RequestInfo.tag, false);
 
     }
 

@@ -35,20 +35,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
-                    android:background="@android:color/white"
+                    android:background="@drawable/shape_bg_conner"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="5dp">
 
                     <ImageView
+                        android:layout_gravity="center_vertical"
                         android:layout_width="22dp"
                         android:layout_height="22dp"
-                        android:src="@drawable/comm_loading_view" />
+                        android:src="@drawable/search" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="11dp"
+                        android:layout_marginLeft="7dp"
                         android:text="@string/activity_category_search_hint"
                         android:textSize="10sp"
                         android:textColor="#C9C9C9" />
@@ -92,12 +93,13 @@
 
                         <TextView
                             android:id="@+id/category_all_txv_hint"
+                            android:gravity="center_vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="48dp"
                             android:layout_marginLeft="11dp"
                             android:layout_toRightOf="@id/category_all_img"
                             android:background="@drawable/layer_category_txv_bg"
-                            android:text="全部商品"
+                            android:text="@string/category_list_all_category"
                             android:textSize="18sp" />
 
                     </LinearLayout>

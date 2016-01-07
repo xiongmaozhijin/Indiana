@@ -17,6 +17,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.model.inner.CategoryDetailEntitiy;
 import com.example.liangge.indiana.model.inner.IndianaCategoryEntity;
+import com.example.liangge.indiana.ui.BaseUIActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -109,6 +110,8 @@ public class IndianaCategoryActivity extends Activity {
             public void onClick(View v) {
                 //全部商品
                 LogUtils.i(TAG, "all category");
+                String title = getResources().getString(R.string.category_list_all_category);
+                mCategroyDetailBiz.setTitle(title);
                 mCategroyDetailBiz.setRequestData(0);
                 Intent intent = new Intent(IndianaCategoryActivity.this, CategoryListActivity.class);
                 startActivity(intent);
@@ -121,6 +124,7 @@ public class IndianaCategoryActivity extends Activity {
                 //listview item click
                 LogUtils.i(TAG, "position=%d", position);
                 final IndianaCategoryEntity item = (IndianaCategoryEntity) parent.getAdapter().getItem(position);
+                mCategroyDetailBiz.setTitle(item.getCategory_name());
                 mCategroyDetailBiz.setRequestData(item.getCategory_id());
                 Intent intent = new Intent(IndianaCategoryActivity.this, CategoryListActivity.class);
                 startActivity(intent);
@@ -157,6 +161,7 @@ public class IndianaCategoryActivity extends Activity {
         super.onDestroy();
         cancelNetRequest();
     }
+
 
     /**
      * 请求类别数据

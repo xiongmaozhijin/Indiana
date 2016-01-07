@@ -26,13 +26,14 @@
             android:orientation="horizontal">
 
             <RadioGroup
-                android:checkedButton="@+id/activity_indiana_record_rb_tag_all"
+                android:id="@+id/radiogroup"
+                android:checkedButton="@+id/rb_tag_all"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/activity_indiana_record_rb_tag_all"
+                    android:id="@+id/rb_tag_all"
                     android:onClick="onBtnTagAll"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -40,6 +41,7 @@
                     android:text="@string/activity_indiana_record_tag_all"/>
 
                 <RadioButton
+                    android:id="@+id/rb_tag_ing"
                     android:onClick="onBtnTagIng"
                     android:layout_width="0dp"
                     style="@style/indianarecord_category_item"
@@ -47,6 +49,7 @@
                     android:text="@string/activity_indiana_record_run_ing"/>
 
                 <RadioButton
+                    android:id="@+id/rb_tag_done"
                     android:onClick="onBtnDone"
                     android:layout_width="0dp"
                     style="@style/indianarecord_category_item"
@@ -61,7 +64,7 @@
             android:id="@+id/activity_indianarecord_scrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray">
+            android:background="@color/bg_1">
 
         <!-- 内容 -->
         <FrameLayout

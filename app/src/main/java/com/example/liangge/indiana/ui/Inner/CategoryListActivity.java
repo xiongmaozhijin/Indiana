@@ -48,7 +48,7 @@ public class CategoryListActivity extends BaseActivity2 {
     /** 加载更多提示 */
     private View mViewLoadMoreHintWrapper;
 
-
+    private View mViewLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,8 @@ public class CategoryListActivity extends BaseActivity2 {
         mExScrollView = (ExScrollView) findViewById(R.id.scrollview);
         mExListView = (ListView) findViewById(R.id.listview);
         mAdapter = new CategoryDetailAdapter(this);
+
+        mViewLayout = mViewAllContent;
 
         mAdapter.setOnAddToCartListenerListener(new CategoryDetailAdapter.OnAddToCartListener() {
             @Override
@@ -177,8 +179,7 @@ public class CategoryListActivity extends BaseActivity2 {
     private void handleLoadSuccess() {
         int loadMode = mCategroyDetailBiz.getCurLoadMode();
         if (loadMode == Constant.Comm.MODE_ENTER) {
-            mViewNetHintWrapper.setVisibility(View.GONE);
-            mViewAllContent.setVisibility(View.VISIBLE);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNetHintWrapper, mViewAllContent);
             mAdapter.resetDataAndNotify(mCategroyDetailBiz.getListData());
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
@@ -191,7 +192,7 @@ public class CategoryListActivity extends BaseActivity2 {
     private void handleLoadFailed() {
         int loadMode = mCategroyDetailBiz.getCurLoadMode();
         if (loadMode == Constant.Comm.MODE_ENTER) {
-            LogUtils.toastShortMsg(this, getResources().getString(R.string.activity_category_net_error));
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetHintWrapper, mViewAllContent);
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
 
@@ -204,10 +205,7 @@ public class CategoryListActivity extends BaseActivity2 {
     private void handleLoadStart() {
         int loadMode = mCategroyDetailBiz.getCurLoadMode();
         if (loadMode == Constant.Comm.MODE_ENTER) {
-            mViewAllContent.setVisibility(View.GONE);
-            mViewNetHintWrapper.setVisibility(View.VISIBLE);
-            mViewNetHintWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
-            mViewNetHintWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNetHintWrapper, mViewAllContent);
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
             //TODO
@@ -233,6 +231,28 @@ public class CategoryListActivity extends BaseActivity2 {
 
     private void handleRefreshUI(String strUIAction) {
 
+    }
+
+
+    @Override
+    protected void onBtnReload() {
+        LogUtils.w(TAG, "onBtnReload()");
+        mCategroyDetailBiz.onCreate();
+    }
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return mExScrollView;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+        LogUtils.w(TAG, "onRefreshLoadData()");
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return mViewLayout;
     }
 
     @Override

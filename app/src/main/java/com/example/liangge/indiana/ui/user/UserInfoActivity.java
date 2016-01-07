@@ -12,12 +12,13 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.ui.BaseActivity2;
+import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**
  * 个人信息
  */
-public class UserInfoActivity extends BaseActivity2 {
+public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
 

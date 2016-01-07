@@ -17,11 +17,12 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.ResponseLogEntity;
 import com.example.liangge.indiana.model.user.ResponseSignInEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
+import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 
 /**
  * 登录/注册Activity
  */
-public class LogSignInActivity extends BaseActivity2 {
+public class LogSignInActivity extends SimpleAdapterBaseActivity2 {
 
     private static final String TAG = LogSignInActivity.class.getSimpleName();
 
@@ -325,6 +326,9 @@ public class LogSignInActivity extends BaseActivity2 {
     protected String getDebugTag() {
         return TAG;
     }
+
+
+
 
 
 

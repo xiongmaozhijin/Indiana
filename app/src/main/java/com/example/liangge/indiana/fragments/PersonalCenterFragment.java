@@ -18,7 +18,9 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
+import com.example.liangge.indiana.biz.user.IndianaRecordBiz;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.user.LogSignInActivity;
@@ -37,6 +39,8 @@ public class PersonalCenterFragment extends BaseFragment {
     private PersonalCenterBiz mPersonalCenterBiz;
 
     private LogSignInBiz mLogSignInBiz;
+
+    private IndianaRecordBiz mIndianaRecordBiz;
 
 
     private UIMsgRecevie mUIMsgRecevie;
@@ -70,6 +74,9 @@ public class PersonalCenterFragment extends BaseFragment {
     /** 正在进行 */
     private View mViewOnGoing;
 
+    /** 已揭晓 */
+    private View mViewRevealed;
+
 
     private DisplayImageOptions mDisplayImageOptions;
 
@@ -95,6 +102,8 @@ public class PersonalCenterFragment extends BaseFragment {
         mImgBtnInfo = (ImageButton) view.findViewById(R.id.f_personal_software_info);
         mTxvUserInfo = (TextView) view.findViewById(R.id.f_personal_userinfo_1);
         mViewRecharge = view.findViewById(R.id.user_recharge);
+        mViewOnGoing = view.findViewById(R.id.user_good_on_text);
+        mViewRevealed = view.findViewById(R.id.user_revealed_text);
 
         mBtnIndianaRecord = view.findViewById(R.id.f_personal_txvbtn_indiana_record);
         mBtnBingoRecord = view.findViewById(R.id.f_personal_txvbtn_bingo_record);
@@ -119,6 +128,20 @@ public class PersonalCenterFragment extends BaseFragment {
             }
         });
 
+        mViewOnGoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnGoing();
+            }
+        });
+
+        mViewRevealed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnRevealed();
+            }
+        });
+
         mBtnLogHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,6 +150,7 @@ public class PersonalCenterFragment extends BaseFragment {
         });
 
     }
+
 
     /**
      * 登录注册/退出
@@ -165,7 +189,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private void initManager() {
         mPersonalCenterBiz = PersonalCenterBiz.getInstance(getActivity());
         mLogSignInBiz = LogSignInBiz.getInstance(getActivity());
-
+        mIndianaRecordBiz = IndianaRecordBiz.getInstance(getActivity());
     }
 
 
@@ -268,15 +292,16 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
 
-    //夺宝记录
+    /** 全部夺宝记录 */
     public void onBtnIndianaRecord() {
         if (judgeLoginOrStartActivity()) {
+            mIndianaRecordBiz.setCurRequestTag(Constant.IndianaRecord.TAG_ALL);
             Intent intent = new Intent(getActivity(), IndianaRecordActivity.class);
             startActivity(intent);
         }
     }
 
-    //中奖记录
+    /** 中奖记录 */
     public void onBtnBingoRecord() {
         if (judgeLoginOrStartActivity()) {
             Intent intent = new Intent(getActivity(), BingoRecordActivity.class);
@@ -284,33 +309,34 @@ public class PersonalCenterFragment extends BaseFragment {
         }
     }
 
-    //收货地址
-    public void onBtnTakeOverGoods() {
+    /**
+     * 正在进行
+     */
+    private void onBtnGoing() {
+        LogUtils.i(TAG, "onBtnGoing()");
         if (judgeLoginOrStartActivity()) {
+            mIndianaRecordBiz.setCurRequestTag(Constant.IndianaRecord.TAG_ING);
+            Intent intent = new Intent(getActivity(), IndianaRecordActivity.class);
+            startActivity(intent);
+        }
 
+    }
+
+    /**
+     * 已揭晓
+     */
+    private void onBtnRevealed() {
+        LogUtils.i(TAG, "onBtnRevealed()");
+        if (judgeLoginOrStartActivity()) {
+            mIndianaRecordBiz.setCurRequestTag(Constant.IndianaRecord.TAG_DONE);
+            Intent intent = new Intent(getActivity(), IndianaRecordActivity.class);
+            startActivity(intent);
         }
     }
 
-    //账户明细
-    public void onBtnAccountDetail() {
-        if (judgeLoginOrStartActivity()) {
 
-        }
-    }
 
-    //个人信息
-    public void onBtnPersonalInfo() {
-        if (judgeLoginOrStartActivity()) {
 
-        }
-    }
-
-    //联系客服
-    public void onBtnContactCustomer() {
-        if (judgeLoginOrStartActivity()) {
-
-        }
-    }
 
     /**
      * 充值

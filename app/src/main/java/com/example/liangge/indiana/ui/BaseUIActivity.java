@@ -45,7 +45,17 @@ public abstract class BaseUIActivity extends Activity {
     private void initRefreshView2() {
         LogUtils.w(TAG, "initRefreshView2()");
         View view = getLayoutViewWrapper();
+
+        if (view == null) {
+            return;
+        }
+
         mPtrFrame = (PtrClassicFrameLayout) view.findViewById(R.id.rotate_header_web_view_frame);
+
+        if (mPtrFrame == null) {
+            LogUtils.e(TAG, "mPtrFrame = null");
+            return;
+        }
 
         // header
         final MaterialHeader header = new MaterialHeader(this);
@@ -164,7 +174,7 @@ public abstract class BaseUIActivity extends Activity {
     protected abstract void onRefreshLoadData();
 
     /**
-     * 整个View Wrapper
+     * 整个View Wrapper，如果不想要下拉刷新，传入null
      * @return
      */
     protected abstract View getLayoutViewWrapper();

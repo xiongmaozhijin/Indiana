@@ -11,11 +11,13 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.user.BingoRecordListViewAdapter;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.user.BingoRecordBiz;
+import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 /**
  * 中奖记录页面
@@ -36,6 +38,9 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     private View mViewContentWrapper;
 
+    private View mViewLayout;
+
+    private ExScrollView mExScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,9 @@ public class BingoRecordActivity extends BaseActivity2 {
     private void initView() {
         mViewNetWrapper = findViewById(R.id.net_hint_wrapper);
         mViewContentWrapper = findViewById(R.id.content_wrapper);
+        mExScrollView = (ExScrollView) findViewById(R.id.scrollview);
+
+        mViewLayout = mViewContentWrapper;
 
         mListView = (ListView) findViewById(R.id.listview);
         mAdapter = new BingoRecordListViewAdapter(this);
@@ -112,20 +120,13 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     private void handleReLoadUIMsg(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_FAIL)) {
-            mViewNetWrapper.setVisibility(View.VISIBLE);
-            mViewContentWrapper.setVisibility(View.GONE);
-            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
-            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetWrapper, mViewContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_START)) {
-            mViewNetWrapper.setVisibility(View.VISIBLE);
-            mViewContentWrapper.setVisibility(View.GONE);
-            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
-            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNetWrapper, mViewContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_SUCCESS)) {
-            mViewNetWrapper.setVisibility(View.GONE);
-            mViewContentWrapper.setVisibility(View.VISIBLE);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNetWrapper, mViewContentWrapper);
             mAdapter.resetDataAndNotify(mBingoRecordBiz.getBingoRecordList());
 
         }
@@ -145,5 +146,23 @@ public class BingoRecordActivity extends BaseActivity2 {
     }
 
 
+    @Override
+    protected void onBtnReload() {
+        mBingoRecordBiz.onCreate();
+    }
 
+    @Override
+    protected View getScrollViewWrapper() {
+        return mExScrollView;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return mViewLayout;
+    }
 }

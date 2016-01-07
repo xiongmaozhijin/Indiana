@@ -93,7 +93,23 @@ public class ImageViewActivity extends BaseActivity2 {
     }
 
 
+    @Override
+    protected void onBtnReload() {
 
+    }
 
+    @Override
+    protected View getScrollViewWrapper() {
+        return null;
+    }
 
+    @Override
+    protected void onRefreshLoadData() {
+
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return null;
+    }
 }
