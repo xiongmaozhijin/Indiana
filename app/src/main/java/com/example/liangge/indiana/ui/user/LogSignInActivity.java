@@ -16,7 +16,6 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.ResponseLogEntity;
 import com.example.liangge.indiana.model.user.ResponseSignInEntity;
-import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 
 /**
@@ -105,7 +104,7 @@ public class LogSignInActivity extends SimpleAdapterBaseActivity2 {
         mEdtVerticationCode = (EditText) findViewById(R.id.edt_vertication_code);
         mCheckBoxReadProcotal = (CheckBox) findViewById(R.id.activity_logsignin_checkbox_readprocotol);
 
-        mEdtLogPhoneNumber = (EditText) findViewById(R.id.edt_log_phone_number);
+        mEdtLogPhoneNumber = (EditText) findViewById(R.id.edt_phone_number);
         mEdtLogPassword = (EditText) findViewById(R.id.edt_log_password);
 
         mBtnSignIn = (Button) findViewById(R.id.btn_signin);
