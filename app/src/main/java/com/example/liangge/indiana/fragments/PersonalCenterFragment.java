@@ -23,6 +23,7 @@ import com.example.liangge.indiana.biz.user.LogSignInBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.ui.user.LogInActivity;
 import com.example.liangge.indiana.ui.user.LogSignInActivity;
 import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
@@ -391,10 +392,10 @@ public class PersonalCenterFragment extends BaseFragment {
     }
 
     /**
-     * 启动登录注册界面
+     * 启动登录界面
      */
     private void startLogInSigInActivity() {
-        Intent i = new Intent(getActivity(), LogSignInActivity.class);
+        Intent i = new Intent(getActivity(), LogInActivity.class);
         startActivity(i);
     }
 

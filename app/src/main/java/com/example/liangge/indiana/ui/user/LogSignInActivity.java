@@ -19,6 +19,7 @@ import com.example.liangge.indiana.model.user.ResponseSignInEntity;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 
 /**
+ * @deprecated
  * 登录/注册Activity
  */
 public class LogSignInActivity extends SimpleAdapterBaseActivity2 {

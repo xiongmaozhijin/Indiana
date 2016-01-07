@@ -29,4 +29,10 @@
 
 
     <color name="blue_bingo_user">#0278fe</color>
+
+    <color name="vertication_code_no_click">#c5c5c5</color>
+    <color name="vertication_code_normal">#68caf1</color>
+    <color name="vertication_code_press">#8ed6f2</color>
+
+
 </resources>

@@ -80,6 +80,8 @@
     <string name="activity_inventorypay_title">订单支付</string>
     <string name="activity_inventorypay_productcount">商品合计</string>
     <string name="title_activity_base">BaseActivity</string>
+    <string name="activity_login_pwd_length_hint">密码长度不对</string>
+
 
     <!-- 活动状态 -->
     <string name="actiivty_state_runlottory_ing">揭晓中</string>

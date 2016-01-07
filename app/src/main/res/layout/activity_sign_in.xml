@@ -41,7 +41,7 @@
                 android:completionThreshold="1"
                 android:hint="@string/activity_signin_phonenum_hint"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="phone"
                 android:nextFocusForward="@+id/edt_log_password" />
 
             <ImageView
@@ -105,7 +105,7 @@
                 android:completionThreshold="1"
                 android:hint="@string/activity_signin_password1"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:nextFocusForward="@+id/edt_log_password" />
 
             <ImageView
@@ -137,8 +137,8 @@
                 android:layout_toRightOf="@+id/pwd2_icon"
                 android:completionThreshold="1"
                 android:hint="@string/activity_signin_password1_comfirn"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
                 android:nextFocusForward="@+id/edt_log_password" />
 
             <ImageView
@@ -171,8 +171,8 @@
                 android:layout_toLeftOf="@+id/login_forget"
                 android:layout_toRightOf="@+id/vertication_icon"
                 android:hint="@string/activity_logsignin_verification_code"
-                android:imeOptions="actionGo"
-                android:inputType="textPassword" />
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress" />
 
             <ImageView
                 android:layout_width="fill_parent"
@@ -182,16 +182,22 @@
                 android:contentDescription="@string/desc_common_image" />
 
             <TextView
-                android:id="@+id/login_forget"
+                android:id="@+id/obtain_vertication_code"
+                android:onClick="onBtnRetryVeticationCode"
+                android:paddingBottom="4dp"
+                android:paddingTop="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/common_background"
+                android:background="@drawable/selector_vertication_code"
+                android:enabled="false"
                 android:clickable="true"
                 android:text="@string/activity_obtain_verticationcoade"
-                android:textColor="@color/blue_bingo_user"
-                android:textSize="14.0sp" />
+                android:textColor="@drawable/selector_vertication_code_text"
+                android:textSize="12.0sp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -214,6 +220,7 @@
 
             <TextView
                 android:onClick="onTextClickProcotol"
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/holo_blue_dark"
