@@ -35,12 +35,12 @@
                 android:layout_marginLeft="15.0dip"
                 android:layout_marginTop="30.0dip"
                 android:background="@color/transparent"
-                android:src="@drawable/ic_avatar_default" />
+                android:src="@drawable/user_gray" />
 
             <TextView
                 android:id="@+id/f_personal_log_signup_logout"
                 android:background="@drawable/selector_f_personal_btn_bg"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/f_personal_user_portain"
                 android:layout_alignBottom="@id/f_personal_user_portain"

@@ -44,7 +44,7 @@
 
 
             <LinearLayout
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="5dp"
                 android:layout_below="@id/f_shoppingcart_join_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,17 +52,18 @@
                 android:gravity="center">
                 <TextView
                     android:id="@+id/f_shoppingcart_buycounts_describe"
+                    android:layout_marginBottom="2dp"
                     android:layout_below="@id/f_shoppingcart_join_describe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/f_shoppingcart_item_buy_counts"
                     android:textColor="@android:color/darker_gray"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="left"/>
 
                 <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
                     android:id="@+id/f_shoppingcart_buy_widget"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="36dp"/>
 
             </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Looper;
 import android.util.AttributeSet;
 import android.widget.RadioButton;
@@ -68,9 +69,14 @@ public class ExRadioButton extends ExBaseRadioButton{
         if (mIsShowBadgeView) {
             int h = getHeight();
             int w = getWidth();
+            final Drawable drawable = getCompoundDrawables()[1];
+            int dw = drawable.getIntrinsicWidth();
+            int dh = drawable.getIntrinsicHeight();
+
             int iCircleSize = LocalDisplay.dp2px(8);
             //bg
-            int x1 = w - iCircleSize;
+//            int x1 = w - iCircleSize;
+            int x1 = w/2 + dw/2 - iCircleSize/2;
             int y1 = iCircleSize;
             mBgPaint.setColor(getResources().getColor(R.color.titlebar_color));
             mBgPaint.setStyle(Paint.Style.FILL);
@@ -84,7 +90,7 @@ public class ExRadioButton extends ExBaseRadioButton{
             mTextPaint.setColor(Color.WHITE);
             canvas.drawText(mIBuyCnt + "", x1, y1+txvHeight/2, mTextPaint);
 
-//            LogUtils.w(TAG, "drawBadgeView(). h=%d, w=%d, iCircleSize=%d", h, w, iCircleSize);
+            LogUtils.w(TAG, "drawBadgeView(). h=%d, w=%d,dh=%d, dw=%d iCircleSize=%d", h, w,dh, dw, iCircleSize);
         }
 
     }

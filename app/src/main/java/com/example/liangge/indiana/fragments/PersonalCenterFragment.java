@@ -28,6 +28,7 @@ import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -195,13 +196,14 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private void initImageLoaderConf() {
         mDisplayImageOptions = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
-                .showImageOnFail(R.drawable.main_banner_img_load_fail)
-                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
+                .showImageForEmptyUri(R.drawable.user_gray)
+                .showImageOnFail(R.drawable.user_gray)
+                .showImageOnLoading(R.drawable.user_gray)
                 .cacheOnDisk(true)
                 .cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(20))
                 .build();
     }
 
@@ -354,7 +356,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private void initLogOutState() {
         LogUtils.i(TAG, "initLogOutState()");
         mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup));
-        mImgViewUserPortain.setImageResource(R.drawable.ic_avatar_default);
+        mImgViewUserPortain.setImageResource(R.drawable.user_gray);
         mTxvUserInfo.setText("");
         mTxvUserInfo.setVisibility(View.INVISIBLE);
     }
@@ -367,7 +369,9 @@ public class PersonalCenterFragment extends BaseFragment {
         mTxvUserInfo.setVisibility(View.VISIBLE);
         String strUserInfoFormat = getResources().getString(R.string.f_personal_userinfo_1);
         String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getNickname(), mPersonalCenterBiz.getUserInfo().getBalance());
-        ImageLoader.getInstance().displayImage(mPersonalCenterBiz.getUserInfo().getPhoto(), mImgViewUserPortain, mDisplayImageOptions);
+        String userImgUrl = "drawable://" + R.drawable.user;
+//        String userImgUrl = mPersonalCenterBiz.getUserInfo().getPhoto();
+        ImageLoader.getInstance().displayImage(userImgUrl, mImgViewUserPortain, mDisplayImageOptions);
         mTxvUserInfo.setText(strUserInfo);
 
 

@@ -29,7 +29,7 @@
 
             <TextView
                 android:layout_gravity="left"
-                android:paddingLeft="9dp"
+                android:paddingLeft="@dimen/fragment_gridview_item_text_padding_1"
                 android:id="@+id/latest_product_item_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="9dp"
+                android:paddingLeft="@dimen/fragment_gridview_item_text_padding_1"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
