@@ -94,6 +94,8 @@
         ]]>
     </string>
 
+    <string name="detail_update_failed">更新失败</string>
+
     <string name="activity_inventory_pay_balance">余额支付（账户余额:%1$d夺宝币）</string>
     <string name="activity_indianrecord_titlebar_title">夺宝记录</string>
     <string name="activity_indiana_record_tag_all">全部</string>

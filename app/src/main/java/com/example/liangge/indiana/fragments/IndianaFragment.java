@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
@@ -430,12 +429,12 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     private void handleUITagProduct(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START)) {
-            handleNetUI(INetState.LOADING, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
+            handleNetUI(Constant.Comm.NET_LOADING, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
             handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL)) {
-            handleNetUI(INetState.FAILED_NO_NET, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
             handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
             handleCompleteRefreshUI();
@@ -444,7 +443,7 @@ public class IndianaFragment extends BaseRefreshFragment {
 //            int iScrollY = mScrollViewMain.getExScrollY();
 //            LogUtils.e(TAG, "iScrollY=%d", iScrollY);
 
-            handleNetUI(INetState.SUCCESS, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
             handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
@@ -461,7 +460,7 @@ public class IndianaFragment extends BaseRefreshFragment {
      * 处理公共问题，比如没有联网
      */
     private void handleCommResponse() {
-        //TODO
+        handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
     }
 
 
@@ -473,13 +472,13 @@ public class IndianaFragment extends BaseRefreshFragment {
         LogUtils.i(TAG, "handleUIBanner().uiAction=%s", strUIAction);
 
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_FAIL)) {
-            handleNetUI(INetState.FAILED_NO_NET, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOADING_BANNER)) {
-            handleNetUI(INetState.LOADING, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_SUCCESS)) {
-            handleNetUI(INetState.SUCCESS, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
             handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
 
             mBannerView.setDatasAndNotify(mIndianaBiz.getListBanners());

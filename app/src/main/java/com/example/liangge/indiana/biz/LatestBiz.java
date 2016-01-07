@@ -56,7 +56,7 @@ public class LatestBiz extends BaseFragmentBiz{
         /** 是否加载更多 */
         public static boolean bIsLoadMore = false;
 
-        public static int iLoadMode = Constant.Comm.ENTER;
+        public static int iLoadMode = Constant.Comm.MODE_ENTER;
 
     }
 
@@ -381,10 +381,10 @@ public class LatestBiz extends BaseFragmentBiz{
      */
     public void onScrollBottomLoadData() {
         LogUtils.i(TAG, "onScrollBottomLoadData()");
-        RequestInfo.iLoadMode = Constant.Comm.LOAD_MORE;
+        RequestInfo.iLoadMode = Constant.Comm.MODE_LOAD_MORE;
         RequestInfo.bIsLoadMore = true;
 
-        loadLastDataInfo(true, Constant.Comm.LOAD_MORE);
+        loadLastDataInfo(true, Constant.Comm.MODE_LOAD_MORE);
     }
 
 
@@ -412,14 +412,14 @@ public class LatestBiz extends BaseFragmentBiz{
     //2.加载数据
     @Override
     public void onFirstEnter() {
-        loadLastDataInfo(false, Constant.Comm.ENTER);
+        loadLastDataInfo(false, Constant.Comm.MODE_ENTER);
     }
 
     /**
      * 当进入到LatestFragment界面时
      */
     public void onEnter() {
-        loadLastDataInfo(false, Constant.Comm.REFRESH);
+        loadLastDataInfo(false, Constant.Comm.MODE_REFRESH);
     }
 
     @Override

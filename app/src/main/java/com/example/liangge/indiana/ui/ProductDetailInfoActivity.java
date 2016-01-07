@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -29,6 +30,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.ui.widget.BannerView;
+import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.InventoryBuyWidget;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -36,7 +38,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 /**
  * 商品详情页
  */
-public class ProductDetailInfoActivity extends Activity {
+public class ProductDetailInfoActivity extends BaseUIActivity {
 
 
     private static final String TAG = ProductDetailInfoActivity.class.getSimpleName();
@@ -51,6 +53,9 @@ public class ProductDetailInfoActivity extends Activity {
     /** 所有的内容View Wrapper */
     private View mViewAllContentWrapper;
 
+    private View mLayoutView;
+
+    private ExScrollView mExScrollView;
 
     /** 返回键 */
     private ImageButton mBtnBack;
@@ -111,6 +116,10 @@ public class ProductDetailInfoActivity extends Activity {
 
     private WebViewBiz mWebViewBiz;
 
+    /** 再次进入 */
+    private boolean bIsEnter = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +129,9 @@ public class ProductDetailInfoActivity extends Activity {
         initManager();
         initRes();
         initImageLoaderConf();
+
+
+        mDetailInfoBiz.onCreate();
     }
 
     private void initRes() {
@@ -153,6 +165,8 @@ public class ProductDetailInfoActivity extends Activity {
     private void initView() {
         mViewNetWrapper = findViewById(R.id.activity_detailinfo_net_error_wrapper);
         mViewAllContentWrapper = findViewById(R.id.activity_detailinfo_allcontent_wrapper);
+        mExScrollView = (ExScrollView) findViewById(R.id.detail_scrollview);
+        mLayoutView = mViewAllContentWrapper;
 
         mBtnBack = (ImageButton) findViewById(R.id.titlebar_btn_back);
         mBannerView = (BannerView) findViewById(R.id.activity_productdetailinfo_bannerview);
@@ -198,6 +212,29 @@ public class ProductDetailInfoActivity extends Activity {
 
     }
 
+
+
+    @Override
+    protected void onBtnReload() {
+        LogUtils.w(TAG, "onBtnReload()");
+        mDetailInfoBiz.onCreate();
+    }
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return mExScrollView;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+        LogUtils.w(TAG, "onRefreshLoadData()");
+        mDetailInfoBiz.onRefresh();
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return mLayoutView;
+    }
 
 
     private class UIMsgReceive extends BroadcastReceiver {
@@ -270,7 +307,7 @@ public class ProductDetailInfoActivity extends Activity {
 
 //        mTempAllPlayRecord.setText(mDetailInfoBiz.getHumanReadablePlayRecords());
         if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED)) {
-            mRecordAdapter.reSetDataAndNotify(mDetailInfoBiz.getRecordListData() );
+            mRecordAdapter.reSetDataAndNotify(mDetailInfoBiz.getRecordListData());
         }
 
 
@@ -283,19 +320,64 @@ public class ProductDetailInfoActivity extends Activity {
      */
     private void handleActivityProductDetailInfoUI(String uiAciton) {
         if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_START)) {
-            mViewAllContentWrapper.setVisibility(View.GONE);
-            mViewNetWrapper.setVisibility(View.VISIBLE);
-            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
-            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
+            handleLoadStart();
+
+
 
         } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_FAILED)) {
-            mViewAllContentWrapper.setVisibility(View.GONE);
-            mViewNetWrapper.setVisibility(View.VISIBLE);
-            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
-            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            handleLoadFailed();
+
 
         } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_PRODUCT_ACTIVITY_REQ_SUCCEED)) {
+            handLeLoadSuccess();
+
+
+        }
+
+    }
+
+    private void handLeLoadSuccess() {
+        int iLoadMode = mDetailInfoBiz.getLoadMode();
+        if (iLoadMode == Constant.Comm.MODE_ENTER) {
             handleUIActivityProductInfoLoadSuccess();
+
+        } else if (iLoadMode== Constant.Comm.MODE_REFRESH) {
+            dismissRefreshUI();
+            handleUIActivityProductInfoLoadSuccess();
+
+        } else if (iLoadMode == Constant.Comm.MODE_LOAD_MORE) {
+
+        }
+
+
+
+    }
+
+    private void handleLoadFailed() {
+        int iLoadMode = mDetailInfoBiz.getLoadMode();
+        if (iLoadMode == Constant.Comm.MODE_ENTER) {
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetWrapper, mViewAllContentWrapper);
+
+        } else if (iLoadMode== Constant.Comm.MODE_REFRESH) {
+            dismissRefreshUI();
+            String hint = getResources().getString(R.string.detail_update_failed);
+            LogUtils.toastShortMsg(this, hint);
+
+        } else if (iLoadMode == Constant.Comm.MODE_LOAD_MORE) {
+
+        }
+
+    }
+
+    private void handleLoadStart() {
+        int iLoadMode = mDetailInfoBiz.getLoadMode();
+        if (iLoadMode == Constant.Comm.MODE_ENTER) {
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNetWrapper, mViewAllContentWrapper);
+
+        } else if (iLoadMode== Constant.Comm.MODE_REFRESH) {
+
+
+        } else if (iLoadMode == Constant.Comm.MODE_LOAD_MORE) {
 
         }
 
@@ -309,8 +391,7 @@ public class ProductDetailInfoActivity extends Activity {
         mInventoryBuyWidget.initInventoryBuyWidget(mDetailInfoBiz.getDetailEntity().getLackPeople());
 
         //TODO
-        mViewAllContentWrapper.setVisibility(View.VISIBLE);
-        mViewNetWrapper.setVisibility(View.GONE);
+        handleNetUI(Constant.Comm.NET_SUCCESS, mViewNetWrapper, mViewAllContentWrapper);
 
         ActivityProductDetailInfoEntity detailEntity = mDetailInfoBiz.getDetailEntity();
 
@@ -496,8 +577,24 @@ public class ProductDetailInfoActivity extends Activity {
         super.onResume();
         registerUIReceive();
 
-        mDetailInfoBiz.onResume();
+        if (bIsEnter) {
+            bIsEnter = false;
+            mViewAllContentWrapper.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    onAutoRefreshUIShow();
+                }
+            }, 500);
+        }
     }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        bIsEnter = true;
+    }
+
 
     @Override
     protected void onStop() {

@@ -13,7 +13,6 @@ import com.example.liangge.indiana.comm.net.JsonStringRequest;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
-import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.google.gson.Gson;
@@ -60,6 +59,7 @@ public class DetailInfoBiz {
         /** 是否请求最新一期 */
         public static boolean bIsNewestActivity = false;
 
+        public static int iLoadMode = Constant.Comm.MODE_ENTER;
 
     }
 
@@ -111,6 +111,14 @@ public class DetailInfoBiz {
      */
     public ActivityProductDetailInfoEntity getDetailEntity() {
         return DataInfo.activityProductItemEntity;
+    }
+
+    /**
+     * 返回加载的模式
+     * @return
+     */
+    public int getLoadMode() {
+        return RequestInfo.iLoadMode;
     }
 
 
@@ -359,14 +367,26 @@ public class DetailInfoBiz {
 
 
     public void onCreate() {
-
-    }
-
-    public void onResume() {
+        RequestInfo.iLoadMode = Constant.Comm.MODE_ENTER;
         loadDetailInfo(false);
         RequestInfo.bLoadPlayRecordMore = false;
     }
 
+    public void onResume() {
+    }
+
+
+    public void onRestart() {
+        RequestInfo.iLoadMode = Constant.Comm.MODE_REFRESH;
+        loadDetailInfo(false);
+        RequestInfo.bLoadPlayRecordMore = false;
+    }
+
+    public void onRefresh() {
+        RequestInfo.iLoadMode = Constant.Comm.MODE_REFRESH;
+        loadDetailInfo(false);
+        RequestInfo.bLoadPlayRecordMore = false;
+    }
 
     public void onStop() {
 

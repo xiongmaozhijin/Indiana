@@ -70,7 +70,7 @@ public class CategroyDetailBiz extends BaseActivityBiz{
     private static class RequestInfo {
         public static long categoryId;
         public static int iCurPage;
-        public static int iLoadMode = Constant.Comm.ENTER;
+        public static int iLoadMode = Constant.Comm.MODE_ENTER;
 
     }
 
@@ -103,13 +103,13 @@ public class CategroyDetailBiz extends BaseActivityBiz{
 
 
     public void onRefreshLoadData() {
-        RequestInfo.iLoadMode = Constant.Comm.REFRESH;
+        RequestInfo.iLoadMode = Constant.Comm.MODE_REFRESH;
         loadData(false);
     }
 
 
     public void onScrollBottomLoadData() {
-        RequestInfo.iLoadMode = Constant.Comm.LOAD_MORE;
+        RequestInfo.iLoadMode = Constant.Comm.MODE_LOAD_MORE;
         loadData(true);
     }
 
@@ -142,7 +142,7 @@ public class CategroyDetailBiz extends BaseActivityBiz{
 
     @Override
     public void onCreate() {
-        RequestInfo.iLoadMode = Constant.Comm.ENTER;
+        RequestInfo.iLoadMode = Constant.Comm.MODE_ENTER;
         loadData(false);
     }
 

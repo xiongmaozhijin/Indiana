@@ -1,8 +1,6 @@
 package com.example.liangge.indiana.ui.Inner;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -178,26 +176,26 @@ public class CategoryListActivity extends BaseActivity2 {
 
     private void handleLoadSuccess() {
         int loadMode = mCategroyDetailBiz.getCurLoadMode();
-        if (loadMode == Constant.Comm.ENTER) {
+        if (loadMode == Constant.Comm.MODE_ENTER) {
             mViewNetHintWrapper.setVisibility(View.GONE);
             mViewAllContent.setVisibility(View.VISIBLE);
             mAdapter.resetDataAndNotify(mCategroyDetailBiz.getListData());
 
-        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+        } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
 
-        } else if (loadMode == Constant.Comm.REFRESH) {
+        } else if (loadMode == Constant.Comm.MODE_REFRESH) {
 
         }
     }
 
     private void handleLoadFailed() {
         int loadMode = mCategroyDetailBiz.getCurLoadMode();
-        if (loadMode == Constant.Comm.ENTER) {
+        if (loadMode == Constant.Comm.MODE_ENTER) {
             LogUtils.toastShortMsg(this, getResources().getString(R.string.activity_category_net_error));
 
-        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+        } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
 
-        } else if (loadMode == Constant.Comm.REFRESH) {
+        } else if (loadMode == Constant.Comm.MODE_REFRESH) {
             LogUtils.toastShortMsg(this, getResources().getString(R.string.activity_category_net_error));
 
         }
@@ -205,16 +203,16 @@ public class CategoryListActivity extends BaseActivity2 {
 
     private void handleLoadStart() {
         int loadMode = mCategroyDetailBiz.getCurLoadMode();
-        if (loadMode == Constant.Comm.ENTER) {
+        if (loadMode == Constant.Comm.MODE_ENTER) {
             mViewAllContent.setVisibility(View.GONE);
             mViewNetHintWrapper.setVisibility(View.VISIBLE);
             mViewNetHintWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.VISIBLE);
             mViewNetHintWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
 
-        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+        } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
             //TODO
 
-        } else if (loadMode == Constant.Comm.REFRESH) {
+        } else if (loadMode == Constant.Comm.MODE_REFRESH) {
 
         }
     }

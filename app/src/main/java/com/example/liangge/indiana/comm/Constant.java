@@ -14,16 +14,20 @@ public class Constant {
     }
 
 
+
+
     public interface Comm {
-        int REFRESH = 1;
-        int ENTER = 2;
-        int LOAD_MORE = 3;
+        int MODE_REFRESH = 1;
+        int MODE_ENTER = 2;
+        int MODE_LOAD_MORE = 3;
 
         int LOAD_MORE_SUCCESS = 100;
         int LOAD_MORE_START = 101;
         int LOAD_MORE_FAILED = 102;
 
-
+        int NET_FAILED_NO_NET = -1;
+        int NET_LOADING = 1;
+        int NET_SUCCESS = 2;
 
     }
 

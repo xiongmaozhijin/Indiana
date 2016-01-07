@@ -164,28 +164,28 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
 
     private void handleLoadStart() {
         int loadMode = mLatestBiz.getCurLoadMode();
-        if (loadMode == Constant.Comm.ENTER) {
-            handleNetUI(INetState.LOADING, mViewNotNetWorkWrpper, mViewContentWrapper);
+        if (loadMode == Constant.Comm.MODE_ENTER) {
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNotNetWorkWrpper, mViewContentWrapper);
 
-        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+        } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
             handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_START, false);
 
-        } else if (loadMode == Constant.Comm.REFRESH) {
+        } else if (loadMode == Constant.Comm.MODE_REFRESH) {
 
         }
     }
 
     private void handleLoadFailed() {
         int loadMode = mLatestBiz.getCurLoadMode();
-        if (loadMode == Constant.Comm.ENTER) {
-            handleNetUI(INetState.FAILED_NO_NET, mViewNotNetWorkWrpper, mViewContentWrapper);
+        if (loadMode == Constant.Comm.MODE_ENTER) {
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNotNetWorkWrpper, mViewContentWrapper);
 
 
-        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+        } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
             handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
 
 
-        } else if (loadMode == Constant.Comm.REFRESH) {
+        } else if (loadMode == Constant.Comm.MODE_REFRESH) {
             dismissRefreshUI();
             LogUtils.toastShortMsg(getActivity(), getResources().getString(R.string.activity_category_net_error));
 
@@ -194,11 +194,11 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
 
     private void handleLoadSuccess() {
         int loadMode = mLatestBiz.getCurLoadMode();
-        if (loadMode == Constant.Comm.ENTER) {
-            handleNetUI(INetState.SUCCESS, mViewNotNetWorkWrpper, mViewContentWrapper);
+        if (loadMode == Constant.Comm.MODE_ENTER) {
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNotNetWorkWrpper, mViewContentWrapper);
             mAdapter.setDatasAndNotify(mLatestBiz.getProductsData());
 
-        } else if (loadMode == Constant.Comm.LOAD_MORE) {
+        } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
             List<LastestBingoEntity> list = mLatestBiz.getProductsData();
             boolean isEmpty = list.size() > 0 ? false : true;
             handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
@@ -206,7 +206,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
                 mAdapter.loadMoreDataAndNotify(list);
             }
 
-        } else if (loadMode == Constant.Comm.REFRESH) {
+        } else if (loadMode == Constant.Comm.MODE_REFRESH) {
             dismissRefreshUI();
             mViewNotNetWorkWrpper.setVisibility(View.GONE);
             mViewContentWrapper.setVisibility(View.VISIBLE);
@@ -231,7 +231,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
         //TODO 加载数据
         LogUtils.w(TAG, "onRefreshLoadData()");
         handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
-        mLatestBiz.loadLastDataInfo(false, Constant.Comm.REFRESH);
+        mLatestBiz.loadLastDataInfo(false, Constant.Comm.MODE_REFRESH);
     }
 
     @Override
