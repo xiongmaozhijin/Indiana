@@ -340,6 +340,7 @@ public class IndianaFragment extends BaseRefreshFragment {
     @Override
     protected void onBtnReload() {
         LogUtils.w(TAG, "onBtnReload()");
+        mIndianaBiz.onFirstEnter();
     }
 
 

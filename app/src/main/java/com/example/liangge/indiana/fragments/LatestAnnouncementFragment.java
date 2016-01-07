@@ -68,6 +68,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     @Override
     protected void onBtnReload() {
         LogUtils.w(TAG, "onBtnReload()");
+        mLatestBiz.onFirstEnter();
     }
 
 
@@ -354,7 +355,15 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
         super.onEnter();
 //        mLatestBiz.onEnter();
         mExScrollView.smoothScrollTo(0, 0);
-        onAutoRefreshUIShow();
+        mViewContentWrapper.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                onAutoRefreshUIShow();
+            }
+        }, 500);
+
+
     }
 
     @Override

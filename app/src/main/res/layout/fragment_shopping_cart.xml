@@ -45,7 +45,7 @@
         android:id="@+id/f_shoppingcart_empty_wrapper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray"
+        android:background="@color/bg_1"
         android:visibility="visible">
 
         <LinearLayout
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
                 android:text="@string/f_shoppingcart_empty_cart"
-                android:textColor="@android:color/white" />
+                android:textColor="#90918c" />
 
             <!--            <Button
                             android:id="@+id/f_shoppingcart_btn_go_indiana"
