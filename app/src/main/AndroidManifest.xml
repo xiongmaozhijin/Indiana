@@ -64,6 +64,8 @@
         </activity>
         <activity android:name=".ui.user.SignInActivity" >
         </activity>
+        <activity android:name=".ui.user.EditUserInfoActivity" >
+        </activity>
     </application>
 
 </manifest>

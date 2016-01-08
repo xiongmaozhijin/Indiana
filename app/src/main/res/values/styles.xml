@@ -102,6 +102,17 @@
     </style>
 
 
+    <style name="personal_info_edit_bg">
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:background">@drawable/selector_edit_bg</item>
+        <item name="android:textColor">@color/fragment_item_title</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

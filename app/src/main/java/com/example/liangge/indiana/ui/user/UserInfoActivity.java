@@ -16,7 +16,7 @@ import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
 /**
- * 个人信息
+ * 个人资料
  */
 public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
@@ -57,8 +57,8 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
     }
 
     private void initView() {
-        mImgUserPortain = (ImageView) findViewById(R.id.imgview_user_portain);
-        mTxvUserInfo = (TextView) findViewById(R.id.txv_user_info);
+//        mImgUserPortain = (ImageView) findViewById(R.id.imgview_user_portain);
+//        mTxvUserInfo = (TextView) findViewById(R.id.txv_user_info);
     }
 
     private void initManager() {

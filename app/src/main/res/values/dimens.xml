@@ -23,4 +23,7 @@
 
     <item name="line_height_1" format="float" type="dimen">1.2</item>
 
+    <dimen name="personal_info_item_height">50.0dip</dimen>
+
+
 </resources>

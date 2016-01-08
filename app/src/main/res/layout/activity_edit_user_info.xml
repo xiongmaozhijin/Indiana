@@ -35,8 +35,9 @@
                 android:text="ID"
                 android:textSize="17.0sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/personal_info_nickname"
+                style="@style/personal_info_edit_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -77,8 +78,9 @@
                 android:text="@string/activity_personal_info_username"
                 android:textSize="17.0sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/personal_info_id"
+                style="@style/personal_info_edit_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -88,6 +90,7 @@
 
             <ImageView
                 android:id="@+id/arrow_right_3"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -118,17 +121,19 @@
                 android:text="@string/actiivty_personal_info_phone"
                 android:textSize="17.0sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/personal_info_phone"
+                style="@style/personal_info_edit_bg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10.0dip"
                 android:layout_toLeftOf="@+id/arrow_right_4"
-                android:text="" />
+                android:text="12345678911" />
 
             <ImageView
                 android:id="@+id/arrow_right_4"
+                android:visibility="invisible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -145,11 +150,11 @@
         </RelativeLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/address_wrapper"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/personal_info_item_height"
-            android:background="@android:color/white">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,31 +164,32 @@
                 android:text="@string/activity_personal_info_address"
                 android:textSize="17.0sp" />
 
-            <TextView
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10.0dip"
                 android:id="@+id/personal_info_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:layout_toLeftOf="@+id/arrow_right_5"
-                android:text="" />
+                android:text="详细地址"
+                style="@style/personal_info_edit_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <ImageView
-                android:id="@+id/arrow_right_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15.0dip"
-                android:contentDescription="@string/desc_common_image"
-                android:src="@drawable/ic_more" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:layout_alignParentBottom="true"
-                android:background="@color/common_line" />
-        </RelativeLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right"
+            android:id="@+id/btn_save"
+            android:onClick="onBtnSave"
+            style="@style/Button.main.Border"
+            android:layout_width="@dimen/cart_adjust_submit_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:minHeight="36.0dip"
+            android:padding="0.0dip"
+            android:text="保存" />
 
 
     </LinearLayout>
