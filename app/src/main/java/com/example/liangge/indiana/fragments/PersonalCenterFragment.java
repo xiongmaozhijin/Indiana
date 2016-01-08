@@ -382,8 +382,11 @@ public class PersonalCenterFragment extends BaseFragment {
         mTxvUserInfo.setVisibility(View.VISIBLE);
         String strUserInfoFormat = getResources().getString(R.string.f_personal_userinfo_1);
         String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getNickname(), mPersonalCenterBiz.getUserInfo().getBalance());
-        String userImgUrl = "drawable://" + R.drawable.user;
-//        String userImgUrl = mPersonalCenterBiz.getUserInfo().getPhoto();
+        String userImgUrlTemp = "drawable://" + R.drawable.user;
+        String userImgUrl = mPersonalCenterBiz.getUserInfo().getPhoto();
+        if (userImgUrl==null || userImgUrl.equals("null")) {
+            userImgUrl = userImgUrlTemp;
+        }
         ImageLoader.getInstance().displayImage(userImgUrl, mImgViewUserPortain, mDisplayImageOptions);
         mTxvUserInfo.setText(strUserInfo);
 

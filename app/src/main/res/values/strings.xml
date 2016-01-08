@@ -201,5 +201,7 @@
     <string name="user_info_good_name">收货人姓名:</string>
     <string name="user_info_good_phone">收货人手机:</string>
     <string name="user_info_address">收货人地址:</string>
+    <string name="personal_info_portrait">头像</string>
+    <string name="activity_personal_info_edit">编辑资料</string>
 
 </resources>

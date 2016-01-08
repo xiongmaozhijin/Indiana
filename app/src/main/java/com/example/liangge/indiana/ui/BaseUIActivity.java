@@ -1,8 +1,8 @@
 package com.example.liangge.indiana.ui;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.PersistableBundle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,6 +10,8 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -18,7 +20,7 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
 /**
- * 封装了下拉刷新，网络状况
+ * 封装了下拉刷新，网络状况，用户头像配置
  */
 public abstract class BaseUIActivity extends Activity {
 
@@ -30,9 +32,13 @@ public abstract class BaseUIActivity extends Activity {
 
     private boolean bIsEnter;
 
+    /** 用户头像像是配置 */
+    private DisplayImageOptions mDisplayImageUserPortraitOptions;
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        initUserPortraitImageLoaderConf();
 
     }
 
@@ -156,6 +162,30 @@ public abstract class BaseUIActivity extends Activity {
 
     }
 
+    /**
+     * 初始化用户头像显示配置
+     */
+    private void initUserPortraitImageLoaderConf() {
+        mDisplayImageUserPortraitOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.user_gray)
+                .showImageOnFail(R.drawable.user_gray)
+                .showImageOnLoading(R.drawable.user_gray)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(20))
+                .build();
+    }
+
+
+    /**
+     * 返回用户头像显示配置
+     * @return
+     */
+    protected DisplayImageOptions getUserPortraitImageConfig() {
+        return this.mDisplayImageUserPortraitOptions;
+    }
 
 
     /** 重新加载 */

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -12,6 +13,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 个人资料
@@ -19,8 +21,6 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
-
-    private DisplayImageOptions mDisplayImageOptions;
 
     private PersonalCenterBiz mPersonalCenterBiz;
 
@@ -30,7 +30,7 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     private TextView mTxvPhone;
 
-
+    private ImageView mImgUserPortrait;
 
 
     @Override
@@ -43,7 +43,6 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
     }
 
     private void initRes() {
-        initImageLoaderConf();
     }
 
     @Override
@@ -60,6 +59,7 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
         mTxvId = (TextView) findViewById(R.id.personal_info_id);
         mTxvUsername = (TextView) findViewById(R.id.personal_info_name);
         mTxvPhone = (TextView) findViewById(R.id.personal_info_phone);
+        mImgUserPortrait = (ImageView) findViewById(R.id.user_info_portrait);
 
     }
 
@@ -93,8 +93,10 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
             mTxvId.setText(user.getId() + "");
             mTxvUsername.setText(user.getNickname());
             mTxvPhone.setText(user.getPhone_number());
+            ImageLoader.getInstance().displayImage(user.getPhoto(), mImgUserPortrait, getUserPortraitImageConfig());
 
         }
+
     }
 
 
@@ -109,21 +111,6 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
     public void onBtnBack(View view) {
         finish();
     }
-
-
-
-    private void initImageLoaderConf() {
-        mDisplayImageOptions = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
-                .showImageOnFail(R.drawable.main_banner_img_load_fail)
-                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
-                .cacheOnDisk(true)
-                .cacheInMemory(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .considerExifParams(true)
-                .build();
-    }
-
 
 
 }

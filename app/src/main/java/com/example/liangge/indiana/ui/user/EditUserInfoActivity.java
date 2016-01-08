@@ -12,15 +12,19 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
+import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * 编辑个人信息
  */
-public class EditUserInfoActivity extends Activity {
+public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     private static final String TAG = EditUserInfoActivity.class.getSimpleName();
 
     private TextView mTxvId;
+
+    private ImageView mImgUserPortrait;
 
     private EditText mEdtUsername;
 
@@ -53,6 +57,7 @@ public class EditUserInfoActivity extends Activity {
 
     private void initView() {
         mTxvId = (TextView) findViewById(R.id.personal_info_id);
+        mImgUserPortrait = (ImageView) findViewById(R.id.user_info_portrait);
         mEdtUsername = (EditText) findViewById(R.id.personal_info_username);
         mEdtPhone = (EditText) findViewById(R.id.personal_info_phone);
 
@@ -85,6 +90,7 @@ public class EditUserInfoActivity extends Activity {
         if (mPersonalCenterBiz.isLogin()) {
             UserInfoEntity user = mPersonalCenterBiz.getUserInfo();
             mTxvId.setText(user.getId()+"");
+            ImageLoader.getInstance().displayImage(user.getPhoto(), mImgUserPortrait, getUserPortraitImageConfig() );
             mEdtUsername.setText(user.getNickname());
             mEdtPhone.setText(user.getPhone_number());
             mEdtGoodName.setText(user.getNickname());
@@ -118,6 +124,11 @@ public class EditUserInfoActivity extends Activity {
         view.setTag(isExpand);
     }
 
+    public void onBtnEditPortrait(View view) {
+        LogUtils.i(TAG, "编辑头像信息");
+
+    }
+
 
     /**
      * 保存个人信息
@@ -133,4 +144,13 @@ public class EditUserInfoActivity extends Activity {
     }
 
 
+    @Override
+    protected void handleUIMessage(String strUIAction) {
+
+    }
+
+    @Override
+    protected String getDebugTag() {
+        return TAG;
+    }
 }

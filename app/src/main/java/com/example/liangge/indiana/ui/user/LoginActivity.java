@@ -156,6 +156,7 @@ public class LogInActivity extends SimpleAdapterBaseActivity2 {
         } else if (iStatus == Constant.LogSignIn.LOG_SUCCESS) {
             LogUtils.e(TAG, "登录成功");
             mPersonalCenterBiz.logIn();
+            mPersonalCenterBiz.onEnter();
             finish();
         }
 
