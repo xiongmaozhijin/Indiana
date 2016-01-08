@@ -27,6 +27,7 @@ import com.example.liangge.indiana.ui.user.LogInActivity;
 import com.example.liangge.indiana.ui.user.LogSignInActivity;
 import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
+import com.example.liangge.indiana.ui.user.UserInfoActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -148,6 +149,17 @@ public class PersonalCenterFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 onBtnLogInOrLogOut();
+            }
+        });
+
+
+        mImgViewUserPortain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPersonalCenterBiz.isLogin()) {
+                    Intent i = new Intent(getActivity(), UserInfoActivity.class);
+                    startActivity(i);
+                }
             }
         });
 

@@ -140,7 +140,7 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
      */
     public void logIn() {
         _setLogin(true);
-        DataInfo.userInfo = Bizdto.changeToUserInfoEntity(mLogSignInBiz.getResponseLogEntity());
+        DataInfo.userInfo = Bizdto.changeToUserInfoEntity(DataInfo.userInfo, mLogSignInBiz.getResponseLogEntity());
     }
 
     /**
@@ -177,7 +177,7 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
         @Override
         protected String getJsonBody() {
             String jsonBody = String.format("{\"id\":%d, \"token\":\"%s\"}",
-                                                getUserInfo().getUserId(), getUserInfo().getToken());
+                                                getUserInfo().getId(), getUserInfo().getToken());
 
             LogUtils.w(TAG, "SlaveRequestUserInfo#jsonBody=%s", jsonBody);
             return jsonBody;

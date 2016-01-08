@@ -12,187 +12,287 @@
         android:layout_height="wrap_content"
         titlebar:titlebar_title="@string/activity_personal_info" />
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
-
-
-        <RelativeLayout
-            android:id="@+id/nickname_wrapper"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/personal_info_item_height"
-            android:background="@android:color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10.0dip"
-                android:text="ID"
-                android:textSize="17.0sp" />
-
-            <EditText
-                android:id="@+id/personal_info_nickname"
-                style="@style/personal_info_edit_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:layout_toLeftOf="@+id/arrow_right_2"
-                android:text="213123" />
-
-            <ImageView
-                android:id="@+id/arrow_right_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15.0dip"
-                android:contentDescription="@string/desc_common_image"
-                android:src="@drawable/ic_more"
-                android:visibility="invisible" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:layout_alignParentBottom="true"
-                android:background="@color/common_line" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/id_wrapper"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/personal_info_item_height"
-            android:background="@android:color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10.0dip"
-                android:text="@string/activity_personal_info_username"
-                android:textSize="17.0sp" />
-
-            <EditText
-                android:id="@+id/personal_info_id"
-                style="@style/personal_info_edit_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:layout_toLeftOf="@+id/arrow_right_3"
-                android:text="xiongmaozhijin" />
-
-            <ImageView
-                android:id="@+id/arrow_right_3"
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15.0dip"
-                android:contentDescription="@string/desc_common_image"
-                android:src="@drawable/ic_more" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:layout_alignParentBottom="true"
-                android:background="@color/common_line" />
-        </RelativeLayout>
-
-
-        <RelativeLayout
-            android:id="@+id/phone_wrapper"
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/personal_info_item_height"
-            android:background="@android:color/white">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10.0dip"
-                android:text="@string/actiivty_personal_info_phone"
-                android:textSize="17.0sp" />
-
-            <EditText
-                android:id="@+id/personal_info_phone"
-                style="@style/personal_info_edit_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10.0dip"
-                android:layout_toLeftOf="@+id/arrow_right_4"
-                android:text="12345678911" />
-
-            <ImageView
-                android:id="@+id/arrow_right_4"
-                android:visibility="invisible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="15.0dip"
-                android:contentDescription="@string/desc_common_image"
-                android:src="@drawable/ic_more" />
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="1.0px"
-                android:layout_alignParentBottom="true"
-                android:background="@color/common_line" />
-        </RelativeLayout>
-
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="14dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10.0dip"
-                android:text="@string/activity_personal_info_address"
-                android:textSize="17.0sp" />
 
-            <EditText
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10.0dip"
-                android:id="@+id/personal_info_address"
-                android:text="详细地址"
-                style="@style/personal_info_edit_bg"
+            <RelativeLayout
+                android:id="@+id/nickname_wrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/personal_info_item_height"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:text="ID"
+                    android:textSize="17.0sp" />
+
+                <TextView
+                    android:id="@+id/personal_info_id"
+                    style="@style/personal_info_edit_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_toLeftOf="@+id/arrow_right_2"
+                    android:text="213123" />
+
+                <ImageView
+                    android:id="@+id/arrow_right_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15.0dip"
+                    android:contentDescription="@string/desc_common_image"
+                    android:src="@drawable/ic_more"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_line" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/id_wrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/personal_info_item_height"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:text="@string/activity_personal_info_username"
+                    android:textSize="17.0sp" />
+
+                <EditText
+                    android:id="@+id/personal_info_username"
+                    style="@style/personal_info_edit_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_toLeftOf="@+id/arrow_right_3"
+                    android:text="xiongmaozhijin" />
+
+                <ImageView
+                    android:id="@+id/arrow_right_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15.0dip"
+                    android:contentDescription="@string/desc_common_image"
+                    android:src="@drawable/ic_more"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_line" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/phone_wrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/personal_info_item_height"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:text="@string/actiivty_personal_info_phone"
+                    android:textSize="17.0sp" />
+
+                <EditText
+                    android:id="@+id/personal_info_phone"
+                    style="@style/personal_info_edit_bg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10.0dip"
+                    android:layout_toLeftOf="@+id/arrow_right_4"
+                    android:text="12345678911" />
+
+                <ImageView
+                    android:id="@+id/arrow_right_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15.0dip"
+                    android:contentDescription="@string/desc_common_image"
+                    android:src="@drawable/ic_more"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_line" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/edit_address_out_wrapper"
+                android:onClick="onBtnEditAddress"
+                android:clickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10.0dp">
+
+                    <TextView
+                        android:id="@+id/edit_address_hint"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/personal_info_item_height"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@string/activity_personal_info_address"
+                        android:textSize="17.0sp" />
+
+                    <ImageView
+                        android:id="@+id/edit_address_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|right"
+                        android:layout_marginRight="15.0dip"
+                        android:src="@drawable/ic_more" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/line_temp1"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_line" />
+
+                <LinearLayout
+                    android:id="@+id/edit_address_inner_wrapper"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="10.0dip"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_info_good_name" />
+
+                        <EditText
+                            android:id="@+id/personal_info_good_name"
+                            style="@style/personal_info_edit_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10.0dip"
+                            android:text="收货人姓名" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="10.0dip"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_info_good_phone" />
+
+                        <EditText
+                            android:id="@+id/personal_info_good_phone"
+                            style="@style/personal_info_edit_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10.0dip"
+                            android:text="收货人手机" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="10.0dip"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_info_address" />
+
+                        <EditText
+                            android:id="@+id/personal_info_good_address"
+                            style="@style/personal_info_edit_bg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10.0dip"
+                            android:text="收货人地址" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_save"
+                style="@style/Button.main.Border"
+                android:layout_width="@dimen/cart_adjust_submit_width"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:minHeight="36.0dip"
+                android:onClick="onBtnSave"
+                android:padding="0.0dip"
+                android:text="保存" />
+
 
         </LinearLayout>
 
-
-        <Button
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_gravity="right"
-            android:id="@+id/btn_save"
-            android:onClick="onBtnSave"
-            style="@style/Button.main.Border"
-            android:layout_width="@dimen/cart_adjust_submit_width"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:minHeight="36.0dip"
-            android:padding="0.0dip"
-            android:text="保存" />
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
 </LinearLayout>

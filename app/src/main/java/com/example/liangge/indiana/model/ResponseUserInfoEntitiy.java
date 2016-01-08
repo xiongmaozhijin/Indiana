@@ -1,21 +1,24 @@
 package com.example.liangge.indiana.model;
 
+import com.example.liangge.indiana.model.user.UserInfoEntity;
+
 /**
  * 返回的用户信息实体
  * Created by baoing on 2015/12/28.
  */
 public class ResponseUserInfoEntitiy {
 
-    /** 返回的状态码 */
     private int status;
-
-    private String nickname;
-
     private String msg;
-
-    private int balance;
+    private UserInfoEntity data;
 
     public ResponseUserInfoEntitiy() {
+    }
+
+    public ResponseUserInfoEntitiy(int status, String msg, UserInfoEntity data) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
     }
 
     public int getStatus() {
@@ -34,30 +37,20 @@ public class ResponseUserInfoEntitiy {
         this.msg = msg;
     }
 
-    public int getBalance() {
-        return balance;
+    public UserInfoEntity getData() {
+        return data;
     }
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
-
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setData(UserInfoEntity data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "ResponseUserInfoEntitiy{" +
                 "status=" + status +
-                ", nickname='" + nickname + '\'' +
                 ", msg='" + msg + '\'' +
-                ", balance=" + balance +
+                ", data=" + data +
                 '}';
     }
 }

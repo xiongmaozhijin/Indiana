@@ -210,7 +210,7 @@ public class InventoryPayBiz {
 
         @Override
         protected String getJsonBody() {
-            PayRequestEntity payItem = Bizdto.changeToPayRequestEntity(mPersonalCenterBiz.getUserInfo().getUserId(),
+            PayRequestEntity payItem = Bizdto.changeToPayRequestEntity(mPersonalCenterBiz.getUserInfo().getId(),
                                                 mPersonalCenterBiz.getUserInfo().getToken(), mShoppingCartBiz.getListInventoryData() );
             Gson gson = new Gson();
             String jsonBody = gson.toJson(payItem);

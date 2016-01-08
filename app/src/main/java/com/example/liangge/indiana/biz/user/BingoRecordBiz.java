@@ -6,12 +6,10 @@ import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.BaseActivityBiz;
 import com.example.liangge.indiana.biz.MessageManager;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
-import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
-import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.google.gson.Gson;
@@ -154,7 +152,7 @@ public class BingoRecordBiz extends BaseActivityBiz{
 
         @Override
         protected String getJsonBody() {
-            String jsonBody = String.format("{\"account_id\":%d, \"page\":%d}", mPersonalCenterBiz.getUserInfo().getUserId(), RequestInfo.iStartPage);
+            String jsonBody = String.format("{\"account_id\":%d, \"page\":%d}", mPersonalCenterBiz.getUserInfo().getId(), RequestInfo.iStartPage);
 
             return jsonBody;
         }

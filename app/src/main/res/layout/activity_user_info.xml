@@ -22,7 +22,7 @@
 
 
         <RelativeLayout
-            android:id="@+id/nickname_wrapper"
+            android:id="@+id/id_wrapper"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/personal_info_item_height"
             android:background="@android:color/white">
@@ -36,7 +36,7 @@
                 android:textSize="17.0sp" />
 
             <TextView
-                android:id="@+id/personal_info_nickname"
+                android:id="@+id/personal_info_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -64,7 +64,9 @@
 
 
         <RelativeLayout
-            android:id="@+id/id_wrapper"
+            android:id="@+id/username_wrapper"
+            android:onClick="onBtnEditUserInfo"
+            android:clickable="true"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/personal_info_item_height"
             android:background="@android:color/white">
@@ -78,7 +80,7 @@
                 android:textSize="17.0sp" />
 
             <TextView
-                android:id="@+id/personal_info_id"
+                android:id="@+id/personal_info_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -106,6 +108,8 @@
 
         <RelativeLayout
             android:id="@+id/phone_wrapper"
+            android:onClick="onBtnEditUserInfo"
+            android:clickable="true"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/personal_info_item_height"
             android:background="@android:color/white">
@@ -125,7 +129,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10.0dip"
                 android:layout_toLeftOf="@+id/arrow_right_4"
-                android:text="" />
+                android:text="111" />
 
             <ImageView
                 android:id="@+id/arrow_right_4"
@@ -147,6 +151,8 @@
 
         <RelativeLayout
             android:id="@+id/address_wrapper"
+            android:onClick="onBtnEditUserInfo"
+            android:clickable="true"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/personal_info_item_height"
             android:background="@android:color/white">
@@ -160,7 +166,7 @@
                 android:textSize="17.0sp" />
 
             <TextView
-                android:id="@+id/personal_info_address"
+                android:id="@+id/personal_info_good_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

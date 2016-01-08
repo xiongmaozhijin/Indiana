@@ -8,6 +8,8 @@ import com.example.model.IndianaRecordEntity;
 import com.example.model.InventoryEntity;
 import com.example.model.LastestBingoEntity;
 import com.example.model.PayEntity;
+import com.example.model.ResponseUserInfoEntitiy;
+import com.example.model.UserInfoEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -35,7 +37,26 @@ public class MyClass {
 
 //        gerationInventroyInfo();
 
-        reGerationInventroyInfo();
+//        reGerationInventroyInfo();
+        
+        gerationUserInfo();
+
+    }
+
+    private static void gerationUserInfo() {
+        List<UserInfoEntity.UserAddress> addresses = new ArrayList<>();
+        addresses.add(new UserInfoEntity.UserAddress("a", "119", "province", "city", "area", "detail", 1));
+        addresses.add(new UserInfoEntity.UserAddress("a", "119", "province", "shenzhen", "area", "detail", 1));
+        UserInfoEntity user = new UserInfoEntity(12, "name", "token", 21, "urlPhoto", "110", addresses);
+        ResponseUserInfoEntitiy response = new ResponseUserInfoEntitiy(200, "succeess", user);
+        Gson gson = new Gson();
+        String json = gson.toJson(response);
+        System.out.println(json);
+
+        Gson gson1 = new Gson();
+        ResponseUserInfoEntitiy r1 = gson1.fromJson(json, ResponseUserInfoEntitiy.class);
+        System.out.println(r1.getData().getAddress().get(1).getCity());
+
     }
 
     private static void reGerationInventroyInfo() {

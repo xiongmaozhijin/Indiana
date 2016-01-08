@@ -4,15 +4,12 @@ import android.content.Context;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.BaseActivityBiz;
-import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.MessageManager;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
-import com.example.liangge.indiana.comm.net.VolleyBiz;
-import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.google.gson.Gson;
@@ -184,7 +181,7 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
         @Override
         protected String getJsonBody() {
-            String jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, mPersonalCenterBiz.getUserInfo().getUserId(), RequestInfo.iStartPage);
+            String jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, mPersonalCenterBiz.getUserInfo().getId(), RequestInfo.iStartPage);
             return jsonData;
         }
 

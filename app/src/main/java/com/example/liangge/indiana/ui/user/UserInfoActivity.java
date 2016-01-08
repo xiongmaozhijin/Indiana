@@ -1,17 +1,15 @@
 package com.example.liangge.indiana.ui.user;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
-import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
-import com.example.liangge.indiana.ui.BaseActivity2;
+import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
@@ -22,15 +20,17 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     private static final String TAG = UserInfoActivity.class.getSimpleName();
 
-    /** 用户头像 */
-    private ImageView mImgUserPortain;
-
-    /** 用户信息 */
-    private TextView mTxvUserInfo;
-
     private DisplayImageOptions mDisplayImageOptions;
 
     private PersonalCenterBiz mPersonalCenterBiz;
+
+    private TextView mTxvId;
+
+    private TextView mTxvUsername;
+
+    private TextView mTxvPhone;
+
+
 
 
     @Override
@@ -57,13 +57,14 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
     }
 
     private void initView() {
-//        mImgUserPortain = (ImageView) findViewById(R.id.imgview_user_portain);
-//        mTxvUserInfo = (TextView) findViewById(R.id.txv_user_info);
+        mTxvId = (TextView) findViewById(R.id.personal_info_id);
+        mTxvUsername = (TextView) findViewById(R.id.personal_info_name);
+        mTxvPhone = (TextView) findViewById(R.id.personal_info_phone);
+
     }
 
     private void initManager() {
         mPersonalCenterBiz = PersonalCenterBiz.getInstance(this);
-
     }
 
 
@@ -71,10 +72,7 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
     protected void onResume() {
         super.onResume();
         if (mPersonalCenterBiz.isLogin()) {
-            String userPortainUrl = mPersonalCenterBiz.getUserInfo().getPhoto();
-            long userID = mPersonalCenterBiz.getUserInfo().getUserId();
-            int balance = mPersonalCenterBiz.getUserInfo().getBalance();
-
+            initUserInfo();
 
         } else {
             Intent intent = new Intent(this, LogInActivity.class);
@@ -83,6 +81,36 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
         }
 
     }
+
+    /**
+     * 初始化个人信息
+     */
+    private void initUserInfo() {
+        if (mPersonalCenterBiz.isLogin()) {
+            UserInfoEntity user = mPersonalCenterBiz.getUserInfo();
+            LogUtils.w(TAG, "user=%s", user.toString());
+
+            mTxvId.setText(user.getId() + "");
+            mTxvUsername.setText(user.getNickname());
+            mTxvPhone.setText(user.getPhone_number());
+
+        }
+    }
+
+
+    public void onBtnEditUserInfo(View view) {
+        LogUtils.i(TAG, "onBtnEditUserInfo()");
+        Intent intent = new Intent(this, EditUserInfoActivity.class);
+        startActivity(intent);
+    }
+
+
+
+    public void onBtnBack(View view) {
+        finish();
+    }
+
+
 
     private void initImageLoaderConf() {
         mDisplayImageOptions = new DisplayImageOptions.Builder()

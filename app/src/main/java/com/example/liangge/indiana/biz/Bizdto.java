@@ -73,10 +73,9 @@ public class Bizdto {
     }
 
 
-    public static UserInfoEntity changeToUserInfoEntity(ResponseLogEntity item) {
-        UserInfoEntity userInfo = new UserInfoEntity();
+    public static UserInfoEntity changeToUserInfoEntity(UserInfoEntity userInfo, ResponseLogEntity item) {
 
-        userInfo.setUserId(item.getId());
+        userInfo.setId(item.getId());
         userInfo.setBalance(item.getBalance());
         userInfo.setPhoto(item.getPhoto());
         userInfo.setToken(item.getToken());
@@ -107,8 +106,14 @@ public class Bizdto {
 
 
     public static UserInfoEntity changeToUserInfoEntity(UserInfoEntity userItem, ResponseUserInfoEntitiy resItem) {
-        userItem.setBalance(resItem.getBalance());
-        userItem.setNickname(resItem.getNickname());
+        LogUtils.i(TAG, "uesrItem=%s, resItem=%s", userItem.toString(), resItem.getData().toString());
+        userItem.setPhoto(resItem.getData().getPhoto());
+        userItem.setBalance(resItem.getData().getBalance());
+        userItem.setNickname(resItem.getData().getNickname());
+        userItem.setAddress(resItem.getData().getAddress());
+        userItem.setPhone_number(resItem.getData().getPhone_number());
+
+        LogUtils.i(TAG, "uesrItem=%s, resItem=%s", userItem.toString(), resItem.getData().toString());
 
         return userItem;
     }

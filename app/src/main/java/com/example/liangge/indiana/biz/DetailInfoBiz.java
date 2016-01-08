@@ -330,7 +330,7 @@ public class DetailInfoBiz {
 
         private String getJsonBody() {
             String jsonBody = String.format("{\"issue_id\":%d, \"id\":%d, \"token\":\"%s\", \"new\":%b}", RequestInfo.lActivityId,
-                                                mPersonalCenterBiz.getUserInfo().getUserId(), mPersonalCenterBiz.getUserInfo().getToken(), RequestInfo.bIsNewestActivity );
+                                                mPersonalCenterBiz.getUserInfo().getId(), mPersonalCenterBiz.getUserInfo().getToken(), RequestInfo.bIsNewestActivity );
 
             LogUtils.i(TAG, "SlaveLoadDetailInfoThread#jsonBody=%s", jsonBody);
 
