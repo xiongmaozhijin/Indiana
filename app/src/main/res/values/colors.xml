@@ -34,5 +34,10 @@
     <color name="vertication_code_normal">#68caf1</color>
     <color name="vertication_code_press">#8ed6f2</color>
 
+    <color name="titlebar_color_1">#da3651</color>
+
+
+    <color name="txv_desc_blue1">#0278fe</color>
+    <color name="txv_desc_red1">#da3651</color>
 
 </resources>

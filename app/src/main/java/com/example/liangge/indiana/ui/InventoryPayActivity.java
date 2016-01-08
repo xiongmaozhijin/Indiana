@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ResponsePayInventoryEntity;
+import com.example.liangge.indiana.ui.user.LogInActivity;
 import com.example.liangge.indiana.ui.user.LogSignInActivity;
 
 /**
@@ -92,7 +93,7 @@ public class InventoryPayActivity extends BaseActivity {
             mInventoryPayBiz.onResume();
 
         } else {    //没有登录
-            Intent intent = new Intent(this, LogSignInActivity.class);
+            Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);
             finish();
 

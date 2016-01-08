@@ -10,41 +10,44 @@
         android:gravity="center">
 
         <Button
-            android:layout_marginLeft="0.1dp"
-            android:layout_marginTop="0.1dp"
-            android:layout_marginBottom="0.1dp"
             android:id="@+id/inventory_buy_sub_btn"
-            android:padding="0dp"
             android:layout_width="46dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="0.1dp"
+            android:layout_marginLeft="0.1dp"
+            android:layout_marginTop="0.1dp"
             android:background="@drawable/selector_widget_inventory_buy"
+            android:padding="0dp"
             android:text="—"
+            android:textColor="@color/fragment_item_title"
             android:textSize="22sp" />
 
         <EditText
             android:id="@+id/inventory_buy_edit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="0.1dp"
             android:layout_marginLeft="0.1dp"
             android:layout_marginRight="0.1dp"
             android:layout_marginTop="0.1dp"
-            android:layout_marginBottom="0.1dp"
             android:layout_weight="1"
             android:background="@android:color/white"
             android:cursorVisible="true"
             android:gravity="center"
             android:inputType="number"
-            android:text="1" />
+            android:text="1"
+            android:textColor="@color/fragment_item_title" />
 
         <Button
-            android:layout_marginRight="0.1dp"
-            android:layout_marginTop="0.1dp"
-            android:layout_marginBottom="0.1dp"
             android:id="@+id/inventory_buy_plus_btn"
             android:layout_width="46dp"
             android:layout_height="match_parent"
+            android:layout_marginBottom="0.1dp"
+            android:layout_marginRight="0.1dp"
+            android:layout_marginTop="0.1dp"
             android:background="@drawable/selector_widget_inventory_buy_right"
             android:text="+"
+            android:textColor="@color/fragment_item_title"
             android:textSize="22sp" />
 
     </LinearLayout>

@@ -6,9 +6,10 @@
 
     <!-- Titlebar-->
     <RelativeLayout
+        android:id="@+id/titlebar_wrapper"
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
-        android:background="@android:color/holo_red_dark">
+        android:background="@color/titlebar_color_1">
 
         <ImageButton
             android:id="@+id/titlebar_btn_back"

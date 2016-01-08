@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="CommTitleBar">
         <attr name="titlebar_title" format="string" />
-
+        <attr name="titlebar_color" format="color" />
 <!--
         <attr name="exampleDimension" format="dimension" />
         <attr name="exampleColor" format="color" />

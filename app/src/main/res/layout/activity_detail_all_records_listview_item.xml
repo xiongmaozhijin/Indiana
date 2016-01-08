@@ -11,6 +11,7 @@
             android:id="@+id/playrecords_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:lineSpacingMultiplier="@dimen/line_height_1"
             android:text="@string/activity_detailinfo_listview_item_txv_info_format"/>
 
     </LinearLayout>

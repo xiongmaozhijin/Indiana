@@ -79,7 +79,7 @@ public class RotateImageView extends ImageView {
         public void run() {
             while (this.isActive) {
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(30);
                     mRotateDegress += 3;
                     postInvalidate();
 

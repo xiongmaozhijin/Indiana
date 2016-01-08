@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/titlebar_height"
-        android:background="@android:color/holo_red_dark">
+        android:background="@color/titlebar_color">
 
         <ImageButton
             android:id="@+id/activity_webview_btn_back"
@@ -26,9 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="webview标题"
-            android:textStyle="bold"
             android:textColor="@android:color/white"
-            android:textSize="24sp"
+            style="@style/titlebar_title"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>

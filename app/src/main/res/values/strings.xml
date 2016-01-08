@@ -153,9 +153,9 @@
             <head><title></title></head>
             <body>
                 <div>
-                    <font color="blue">%1$s</font><br></br>
-                    <font color="black">参与了</font><font color="red">%2$s</font>
-                    <font color="black">次</font>\t
+                    <font color="#0278fe">%1$s</font><br></br>
+                    <font color="#686868">参与了</font><font color="#da3651">%2$s</font>
+                    <font color="#686868">次</font>\t
                     <font color="gray">%3$s</font>
                 </div>
             </body>

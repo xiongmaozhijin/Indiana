@@ -21,269 +21,278 @@
         android:layout_height="match_parent">
 
 
+        <!-- 没有网络或加载中 -->
+        <include
+            android:id="@+id/activity_detailinfo_net_error_wrapper"
+            layout="@layout/layout_not_network" />
 
-            <!-- 没有网络或加载中 -->
-            <include
-                android:id="@+id/activity_detailinfo_net_error_wrapper"
-                layout="@layout/layout_not_network" />
+        <!-- 所有内容 -->
+        <FrameLayout
+            android:id="@+id/activity_detailinfo_allcontent_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
-            <!-- 所有内容 -->
-            <FrameLayout
-                android:id="@+id/activity_detailinfo_allcontent_wrapper"
-                android:visibility="gone"
+            <in.srain.cube.views.ptr.PtrClassicFrameLayout
+                android:id="@+id/rotate_header_web_view_frame"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/cube_mints_f1f1f1"
+                app:ptr_duration_to_close="200"
+                app:ptr_duration_to_close_header="1000"
+                app:ptr_keep_header_when_refresh="true"
+                app:ptr_pull_to_fresh="false"
+                app:ptr_ratio_of_header_height_to_refresh="1.2"
+                app:ptr_resistance="1.7">
 
-                <in.srain.cube.views.ptr.PtrClassicFrameLayout
-                    android:id="@+id/rotate_header_web_view_frame"
+                <!-- 主体内容 -->
+                <com.example.liangge.indiana.ui.widget.ExScrollView
+                    android:id="@+id/detail_scrollview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/cube_mints_f1f1f1"
-                    app:ptr_duration_to_close="200"
-                    app:ptr_duration_to_close_header="1000"
-                    app:ptr_keep_header_when_refresh="true"
-                    app:ptr_pull_to_fresh="false"
-                    app:ptr_ratio_of_header_height_to_refresh="1.2"
-                    app:ptr_resistance="1.7">
+                    android:layout_height="match_parent">
 
-                    <!-- 主体内容 -->
-                    <com.example.liangge.indiana.ui.widget.ExScrollView
-                        android:id="@+id/detail_scrollview"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white"
+                        android:orientation="vertical">
 
+                        <!-- 上百部分 -->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <!-- 上百部分 -->
+
+                            <!-- 商品图片轮播 -->
+                            <!-- 图片轮播部分 -->
+                            <com.example.liangge.indiana.ui.widget.BannerView
+                                xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/activity_productdetailinfo_bannerview"
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:layout_marginBottom="6dp"
+                                android:visibility="visible"
+                                appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
+                                appbannerview:selectIndexDrawable="@drawable/detail_banner_indicator_select"
+                                appbannerview:space="3dp" />
+
+                            <!-- title content describe -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/white"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/activity_detail_pading_side"
+                                android:paddingRight="@dimen/activity_detail_pading_side">
+
+                                <TextView
+                                    android:id="@+id/activity_productdetailinfo_title_describe1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="4dp"
+                                    android:text="已揭晓"
+                                    android:textColor="@android:color/holo_purple" />
+
+                                <TextView
+                                    android:id="@+id/activity_productdetailinfo_title_describe2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:lineSpacingMultiplier="1.2"
+                                    android:maxLines="2"
+                                    android:text="（第1213期）手机话费30元 中国联通/移动/电信 全网通用" />
+
+                            </LinearLayout>
+
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="9dp"
+                                android:layout_marginTop="9dp"
+                                android:background="@android:color/white">
+
+                                <!--进行中 -->
+                                <FrameLayout
+                                    android:id="@+id/activity_productdetailinfo_process_ing_wrapper"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:visibility="gone">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical"
+                                        android:paddingLeft="@dimen/activity_detail_pading_side"
+                                        android:paddingRight="@dimen/activity_detail_pading_side">
+
+                                        <TextView
+                                            android:id="@+id/activity_productdetailinfo_process_ing_desc1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/activity_productdetailinfo_progressing_des1"
+                                            android:textColor="#CACACA" />
+
+                                        <ProgressBar
+                                            android:id="@+id/activity_productdetailinfo_process_ing_process"
+                                            style="@style/ProgressBar_Mini"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="7dp"
+                                            android:layout_marginBottom="4dp"
+                                            android:layout_marginLeft="2dp"
+                                            android:layout_marginTop="4dp"
+                                            android:max="1000"
+                                            android:progress="45" />
+
+                                        <TextView
+                                            android:id="@+id/activity_productdetailinfo_process_ing_desc2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/activity_productdetailinfo_progressing_des2"
+                                            android:textColor="#CACACA" />
+                                    </LinearLayout>
+
+                                </FrameLayout>
+
+
+                                <!-- 已揭晓 -->
+                                <FrameLayout
+                                    android:id="@+id/activity_productdetailinfo_process_done_wrapper"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/activity_detailinfo_bingoinfo_bg1"
+                                    android:padding="@dimen/activity_detail_bingoinfo_bg_padding_1"
+                                    android:visibility="gone">
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingTop="9dp">
+
+                                        <ImageView
+                                            android:id="@+id/activity_productdetailinfo_bingo_user_portain"
+                                            android:layout_width="32dp"
+                                            android:layout_height="32dp"
+                                            android:layout_alignParentTop="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginLeft="9dp"
+                                            android:src="@drawable/main_banner_img_load_fail" />
+
+                                        <LinearLayout
+                                            android:id="@+id/activity_productdetailinfo_bingo_info_wrapper"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="7dp"
+                                            android:layout_toRightOf="@id/activity_productdetailinfo_bingo_user_portain"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:id="@+id/activity_productdetailinfo_bingo_info"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:lineSpacingMultiplier="1.5"
+                                                android:text="@string/activity_detail_bingouser_info" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:id="@+id/activity_productdetailinfo_bingo_bottom_wrapper"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="45dp"
+                                            android:layout_below="@id/activity_productdetailinfo_bingo_info_wrapper"
+                                            android:layout_marginTop="5dp"
+                                            android:background="@drawable/detial_bingoinfo_lucky_num_bg_r"
+                                            android:gravity="center_vertical"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="left|center_vertical"
+                                                android:layout_marginLeft="11dp"
+                                                android:layout_marginRight="4dp"
+                                                android:text="@string/activity_productdetailinfo_lucky_number_1"
+                                                android:textColor="@android:color/white" />
+
+                                            <TextView
+                                                android:id="@+id/activity_productdetailinfo_luncky_number"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1"
+                                                android:text="@string/activity_productdetailinfo_lucky_number"
+                                                android:textColor="@android:color/white"
+                                                android:textSize="22sp" />
+
+                                            <Button
+                                                android:id="@+id/activity_productdetailinfo_btn_calc_detail"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="22dp"
+                                                android:layout_gravity="center_vertical|right"
+                                                android:layout_marginRight="11dp"
+                                                android:background="@drawable/selector_activity_detailuserinfo_calc_btn"
+                                                android:onClick="onBtnCalcDetail"
+                                                android:paddingLeft="7dp"
+                                                android:paddingRight="7dp"
+                                                android:text="@string/activity_productdetailinfo_btn_why_calc"
+                                                android:textColor="@android:color/white"
+                                                android:textSize="14sp" />
+
+
+                                        </LinearLayout>
+
+
+                                    </RelativeLayout>
+
+                                </FrameLayout>
+
+
+                                <!-- 揭晓中 -->
+                                <FrameLayout
+                                    android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="48dp"
+                                    android:visibility="gone">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:paddingLeft="@dimen/activity_detail_pading_side"
+                                        android:text="@string/activity_productdetailinfo_bingo_ing_hint"
+                                        android:textColor="#CACACA" />
+
+                                </FrameLayout>
+
+
+                            </FrameLayout>
+
+                            <!-- 是否参与到这次夺宝 -->
+                            <TextView
+                                android:id="@+id/activity_hasjoin_txv_hint"
+                                android:layout_width="match_parent"
+                                android:layout_height="34dp"
+                                android:layout_marginLeft="@dimen/activity_detail_pading_side"
+                                android:layout_marginRight="@dimen/activity_detail_pading_side"
+                                android:background="#f3f3f3"
+                                android:gravity="center"
+                                android:text="@string/activity_productdetailinfo_hasjoin_hint"
+                                android:textColor="#9a9a9a"
+                                android:textSize="12sp" />
+
+
+                        </LinearLayout>
+
+
+                        <!-- 中间部分 menu 选项 -->
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-
-                                <!-- 商品图片轮播 -->
-                                <!-- 图片轮播部分 -->
-                                <com.example.liangge.indiana.ui.widget.BannerView
-                                    xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/activity_productdetailinfo_bannerview"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="180dp"
-                                    android:visibility="visible"
-                                    appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
-                                    appbannerview:selectIndexDrawable="@drawable/detail_banner_indicator_select"
-                                    appbannerview:space="3dp" />
-
-                                <!-- title content describe -->
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@android:color/white"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="@dimen/activity_detail_pading_side"
-                                    android:paddingRight="@dimen/activity_detail_pading_side">
-
-                                    <TextView
-                                        android:id="@+id/activity_productdetailinfo_title_describe1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="4dp"
-                                        android:text="已揭晓"
-                                        android:textColor="@android:color/holo_purple" />
-
-                                    <TextView
-                                        android:id="@+id/activity_productdetailinfo_title_describe2"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:lineSpacingMultiplier="1.2"
-                                        android:maxLines="2"
-                                        android:text="（第1213期）手机话费30元 中国联通/移动/电信 全网通用" />
-
-                                </LinearLayout>
-
-
-                                <FrameLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="9dp"
-                                    android:layout_marginTop="9dp"
-                                    android:background="@android:color/white">
-
-                                    <!--进行中 -->
-                                    <FrameLayout
-                                        android:id="@+id/activity_productdetailinfo_process_ing_wrapper"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:visibility="gone">
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:orientation="vertical"
-                                            android:paddingLeft="@dimen/activity_detail_pading_side"
-                                            android:paddingRight="@dimen/activity_detail_pading_side">
-
-                                            <TextView
-                                                android:id="@+id/activity_productdetailinfo_process_ing_desc1"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="@string/activity_productdetailinfo_progressing_des1"
-                                                android:textColor="#CACACA" />
-
-                                            <ProgressBar
-                                                android:id="@+id/activity_productdetailinfo_process_ing_process"
-                                                style="@style/ProgressBar_Mini"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="7dp"
-                                                android:layout_marginLeft="2dp"
-                                                android:max="1000"
-                                                android:progress="45" />
-
-                                            <TextView
-                                                android:id="@+id/activity_productdetailinfo_process_ing_desc2"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:text="@string/activity_productdetailinfo_progressing_des2"
-                                                android:textColor="#CACACA" />
-                                        </LinearLayout>
-
-                                    </FrameLayout>
-
-
-                                    <!-- 已揭晓 -->
-                                    <FrameLayout
-                                        android:id="@+id/activity_productdetailinfo_process_done_wrapper"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:background="@drawable/activity_detailinfo_bingoinfo_bg1"
-                                        android:padding="@dimen/activity_detail_bingoinfo_bg_padding_1"
-                                        android:visibility="visible">
-
-                                        <RelativeLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:paddingTop="9dp">
-
-                                            <ImageView
-                                                android:id="@+id/activity_productdetailinfo_bingo_user_portain"
-                                                android:layout_width="32dp"
-                                                android:layout_height="32dp"
-                                                android:layout_alignParentTop="true"
-                                                android:layout_centerVertical="true"
-                                                android:layout_marginLeft="9dp"
-                                                android:src="@drawable/main_banner_img_load_fail" />
-
-                                            <LinearLayout
-                                                android:id="@+id/activity_productdetailinfo_bingo_info_wrapper"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginLeft="7dp"
-                                                android:layout_toRightOf="@id/activity_productdetailinfo_bingo_user_portain"
-                                                android:orientation="vertical">
-
-                                                <TextView
-                                                    android:id="@+id/activity_productdetailinfo_bingo_info"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:lineSpacingMultiplier="1.5"
-                                                    android:text="@string/activity_detail_bingouser_info" />
-
-                                            </LinearLayout>
-
-                                            <LinearLayout
-                                                android:id="@+id/activity_productdetailinfo_bingo_bottom_wrapper"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="45dp"
-                                                android:layout_below="@id/activity_productdetailinfo_bingo_info_wrapper"
-                                                android:layout_marginTop="5dp"
-                                                android:background="@drawable/detial_bingoinfo_lucky_num_bg_r"
-                                                android:gravity="center_vertical"
-                                                android:orientation="horizontal">
-
-                                                <TextView
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_gravity="left|center_vertical"
-                                                    android:layout_marginLeft="11dp"
-                                                    android:layout_marginRight="4dp"
-                                                    android:text="@string/activity_productdetailinfo_lucky_number_1"
-                                                    android:textColor="@android:color/white" />
-
-                                                <TextView
-                                                    android:id="@+id/activity_productdetailinfo_luncky_number"
-                                                    android:layout_width="0dp"
-                                                    android:layout_height="wrap_content"
-                                                    android:layout_weight="1"
-                                                    android:text="@string/activity_productdetailinfo_lucky_number"
-                                                    android:textColor="@android:color/white"
-                                                    android:textSize="22sp" />
-
-                                                <Button
-                                                    android:id="@+id/activity_productdetailinfo_btn_calc_detail"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="22dp"
-                                                    android:layout_gravity="center_vertical|right"
-                                                    android:layout_marginRight="11dp"
-                                                    android:background="@drawable/selector_activity_detailuserinfo_calc_btn"
-                                                    android:onClick="onBtnCalcDetail"
-                                                    android:paddingLeft="7dp"
-                                                    android:paddingRight="7dp"
-                                                    android:text="@string/activity_productdetailinfo_btn_why_calc"
-                                                    android:textColor="@android:color/white"
-                                                    android:textSize="14sp" />
-
-
-                                            </LinearLayout>
-
-
-                                        </RelativeLayout>
-
-                                    </FrameLayout>
-
-
-                                    <!-- 揭晓中 -->
-                                    <FrameLayout
-                                        android:id="@+id/activity_productdetailinfo_bingo_ing_wrapper"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="48dp"
-                                        android:visibility="gone">
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_gravity="center_vertical"
-                                            android:paddingLeft="@dimen/activity_detail_pading_side"
-                                            android:text="@string/activity_productdetailinfo_bingo_ing_hint"
-                                            android:textColor="#CACACA" />
-
-                                    </FrameLayout>
-
-
-                                </FrameLayout>
-
-                                <!-- 是否参与到这次夺宝 -->
-                                <TextView
-                                    android:id="@+id/activity_hasjoin_txv_hint"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="48dp"
-                                    android:layout_marginLeft="@dimen/activity_detail_pading_side"
-                                    android:layout_marginRight="@dimen/activity_detail_pading_side"
-                                    android:background="#f3f3f3"
-                                    android:gravity="center"
-                                    android:text="@string/activity_productdetailinfo_hasjoin_hint"
-                                    android:textColor="#9a9a9a"
-                                    android:textSize="12sp" />
-
-
-                            </LinearLayout>
-
-
-                            <!-- 中间部分 menu 选项 -->
-                            <FrameLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
 
                                 <LinearLayout
                                     android:id="@+id/activity_productdetailinfo_more_info_wrapper"
@@ -315,177 +324,326 @@
 
                                 </LinearLayout>
 
-                            </FrameLayout>
-
-
-                            <!-- 下半部分 -->
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="#f1eeec"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="42dp"
-                                    android:layout_marginBottom="11dp"
-                                    android:background="@android:color/white"
-                                    android:gravity="center_vertical"
-                                    android:paddingLeft="@dimen/activity_detail_pading_side"
-                                    android:text="@string/activity_productdetailinfo_alljoin_record"
-                                    android:textSize="@dimen/activity_detailinfo_menu_text_size" />
-
-
-                                <com.example.liangge.indiana.ui.widget.ExListView
-                                    android:id="@+id/activity_productdetailinfo_listview_records"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="64dp"
-                                    android:dividerHeight="1dp"
-                                    android:paddingBottom="19dp"
-                                    android:paddingLeft="@dimen/activity_detail_pading_side" />
-
+                                <ImageView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="1.0px"
+                                    android:background="#ffdcdcdc"
+                                    android:contentDescription="@string/desc_common_image" />
 
                             </LinearLayout>
 
 
+                        </FrameLayout>
+
+
+                        <!-- 下半部分 -->
+                        <LinearLayout
+                            android:layout_marginTop="9dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="#f1eeec"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="42dp"
+                                android:layout_marginBottom="11dp"
+                                android:background="@android:color/white"
+                                android:gravity="center_vertical"
+                                android:paddingLeft="@dimen/activity_detail_pading_side"
+                                android:text="@string/activity_productdetailinfo_alljoin_record"
+                                android:textSize="@dimen/activity_detailinfo_menu_text_size" />
+
+
+                            <com.example.liangge.indiana.ui.widget.ExListView
+                                android:id="@+id/activity_productdetailinfo_listview_records"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="64dp"
+                                android:listSelector="@color/transparent"
+                                android:dividerHeight="1dp"
+                                android:paddingBottom="19dp"
+                                android:paddingLeft="@dimen/activity_detail_pading_side" />
+
+
                         </LinearLayout>
 
-                    </com.example.liangge.indiana.ui.widget.ExScrollView>
 
-                </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+                    </LinearLayout>
 
-            </FrameLayout>
+                </com.example.liangge.indiana.ui.widget.ExScrollView>
 
-
-
-        <!-- 浮动购买 -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
-
-            <!-- 添加到购物车 -->
-            <FrameLayout
-                android:id="@+id/add_to_shoppingcart_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/activity_detailinfo_ll_bg"
-                    android:descendantFocusability="afterDescendants"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <Button
-                            android:layout_width="120dp"
-                            android:layout_height="@dimen/activity_detail_bottom_btn_height"
-                            android:layout_gravity="center"
-                            android:background="@drawable/selector_detailinfo_buy_item_btn"
-                            android:onClick="onBtnYiYuanDuoBao"
-                            android:paddingLeft="15dp"
-                            android:paddingRight="15dp"
-                            android:text="@string/activity_detailInfo_btn_yiyuanduobao"
-                            android:textColor="@android:color/white" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1">
-
-                        <Button
-                            android:id="@+id/btn_add_to_shoppingcart"
-                            android:layout_width="120dp"
-                            android:layout_height="@dimen/activity_detail_bottom_btn_height"
-                            android:layout_gravity="center"
-                            android:background="@drawable/selector_detailinfo_btn_2"
-                            android:onClick="onBtnAddToShoppingCart"
-                            android:text="@string/activity_detailinfo_addto_shoppingcart"
-                            android:textColor="#F2B2BB" />
-
-                    </FrameLayout>
-
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-
-
-                        <ImageButton
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/selector_detail_shoppingcart"
-                            android:onClick="onBtnShoppingCart" />
-
-                    </FrameLayout>
-
-
-                    <!-- 修改，不显示这个 -->
-                    <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
-                        android:id="@+id/widget_buy_item"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-            </FrameLayout>
-
-            <!-- 参与火热的下一期 -->
-            <FrameLayout
-                android:id="@+id/activity_join_next_hot_activity_wrapper"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@android:color/white"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/activity_detailinfo_ll_bg"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/activity_detail_pading_side"
-                    android:paddingRight="@dimen/activity_detail_pading_side">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="@string/activity_detail_go_next_hot_activity_hint"
-                        android:textColor="@color/activity_detail_menu_txv" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/activity_detail_bottom_btn_height"
-                        android:layout_gravity="right|center_vertical"
-                        android:background="@drawable/selector_detailinfo_buy_item_btn"
-                        android:onClick="onBtnGoNextHotActivity"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:text="@string/activity_detailinfo_btn_go_nexthot_acitivity"
-                        android:textColor="@android:color/white"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-
-            </FrameLayout>
-
+            </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
         </FrameLayout>
 
+
+        <!--浮动菜单-->
+        <RelativeLayout
+            android:id="@+id/layout_bottomBar"
+            android:layout_width="fill_parent"
+            android:layout_height="60.0dip"
+            android:layout_gravity="bottom"
+            android:background="@color/white">
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="#ffdcdcdc"
+                android:contentDescription="@string/desc_common_image" />
+
+            <!--购买-->
+            <LinearLayout
+                android:id="@+id/add_to_shoppingcart_wrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <Button
+                    style="@style/Button.main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40.0dip"
+                    android:layout_marginLeft="11.0dip"
+                    android:layout_weight="1.0"
+                    android:onClick="onBtnYiYuanDuoBao"
+                    android:text="@string/one_app_name" />
+
+                <Button
+                    android:id="@+id/btn_add_to_shoppingcart"
+                    style="@style/Button.main.Border"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40.0dip"
+                    android:layout_marginLeft="11.0dip"
+                    android:layout_weight="1.0"
+                    android:onClick="onBtnAddToShoppingCart"
+                    android:text="@string/add_to_cart" />
+
+                <RelativeLayout
+                    android:id="@+id/cart_icon_wrapper"
+                    android:layout_width="48.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_marginLeft="4.0dip"
+                    android:layout_marginRight="4.0dip"
+                    android:background="@drawable/common_background">
+
+                    <ImageView
+                        android:id="@+id/cart_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="5.0dip"
+                        android:clickable="true"
+                        android:contentDescription="@string/desc_common_image"
+                        android:onClick="onBtnShoppingCart"
+                        android:src="@drawable/selector_detail_ic_list" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!--前往下一期-->
+            <RelativeLayout
+                android:id="@+id/activity_join_next_hot_activity_wrapper"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_currentNow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10.0dip"
+                    android:text="@string/activity_detail_go_next_hot_activity_hint"
+                    android:textColor="#ff676767" />
+
+                <Button
+                    android:id="@+id/bt_goCurrentPeriod"
+                    android:layout_width="145.0dip"
+                    android:layout_height="40.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/btn_main"
+                    android:onClick="onBtnGoNextHotActivity"
+                    android:text="@string/good_detail_go_right_now_text"
+                    android:textColor="#ffffffff" />
+            </RelativeLayout>
+
+
+            <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
+                android:id="@+id/widget_buy_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <!--
+
+                &lt;!&ndash; 浮动购买 &ndash;&gt;
+                <FrameLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom">
+
+                    &lt;!&ndash; 添加到购物车 &ndash;&gt;
+                    <FrameLayout
+                        android:id="@+id/add_to_shoppingcart_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/activity_detailinfo_ll_bg"
+                            android:descendantFocusability="afterDescendants"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                                <Button
+                                    android:layout_width="120dp"
+                                    android:layout_height="@dimen/activity_detail_bottom_btn_height"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/selector_detailinfo_buy_item_btn"
+                                    android:onClick="onBtnYiYuanDuoBao"
+                                    android:paddingLeft="15dp"
+                                    android:paddingRight="15dp"
+                                    android:text="@string/activity_detailInfo_btn_yiyuanduobao"
+                                    android:textColor="@android:color/white" />
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1">
+
+                                <Button
+                                    android:id="@+id/btn_add_to_shoppingcart"
+                                    android:layout_width="120dp"
+                                    android:layout_height="@dimen/activity_detail_bottom_btn_height"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/selector_detailinfo_btn_2"
+                                    android:onClick="onBtnAddToShoppingCart"
+                                    android:text="@string/activity_detailinfo_addto_shoppingcart"
+                                    android:textColor="#F2B2BB" />
+
+                            </FrameLayout>
+
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent">
+
+
+                                <ImageButton
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/selector_detail_shoppingcart"
+                                    android:onClick="onBtnShoppingCart" />
+
+                            </FrameLayout>
+
+
+                            &lt;!&ndash; 修改，不显示这个 &ndash;&gt;
+                            <com.example.liangge.indiana.ui.widget.InventoryBuyWidget
+                                android:id="@+id/widget_buy_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    &lt;!&ndash; 参与火热的下一期 &ndash;&gt;
+                    <FrameLayout
+                        android:id="@+id/activity_join_next_hot_activity_wrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:background="@android:color/white"
+                        android:visibility="visible">
+
+                        <RelativeLayout
+                            android:id="@+id/layout_goCurrent"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:visibility="visible">
+
+                            <TextView
+                                android:id="@+id/tv_currentNow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10.0dip"
+                                android:text="第23期正在火热进行中..."
+                                android:textColor="#ff676767" />
+
+                            <Button
+                                android:id="@+id/bt_goCurrentPeriod"
+                                android:layout_width="145.0dip"
+                                android:layout_height="40.0dip"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="end"
+                                android:layout_marginRight="10.0dip"
+                                android:background="@drawable/btn_main"
+                                android:text="@string/good_detail_go_right_now_text"
+                                android:textColor="#ffffffff" />
+                        </RelativeLayout>
+
+
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/activity_detailinfo_ll_bg"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/activity_detail_pading_side"
+                            android:paddingRight="@dimen/activity_detail_pading_side">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:text="@string/activity_detail_go_next_hot_activity_hint"
+                                android:textColor="@color/activity_detail_menu_txv" />
+
+                            <Button
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/activity_detail_bottom_btn_height"
+                                android:layout_gravity="right|center_vertical"
+                                android:background="@drawable/selector_detailinfo_buy_item_btn"
+                                android:onClick="onBtnGoNextHotActivity"
+                                android:paddingLeft="15dp"
+                                android:paddingRight="15dp"
+                                android:text="@string/activity_detailinfo_btn_go_nexthot_acitivity"
+                                android:textColor="@android:color/white"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+
+                    </FrameLayout>
+
+
+                </FrameLayout>
+
+        -->
 
     </FrameLayout>
 

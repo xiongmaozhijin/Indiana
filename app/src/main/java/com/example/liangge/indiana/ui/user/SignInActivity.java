@@ -146,7 +146,7 @@ public class SignInActivity extends SimpleAdapterBaseActivity2 {
                 String hintMsg = getResources().getString(R.string.activity_logsignin_signin_username_not_empty);
                 LogUtils.toastShortMsg(this, hintMsg);
 
-            } else if (password1!=null && (password1.length()>=6 && password1.length()<=12) ) {
+            } else if (TextUtils.isEmpty(password1) || (password1.length() < 6 || password1.length() > 12) ) {
                 String hintMsg = getResources().getString(R.string.activity_login_pwd_length_hint);
                 LogUtils.toastShortMsg(this, hintMsg);
 

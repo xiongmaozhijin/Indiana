@@ -22,7 +22,7 @@
             <com.example.liangge.indiana.ui.widget.RotateImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/comm_loading_view" />
+                android:src="@drawable/loading_more" />
 
             <TextView
                 android:id="@+id/product_loading_txv_hint"

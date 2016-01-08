@@ -77,7 +77,7 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
 
         } else {
-            Intent intent = new Intent(this, LogSignInActivity.class);
+            Intent intent = new Intent(this, LogInActivity.class);
             startActivity(intent);
             finish();
         }
