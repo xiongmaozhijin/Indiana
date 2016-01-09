@@ -74,6 +74,24 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     }
 
+
+    /**
+     * 请求个人信息
+     */
+    public void updateUserInfo() {
+        LogUtils.i(TAG, "updateUserInfo()");
+        mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO));
+        //网络请求更新信息 TODO
+        if (isLogin()) {
+            if (!mSlaveRequestUserInfo.isWorking()) {
+                mSlaveRequestUserInfo.cancelAll();
+                mSlaveRequestUserInfo = new SlaveRequestUserInfo();
+                mSlaveRequestUserInfo.start();
+            }
+        }
+    }
+
+
     /**
      *
      * @param isAlreadyEnter 是否已经进入过
@@ -98,17 +116,7 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     @Override
     public void onEnter() {
-        mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO));
-        //网络请求更新信息 TODO
-        if (isLogin()) {
-            if (!mSlaveRequestUserInfo.isWorking()) {
-                mSlaveRequestUserInfo.cancelAll();
-                mSlaveRequestUserInfo = new SlaveRequestUserInfo();
-                mSlaveRequestUserInfo.start();
-            }
-        }
-
-
+        updateUserInfo();
     }
 
     @Override
@@ -254,15 +262,6 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
             return null;
         }
     }
-
-
-
-
-
-
-
-
-
 
 
 

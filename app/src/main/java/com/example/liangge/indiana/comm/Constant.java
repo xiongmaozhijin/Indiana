@@ -171,6 +171,9 @@ public class Constant {
         /** 常见问题接口 */
         String REQUEST_QAQ = WEBHOST + "/index.php/Admin/Api/question";
 
+        /** 更新个人信息 */
+        String REQUEST_UPDATE_USER_INFO = WEBHOST + "/index.php/Admin/Api/saveUserData";
+
     }
 
 

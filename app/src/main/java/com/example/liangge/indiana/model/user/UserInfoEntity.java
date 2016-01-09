@@ -31,6 +31,7 @@ public class UserInfoEntity {
      * 收货地址
      */
     public static class UserAddress {
+        private long id;
         private String name;
         private String phone;
         private String province;
@@ -42,7 +43,8 @@ public class UserInfoEntity {
         public UserAddress() {
         }
 
-        public UserAddress(String name, String phone, String province, String city, String area, String detail, int set_default) {
+        public UserAddress(long id, String name, String phone, String province, String city, String area, String detail, int set_default) {
+            this.id = id;
             this.name = name;
             this.phone = phone;
             this.province = province;
@@ -50,6 +52,14 @@ public class UserInfoEntity {
             this.area = area;
             this.detail = detail;
             this.set_default = set_default;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
         }
 
         public String getName() {
@@ -108,11 +118,13 @@ public class UserInfoEntity {
             this.set_default = set_default;
         }
 
+
         @Override
         public String toString() {
             return "UserAddress{" +
-                    "name='" + name + '\'' +
-                    ", phone_number='" + phone + '\'' +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", phone='" + phone + '\'' +
                     ", province='" + province + '\'' +
                     ", city='" + city + '\'' +
                     ", area='" + area + '\'' +

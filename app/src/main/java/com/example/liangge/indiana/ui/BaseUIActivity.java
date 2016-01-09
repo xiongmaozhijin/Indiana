@@ -36,11 +36,11 @@ public abstract class BaseUIActivity extends Activity {
     private DisplayImageOptions mDisplayImageUserPortraitOptions;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initUserPortraitImageLoaderConf();
-
     }
+
 
     @Override
     protected void onStart() {

@@ -276,7 +276,9 @@ public class UIMessageConts {
 
 
 
-
+    public interface Comm_Activity {
+        
+    }
 
 
 
