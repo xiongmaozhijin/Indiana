@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
@@ -71,7 +72,31 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
     private ShoppingCartListViewAdapter mAdapter;
 
+    /** 编辑/完成 按钮 */
+    private TextView mTxvEdit;
+
+    /** 结算Wrapper */
+    private View mViewFooterJieSuanWrapper;
+
+    /** 删除Wrapper */
+    private View mViewFooterDeleteWrapper;
+
+    /** 删除 */
+    private Button mBtnDelete;
+
+    private TextView mTxvDeleteHint;
+
+    /**
+     * 底部全选图标提示
+     */
+    private ImageView mImgDeleteAllHint;
+
     private static final String TAG = ShoppingCartFragment.class.getSimpleName();
+
+    /**
+     * 是否编辑状态
+     */
+    private boolean mIsEditState = false;
 
 
     private UIReceiveBroadcat mReceive;
@@ -123,6 +148,12 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
         mBtnGoIndiana = (Button) view.findViewById(R.id.f_shoppingcart_btn_go_indiana);
 
+        mTxvEdit = (TextView) view.findViewById(R.id.btn_edit);
+        mViewFooterJieSuanWrapper = view.findViewById(R.id.footer_jiesuan_wrapper);
+        mViewFooterDeleteWrapper = view.findViewById(R.id.footer_delete_wrapper);
+        mBtnDelete = (Button) view.findViewById(R.id.btn_delete);
+        mImgDeleteAllHint = (ImageView) view.findViewById(R.id.img_delete_all_hint);
+        mTxvDeleteHint = (TextView) view.findViewById(R.id.delete_desc);
 
         mBtnCommitPay = (Button) view.findViewById(R.id.f_shopping_content_item_btn_commit_pay);
         mTxvContentItemDesc1 = (TextView) view.findViewById(R.id.f_shopping_content_item_txvdesc1);
@@ -132,6 +163,28 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
         mAdapter = new ShoppingCartListViewAdapter(getActivity());
         mListView.setAdapter(mAdapter);
+
+        mViewFooterDeleteWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnSelectAllDelete();
+            }
+        });
+
+        mTxvEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnEditDone(null);
+            }
+        });
+
+        mBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnDelete(null);
+            }
+        });
+
 
         mAdapter.setOnBuyCntChangeListener(new ShoppingCartListViewAdapter.OnBuyCntChangeListener() {
             @Override
@@ -146,7 +199,22 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogUtils.w(TAG, "onItemClick()");
+                final InventoryEntity item = (InventoryEntity) parent.getAdapter().getItem(position);
+                LogUtils.w(TAG, "onItemClick(). item=%s", item.toString());
+                if (mIsEditState) {
+                    mAdapter.addOrCancelItemAndNotify(item);
+                    if (mAdapter.isSeletcAll()) {
+                        mImgDeleteAllHint.setImageResource(R.drawable.delete_select);
+
+                    } else {
+                        mImgDeleteAllHint.setImageResource(R.drawable.delete_no_select);
+
+                    }
+
+                    String hintFormat = getResources().getString(R.string.shoppingcart_delete_desc);
+                    String hint = String.format(hintFormat, mAdapter.getDeleteList().size());
+                    mTxvDeleteHint.setText(hint);
+                }
 
             }
         });
@@ -154,8 +222,10 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.w(TAG, "onItemLongClick()");
-
-                return false;
+                if (!mIsEditState) {
+                    onBtnEditDone(null);
+                }
+                return true;
             }
         });
 
@@ -279,7 +349,6 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
      */
     private void handleShoppingCartCounts(String uiAction) {
         if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)) {
-            //TODO
             //0.badgeview下次再画
 //            mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
             mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getTotalDiffProduct());
@@ -336,6 +405,16 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         mViewContentWrapper.setVisibility(View.VISIBLE);
         mViewEmptyWrapper.setVisibility(View.GONE);
         mViewLoadOrNotNetWrapper.setVisibility(View.GONE);
+        if (mIsEditState) {
+            mViewFooterDeleteWrapper.setVisibility(View.VISIBLE);
+            mViewFooterJieSuanWrapper.setVisibility(View.GONE);
+
+        } else {
+            mViewFooterDeleteWrapper.setVisibility(View.GONE);
+            mViewFooterJieSuanWrapper.setVisibility(View.VISIBLE);
+
+        }
+
     }
 
     private void showNotNetWork() {
@@ -350,6 +429,55 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         mViewLoadOrNotNetWrapper.setVisibility(View.GONE);
     }
 
+    /**
+     * 编辑完成按钮
+     * @param view
+     */
+    public void onBtnEditDone(View view) {
+        if (mIsEditState) {
+            String hint = getResources().getString(R.string.shopping_cart_edit);
+            mTxvEdit.setText(hint);
+            mViewFooterDeleteWrapper.setVisibility(View.GONE);
+            mViewFooterJieSuanWrapper.setVisibility(View.VISIBLE);
+        } else {
+            String hint = getResources().getString(R.string.shopping_cart_done);
+            mTxvEdit.setText(hint);
+            mViewFooterDeleteWrapper.setVisibility(View.VISIBLE);
+            mViewFooterJieSuanWrapper.setVisibility(View.GONE);
+        }
+
+        mIsEditState = !mIsEditState;
+
+        mAdapter.setEditStateAndNotify(mIsEditState);
+        LogUtils.w(TAG, "onBtnEditDone(). state=%b", mIsEditState);
+    }
+
+    /**
+     * 全选/取消全部
+     */
+    public void onBtnSelectAllDelete() {
+        LogUtils.i(TAG, "onBtnSelectAllDelete()");
+        if (mAdapter.isSeletcAll()) {
+            //要取消全选
+            mAdapter.cancelAllDeleteItems();
+            mImgDeleteAllHint.setImageResource(R.drawable.delete_no_select);
+
+        } else {
+            mAdapter.addAllDeleteItems();
+            mImgDeleteAllHint.setImageResource(R.drawable.delete_select);
+        }
+
+        String hintFormat = getResources().getString(R.string.shoppingcart_delete_desc);
+        String hint = String.format(hintFormat, mAdapter.getDeleteList().size());
+        mTxvDeleteHint.setText(hint);
+    }
+
+    public void onBtnDelete(View view) {
+        LogUtils.i(TAG, "onBtnDelete()");
+        mShoppingCartBiz.deleteInventoryItems(mAdapter.getDeleteList());
+        onBtnEditDone(null);
+        handleUIResetUpdate();
+    }
 
     private void onThisFragment() {
 

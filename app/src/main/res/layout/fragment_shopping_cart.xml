@@ -35,6 +35,18 @@
                 android:src="@drawable/comm_loading_view"
                 android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/btn_edit"
+                android:visibility="gone"
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="@string/shopping_cart_edit"/>
+
         </RelativeLayout>
 
 
@@ -44,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/bg_1"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -170,70 +182,135 @@
                     android:background="@color/fragment_gridview_split" />
 
 
-                <RelativeLayout
-                    android:id="@+id/footer"
-                    android:layout_width="fill_parent"
-                    android:layout_height="56dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginTop="1dp"
-                    android:background="@drawable/tab_border"
-                    android:paddingLeft="@dimen/cart_adjust_amount_margin"
-                    android:paddingRight="10.0dip"
-                    android:visibility="visible">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-
-                    <Button
-                        android:id="@+id/f_shopping_content_item_btn_commit_pay"
-                        style="@style/Button.main"
-                        android:layout_width="@dimen/cart_adjust_submit_width"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:minHeight="36.0dip"
-                        android:padding="0.0dip"
-                        android:text="@string/f_shoppingcart_commit_pay" />
-
-                    <LinearLayout
+                    <!--结算-->
+                    <RelativeLayout
+                        android:id="@+id/footer_jiesuan_wrapper"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@id/f_shopping_content_item_btn_commit_pay"
-                        android:orientation="vertical">
+                        android:layout_height="56dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/tab_border"
+                        android:paddingLeft="@dimen/cart_adjust_amount_margin"
+                        android:paddingRight="10.0dip"
+                        android:visibility="visible">
+
+
+                        <Button
+                            android:id="@+id/f_shopping_content_item_btn_commit_pay"
+                            style="@style/Button.main"
+                            android:layout_width="@dimen/cart_adjust_submit_width"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:minHeight="36.0dip"
+                            android:padding="0.0dip"
+                            android:text="@string/f_shoppingcart_commit_pay" />
 
                         <LinearLayout
-                            android:id="@+id/amount_wrapper"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/f_shopping_content_item_btn_commit_pay"
+                            android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/f_shopping_content_item_txvdesc1"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:id="@+id/amount_wrapper"
+                                android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/f_shoppingcart_buycnt_hint"
-                                android:textColor="@color/gray"
-                                android:textSize="14.0sp" />
+                                android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/cart_total"
-                                android:textColor="@color/gray"
-                                android:textSize="14.0sp" />
+                                <TextView
+                                    android:id="@+id/f_shopping_content_item_txvdesc1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/f_shoppingcart_buycnt_hint"
+                                    android:textColor="@color/gray"
+                                    android:textSize="14.0sp" />
 
-                            <TextView
-                                android:id="@+id/f_shopping_content_item_txvdesc2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:singleLine="true"
-                                android:text="@string/f_shoppingcart_pay_hint"
-                                android:textColor="@color/impt"
-                                android:textSize="14.0sp"
-                                android:textStyle="bold" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/cart_total"
+                                    android:textColor="@color/gray"
+                                    android:textSize="14.0sp" />
+
+                                <TextView
+                                    android:id="@+id/f_shopping_content_item_txvdesc2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true"
+                                    android:text="@string/f_shoppingcart_pay_hint"
+                                    android:textColor="@color/impt"
+                                    android:textSize="14.0sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
                         </LinearLayout>
+                    </RelativeLayout>
 
-                    </LinearLayout>
-                </RelativeLayout>
+                    <!--删除-->
+                    <RelativeLayout
+                        android:id="@+id/footer_delete_wrapper"
+                        android:clickable="true"
+                        android:layout_width="fill_parent"
+                        android:layout_height="56dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/tab_border"
+                        android:paddingLeft="@dimen/cart_adjust_amount_margin"
+                        android:paddingRight="10.0dip"
+                        android:visibility="visible">
+
+
+                        <Button
+                            android:id="@+id/btn_delete"
+                            style="@style/Button.main"
+                            android:layout_width="@dimen/cart_adjust_submit_width"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:minHeight="36.0dip"
+                            android:padding="0.0dip"
+                            android:text="删除" />
+
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/btn_delete"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/img_delete_all_hint"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginRight="5dp"
+                                    android:src="@drawable/delete_no_select"/>
+
+                                <TextView
+                                    android:id="@+id/delete_desc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/shoppingcart_delete_desc"
+                                    android:textColor="@color/gray"
+                                    android:textSize="14.0sp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                </FrameLayout>
 
 
             </LinearLayout>

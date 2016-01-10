@@ -213,5 +213,10 @@
     <string name="userinfo_update_failed">更新失败</string>
     <string name="userinfo_update_success">更新成功，重新请求中...</string>
     <string name="userinfo_update_net_error">网络错误或服务端错误</string>
-    
+
+    <string name="shopping_cart_edit">编辑</string>
+    <string name="shopping_cart_done">完成</string>
+    <string name="shoppingcart_delete_desc">全选/n共%1$d件</string>
+
+
 </resources>

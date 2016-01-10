@@ -116,6 +116,29 @@ public class InventoryEntity {
     }
 
     @Override
+    public boolean equals(Object o) {
+        boolean isEquals;
+        if (this==o) {
+            isEquals = true;
+
+        } else {
+            if (o==null) {
+                isEquals = false;
+
+            } else if (o instanceof InventoryEntity) {
+                isEquals = (this.activityID==((InventoryEntity) o).activityID );
+
+            } else {
+                isEquals = false;
+
+            }
+
+        }
+
+        return isEquals;
+    }
+
+    @Override
     public String toString() {
         return "InventoryEntity{" +
                 "activityID=" + activityID +

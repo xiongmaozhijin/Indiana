@@ -27,6 +27,9 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
     /** 清单数据 */
     private List<InventoryEntity> mListInventorys = new ArrayList<>();
 
+    /** 要删除清单集合 */
+    private static List<InventoryEntity> mListDelete = new ArrayList<>();
+
     private static Context mContext;
 
     private static OnBuyCntChangeListener mOnBuyCntChangeListener;
@@ -34,6 +37,10 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
     private static DisplayImageOptions mDisplayImageOptions;
 
     private static final String TAG = ShoppingCartListViewAdapter.class.getSimpleName();
+
+    /** 是否编辑状态 */
+    private static boolean mIsEditState = false;
+
 
     /**
      * 购买数量发生变化监听事件
@@ -72,6 +79,76 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
         }
 
     }
+
+    /**
+     * 是否全选了
+     * @return
+     */
+    public boolean isSeletcAll() {
+        boolean isSelectAll = mListDelete.size() == mListInventorys.size();
+
+        LogUtils.i(TAG, "isSeletcAll=%b", isSelectAll);
+        return isSelectAll;
+    }
+
+    /**
+     * 添加或取消一项列表清单，并显示
+     * @param item
+     */
+    public void addOrCancelItemAndNotify(InventoryEntity item) {
+        if (mListDelete.contains(item)) {
+            mListDelete.remove(item);
+            LogUtils.i(TAG, "CancelItemAndNotify(). item=%s", item.toString());
+        } else {
+            mListDelete.add(item);
+            LogUtils.i(TAG, "AddItemAndNotify(). item=%s", item.toString());
+        }
+
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 设置是否编辑状态
+     * @param isEditState
+     */
+    public void setEditStateAndNotify(boolean isEditState) {
+        LogUtils.i(TAG, "setEditStateAndNotify(). isEditState=%b", isEditState);
+        this.mIsEditState = isEditState;
+        if (!isEditState) {
+            mListDelete.clear();
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 取消全部要删除的items
+     */
+    public void cancelAllDeleteItems() {
+        LogUtils.i(TAG, "cancelAllDeleteItems()");
+        mListDelete.clear();
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 全选全部删除
+     */
+    public void addAllDeleteItems() {
+        LogUtils.i(TAG, "addAllDeleteItems()");
+        mListDelete.addAll(mListInventorys);
+        notifyDataSetChanged();
+    }
+
+
+    /**
+     * 返回要删除的数据
+     * @return
+     */
+    public List<InventoryEntity> getDeleteList() {
+        LogUtils.i(TAG, "getDeleteList(). list=%s", mListDelete.toString() );
+        return mListDelete;
+    }
+
+
 
     public void setListData(List<InventoryEntity> listData) {
         if (listData != null) {
@@ -147,6 +224,7 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
         /** 购买控件 */
         private InventoryBuyWidget mInventoryBuyWidget;
 
+        private ImageView mImgEditHint;
 
         public ViewHolder(View view) {
             initView(view);
@@ -176,7 +254,7 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
             this.mTxvTitleDescribe = (TextView) view.findViewById(R.id.f_shoppingcart_title_describe);
             this.mTxvJoinDescribe = (TextView) view.findViewById(R.id.f_shoppingcart_join_describe);
             this.mInventoryBuyWidget = (InventoryBuyWidget) view.findViewById(R.id.f_shoppingcart_buy_widget);
-
+            this.mImgEditHint = (ImageView) view.findViewById(R.id.img_edit_hint);
         }
 
 
@@ -190,6 +268,23 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
             mTxvTitleDescribe.setText(Html.fromHtml(item.getTitleDescribe()));
             mTxvJoinDescribe.setText(item.getJoinDescribe(mContext));
             mInventoryBuyWidget.initInventoryBuyWidget(item);
+            if (mIsEditState) {
+                //编辑状态
+                if (mListDelete.contains(item) ) {
+                    mImgEditHint.setImageResource(R.drawable.delete_select);
+
+                } else {
+                    mImgEditHint.setImageResource(R.drawable.delete_no_select);
+
+                }
+
+                mImgEditHint.setVisibility(View.VISIBLE);
+
+            } else {
+                mImgEditHint.setVisibility(View.GONE);
+
+            }
+
 
         }
 

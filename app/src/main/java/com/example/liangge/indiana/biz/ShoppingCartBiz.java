@@ -113,6 +113,26 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 //        updateShoppingCartIconCnt();
     }
 
+    /**
+     * 删除清单
+     * @param list
+     */
+    public synchronized void deleteInventoryItems(List<InventoryEntity> list) {
+        LogUtils.i(TAG, "deleteInventoryItems().list=%s", list.toString());
+        if (list != null) {
+            InventoryEntity item;
+            long activityId;
+            for (int i=0, len=list.size(); i<len; i++) {
+                item = list.get(i);
+                activityId = item.getActivityID();
+                mListInventorys.remove(item);
+                mDBManager.deleteOrder(activityId);
+            }
+
+        }
+
+    }
+
 
     /**
      * 共买了多少不同的商品
