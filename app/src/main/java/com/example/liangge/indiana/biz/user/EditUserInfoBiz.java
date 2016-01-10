@@ -3,6 +3,9 @@ package com.example.liangge.indiana.biz.user;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Base64;
 
 import com.android.volley.VolleyError;
@@ -14,6 +17,7 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.FileOperateUtils;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
+import com.example.liangge.indiana.model.user.ResponseEditUserInfo;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.google.gson.Gson;
 
@@ -43,6 +47,30 @@ public class EditUserInfoBiz extends BaseActivityBiz{
 
     private PersonalCenterBiz mPersonalCenterBiz;
 
+
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int action = msg.arg1;
+            switch (action) {
+                case InnerMessage.NET_FAILED:
+                    String hint1 = mContext.getResources().getString(R.string.userinfo_update_failed);
+                    LogUtils.toastShortMsg(mContext, hint1);
+                    break;
+                case InnerMessage.NET_START:
+                    String hint2 = mContext.getResources().getString(R.string.userinfo_update_ing);
+                    LogUtils.toastShortMsg(mContext, hint2);
+                    break;
+                case InnerMessage.NET_SUCCESS:
+                    String hint3 = mContext.getResources().getString(R.string.userinfo_update_success);
+                    LogUtils.toastShortMsg(mContext, hint3);
+                    break;
+            }
+        }
+    };
+
+
     private EditUserInfoBiz(Context context) {
         this.mContext = context;
         initRes(context);
@@ -67,6 +95,13 @@ public class EditUserInfoBiz extends BaseActivityBiz{
         return mInstance;
     }
 
+
+    private interface InnerMessage {
+        int NET_FAILED = -1;
+        int NET_START = 1;
+        int NET_SUCCESS = 2;
+
+    }
 
     private static class RequestInfo {
         public static ByteArrayOutputStream photo;
@@ -189,6 +224,9 @@ public class EditUserInfoBiz extends BaseActivityBiz{
             super.notifyStart();
             String hint = mContext.getResources().getString(R.string.userinfo_update_ing);
             LogUtils.w(TAG, hint);
+            Message msg = Message.obtain();
+            msg.arg1 = InnerMessage.NET_START;
+            mHandler.sendMessage(msg);
         }
 
         @Override
@@ -202,6 +240,9 @@ public class EditUserInfoBiz extends BaseActivityBiz{
             super.notifyFail();
             String hint = mContext.getResources().getString(R.string.userinfo_update_net_error);
             LogUtils.w(TAG, hint);
+            Message msg = Message.obtain();
+            msg.arg1 = InnerMessage.NET_FAILED;
+            mHandler.sendMessage(msg);
         }
 
         @Override
@@ -219,15 +260,26 @@ public class EditUserInfoBiz extends BaseActivityBiz{
         @Override
         protected void onResponseListener(String s) {
             LogUtils.i(R_TAG, "onResponse().s=%s", s);
-            //TODO
-            mPersonalCenterBiz.updateUserInfo();
+            Gson gson = new Gson();
+            ResponseEditUserInfo response = gson.fromJson(s, ResponseEditUserInfo.class);
+            if (response.getStatus() == 200) {
+                mPersonalCenterBiz.updateUserInfo();
+                Message msg = Message.obtain();
+                msg.arg1 = InnerMessage.NET_SUCCESS;
+                mHandler.sendMessage(msg);
+
+            } else {
+                Message msg = Message.obtain();
+                msg.arg1 = InnerMessage.NET_FAILED;
+                mHandler.sendMessage(msg);
+            }
+
 
         }
 
         @Override
         protected void onResponseErrorListener(VolleyError volleyError) {
             LogUtils.e(TAG, "volleyError=%s", volleyError);
-
         }
 
         @Override

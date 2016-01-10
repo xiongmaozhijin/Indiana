@@ -277,8 +277,13 @@ public class UIMessageConts {
 
 
     public interface Comm_Activity {
-        
+        String COMM_NET_START = "COMM_NET_START";
+        String COMM_NET_FAILED = "COMM_NET_FAILED";
+        String COMM_NET_SUCCESS = "COMM_NET_SUCCESS";
+
+
     }
+
 
 
 

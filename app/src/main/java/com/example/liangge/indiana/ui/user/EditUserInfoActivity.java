@@ -19,6 +19,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.user.EditUserInfoBiz;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -141,9 +142,15 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
             ImageLoader.getInstance().displayImage(user.getPhoto(), mImgUserPortrait, getUserPortraitImageConfig());
             mEdtUsername.setText(user.getNickname());
             mEdtPhone.setText(user.getPhone_number());
-            mEdtGoodName.setText(user.getNickname());
-            mEdtGoodPhone.setText(user.getPhone_number());
-            mEdtGoodAddress.setText(user.getHumanReadableAddress1(this));
+            if (user.getAddress() != null) {
+                UserInfoEntity.UserAddress address = user.getAddress().get(0);
+                if (address != null) {
+                    mEdtGoodName.setText(address.getName());
+                    mEdtGoodPhone.setText(address.getPhone());
+                    mEdtGoodAddress.setText(address.getDetail());
+                }
+            }
+
         }
     }
 
@@ -211,7 +218,13 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
         String goodPhone = mEdtGoodPhone.getText().toString();
         String goodDetailAddress = mEdtGoodAddress.getText().toString();
 
-        UserInfoEntity.UserAddress address1 = new UserInfoEntity.UserAddress(0, goodName, goodPhone, "", "", "", goodDetailAddress, 1);
+        UserInfoEntity user = mPersonalCenterBiz.getUserInfo();
+        int isUpdate = 1;
+        if ( (user.getAddress()==null) || (user.getAddress().get(0)==null) ) {
+            isUpdate = 0;
+        }
+
+        UserInfoEntity.UserAddress address1 = new UserInfoEntity.UserAddress(isUpdate, goodName, goodPhone, "", "", "", goodDetailAddress, 1);
         List<UserInfoEntity.UserAddress> addresses = new ArrayList<>();
         addresses.add(address1);
 
@@ -224,6 +237,10 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
             }
             mEditUserInfoBiz.setUpdateRequest(mBAOPortrait, nickname, phoneNumber, addresses);
             mEditUserInfoBiz.onBtnSaveUserInfo();
+
+        } else {
+            String errorHint = getResources().getString(R.string.userinfo_not_finish);
+            LogUtils.toastShortMsg(this, errorHint);
 
         }
 
@@ -249,7 +266,11 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     @Override
     protected void handleUIMessage(String strUIAction) {
+        LogUtils.w(TAG, "handleUIMessage(). action=%s", strUIAction);
 
+        if (strUIAction.equals(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO)) {
+            initUserInfo();
+        }
     }
 
     @Override

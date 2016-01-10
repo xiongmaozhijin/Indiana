@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -47,7 +48,11 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
 
     @Override
     protected void handleUIMessage(String strUIAction) {
+        LogUtils.w(TAG, "handleUIMessage(). action=%s", strUIAction);
 
+        if (strUIAction.equals(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO)) {
+            initUserInfo();
+        }
     }
 
     @Override
@@ -86,6 +91,8 @@ public class UserInfoActivity extends SimpleAdapterBaseActivity2 {
      * 初始化个人信息
      */
     private void initUserInfo() {
+        LogUtils.w(TAG, "initUserInfo()");
+
         if (mPersonalCenterBiz.isLogin()) {
             UserInfoEntity user = mPersonalCenterBiz.getUserInfo();
             LogUtils.w(TAG, "user=%s", user.toString());
