@@ -165,11 +165,23 @@ public class RunLottoryView3 extends TextView{
 
         if (lLeftTime>0 && mLastestBingoEntity.getStatus()==Constant.LatestFragment.CODE_RUNNING) {
 //            hintReadable = mDateFormatCountdown.format(lLeftTime);
+//            int hour = (int) (lLeftTime/1000/60/60);
+//            int min = (int) (lLeftTime/1000/60);
+//            int sec = (int) (lLeftTime/1000);
+//            int mes = (int) (lLeftTime - hour*60*60*1000 - min*60*1000 - sec*1000);
+
             int hour = (int) (lLeftTime/1000/60/60);
+            lLeftTime = lLeftTime - hour*1000*60*60;
             int min = (int) (lLeftTime/1000/60);
+            lLeftTime = lLeftTime - min*1000*60;
             int sec = (int) (lLeftTime/1000);
-            int mes = (int) (lLeftTime - hour*60*60*1000 - min*60*1000 - sec*1000);
+            lLeftTime = lLeftTime - sec*1000;
+            int mes = (int) lLeftTime;
+
             hintReadable = String.format("%02d:%02d:%02d:%03d", hour, min, sec, mes);
+
+            LogUtils.w(TAG, "hour=%d, min=%d, sec=%d, mes=%d", hour, min, sec, mes);
+            LogUtils.w(TAG, "lLeftTime=%d, readable=%s", lLeftTime, hintReadable);
 
         } else {
             if (mLastestBingoEntity.getStatus()== Constant.LatestFragment.CODE_CLAC_ING) {
@@ -182,8 +194,8 @@ public class RunLottoryView3 extends TextView{
 
         }
 
-
-        mLastestBingoEntity.setTimeLeft(lLeftTime - L_CLAC_SPEED);
+        int temp = (int) mLastestBingoEntity.getTimeLeft();
+        mLastestBingoEntity.setTimeLeft(temp - L_CLAC_SPEED);
 
         return hintReadable;
     }
