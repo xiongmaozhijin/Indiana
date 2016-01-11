@@ -24,6 +24,9 @@ public class CategoryDetailEntitiy {
     /*图片地址*/
     private String icon;
 
+    /** 最小份额，区分于10专区 */
+    private int minimum_share = 1;
+
 
     public CategoryDetailEntitiy() {
     }
@@ -78,8 +81,18 @@ public class CategoryDetailEntitiy {
     }
 
 
+    public int getMinimum_share() {
+        return minimum_share;
+    }
+
+    public void setMinimum_share(int minimum_share) {
+        this.minimum_share = minimum_share;
+    }
+
+
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "CategoryDetailEntitiy{" +
                 "issue_id=" + issue_id +
                 ", commodity_id=" + commodity_id +
@@ -87,6 +100,9 @@ public class CategoryDetailEntitiy {
                 ", share_total=" + share_total +
                 ", share_current=" + share_current +
                 ", icon='" + icon + '\'' +
+                ", minimum_share=" + minimum_share +
                 '}';
     }
+
+
 }

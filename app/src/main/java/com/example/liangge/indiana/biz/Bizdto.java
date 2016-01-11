@@ -25,7 +25,7 @@ public class Bizdto {
         InventoryEntity item = new InventoryEntity(activityProductItemEntity.getActivityId(), activityProductItemEntity.getProductImgUrl(),
                                                         activityProductItemEntity.getName(),
                                                         activityProductItemEntity.getTitleDesc(),
-                                                        activityProductItemEntity.getNeedPeople(), activityProductItemEntity.getLackPeople(), buyCnt);
+                                                        activityProductItemEntity.getNeedPeople(), activityProductItemEntity.getLackPeople(), buyCnt, activityProductItemEntity.getMinimum_share());
 
         return item;
     }

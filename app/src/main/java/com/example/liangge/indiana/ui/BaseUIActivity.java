@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.os.PersistableBundle;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.Constant;
@@ -20,7 +21,7 @@ import in.srain.cube.views.ptr.PtrHandler;
 import in.srain.cube.views.ptr.header.MaterialHeader;
 
 /**
- * 封装了下拉刷新，网络状况，用户头像配置
+ * 封装了下拉刷新，网络状况，用户头像配置，加载更多ui
  */
 public abstract class BaseUIActivity extends Activity {
 
@@ -122,6 +123,49 @@ public abstract class BaseUIActivity extends Activity {
             mPtrFrame.autoRefresh();
         }
     }
+
+
+    /**
+     * 加载更多提示
+     * @param viewLoadMoreHintWrapper
+     */
+    protected void handleUILoadMore(View viewLoadMoreHintWrapper, int loadMoreState, boolean isEmptyData) {
+        LogUtils.w("Activity", "handleUILoadMore(). loadMoreState=%d, isEmpty=%b", loadMoreState, isEmptyData);
+        if (loadMoreState == Constant.Comm.LOAD_MORE_START) {
+            viewLoadMoreHintWrapper.setVisibility(View.VISIBLE);
+            viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_loading_wrapper).setVisibility(View.VISIBLE);
+            viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_wrapper).setVisibility(View.GONE);
+
+        } else if (loadMoreState == Constant.Comm.LOAD_MORE_FAILED) {
+            viewLoadMoreHintWrapper.setVisibility(View.VISIBLE);
+            TextView txvHint = (TextView) viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_text);
+            String strHint = getResources().getString(R.string.comm_load_more_hint_fail);
+            viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_loading_wrapper).setVisibility(View.GONE);
+            viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_wrapper).setVisibility(View.VISIBLE);
+            txvHint.setText(strHint);
+
+        } else if (loadMoreState == Constant.Comm.LOAD_MORE_SUCCESS) {
+            if (isEmptyData) {
+                viewLoadMoreHintWrapper.setVisibility(View.VISIBLE);
+                TextView txvHint = (TextView) viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_text);
+                String strHint = getResources().getString(R.string.comm_load_more_hint_all_complete);
+                viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_loading_wrapper).setVisibility(View.GONE);
+                viewLoadMoreHintWrapper.findViewById(R.id.load_more_hint_wrapper).setVisibility(View.VISIBLE);
+                txvHint.setText(strHint);
+
+            } else {
+                viewLoadMoreHintWrapper.setVisibility(View.GONE);
+
+            }
+
+
+
+        }
+
+
+    }
+
+
 
 
 

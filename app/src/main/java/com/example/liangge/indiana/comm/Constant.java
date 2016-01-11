@@ -168,6 +168,10 @@ public class Constant {
         /**请求类别详细*/
         String REQUEST_CATEGORY_DETAIL =  WEBHOST + "/index.php/Admin/Api/categoryGoods";
 
+        /** 十元专区接口 */
+        String REQUEST_CATEGORY_TEN_YUAN_DETAIL = WEBHOST + "/index.php/Admin/Api/tenUnit";
+
+
         /** 常见问题接口 */
         String REQUEST_QAQ = WEBHOST + "/index.php/Admin/Api/question";
 

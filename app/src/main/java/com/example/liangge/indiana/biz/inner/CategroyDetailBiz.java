@@ -60,7 +60,12 @@ public class CategroyDetailBiz extends BaseActivityBiz{
     }
 
 
-
+    public interface IRequestCategory {
+        /** 普通类别 */
+        int NORMAL_CATEGORY = 1;
+        /** 10元专区类别 */
+        int TEN_YUAN_CATEGORY = 2;
+    }
 
 
     private static class DataInfo {
@@ -72,6 +77,7 @@ public class CategroyDetailBiz extends BaseActivityBiz{
         public static int iCurPage;
         public static int iLoadMode = Constant.Comm.MODE_ENTER;
 
+        public static int iRequestCategory = IRequestCategory.NORMAL_CATEGORY;
     }
 
     private static class ResponseInfo {
@@ -90,6 +96,7 @@ public class CategroyDetailBiz extends BaseActivityBiz{
         DataInfo.strTitle = title;
     }
 
+
     public int getCurLoadMode() {
         return RequestInfo.iLoadMode;
     }
@@ -99,7 +106,8 @@ public class CategroyDetailBiz extends BaseActivityBiz{
         return ResponseInfo.listData;
     }
 
-    public void setRequestData(long categoryId) {
+    public void setRequestData(long categoryId, int iRequestCategory) {
+        RequestInfo.iRequestCategory = iRequestCategory;
         RequestInfo.categoryId = categoryId;
     }
 
@@ -168,6 +176,9 @@ public class CategroyDetailBiz extends BaseActivityBiz{
 
 
 
+    /**
+     * 加载数据类别
+     */
     private class SlaveLoadDataThread extends NetRequestThread {
 
         private final String R_TAG = "CategoryDetail_SlaveLoadDataThread";
@@ -219,8 +230,19 @@ public class CategroyDetailBiz extends BaseActivityBiz{
 
         @Override
         protected String getWebServiceAPI() {
-            return Constant.WebServiceAPI.REQUEST_CATEGORY_DETAIL;
+            String api = "";
+            if (RequestInfo.iRequestCategory==IRequestCategory.NORMAL_CATEGORY) {
+                api = Constant.WebServiceAPI.REQUEST_CATEGORY_DETAIL;
+
+            } else if (RequestInfo.iRequestCategory==IRequestCategory.TEN_YUAN_CATEGORY){
+                api = Constant.WebServiceAPI.REQUEST_CATEGORY_TEN_YUAN_DETAIL;
+
+            }
+
+            LogUtils.i(R_TAG, "web_api=%s", api);
+            return api;
         }
+
     }
 
 

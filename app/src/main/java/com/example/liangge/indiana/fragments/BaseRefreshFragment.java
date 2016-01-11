@@ -130,6 +130,8 @@ public abstract class BaseRefreshFragment extends BaseNetUIFragment {
 
     }
 
+
+
     protected void onAutoRefreshUIShow() {
         if (mPtrFrame != null) {
             mPtrFrame.autoRefresh();

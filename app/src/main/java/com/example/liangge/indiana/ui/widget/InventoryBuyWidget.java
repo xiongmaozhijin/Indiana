@@ -14,6 +14,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.InventoryEntity;
 
 /**
+ * 购买控件
  * Created by baoxing on 2015/12/17.
  */
 public class InventoryBuyWidget extends FrameLayout{
@@ -38,6 +39,8 @@ public class InventoryBuyWidget extends FrameLayout{
 
     /** 最大购买次数，总需的总次数 */
     private int mIMaxBuyCnt = 1000;
+
+    private int mIMinBuyCnt = 1;
 
     /**
      * 购买次数改变监听
@@ -88,6 +91,7 @@ public class InventoryBuyWidget extends FrameLayout{
     public void initInventoryBuyWidget(InventoryEntity inventoryEntity) {
         this.mInventoryEntity = inventoryEntity;
         this.mIMaxBuyCnt = mInventoryEntity.getLackPeopleCounts();
+        this.mIMinBuyCnt = mInventoryEntity.getMinBuyCnt();
         post(new Runnable() {
             @Override
             public void run() {
@@ -164,15 +168,15 @@ public class InventoryBuyWidget extends FrameLayout{
                 String str = s.toString();
 
                 if (str==null || str.equals("")) {
-                    mEdtNumber.setText(1+"");
-                    notifyListener(1);
+                    mEdtNumber.setText(mIMinBuyCnt+"");
+                    notifyListener(mIMinBuyCnt);
 
                 } else {
                     try {
                         int number = Integer.parseInt(str);
-                        if (number<=0) {
-                            mEdtNumber.setText(1+"");
-                            notifyListener(1);
+                        if (number< mIMinBuyCnt) {
+                            mEdtNumber.setText(mIMinBuyCnt+"");
+                            notifyListener(mIMinBuyCnt);
                         } else if (number > mIMaxBuyCnt) {
                             mEdtNumber.setText(mIMaxBuyCnt+"");
                             notifyListener(mIMaxBuyCnt);
@@ -182,8 +186,8 @@ public class InventoryBuyWidget extends FrameLayout{
                         }
 
                     } catch (Exception e) {
-                        mEdtNumber.setText(1+"");
-                        notifyListener(1);
+                        mEdtNumber.setText(mIMinBuyCnt+"");
+                        notifyListener(mIMinBuyCnt);
                     }
 
 

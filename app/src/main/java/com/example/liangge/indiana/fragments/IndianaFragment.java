@@ -20,11 +20,13 @@ import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.IndianaBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
+import com.example.liangge.indiana.biz.inner.CategroyDetailBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.ui.Inner.CategoryListActivity;
 import com.example.liangge.indiana.ui.Inner.IndianaCategoryActivity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.WebViewActivity;
@@ -54,6 +56,8 @@ public class IndianaFragment extends BaseRefreshFragment {
     private BannerInfoBiz mBannerInfoBiz;
 
     private WebViewBiz mWebViewBiz;
+
+    private CategroyDetailBiz mCategroyDetailBiz;
 
     private UIReceive mUIReceive;
 
@@ -136,6 +140,11 @@ public class IndianaFragment extends BaseRefreshFragment {
             @Override
             public void onClick(View v) {
                 LogUtils.i(TAG, "10元专区");
+                String title = getResources().getString(R.string.f_indiana_top_menu_tenyuan_area);
+                mCategroyDetailBiz.setTitle(title);
+                mCategroyDetailBiz.setRequestData(0, CategroyDetailBiz.IRequestCategory.TEN_YUAN_CATEGORY);
+                Intent intent = new Intent(getActivity(), CategoryListActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -334,6 +343,7 @@ public class IndianaFragment extends BaseRefreshFragment {
         mDetailInfoBiz = DetailInfoBiz.getInstance(getActivity());
         mBannerInfoBiz = BannerInfoBiz.getInstance(getActivity());
         mWebViewBiz = WebViewBiz.getInstance(getActivity());
+        mCategroyDetailBiz = CategroyDetailBiz.getInstance(getActivity());
 
     }
 

@@ -112,7 +112,7 @@ public class IndianaCategoryActivity extends Activity {
                 LogUtils.i(TAG, "all category");
                 String title = getResources().getString(R.string.category_list_all_category);
                 mCategroyDetailBiz.setTitle(title);
-                mCategroyDetailBiz.setRequestData(0);
+                mCategroyDetailBiz.setRequestData(0, CategroyDetailBiz.IRequestCategory.NORMAL_CATEGORY);
                 Intent intent = new Intent(IndianaCategoryActivity.this, CategoryListActivity.class);
                 startActivity(intent);
             }
@@ -125,7 +125,7 @@ public class IndianaCategoryActivity extends Activity {
                 LogUtils.i(TAG, "position=%d", position);
                 final IndianaCategoryEntity item = (IndianaCategoryEntity) parent.getAdapter().getItem(position);
                 mCategroyDetailBiz.setTitle(item.getCategory_name());
-                mCategroyDetailBiz.setRequestData(item.getCategory_id());
+                mCategroyDetailBiz.setRequestData(item.getCategory_id(), CategroyDetailBiz.IRequestCategory.NORMAL_CATEGORY);
                 Intent intent = new Intent(IndianaCategoryActivity.this, CategoryListActivity.class);
                 startActivity(intent);
             }

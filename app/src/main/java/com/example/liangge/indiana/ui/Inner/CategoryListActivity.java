@@ -183,6 +183,15 @@ public class CategoryListActivity extends BaseActivity2 {
             mAdapter.resetDataAndNotify(mCategroyDetailBiz.getListData());
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
+            int size = mCategroyDetailBiz.getListData().size();
+            if (size > 0) {
+                handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+                mAdapter.loadMoreData(mCategroyDetailBiz.getListData());
+
+            } else {
+                handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
+
+            }
 
         } else if (loadMode == Constant.Comm.MODE_REFRESH) {
 
@@ -195,6 +204,7 @@ public class CategoryListActivity extends BaseActivity2 {
             handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetHintWrapper, mViewAllContent);
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
+            handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
 
         } else if (loadMode == Constant.Comm.MODE_REFRESH) {
             LogUtils.toastShortMsg(this, getResources().getString(R.string.activity_category_net_error));
@@ -208,7 +218,7 @@ public class CategoryListActivity extends BaseActivity2 {
             handleNetUI(Constant.Comm.NET_LOADING, mViewNetHintWrapper, mViewAllContent);
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
-            //TODO
+            handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_START, false);
 
         } else if (loadMode == Constant.Comm.MODE_REFRESH) {
 

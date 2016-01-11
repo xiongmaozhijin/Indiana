@@ -134,6 +134,7 @@ public class CategoryDetailAdapter extends BaseAdapter {
         private TextView txvDes2;
         private ProgressBar progressBar;
         private Button btnAddToCart;
+        private View viewTenYuanHint;
 
         public ViewHolder(View view) {
             imgProduct = (ImageView) view.findViewById(R.id.imgview);
@@ -141,13 +142,21 @@ public class CategoryDetailAdapter extends BaseAdapter {
             txvDes2 = (TextView) view.findViewById(R.id.txv_desc2_cnt);
             progressBar = (ProgressBar) view.findViewById(R.id.progress);
             btnAddToCart = (Button) view.findViewById(R.id.btn_addto_char);
+            viewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
         }
 
         public void adapterData(final CategoryDetailEntitiy item) {
             String hintDesc2Format = mContext.getResources().getString(R.string.activity_category_detail_cnt_des);
             String hintDesc2 = String.format(hintDesc2Format, item.getShare_total(), item.getShare_total() - item.getShare_current());
-            int iProgress = (int) ((float)item.getShare_current() / item.getShare_total()) * 1000;
+            int iProgress = (int) (((float)item.getShare_current() / item.getShare_total()) * 1000);
             ImageLoader.getInstance().displayImage(item.getIcon(), this.imgProduct, mDisplayImageOptions);
+            if (item.getMinimum_share() == 10) {
+                viewTenYuanHint.setVisibility(View.VISIBLE);
+
+            } else {
+                viewTenYuanHint.setVisibility(View.INVISIBLE);
+
+            }
             txvDes1.setText(item.getName());
             txvDes2.setText(Html.fromHtml(hintDesc2));
             progressBar.setProgress(iProgress);
@@ -155,7 +164,7 @@ public class CategoryDetailAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
-                        mListener.onAddToCart(item, BUY_CNT);
+                        mListener.onAddToCart(item, item.getMinimum_share());
                     }
                 }
             });
@@ -163,10 +172,6 @@ public class CategoryDetailAdapter extends BaseAdapter {
 
 
     }
-
-
-
-
 
 
 

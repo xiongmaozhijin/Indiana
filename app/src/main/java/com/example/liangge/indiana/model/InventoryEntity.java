@@ -31,11 +31,13 @@ public class InventoryEntity {
     /** 购买次数 */
     private int buyCounts;
 
+    /** 最小购买数 */
+    private int minBuyCnt;
 
     public InventoryEntity() {
     }
 
-    public InventoryEntity(long activityID, String invertoryImgUrl, String titleName, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts) {
+    public InventoryEntity(long activityID, String invertoryImgUrl, String titleName, String titleDescribe, int needPeopleCounts, int lackPeopleCounts, int buyCounts, int minBuyCnt) {
         this.activityID = activityID;
         this.invertoryImgUrl = invertoryImgUrl;
         this.titleName = titleName;
@@ -43,6 +45,7 @@ public class InventoryEntity {
         this.needPeopleCounts = needPeopleCounts;
         this.lackPeopleCounts = lackPeopleCounts;
         this.buyCounts = buyCounts;
+        this.minBuyCnt = minBuyCnt;
     }
 
     public String getTitleName() {
@@ -104,6 +107,14 @@ public class InventoryEntity {
     }
 
 
+    public int getMinBuyCnt() {
+        return minBuyCnt;
+    }
+
+    public void setMinBuyCnt(int minBuyCnt) {
+        this.minBuyCnt = minBuyCnt;
+    }
+
     /**
      * 返回参与描述
      * @return
@@ -148,6 +159,7 @@ public class InventoryEntity {
                 ", needPeopleCounts=" + needPeopleCounts +
                 ", lackPeopleCounts=" + lackPeopleCounts +
                 ", buyCounts=" + buyCounts +
+                ", minBuyCnt=" + minBuyCnt +
                 '}';
     }
 }

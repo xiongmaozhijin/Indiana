@@ -35,11 +35,13 @@ public class ActivityProductItemEntity {
     /** 剩余人数 */
     private int lackPeople;
 
+    /** 最小购买数 */
+    private int minimum_share = 1;
 
     public ActivityProductItemEntity() {
     }
 
-    public ActivityProductItemEntity(long activityId, long commodity_id, String productImgUrl, String name, String titleDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople) {
+    public ActivityProductItemEntity(long activityId, long commodity_id, String productImgUrl, String name, String titleDesc, int bingoProgress, String strBingoProgress, int needPeople, int lackPeople, int minimum_share) {
         this.activityId = activityId;
         this.commodity_id = commodity_id;
         this.productImgUrl = productImgUrl;
@@ -49,6 +51,7 @@ public class ActivityProductItemEntity {
         this.strBingoProgress = strBingoProgress;
         this.needPeople = needPeople;
         this.lackPeople = lackPeople;
+        this.minimum_share = minimum_share;
     }
 
     /**
@@ -59,7 +62,7 @@ public class ActivityProductItemEntity {
      * @param strProcess
      */
     public ActivityProductItemEntity(String imgUrl, String name, int process, String strProcess) {
-        this(1, new Random().nextInt(10), imgUrl, name, "titleDesc1", process, strProcess, 1320, 567);
+        this(1, new Random().nextInt(10), imgUrl, name, "titleDesc1", process, strProcess, 1320, 567, 1);
 
     }
 
@@ -138,6 +141,14 @@ public class ActivityProductItemEntity {
         this.commodity_id = commodity_id;
     }
 
+    public int getMinimum_share() {
+        return minimum_share;
+    }
+
+    public void setMinimum_share(int minimum_share) {
+        this.minimum_share = minimum_share;
+    }
+
 
     @Override
     public String toString() {
@@ -151,6 +162,7 @@ public class ActivityProductItemEntity {
                 ", strBingoProgress='" + strBingoProgress + '\'' +
                 ", needPeople=" + needPeople +
                 ", lackPeople=" + lackPeople +
+                ", minimum_share=" + minimum_share +
                 '}';
     }
 
