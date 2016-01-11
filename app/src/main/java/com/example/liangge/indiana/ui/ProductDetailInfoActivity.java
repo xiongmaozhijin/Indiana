@@ -25,6 +25,7 @@ import com.example.liangge.indiana.biz.HomeBiz;
 import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
+import com.example.liangge.indiana.biz.inner.HistoryRecordBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
@@ -127,6 +128,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
     private WebViewBiz mWebViewBiz;
 
+    private HistoryRecordBiz mHistoryRecordBiz;
+
     /** 再次进入 */
     private boolean bIsEnter = false;
 
@@ -170,7 +173,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mDetailInfoBiz = DetailInfoBiz.getInstance(this);
         mImageViewBiz = ImageViewBiz.getInstance(this);
         mHomeBiz = HomeBiz.getInstance(this);
-
+        mHistoryRecordBiz = HistoryRecordBiz.getInstance(this);
     }
 
     private void initView() {
@@ -565,6 +568,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
      */
     public void onBtnHistoryRecord(View view) {
         LogUtils.i(TAG, "onBtnHistoryRecord()");
+        mHistoryRecordBiz.setRequestInfo(mDetailInfoBiz.getDetailEntity().getCommodity_id());
         Intent i = new Intent(this, HistoryRunRecordActivity.class);
         startActivity(i);
     }

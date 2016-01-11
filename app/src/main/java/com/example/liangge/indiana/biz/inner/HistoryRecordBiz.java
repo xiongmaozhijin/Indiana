@@ -97,6 +97,12 @@ public class HistoryRecordBiz extends BaseActivityBiz {
         loadData(Constant.Comm.MODE_LOAD_MORE);
     }
 
+
+    public void setRequestInfo(long goodId) {
+        RequestInfo.iGoodId = goodId;
+    }
+
+
     @Override
     public void onCreate() {
         loadData(Constant.Comm.MODE_ENTER);
