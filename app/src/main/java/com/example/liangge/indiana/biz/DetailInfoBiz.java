@@ -310,7 +310,7 @@ public class DetailInfoBiz {
             JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.INDIANA_ACTIVITY_DETAIL_INFO, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
-                    LogUtils.i(TAG, "SlaveLoadDetailInfoThread#onResponse=%s", s);
+                    LogUtils.w(TAG, "SlaveLoadDetailInfoThread#onResponse=%s", s);
                     Gson gson = new Gson();
                     DataInfo.activityProductItemEntity = gson.fromJson(s, ActivityProductDetailInfoEntity.class);
                     RequestInfo.lActivityId = DataInfo.activityProductItemEntity.getActivityId();
@@ -332,7 +332,7 @@ public class DetailInfoBiz {
             String jsonBody = String.format("{\"issue_id\":%d, \"id\":%d, \"token\":\"%s\", \"new\":%b}", RequestInfo.lActivityId,
                                                 mPersonalCenterBiz.getUserInfo().getId(), mPersonalCenterBiz.getUserInfo().getToken(), RequestInfo.bIsNewestActivity );
 
-            LogUtils.i(TAG, "SlaveLoadDetailInfoThread#jsonBody=%s", jsonBody);
+            LogUtils.w(TAG, "SlaveLoadDetailInfoThread#jsonBody=%s", jsonBody);
 
             return jsonBody;
         }

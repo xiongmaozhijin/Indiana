@@ -4,6 +4,7 @@
 
     <LinearLayout
         android:background="@drawable/selector_history_item_bg"
+        android:padding="2dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="150dp">
@@ -11,7 +12,7 @@
         <TextView
             android:id="@+id/txv_desc1"
             android:lineSpacingMultiplier="1.4"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/activity_history_desc1"
             android:background="@color/txv_gray_light"/>
@@ -24,6 +25,7 @@
 
             <ImageView
                 android:id="@+id/img_user_portrait"
+                android:layout_marginRight="4dp"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/f_indiana_top_menu_qaq"/>

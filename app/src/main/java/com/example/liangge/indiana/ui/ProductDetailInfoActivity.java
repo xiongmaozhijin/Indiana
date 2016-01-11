@@ -512,6 +512,10 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
     }
 
+    /**
+     * 往期揭晓
+     * @param view
+     */
     public void onBtnHistoryRecord(View view) {
         LogUtils.i(TAG, "onBtnHistoryRecord()");
         Intent i = new Intent(this, HistoryRunRecordActivity.class);

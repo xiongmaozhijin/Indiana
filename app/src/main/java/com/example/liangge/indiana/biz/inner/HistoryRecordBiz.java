@@ -68,6 +68,7 @@ public class HistoryRecordBiz extends BaseActivityBiz {
      * @param iLoadMode
      */
     private void loadData(int iLoadMode) {
+        RequestInfo.iLoadMode = iLoadMode;
         if (iLoadMode== Constant.Comm.MODE_LOAD_MORE) {
             if (!mSlaveLoadHistoryDataThread.isWorking()) {
                 RequestInfo.iCurPage++;
