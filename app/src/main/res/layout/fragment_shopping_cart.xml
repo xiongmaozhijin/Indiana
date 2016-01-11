@@ -37,13 +37,16 @@
 
             <TextView
                 android:id="@+id/btn_edit"
-                android:visibility="gone"
+                android:visibility="visible"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:gravity="center"
                 android:clickable="true"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="12dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:textColor="@android:color/white"
                 android:text="@string/shopping_cart_edit"/>
 

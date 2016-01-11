@@ -196,25 +196,26 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
             }
         });
 
+        mAdapter.setOnItemClickListener1(new ShoppingCartListViewAdapter.OnItemClickListener1() {
+            @Override
+            public void onItemClickListener1(InventoryEntity item) {
+                onItemClick(item);
+            }
+        });
+
+        mAdapter.setOnItemLongClickListener1(new ShoppingCartListViewAdapter.OnItemLongClickListener1() {
+            @Override
+            public void onItemLongClickListener1(InventoryEntity item) {
+                onItemLongClick(item);
+            }
+        });
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final InventoryEntity item = (InventoryEntity) parent.getAdapter().getItem(position);
                 LogUtils.w(TAG, "onItemClick(). item=%s", item.toString());
-                if (mIsEditState) {
-                    mAdapter.addOrCancelItemAndNotify(item);
-                    if (mAdapter.isSeletcAll()) {
-                        mImgDeleteAllHint.setImageResource(R.drawable.delete_select);
 
-                    } else {
-                        mImgDeleteAllHint.setImageResource(R.drawable.delete_no_select);
-
-                    }
-
-                    String hintFormat = getResources().getString(R.string.shoppingcart_delete_desc);
-                    String hint = String.format(hintFormat, mAdapter.getDeleteList().size());
-                    mTxvDeleteHint.setText(hint);
-                }
 
             }
         });
@@ -222,9 +223,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.w(TAG, "onItemLongClick()");
-                if (!mIsEditState) {
-                    onBtnEditDone(null);
-                }
+
                 return true;
             }
         });
@@ -250,6 +249,31 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         });
 
     }
+
+
+    private void onItemClick(InventoryEntity item) {
+        if (mIsEditState) {
+            mAdapter.addOrCancelItemAndNotify(item);
+            if (mAdapter.isSeletcAll()) {
+                mImgDeleteAllHint.setImageResource(R.drawable.delete_select);
+
+            } else {
+                mImgDeleteAllHint.setImageResource(R.drawable.delete_no_select);
+
+            }
+
+            String hintFormat = getResources().getString(R.string.shoppingcart_delete_desc);
+            String hint = String.format(hintFormat, mAdapter.getDeleteList().size());
+            mTxvDeleteHint.setText(hint);
+        }
+    }
+
+    private void onItemLongClick(InventoryEntity item) {
+        if (!mIsEditState) {
+            onBtnEditDone(null);
+        }
+    }
+
 
     @Override
     protected void registerUIBroadCast() {
@@ -405,6 +429,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         mViewContentWrapper.setVisibility(View.VISIBLE);
         mViewEmptyWrapper.setVisibility(View.GONE);
         mViewLoadOrNotNetWrapper.setVisibility(View.GONE);
+        mTxvEdit.setVisibility(View.VISIBLE);
         if (mIsEditState) {
             mViewFooterDeleteWrapper.setVisibility(View.VISIBLE);
             mViewFooterJieSuanWrapper.setVisibility(View.GONE);
@@ -427,6 +452,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         mViewContentWrapper.setVisibility(View.GONE);
         mViewEmptyWrapper.setVisibility(View.VISIBLE);
         mViewLoadOrNotNetWrapper.setVisibility(View.GONE);
+        mTxvEdit.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -476,7 +502,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         LogUtils.i(TAG, "onBtnDelete()");
         mShoppingCartBiz.deleteInventoryItems(mAdapter.getDeleteList());
         onBtnEditDone(null);
-        handleUIResetUpdate();
+        onRefreshLoadData();
     }
 
     private void onThisFragment() {

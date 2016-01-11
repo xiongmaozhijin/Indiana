@@ -41,6 +41,31 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
     /** 是否编辑状态 */
     private static boolean mIsEditState = false;
 
+    private static OnItemClickListener1 mOnItemClickListener1;
+    private static OnItemLongClickListener1 mOnItemLongClickListener1;
+
+    /**
+     * 点击事件
+     */
+    public interface OnItemClickListener1 {
+        void onItemClickListener1(InventoryEntity item);
+    }
+
+    /**
+     * 长按事件
+     */
+    public interface OnItemLongClickListener1 {
+        void onItemLongClickListener1(InventoryEntity item);
+    }
+
+
+    public void setOnItemClickListener1(OnItemClickListener1 listener) {
+        this.mOnItemClickListener1 = listener;
+    }
+
+    public void setOnItemLongClickListener1(OnItemLongClickListener1 listener) {
+        this.mOnItemLongClickListener1 = listener;
+    }
 
     /**
      * 购买数量发生变化监听事件
@@ -205,7 +230,7 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
         }
 
         final InventoryEntity item = mListInventorys.get(position);
-        viewHolder.adapterData(item);
+        viewHolder.adapterData(item, convertView);
 
         return convertView;
     }
@@ -262,12 +287,34 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
          * 适配数据
          * @param item
          */
-        private void adapterData(InventoryEntity item) {
+        private void adapterData(final InventoryEntity item, View view) {
             ImageLoader.getInstance().displayImage(item.getInvertoryImgUrl(), this.mImgViewProduct, mDisplayImageOptions);
 //            mTxvTitleDescribe.setText(item.getTitleDescribe());
             mTxvTitleDescribe.setText(Html.fromHtml(item.getTitleDescribe()));
             mTxvJoinDescribe.setText(item.getJoinDescribe(mContext));
             mInventoryBuyWidget.initInventoryBuyWidget(item);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LogUtils.i(TAG, "onItemClick().");
+                    if (mOnItemClickListener1 != null) {
+                        mOnItemClickListener1.onItemClickListener1(item);
+                    }
+                }
+            });
+
+            view.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    LogUtils.i(TAG, "onItemLongClick()");
+                    if (mOnItemLongClickListener1 != null) {
+                        mOnItemLongClickListener1.onItemLongClickListener1(item);
+                    }
+
+                    return false;
+                }
+            });
+
             if (mIsEditState) {
                 //编辑状态
                 if (mListDelete.contains(item) ) {
