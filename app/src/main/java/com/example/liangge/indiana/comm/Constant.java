@@ -178,6 +178,8 @@ public class Constant {
         /** 更新个人信息 */
         String REQUEST_UPDATE_USER_INFO = WEBHOST + "/index.php/Admin/Api/saveUserData";
 
+        /** 往期揭晓 */
+        String REQUEST_HISTORY_RECORD = WEBHOST + "/index.php/Admin/Api/previousActivity";
     }
 
 

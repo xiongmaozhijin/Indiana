@@ -29,6 +29,7 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
+import com.example.liangge.indiana.ui.Inner.HistoryRunRecordActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.InventoryBuyWidget;
@@ -91,6 +92,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
     /** 图文详细*/
     private View mViewMoreInfo;
+
+    private View mViewHistoryRecord;
 
     /** 所有参与记录 */
     private ListView mPlayRecordListView;
@@ -194,6 +197,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mViewBingoIngWrapper = findViewById(R.id.activity_productdetailinfo_bingo_ing_wrapper);
 
         mViewMoreInfo = findViewById(R.id.activity_productdetailinfo_more_info_wrapper);
+        mViewHistoryRecord = findViewById(R.id.history_record_wrapper);
 
         mPlayRecordListView = (ListView) findViewById(R.id.activity_productdetailinfo_listview_records);
         mRecordAdapter = new DetailPlayRecordAdapter(this);
@@ -211,6 +215,14 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
             public void onClick(View v) {
                 LogUtils.w(TAG, "图文详细");
                 onBtnMoreProductInfo(null);
+            }
+        });
+        mViewHistoryRecord.setClickable(true);
+        mViewHistoryRecord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtils.w(TAG, "往期揭晓");
+                onBtnHistoryRecord(null);
             }
         });
 
@@ -498,6 +510,12 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
             startActivity(intent);
         }
 
+    }
+
+    public void onBtnHistoryRecord(View view) {
+        LogUtils.i(TAG, "onBtnHistoryRecord()");
+        Intent i = new Intent(this, HistoryRunRecordActivity.class);
+        startActivity(i);
     }
 
     /**

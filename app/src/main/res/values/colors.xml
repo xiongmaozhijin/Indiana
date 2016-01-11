@@ -40,4 +40,9 @@
     <color name="txv_desc_blue1">#0278fe</color>
     <color name="txv_desc_red1">#da3651</color>
 
+    <color name="txv_gray_dark">#686868</color>
+    <color name="txv_gray_light">#0278fe</color>
+
+    <color name="red_light">#da3651</color>
+
 </resources>

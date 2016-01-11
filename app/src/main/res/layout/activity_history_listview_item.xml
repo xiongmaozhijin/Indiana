@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:background="@drawable/selector_history_item_bg"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+        <TextView
+            android:id="@+id/txv_desc1"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_history_desc1"
+            android:background="@color/txv_gray_light"/>
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/img_user_portrait"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/f_indiana_top_menu_qaq"/>
+
+            <TextView
+                android:id="@+id/txv_info_desc2"
+                android:lineSpacingMultiplier="1.4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_history_item_desc2"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

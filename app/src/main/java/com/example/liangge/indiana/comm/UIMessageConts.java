@@ -173,6 +173,7 @@ public class UIMessageConts {
         /** 加入购物车提示 */
         String M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT = "M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT";
 
+
     }
 
 

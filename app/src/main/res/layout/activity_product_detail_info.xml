@@ -76,7 +76,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="180dp"
                                     android:layout_marginBottom="6dp"
-                                    android:visibility="visible"
+                                    android:visibility="gone"
                                     appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
                                     appbannerview:selectIndexDrawable="@drawable/detail_banner_indicator_select"
                                     appbannerview:space="3dp" />
@@ -308,7 +308,7 @@
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
-
+                                <!--图文详细-->
                                 <LinearLayout
                                     android:id="@+id/activity_productdetailinfo_more_info_wrapper"
                                     android:layout_width="match_parent"
@@ -344,6 +344,45 @@
                                     android:layout_height="1.0px"
                                     android:background="#ffdcdcdc"
                                     android:contentDescription="@string/desc_common_image" />
+
+                                <!--图文详细-->
+                                <LinearLayout
+                                    android:id="@+id/history_record_wrapper"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="11dp"
+                                    android:layout_marginTop="11dp"
+                                    android:background="@android:color/white"
+                                    android:orientation="horizontal"
+                                    android:paddingLeft="@dimen/activity_detail_pading_side"
+                                    android:paddingRight="@dimen/activity_detail_pading_side">
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="42dp"
+                                        android:layout_weight="1"
+                                        android:gravity="center_vertical"
+                                        android:text="@string/activity_detail_menu_item_history_record"
+                                        android:textColor="@color/activity_detail_menu_txv"
+                                        android:textSize="@dimen/activity_detailinfo_menu_text_size" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical|right"
+                                        android:text=">"
+                                        android:textColor="#9a9a9a"
+                                        android:textSize="12sp" />
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="1.0px"
+                                    android:background="#ffdcdcdc"
+                                    android:contentDescription="@string/desc_common_image" />
+
+
 
                             </LinearLayout>
 

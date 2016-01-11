@@ -217,6 +217,20 @@
     <string name="shopping_cart_edit">编辑</string>
     <string name="shopping_cart_done">完成</string>
     <string name="shoppingcart_delete_desc">全选/n共%1$d件</string>
+    <string name="activity_history_titlebar_title">往期揭晓</string>
+    <string name="activity_history_item_desc2">
+           <![CDATA[
+
+        <font color="#686868">
+          获奖者:<font color="#0278fe">%1$s</font><br>
+          用户ID:%2$s(唯一不变标识)<br>
+          幸运号码:<font color="#da3651">%3$s</font><br>
+          本期参与:<font color="#da3651">%4$d</font>人次
+        </font>
+        ]]>
+    </string>
+    <string name="activity_history_desc1">期号:%1$s\n (揭晓时间:%2$s)</string>
+    <string name="activity_detail_menu_item_history_record">往期揭晓</string>
 
 
 </resources>
