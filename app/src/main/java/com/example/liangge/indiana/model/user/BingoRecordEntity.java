@@ -37,6 +37,8 @@ public class BingoRecordEntity {
     /** 开奖时间 */
     private long runLotteryTime;
 
+    /** 最小购买数 */
+    private int minimum_share;
 
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
@@ -44,7 +46,7 @@ public class BingoRecordEntity {
     }
 
 
-    public BingoRecordEntity(long activityId, String productImgUrl, String title, String titleDesc, int needPeople, int lackPeople, int buyCnt, String luckyNumber, long runLotteryTime) {
+    public BingoRecordEntity(long activityId, String productImgUrl, String title, String titleDesc, int needPeople, int lackPeople, int buyCnt, String luckyNumber, long runLotteryTime, int minimum_share) {
         this.activityId = activityId;
         this.productImgUrl = productImgUrl;
         this.title = title;
@@ -54,6 +56,7 @@ public class BingoRecordEntity {
         this.buyCnt = buyCnt;
         this.luckyNumber = luckyNumber;
         this.runLotteryTime = runLotteryTime;
+        this.minimum_share = minimum_share;
     }
 
     public long getActivityId() {
@@ -128,7 +131,13 @@ public class BingoRecordEntity {
         this.runLotteryTime = runLotteryTime;
     }
 
+    public int getMinimum_share() {
+        return minimum_share;
+    }
 
+    public void setMinimum_share(int minimum_share) {
+        this.minimum_share = minimum_share;
+    }
 
     /**
      * 返回可读的已揭晓时间
@@ -152,6 +161,7 @@ public class BingoRecordEntity {
                 ", buyCnt=" + buyCnt +
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", runLotteryTime=" + runLotteryTime +
+                ", minimum_share=" + minimum_share +
                 '}';
     }
 }
