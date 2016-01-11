@@ -51,12 +51,15 @@ public class IndianaRecordEntity {
     /** 开奖时间 */
     private long runLotteryTime;
 
+    /** 最小购买 */
+    private int minimum_share = 1;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public IndianaRecordEntity() {
     }
 
-    public IndianaRecordEntity(long activityId, int activityState, String productImgUrl, String titleDescribe, String joinActivityNum, int needPeople, int lackPeople, int progress, int buyCnt, String myIndianaNum, String bingoUser, int bingoBuyCnt, String luckyNumber, long runLotteryTime) {
+    public IndianaRecordEntity(long activityId, int activityState, String productImgUrl, String titleDescribe, String joinActivityNum, int needPeople, int lackPeople, int progress, int buyCnt, String myIndianaNum, String bingoUser, int bingoBuyCnt, String luckyNumber, long runLotteryTime, int minimum_share) {
         this.activityId = activityId;
         this.activityState = activityState;
         this.productImgUrl = productImgUrl;
@@ -71,8 +74,8 @@ public class IndianaRecordEntity {
         this.bingoBuyCnt = bingoBuyCnt;
         this.luckyNumber = luckyNumber;
         this.runLotteryTime = runLotteryTime;
+        this.minimum_share = minimum_share;
     }
-
 
     public long getActivityId() {
         return activityId;
@@ -187,6 +190,13 @@ public class IndianaRecordEntity {
     }
 
 
+    public int getMinimum_share() {
+        return minimum_share;
+    }
+
+    public void setMinimum_share(int minimum_share) {
+        this.minimum_share = minimum_share;
+    }
 
     /**
      * 返回可读的已揭晓时间
@@ -205,6 +215,7 @@ public class IndianaRecordEntity {
         return this.progress + "%";
     }
 
+
     @Override
     public String toString() {
         return "IndianaRecordEntity{" +
@@ -222,6 +233,7 @@ public class IndianaRecordEntity {
                 ", bingoBuyCnt=" + bingoBuyCnt +
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", runLotteryTime=" + runLotteryTime +
+                ", minimum_share=" + minimum_share +
                 '}';
     }
 }

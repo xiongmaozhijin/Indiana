@@ -219,10 +219,12 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
         String goodDetailAddress = mEdtGoodAddress.getText().toString();
 
         UserInfoEntity user = mPersonalCenterBiz.getUserInfo();
-        int isUpdate = 1;
-        if ( (user.getAddress()==null) || (user.getAddress().get(0)==null) ) {
-            isUpdate = 0;
-        }
+        long isUpdate;
+       if ( (user.getAddress()!=null) && (user.getAddress().size()>0) && (user.getAddress().get(0)!=null) ) {
+           isUpdate = user.getAddress().get(0).getId();
+       } else {
+           isUpdate = 0;
+       }
 
         UserInfoEntity.UserAddress address1 = new UserInfoEntity.UserAddress(isUpdate, goodName, goodPhone, "", "", "", goodDetailAddress, 1);
         List<UserInfoEntity.UserAddress> addresses = new ArrayList<>();

@@ -33,5 +33,12 @@
 
          </LinearLayout>
 
+    <ImageView
+        android:id="@+id/ten_yuan_hint"
+        android:visibility="invisible"
+        android:layout_width="@dimen/ten_yuan_area_icon"
+        android:layout_height="@dimen/ten_yuan_area_icon"
+        android:src="@drawable/ten_area_icon"/>
+
 
 </FrameLayout>

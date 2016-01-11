@@ -110,9 +110,12 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
 
         private TextView txvIndianaInfo;
 
+        private View mViewTenYuanArea;
+
         public ViewHolder(View view) {
             imgViewProduct = (ImageView) view.findViewById(R.id.activity_indianarecord_product_img);
             txvIndianaInfo = (TextView) view.findViewById(R.id.activity_indianarecord_userinfo_txv);
+            mViewTenYuanArea = view.findViewById(R.id.ten_yuan_hint);
         }
 
         public void adapterData(IndianaRecordEntity item) {
@@ -136,6 +139,14 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
 
             ImageLoader.getInstance().displayImage(item.getProductImgUrl(), this.imgViewProduct, mDisplayImageOptions);
             this.txvIndianaInfo.setText(indianaInfo);
+
+            if (item.getMinimum_share() == 10) {
+                mViewTenYuanArea.setVisibility(View.VISIBLE);
+
+            } else {
+                mViewTenYuanArea.setVisibility(View.INVISIBLE);
+
+            }
 
         }   //end adapterData
 
