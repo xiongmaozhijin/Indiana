@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 
 import java.util.ArrayList;
@@ -48,6 +49,18 @@ public class DetailPlayRecordAdapter extends BaseAdapter
 
     }
 
+
+    public void loadMoreData(List<ResponseActivityPlayRecordEntity> newList) {
+        if (newList != null) {
+            ResponseActivityPlayRecordEntity item;
+            for (int i=0, len=newList.size(); i<len; i++) {
+                item = newList.get(i);
+                mListData.add(item);
+            }
+
+            notifyDataSetChanged();
+        }
+    }
 
     @Override
     public int getCount() {

@@ -103,7 +103,7 @@ public class HistoryRunRecordActivity extends BaseActivity2 {
 
     @Override
     protected void onBtnReload() {
-
+        mHistoryRecordBiz.onCreate();
     }
 
     @Override

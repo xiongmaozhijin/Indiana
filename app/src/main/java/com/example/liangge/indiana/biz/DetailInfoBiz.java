@@ -365,6 +365,14 @@ public class DetailInfoBiz {
     }
 
 
+    /**
+     * 加载更多
+     */
+    public void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+        loadAllPlayRecord(true);
+    }
+
 
     public void onCreate() {
         RequestInfo.iLoadMode = Constant.Comm.MODE_ENTER;

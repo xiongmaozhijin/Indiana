@@ -29,12 +29,15 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
+import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 import com.example.liangge.indiana.ui.Inner.HistoryRunRecordActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.InventoryBuyWidget;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 /**
  * 商品详情页
@@ -94,6 +97,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
     private View mViewMoreInfo;
 
     private View mViewHistoryRecord;
+
+    private View mViewLoadMoreWrapper;
 
     /** 所有参与记录 */
     private ListView mPlayRecordListView;
@@ -173,6 +178,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mViewAllContentWrapper = findViewById(R.id.activity_detailinfo_allcontent_wrapper);
         mExScrollView = (ExScrollView) findViewById(R.id.detail_scrollview);
         mLayoutView = mViewAllContentWrapper;
+        mViewLoadMoreWrapper = findViewById(R.id.load_more_wrapper);
+
 
         mViewTenYuanHint = findViewById(R.id.ten_yuan_hint);
 
@@ -209,6 +216,20 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mViewGoNextHotActivityWrapper = findViewById(R.id.activity_join_next_hot_activity_wrapper);
 
 
+        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+            @Override
+            public void onScrollTop() {
+
+            }
+
+            @Override
+            public void onScrollBottom() {
+                LogUtils.w(TAG, "onScrollBottom()");
+                onScrollBottomLoadMore();
+            }
+        });
+
+
         mViewMoreInfo.setClickable(true);
         mViewMoreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +250,13 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
     }
 
+    /**
+     * 滚动到底部加载更多
+     */
+    private void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+        mDetailInfoBiz.onScrollBottomLoadMore();
+    }
 
 
     @Override
@@ -291,7 +319,10 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
             } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START)
                     || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED)
-                    || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED) ) {
+                    || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED)
+                    || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED_MORE)
+                    || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED_MORE)
+                    || uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START_MORE)) {
                 handlePlayRecord(uiAciton);
 
             } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAIL_UPDATE_ADD_TO_SHOPPONGCART_HINT)) {
@@ -325,6 +356,22 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 //        mTempAllPlayRecord.setText(mDetailInfoBiz.getHumanReadablePlayRecords());
         if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED)) {
             mRecordAdapter.reSetDataAndNotify(mDetailInfoBiz.getRecordListData());
+
+        } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_SUCCESSED_MORE) ) {
+            List<ResponseActivityPlayRecordEntity> list = mDetailInfoBiz.getRecordListData();
+            boolean isEmpty = true;
+            if (list.size() > 0 ) {
+                isEmpty = false;
+            }
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS,isEmpty);
+            mRecordAdapter.loadMoreData(list);
+
+        } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORED_FAILED_MORE)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
+
+        } else if (uiAciton.equals(UIMessageConts.DetailInfo.M_DETAILINFO_REQ_PLAYRECORD_REQ_START_MORE)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
+
         }
 
 
