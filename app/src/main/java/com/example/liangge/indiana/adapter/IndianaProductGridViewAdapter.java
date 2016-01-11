@@ -155,21 +155,33 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
 
         private ProgressBar progressBar;
 
+        private View mViewTenYuanHint;
+
         public ViewHolder(View view) {
             this.imgProductImg = (ImageView) view.findViewById(R.id.indiana_product_item_img);
             this.txvProductName = (TextView) view.findViewById(R.id.indiana_product_item_name_txv);
             this.txvBingoProgress = (TextView) view.findViewById(R.id.indiana_product_item_bingo_process_txv);
             this.btnShoppingCart = (ImageButton) view.findViewById(R.id.f_indiana_product_item_shopping_cart_btn);
             this.progressBar = (ProgressBar) view.findViewById(R.id.f_indiana_product_item_progressbar);
+            this.mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
         }
 
         public void adapterData(final ActivityProductItemEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductImgUrl(), this.imgProductImg, mDisplayImageOptions);
+
+            if (itemInfo.getMinimum_share() == 10) {
+                mViewTenYuanHint.setVisibility(View.VISIBLE);
+
+            } else {
+                mViewTenYuanHint.setVisibility(View.GONE);
+
+            }
+
             this.txvProductName.setText(itemInfo.getName());
             this.txvBingoProgress.setText(itemInfo.getStrBingoProgress());
 //            int progress = ( (itemInfo.getNeedPeople()-itemInfo.getLackPeople()) / itemInfo.getNeedPeople() ) * 100;
             this.progressBar.setProgress(itemInfo.getBingoProgress());
-            this.btnShoppingCart.setOnClickListener(new View.OnClickListener(){
+            this.btnShoppingCart.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {

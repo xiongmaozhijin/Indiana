@@ -99,6 +99,9 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
     /** 购买控件 */
     private InventoryBuyWidget mInventoryBuyWidget;
 
+    /** 十元专区提示 */
+    private View mViewTenYuanHint;
+
     /** 一键购买Wrapper */
     private View mViewBuyProductWrapper;
 
@@ -167,6 +170,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mViewAllContentWrapper = findViewById(R.id.activity_detailinfo_allcontent_wrapper);
         mExScrollView = (ExScrollView) findViewById(R.id.detail_scrollview);
         mLayoutView = mViewAllContentWrapper;
+
+        mViewTenYuanHint = findViewById(R.id.ten_yuan_hint);
 
         mBtnBack = (ImageButton) findViewById(R.id.titlebar_btn_back);
         mBannerView = (BannerView) findViewById(R.id.activity_productdetailinfo_bannerview);
@@ -398,6 +403,14 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mBannerView.setDatasAndNotify(Bizdto.changeToBannerInfo(detailEntity.getProductImgUrls()));
 //        mTxvProductInfoTitleDescribe2.setText(detailEntity.getTitleDescribe());
         mTxvProductInfoTitleDescribe2.setText(Html.fromHtml(detailEntity.getTitleDescribe()));
+
+        if (detailEntity.getMinimum_share() == 10) {
+            mViewTenYuanHint.setVisibility(View.VISIBLE);
+
+        } else {
+            mViewTenYuanHint.setVisibility(View.INVISIBLE);
+
+        }
 
         int activityState = detailEntity.getActivityState();
         if (activityState == 0) {   //已揭晓

@@ -32,7 +32,7 @@ public class InventoryEntity {
     private int buyCounts;
 
     /** 最小购买数 */
-    private int minBuyCnt;
+    private int minBuyCnt = 1;
 
     public InventoryEntity() {
     }

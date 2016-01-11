@@ -142,7 +142,7 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
             ImageLoader.getInstance().displayImage(user.getPhoto(), mImgUserPortrait, getUserPortraitImageConfig());
             mEdtUsername.setText(user.getNickname());
             mEdtPhone.setText(user.getPhone_number());
-            if (user.getAddress() != null) {
+            if ( (user.getAddress() != null) && (user.getAddress().size()>0) ) {
                 UserInfoEntity.UserAddress address = user.getAddress().get(0);
                 if (address != null) {
                     mEdtGoodName.setText(address.getName());

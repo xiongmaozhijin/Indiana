@@ -40,13 +40,16 @@ public class LastestBingoEntity {
     /** 开奖(揭晓)时间 */
     private long runLotteryTime;
 
+    /** 最小购买数量 */
+    private int minimum_share = 1;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd", Locale.CHINESE);
 
 
     public LastestBingoEntity() {
     }
 
-    public LastestBingoEntity(long activityId, int status, long timeLeft, String productUrl, String titleDescribe, String bingoUser, String luckyNumber, int buyTimes, long runLotteryTime) {
+    public LastestBingoEntity(long activityId, int status, long timeLeft, String productUrl, String titleDescribe, String bingoUser, String luckyNumber, int buyTimes, long runLotteryTime, int minimum_share) {
         this.activityId = activityId;
         this.status = status;
         this.timeLeft = timeLeft;
@@ -56,6 +59,7 @@ public class LastestBingoEntity {
         this.luckyNumber = luckyNumber;
         this.buyTimes = buyTimes;
         this.runLotteryTime = runLotteryTime;
+        this.minimum_share = minimum_share;
     }
 
     public long getActivityId() {
@@ -127,7 +131,15 @@ public class LastestBingoEntity {
         this.runLotteryTime = runLotteryTime;
     }
 
-/*
+    public int getMinimum_share() {
+        return minimum_share;
+    }
+
+    public void setMinimum_share(int minimum_share) {
+        this.minimum_share = minimum_share;
+    }
+
+    /*
     *//**
      * 是否已经揭晓
      * @return
@@ -201,6 +213,7 @@ public class LastestBingoEntity {
         setTitleDescribe(srcObj.getTitleDescribe());
         setTimeLeft(srcObj.getTimeLeft());
         setStatus(srcObj.getStatus());
+        setMinimum_share(srcObj.getMinimum_share());
     }
 
 
@@ -216,6 +229,9 @@ public class LastestBingoEntity {
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", buyTimes=" + buyTimes +
                 ", runLotteryTime=" + runLotteryTime +
+                ", minimum_share=" + minimum_share +
                 '}';
     }
+
+
 }

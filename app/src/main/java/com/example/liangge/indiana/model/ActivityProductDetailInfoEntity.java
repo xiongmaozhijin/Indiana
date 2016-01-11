@@ -65,6 +65,9 @@ public class ActivityProductDetailInfoEntity {
     /** 幸运号码/中奖号码 */
     private String luckyNumber;
 
+    /** 最少购买 */
+    private int minimum_share = 1;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 
@@ -72,7 +75,7 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
-    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber) {
+    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share) {
         this.activityId = activityId;
         this.commodity_id = commodity_id;
         this.productImgUrls = productImgUrls;
@@ -91,6 +94,7 @@ public class ActivityProductDetailInfoEntity {
         this.bingoUserAddress = bingoUserAddress;
         this.bingoBuyCnts = bingoBuyCnts;
         this.luckyNumber = luckyNumber;
+        this.minimum_share = minimum_share;
     }
 
     public long getActivityId() {
@@ -238,6 +242,15 @@ public class ActivityProductDetailInfoEntity {
         this.myIndianaAmount = myIndianaAmount;
     }
 
+
+    public int getMinimum_share() {
+        return minimum_share;
+    }
+
+    public void setMinimum_share(int minimum_share) {
+        this.minimum_share = minimum_share;
+    }
+
     /**
      * 返回可读的已揭晓时间
      * @return
@@ -269,8 +282,7 @@ public class ActivityProductDetailInfoEntity {
                 ", bingoUserAddress='" + bingoUserAddress + '\'' +
                 ", bingoBuyCnts=" + bingoBuyCnts +
                 ", luckyNumber='" + luckyNumber + '\'' +
+                ", minimum_share=" + minimum_share +
                 '}';
     }
-
-
 }

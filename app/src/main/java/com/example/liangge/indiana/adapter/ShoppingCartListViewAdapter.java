@@ -251,6 +251,9 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
 
         private ImageView mImgEditHint;
 
+        /** 十元专区提示view */
+        private View mViewTenYuanHint;
+
         public ViewHolder(View view) {
             initView(view);
             initListener();
@@ -280,6 +283,7 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
             this.mTxvJoinDescribe = (TextView) view.findViewById(R.id.f_shoppingcart_join_describe);
             this.mInventoryBuyWidget = (InventoryBuyWidget) view.findViewById(R.id.f_shoppingcart_buy_widget);
             this.mImgEditHint = (ImageView) view.findViewById(R.id.img_edit_hint);
+            this.mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
         }
 
 
@@ -293,6 +297,15 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
             mTxvTitleDescribe.setText(Html.fromHtml(item.getTitleDescribe()));
             mTxvJoinDescribe.setText(item.getJoinDescribe(mContext));
             mInventoryBuyWidget.initInventoryBuyWidget(item);
+
+            if (item.getMinBuyCnt() == 10) {
+                mViewTenYuanHint.setVisibility(View.VISIBLE);
+
+            } else {
+                mViewTenYuanHint.setVisibility(View.INVISIBLE);
+
+            }
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -166,6 +166,8 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         private TextView luckyNumber;
         private TextView alreadyRunLottoryTime;
 
+        private View mViewTenYuanHint;
+
         public ViewHolder(View view) {
             initItemview(view);
 
@@ -181,6 +183,8 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
             buyCounts = (TextView) view.findViewById(R.id.latest_bingo_info_buycounts_txv);
             luckyNumber = (TextView) view.findViewById(R.id.latest_bingo_info_luncynumber_txv);
             alreadyRunLottoryTime = (TextView) view.findViewById(R.id.latest_bingo_info_runlottorytime_txv);
+
+            mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
 
             runLottoryHint = (RunLottoryView3) view.findViewById(R.id.latest_runlottorytime_hint_txv);
 
@@ -214,6 +218,14 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         private void adapterCommView(LastestBingoEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductUrl(), latestProductImg, mDisplayImageOptions);
             latestProductDescribe.setText(itemInfo.getHumanProductDescribe() );
+            if (itemInfo.getMinimum_share() == 10) {
+                mViewTenYuanHint.setVisibility(View.VISIBLE);
+
+            } else {
+                mViewTenYuanHint.setVisibility(View.INVISIBLE);
+
+            }
+
         }
 
         /**

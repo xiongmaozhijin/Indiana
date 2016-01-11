@@ -66,16 +66,31 @@
 
                             <!-- 商品图片轮播 -->
                             <!-- 图片轮播部分 -->
-                            <com.example.liangge.indiana.ui.widget.BannerView
-                                xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
-                                android:id="@+id/activity_productdetailinfo_bannerview"
+                            <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="180dp"
-                                android:layout_marginBottom="6dp"
-                                android:visibility="visible"
-                                appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
-                                appbannerview:selectIndexDrawable="@drawable/detail_banner_indicator_select"
-                                appbannerview:space="3dp" />
+                                android:layout_height="wrap_content">
+
+                                <com.example.liangge.indiana.ui.widget.BannerView
+                                    xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/activity_productdetailinfo_bannerview"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="180dp"
+                                    android:layout_marginBottom="6dp"
+                                    android:visibility="visible"
+                                    appbannerview:normalIndexDrawable="@drawable/detail_banner_indicator_normal"
+                                    appbannerview:selectIndexDrawable="@drawable/detail_banner_indicator_select"
+                                    appbannerview:space="3dp" />
+
+                                <ImageView
+                                    android:id="@+id/ten_yuan_hint"
+                                    android:visibility="invisible"
+                                    android:layout_width="@dimen/ten_yuan_area_icon"
+                                    android:layout_height="@dimen/ten_yuan_area_icon"
+                                    android:src="@drawable/ten_area_icon"/>
+
+                            </FrameLayout>
+
+
 
                             <!-- title content describe -->
                             <LinearLayout
