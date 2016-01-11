@@ -357,6 +357,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      *
      */
     private void onThisFrament() {
+
         notifyOrderDatas();
 
         mSlaveRequsetActivityProductInfoThread.cancelAll();
@@ -438,14 +439,6 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
 
         }
 
-        /**
-         * 更新内存中的数据
-         * @param newLatestData
-         */
-        private void updateDataLists(List<InventoryEntity> newLatestData) {
-
-        }
-
 
 
         private String getJsonBody(List<Order> queryList) {
@@ -488,7 +481,28 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         }
         private void notifySuccess() {
             sendMsg(UIMessageConts.ShoppingCartMessage.M_QUERY_ORDERS_SUCCESS);
+            updateInvaildData();
             notifyOrderDatas();
+        }
+
+        /**
+         * 更新过期的数据
+         */
+        private void updateInvaildData() {
+            LogUtils.i(TAG, "更新过期的数据");
+
+            List<InventoryEntity> items = mListInventorys;
+            List<InventoryEntity> invalidData = new ArrayList<>();
+            InventoryEntity item;
+            for (int i=0, len=items.size(); i<len; i++) {
+                item = items.get(i);
+                if (item.getLackPeopleCounts() <= 0) {
+                    invalidData.add(item);
+                }
+
+            }
+
+            deleteInventoryItems(invalidData);
         }
 
         private void notifyFail() {
