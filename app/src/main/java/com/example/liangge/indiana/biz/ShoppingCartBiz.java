@@ -211,7 +211,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      * @param activityProductItemEntity
      */
     public void addProductToShoppingCart(ActivityProductItemEntity activityProductItemEntity) {
-        LogUtils.w(TAG, "addProductToShoppingCart()");
+        LogUtils.w(TAG, "addProductToShoppingCart(). item=%s", activityProductItemEntity.toString());
         new AsyncAddProductThread(activityProductItemEntity).start();
     }
 
@@ -265,6 +265,8 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
      */
     private class AsyncAddProductThread extends Thread {
 
+        private static final String INNER_TAG = "AsyncAddProductThread";
+
         private ActivityProductItemEntity mAddActivityProductItemEntity;
 
         public AsyncAddProductThread(ActivityProductItemEntity activityProductItemEntity) {
@@ -284,6 +286,7 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
         }
 
         private void notifyCntShoppingItem() {
+            LogUtils.i(INNER_TAG, "notifyCntShoppingItem()");
             mICurCntShoppingItem = getCurShoppingItemCnt();
 
             LogUtils.w(TAG, "notifyCntShoppingItem().mICurCnt=%d", mICurCntShoppingItem);
@@ -302,24 +305,28 @@ public class ShoppingCartBiz extends BaseFragmentBiz{
                 inventoryEntityItem = mListInventorys.get(i);
                 if (inventoryEntityItem.getActivityID() == mAddActivityProductItemEntity.getActivityId()) {
                     int iCurBuyCnt = inventoryEntityItem.getBuyCounts();
-                    inventoryEntityItem.setBuyCounts(iCurBuyCnt+1);
+                    inventoryEntityItem.setBuyCounts(iCurBuyCnt+mAddActivityProductItemEntity.getMinimum_share());
                     bIsContain = true;
                     break;
                 }
             }
             if (!bIsContain) {
-                mListInventorys.add(Bizdto.changeToInventory(mAddActivityProductItemEntity, 1));
+                mListInventorys.add(Bizdto.changeToInventory(mAddActivityProductItemEntity, mAddActivityProductItemEntity.getMinimum_share()));
             }
+
+            LogUtils.i(INNER_TAG,  "writeOrderToList(). whether in list=%b", bIsContain);
         }
 
         private void writeOrderToDatabase() {
             Order orderDb = mDBManager.loadOrderEntity(mAddActivityProductItemEntity.getActivityId());
+            LogUtils.i(INNER_TAG, "writeOrderToDatabase().orderBd=%s", orderDb==null?"null, new in db":"already exist in db");
+
             if (orderDb == null) {
-                orderDb = new Order(mAddActivityProductItemEntity.getActivityId(), 1);
+                orderDb = new Order(mAddActivityProductItemEntity.getActivityId(), mAddActivityProductItemEntity.getMinimum_share());
                 mDBManager.addOrder(orderDb);
             } else {
                 int iCurBuyCnt = orderDb.getBuyCnt();
-                orderDb.setBuyCnt(iCurBuyCnt + 1);
+                orderDb.setBuyCnt(iCurBuyCnt + mAddActivityProductItemEntity.getMinimum_share());
                 mDBManager.updateOrder(orderDb);
             }
         }

@@ -665,9 +665,11 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
         if (bIsEnter) {
             bIsEnter = false;
+            mExScrollView.smoothScrollTo(0, 0);
             mViewAllContentWrapper.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+
                     onAutoRefreshUIShow();
                 }
             }, 500);

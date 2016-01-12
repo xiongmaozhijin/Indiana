@@ -254,17 +254,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
     private void onItemClick(InventoryEntity item) {
         if (mIsEditState) {
             mAdapter.addOrCancelItemAndNotify(item);
-            if (mAdapter.isSeletcAll()) {
-                mImgDeleteAllHint.setImageResource(R.drawable.delete_select);
-
-            } else {
-                mImgDeleteAllHint.setImageResource(R.drawable.delete_no_select);
-
-            }
-
-            String hintFormat = getResources().getString(R.string.shoppingcart_delete_desc);
-            String hint = String.format(hintFormat, mAdapter.getDeleteList().size());
-            mTxvDeleteHint.setText(hint);
+            updateBottomDeleteHint();
         }
     }
 
@@ -456,18 +446,37 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
     }
 
     /**
-     * 编辑完成按钮
+     * 更新底部删除提示
+     */
+    private void updateBottomDeleteHint() {
+        if (mAdapter.isSeletcAll()) {
+            mImgDeleteAllHint.setImageResource(R.drawable.delete_select);
+
+        } else {
+            mImgDeleteAllHint.setImageResource(R.drawable.delete_no_select);
+
+        }
+
+        String hintFormat = getResources().getString(R.string.shoppingcart_delete_desc);
+        String hint = String.format(hintFormat, mAdapter.getDeleteList().size());
+        mTxvDeleteHint.setText(hint);
+    }
+
+    /**
+     * 编辑/完成按钮
      * @param view
      */
     public void onBtnEditDone(View view) {
         if (mIsEditState) {
             String hint = getResources().getString(R.string.shopping_cart_edit);
+            mAdapter.cancelAllDeleteItems();
             mTxvEdit.setText(hint);
             mViewFooterDeleteWrapper.setVisibility(View.GONE);
             mViewFooterJieSuanWrapper.setVisibility(View.VISIBLE);
         } else {
             String hint = getResources().getString(R.string.shopping_cart_done);
             mTxvEdit.setText(hint);
+            updateBottomDeleteHint();
             mViewFooterDeleteWrapper.setVisibility(View.VISIBLE);
             mViewFooterJieSuanWrapper.setVisibility(View.GONE);
         }
