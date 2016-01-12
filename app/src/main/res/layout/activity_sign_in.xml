@@ -181,14 +181,15 @@
                 android:background="@color/common_line"
                 android:contentDescription="@string/desc_common_image" />
 
-            <TextView
+            <com.example.liangge.indiana.ui.widget.VerticationCodeTextView
                 android:id="@+id/obtain_vertication_code"
                 android:onClick="onBtnRetryVeticationCode"
                 android:paddingBottom="4dp"
                 android:paddingTop="4dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:layout_width="wrap_content"
+                android:layout_width="78dp"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"

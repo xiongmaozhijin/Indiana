@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.ResponseSignInEntity;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
+import com.example.liangge.indiana.ui.widget.VerticationCodeTextView;
 
 /**
  * 注册界面
@@ -41,7 +42,7 @@ public class SignInActivity extends SimpleAdapterBaseActivity2 {
 
     private CheckBox mCheckBoxReadProcotal;
 
-    private View mViewObtainVertication;
+    private VerticationCodeTextView mViewObtainVertication;
 
     private LogSignInBiz mLogSignInBiz;
 
@@ -62,7 +63,7 @@ public class SignInActivity extends SimpleAdapterBaseActivity2 {
         mEdtPassword2 = (EditText) findViewById(R.id.edt_password2);
         mEdtVerticationCode = (EditText) findViewById(R.id.edt_vertication_code);
         mCheckBoxReadProcotal = (CheckBox) findViewById(R.id.activity_logsignin_checkbox_readprocotol);
-        mViewObtainVertication = findViewById(R.id.obtain_vertication_code);
+        mViewObtainVertication = (VerticationCodeTextView) findViewById(R.id.obtain_vertication_code);
 
         mEdtPhoneNumber.addTextChangedListener(new TextWatcher() {
             @Override
@@ -119,6 +120,7 @@ public class SignInActivity extends SimpleAdapterBaseActivity2 {
             LogUtils.toastShortMsg(this, hint);
 
         } else {
+            mViewObtainVertication.startLimitSendVerticationCode();
             mLogSignInBiz.onSendVeticationCode();
 
         }
