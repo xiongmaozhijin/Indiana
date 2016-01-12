@@ -14,6 +14,10 @@ public class PayRequestEntity {
 
     private List<PayRequestItemEntitiy> payList;
 
+    private long time;
+
+    private String token2;
+
     public PayRequestEntity() {
     }
 
@@ -41,6 +45,21 @@ public class PayRequestEntity {
         this.payList = payList;
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getToken2() {
+        return token2;
+    }
+
+    public void setToken2(String token2) {
+        this.token2 = token2;
+    }
 
     @Override
     public String toString() {
@@ -48,6 +67,8 @@ public class PayRequestEntity {
                 "id=" + id +
                 ", token='" + token + '\'' +
                 ", payList=" + payList +
+                ", time=" + time +
+                ", token2='" + token2 + '\'' +
                 '}';
     }
 }

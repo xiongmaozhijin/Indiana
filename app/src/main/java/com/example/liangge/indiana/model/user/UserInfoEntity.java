@@ -27,6 +27,10 @@ public class UserInfoEntity {
 
     private List<UserAddress> address;
 
+    private long time;
+
+    private String token2;
+
     /**
      * 收货地址
      */
@@ -140,7 +144,7 @@ public class UserInfoEntity {
     }
 
 
-    public UserInfoEntity(long id, String nickname, String token, int balance, String photo, String phone_number, List<UserAddress> address) {
+    public UserInfoEntity(long id, String nickname, String token, int balance, String photo, String phone_number, List<UserAddress> address, long time, String token2) {
         this.id = id;
         this.nickname = nickname;
         this.token = token;
@@ -148,8 +152,9 @@ public class UserInfoEntity {
         this.photo = photo;
         this.phone_number = phone_number;
         this.address = address;
+        this.time = time;
+        this.token2 = token2;
     }
-
 
     public long getId() {
         return id;
@@ -207,6 +212,21 @@ public class UserInfoEntity {
         this.address = address;
     }
 
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getToken2() {
+        return token2;
+    }
+
+    public void setToken2(String token2) {
+        this.token2 = token2;
+    }
 
     /**
      * 返回可读的地址1
@@ -235,10 +255,8 @@ public class UserInfoEntity {
                 ", photo='" + photo + '\'' +
                 ", phone_number='" + phone_number + '\'' +
                 ", address=" + address +
+                ", time=" + time +
+                ", token2='" + token2 + '\'' +
                 '}';
     }
-
-
-
-
 }

@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.model.InventoryEntity;
@@ -302,6 +303,10 @@ public class InventoryPayBiz {
         protected String getJsonBody() {
             PayRequestEntity payItem = Bizdto.changeToPayRequestEntity(mPersonalCenterBiz.getUserInfo().getId(),
                                                 mPersonalCenterBiz.getUserInfo().getToken(), mShoppingCartBiz.getListInventoryData() );
+            long time = System.currentTimeMillis();
+            String token2 = NetworkUtils.getToken2(time, mPersonalCenterBiz.getUserInfo().getId(), mPersonalCenterBiz.getUserInfo().getToken());
+            payItem.setTime(time);
+            payItem.setToken2(token2);
             Gson gson = new Gson();
             String jsonBody = gson.toJson(payItem);
 

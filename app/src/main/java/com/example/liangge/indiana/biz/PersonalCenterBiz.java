@@ -6,6 +6,7 @@ import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.SharedPrefUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
@@ -184,8 +185,11 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
         @Override
         protected String getJsonBody() {
-            String jsonBody = String.format("{\"id\":%d, \"token\":\"%s\"}",
-                                                getUserInfo().getId(), getUserInfo().getToken());
+            long time = System.currentTimeMillis();
+            String token2 = NetworkUtils.getToken2(time, getUserInfo().getId(), getUserInfo().getToken());
+
+            String jsonBody = String.format("{\"id\":%d, \"token\":\"%s\", \"time\":%d, \"token2\":%s}",
+                                                getUserInfo().getId(), getUserInfo().getToken(), time, token2);
 
             LogUtils.w(TAG, "SlaveRequestUserInfo#jsonBody=%s", jsonBody);
             return jsonBody;

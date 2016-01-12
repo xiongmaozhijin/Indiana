@@ -16,6 +16,7 @@ import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.FileOperateUtils;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.model.user.ResponseEditUserInfo;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
@@ -249,7 +250,10 @@ public class EditUserInfoBiz extends BaseActivityBiz{
         protected String getJsonBody() {
             UserInfoEntity user = mPersonalCenterBiz.getUserInfo();
             String photoBase64 = Base64.encodeToString(RequestInfo.photo.toByteArray(), Base64.DEFAULT);
-            UserInfoEntity updateUser = new UserInfoEntity(user.getId(), RequestInfo.nickname, user.getToken(), -1, photoBase64, RequestInfo.phoneNumber, RequestInfo.address);
+            long time = System.currentTimeMillis();
+            String token2 = NetworkUtils.getToken2(time, mPersonalCenterBiz.getUserInfo().getId(), mPersonalCenterBiz.getUserInfo().getToken());
+
+            UserInfoEntity updateUser = new UserInfoEntity(user.getId(), RequestInfo.nickname, user.getToken(), -1, photoBase64, RequestInfo.phoneNumber, RequestInfo.address, time, token2);
             Gson gson = new Gson();
             String json = gson.toJson(updateUser);
 

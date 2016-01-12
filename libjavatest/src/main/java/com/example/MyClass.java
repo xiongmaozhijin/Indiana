@@ -13,6 +13,8 @@ import com.example.model.UserInfoEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,9 +41,31 @@ public class MyClass {
 
 //        reGerationInventroyInfo();
         
-        gerationUserInfo();
+//        gerationUserInfo();
+
+        jiami();
 
     }
+
+    private static void jiami() {
+
+    }
+
+
+    public static String getToken2(long time, long userId, String token) {
+        StringBuilder sb = new StringBuilder(token);
+        String tempToken = token;
+        String strTime = String.valueOf(time);
+        String s1 = strTime.substring(strTime.length() - 3, strTime.length());
+        long A = Integer.parseInt(s1) * userId;
+        int index = (int) (A % 29);
+        sb.insert(index, tempToken);
+        String token2 = DigestUtils.sha1(sb.toString()).toString();
+
+        System.out.println(String.format("token2=%s", token2));
+        return token2;
+    }
+
 
     private static void gerationUserInfo() {
         List<UserInfoEntity.UserAddress> addresses = new ArrayList<>();
