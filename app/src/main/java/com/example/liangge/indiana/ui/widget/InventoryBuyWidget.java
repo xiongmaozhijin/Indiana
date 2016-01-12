@@ -92,6 +92,10 @@ public class InventoryBuyWidget extends FrameLayout{
         this.mInventoryEntity = inventoryEntity;
         this.mIMaxBuyCnt = mInventoryEntity.getLackPeopleCounts();
         this.mIMinBuyCnt = mInventoryEntity.getMinBuyCnt();
+        if (mInventoryEntity.getLackPeopleCounts() < mInventoryEntity.getMinBuyCnt()) {
+            mIMinBuyCnt = mInventoryEntity.getLackPeopleCounts();
+        }
+
         if (this.mIMinBuyCnt == 0) {
             this.mIMinBuyCnt = 1;
         }

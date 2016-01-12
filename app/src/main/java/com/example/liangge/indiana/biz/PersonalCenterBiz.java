@@ -212,9 +212,10 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
         protected String getJsonBody() {
             long time = System.currentTimeMillis();
             String token2 = NetworkUtils.getToken2(time, getUserInfo().getId(), getUserInfo().getToken());
+            String raw = NetworkUtils.getRowStr(time, getUserInfo().getId(), getUserInfo().getToken());
 
-            String jsonBody = String.format("{\"id\":%d, \"token\":\"%s\", \"time\":%d, \"token2\":%s}",
-                                                getUserInfo().getId(), getUserInfo().getToken(), time, token2);
+            String jsonBody = String.format("{\"id\":%d, \"token\":\"%s\", \"time\":%d, \"token2\":\"%s\", \"raw\": \"%s\"}",
+                                                getUserInfo().getId(), getUserInfo().getToken(), time, token2, raw);
 
             LogUtils.w(TAG, "SlaveRequestUserInfo#jsonBody=%s", jsonBody);
             return jsonBody;

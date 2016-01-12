@@ -233,7 +233,7 @@ public class EditUserInfoBiz extends BaseActivityBiz{
         @Override
         protected void notifySuccess() {
             super.notifySuccess();
-            LogUtils.w(TAG, "更新成功");
+            LogUtils.w(TAG, "网络请求成功");
         }
 
         @Override
