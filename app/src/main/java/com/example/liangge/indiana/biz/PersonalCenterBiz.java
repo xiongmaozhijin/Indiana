@@ -1,6 +1,9 @@
 package com.example.liangge.indiana.biz;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
@@ -57,6 +60,28 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
         return mInstance;
     }
+
+    private static final int HANDLE_ACTION = -100;
+
+    private static Handler mHandle = new Handler(Looper.getMainLooper()){
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            int action = msg.arg1;
+            int status = msg.arg2;
+
+            if (action==HANDLE_ACTION) {
+                if (status !=  200) {
+                    String hint = (String) msg.obj;
+                    LogUtils.toastShortMsg(mContext, hint);
+                }
+
+            }
+
+        }
+
+    };
 
 
 
@@ -200,7 +225,18 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
             LogUtils.w(TAG, "SlaveRequestUserInfo#onResponse()=%s", s);
             Gson gson = new Gson();
             ResponseUserInfoEntitiy item = gson.fromJson(s, ResponseUserInfoEntitiy.class);
-            DataInfo.userInfo = Bizdto.changeToUserInfoEntity(DataInfo.userInfo, item);
+            if (item.getStatus()==200) {
+                DataInfo.userInfo = Bizdto.changeToUserInfoEntity(DataInfo.userInfo, item);
+
+            } else {
+                Message msg = Message.obtain();
+                msg.arg1 = HANDLE_ACTION;
+                msg.arg2 = item.getStatus();
+                msg.obj = item.getMsg();
+                mHandle.sendMessage(msg);
+
+            }
+
         }
 
         @Override
