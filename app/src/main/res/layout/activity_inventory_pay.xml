@@ -1,135 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.liangge.indiana.ui.InventoryPayActivity">
 
     <!-- Titlebar-->
-    <com.example.liangge.indiana.ui.widget.CommTitleBar
-        xmlns:app1="http://schemas.android.com/apk/res-auto"
-        app1:titlebar_title="@string/activity_inventorypay_title"
+    <com.example.liangge.indiana.ui.widget.CommTitleBar xmlns:app1="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app1:titlebar_title="@string/activity_inventorypay_title" />
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <include layout="@layout/layout_not_network" android:id="@+id/net_hint_wrapper" />
+        <include
+            android:id="@+id/net_hint_wrapper"
+            layout="@layout/layout_not_network" />
 
 
-    <!-- 订单信息 -->
-    <LinearLayout
-        android:id="@+id/activity_inventory_detail_wrapper"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        <!-- 订单信息 -->
         <LinearLayout
-            android:layout_marginBottom="19dp"
+            android:id="@+id/activity_inventory_detail_wrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
 
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/activity_inventorypay_productcount"/>
-            <TextView
-                android:id="@+id/activity_inventorypay_txv_total_gold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/holo_red_dark"
-                android:text="%1$d夺宝币"/>
+                android:layout_marginBottom="19dp"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/activity_inventorypay_productcount" />
+
+                <TextView
+                    android:id="@+id/activity_inventorypay_txv_total_gold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%1$d夺宝币"
+                    android:textColor="@android:color/holo_red_dark" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/txv_gray_light" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="120dp"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/activity_inventorypay_inventoryinfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Apple iPhone6s 16G 颜色随机\t\t1人次\n小米鼠标 2人次\n" />
+
+
+                    </LinearLayout>
+
+
+                </ScrollView>
+
+                <!--浮动显示菜单信息-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@android:color/holo_orange_light" />
+
+                    <TextView
+                        android:id="@+id/activity_inventorypay_txv_gold_account_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:padding="8dp"
+                        android:text="@string/activity_inventory_pay_balance" />
+
+
+                    <RelativeLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp">
+
+                        <Button
+                            android:id="@+id/activity_inventorypay_btn_requestpay"
+                            style="@style/Button.main"
+                            android:layout_width="210dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="19dp"
+                            android:onClick="onBtnCommitPay"
+                            android:text="@string/inventory_pay_btn" />
+
+                        <TextView
+                            android:id="@+id/activity_inventory_txv_recharge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@id/activity_inventorypay_btn_requestpay"
+                            android:layout_marginLeft="9dp"
+                            android:layout_toRightOf="@id/activity_inventorypay_btn_requestpay"
+                            android:background="@android:color/white"
+                            android:text="@string/recharge_txv"
+                            android:textColor="@android:color/holo_blue_dark" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+            </FrameLayout>
+
 
         </LinearLayout>
 
+
+        <!-- 支付结果-->
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+
             <LinearLayout
+                android:id="@+id/activity_inventory_pay_result_wrapper"
+                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-               <TextView
-                   android:id="@+id/activity_inventorypay_inventoryinfo"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="Apple iPhone6s 16G 颜色随机\t\t1人次\n小米鼠标 2人次\n"/>
-
+                <TextView
+                    android:id="@+id/pay_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/activity_inventory_pay_payresult" />
 
             </LinearLayout>
 
-
         </ScrollView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/holo_orange_light" />
-
-        <TextView
-            android:id="@+id/activity_inventorypay_txv_gold_account_info"
-            android:layout_marginTop="17dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_inventory_pay_balance"/>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/activity_inventorypay_btn_requestpay"
-                android:onClick="onBtnCommitPay"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="19dp"
-                android:layout_width="210dp"
-                android:layout_height="wrap_content"
-                android:text="一键支付"
-                android:textColor="@android:color/white"
-                android:background="@android:color/holo_red_dark"/>
-
-            <TextView
-                android:id="@+id/activity_inventory_txv_recharge"
-                android:layout_marginLeft="9dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="充值"
-                android:textColor="@android:color/holo_blue_dark"
-                android:background="@android:color/white"
-                android:layout_alignBottom="@id/activity_inventorypay_btn_requestpay"
-                android:layout_toRightOf="@id/activity_inventorypay_btn_requestpay"/>
-
-        </RelativeLayout>
-
-
-
-    </LinearLayout>
-
-
-        <!-- 支付结果-->
-        <LinearLayout
-            android:id="@+id/activity_inventory_pay_result_wrapper"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/pay_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/activity_inventory_pay_payresult"/>
-
-        </LinearLayout>
 
 
     </FrameLayout>

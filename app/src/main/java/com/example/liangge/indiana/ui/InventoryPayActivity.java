@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -24,7 +26,7 @@ import com.example.liangge.indiana.ui.user.LogSignInActivity;
 /**
  * 订单支付界面
  */
-public class InventoryPayActivity extends BaseActivity {
+public class InventoryPayActivity extends BaseActivity2 {
 
     private static final String TAG = InventoryPayActivity.class.getSimpleName();
 
@@ -49,8 +51,8 @@ public class InventoryPayActivity extends BaseActivity {
 
     private InventoryPayBiz mInventoryPayBiz;
 
-
-    private UIMsgReceive mUIMsgReceive;
+    /** 一键支付 */
+    private Button mViewPay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class InventoryPayActivity extends BaseActivity {
         mTxvInventoryInfo = (TextView) findViewById(R.id.activity_inventorypay_inventoryinfo);
         mTxvAccountInfo = (TextView) findViewById(R.id.activity_inventorypay_txv_gold_account_info);
         mTxvReCharge = (TextView) findViewById(R.id.activity_inventory_txv_recharge);
+
+        mViewPay = (Button) findViewById(R.id.activity_inventorypay_btn_requestpay);
 
         mTxvReCharge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,48 +105,17 @@ public class InventoryPayActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void registerUIReceive() {
-        if (mUIMsgReceive == null) {
-            mUIMsgReceive = new UIMsgReceive();
-            IntentFilter filter = new IntentFilter(UIMessageConts.UI_MESSAGE_ACTION);
-            registerReceiver(mUIMsgReceive, filter);
-        }
-    }
 
     @Override
-    protected void unRegisterUIReceive() {
-        if (mUIMsgReceive != null) {
-            unregisterReceiver(mUIMsgReceive);
-            mUIMsgReceive = null;
-        }
+    protected void handleUIMessage(String strUIAction) {
+        handleUIAction(strUIAction);
     }
 
-
-
-
-    private class UIMsgReceive extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent != null) {
-                String action = intent.getAction();
-                if (action!=null && action.equals(UIMessageConts.UI_MESSAGE_ACTION)) {
-                    String uiAciton = intent.getStringExtra(UIMessageConts.UI_MESSAGE_KEY);
-                    if (uiAciton != null) {
-                        handleUIAction(uiAciton);
-                    }
-                }
-            }
-
-        }
-
-
-    }
 
     private void handleUIAction(String uiAciton) {
-        if (uiAciton.equals(UIMessageConts.InventoryPay.M_INIT_INVENTORY_INFO)) {
-            handleUIInit();
+        if (uiAciton.equals(UIMessageConts.InventoryPay.M_INIT_INVENTORY_INFO) || uiAciton.equals(UIMessageConts.InventoryPay.M_INIT_INVETORY_STATE)) {
+            handleUIInit(uiAciton);
+
         } else if (uiAciton.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_START)
                 || uiAciton.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_FAILED)
                 || uiAciton.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_SUCCESS)) {
@@ -156,19 +129,15 @@ public class InventoryPayActivity extends BaseActivity {
      * 处理订单支付结果
      */
     private void handlePayResult(String uiAction) {
+        handleBtnPay(uiAction);
+
         if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_START)) {
-//            LogUtils.toastShortMsg(this, "正在支付中...");
-            mViewNetWrapper.setVisibility(View.VISIBLE);
-            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.GONE);
-//            mViewNetWrapper.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNetWrapper, mViewPayResultWrapper);
             mViewInventoryDetailWrapper.setVisibility(View.VISIBLE);
             mViewPayResultWrapper.setVisibility(View.GONE);
 
         } else if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_FAILED)) {
-            LogUtils.toastShortMsg(this, "网络出错，支付失败");
-            mViewNetWrapper.setVisibility(View.VISIBLE);
-            mViewNetWrapper.findViewById(R.id.comm_loading_icon).setVisibility(View.GONE);
-            mViewNetWrapper.findViewById(R.id.comm_not_network_hint).setVisibility(View.VISIBLE);
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetWrapper, mViewInventoryDetailWrapper);
             mViewInventoryDetailWrapper.setVisibility(View.GONE);
             mViewPayResultWrapper.setVisibility(View.GONE);
 
@@ -182,6 +151,23 @@ public class InventoryPayActivity extends BaseActivity {
     }
 
 
+    private void handleBtnPay(String uiAction) {
+        LogUtils.i(TAG, "handleBtnPay(). uiAction=%s", uiAction);
+        if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_START)) {
+            mViewPay.setEnabled(false);
+
+        } else if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_FAILED)) {
+            mViewPay.setEnabled(true);
+
+        } else if (uiAction.equals(UIMessageConts.InventoryPay.INVENTORY_PAY_SUCCESS)) {
+            mViewPay.setEnabled(true);
+
+        } else {
+            mViewPay.setEnabled(true);
+
+        }
+    }
+
 
     /**
      * 处理订单网络请求成功返回信息
@@ -192,17 +178,18 @@ public class InventoryPayActivity extends BaseActivity {
         if (iStatus == Constant.InventoryPay.ORDER_PAY_RESULT_CODE_SUCCESS) {
             LogUtils.e(TAG, "订单支付成功");
 
-            mViewNetWrapper.setVisibility(View.GONE);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNetWrapper, mViewPayResultWrapper);
             mViewPayResultWrapper.setVisibility(View.VISIBLE);
             mViewInventoryDetailWrapper.setVisibility(View.INVISIBLE);
             TextView txvPayResult = (TextView) findViewById(R.id.pay_result);
-            txvPayResult.setText(mInventoryPayBiz.getHumanReadablePayResultInfo());
+            txvPayResult.setText(Html.fromHtml(mInventoryPayBiz.getHumanReadablePayResultInfo()));
         } else {
             //TODO
             mViewNetWrapper.setVisibility(View.GONE);
             mViewPayResultWrapper.setVisibility(View.GONE);
             mViewInventoryDetailWrapper.setVisibility(View.VISIBLE);
-            LogUtils.toastShortMsg(this, "其他错误");
+            String hint = getResources().getString(R.string.activity_inventory_pay_failed);
+            LogUtils.e(TAG, hint);
         }
 
     }
@@ -210,20 +197,51 @@ public class InventoryPayActivity extends BaseActivity {
     /**
      * 处理ui初始显示
      */
-    private void handleUIInit() {
-        mTxvTotalGold.setText(mInventoryPayBiz.getTotalPayGolds()+"");
-        mTxvInventoryInfo.setText(mInventoryPayBiz.getHummanReadableOrdersInfo());
-        String strBalanceFormat = getResources().getString(R.string.activity_inventory_pay_balance);
-        String strBalanceHint = String.format(strBalanceFormat, mInventoryPayBiz.getAccoutGold());
-        mTxvAccountInfo.setText(strBalanceHint);
+    private void handleUIInit(String uiAction) {
+        LogUtils.i(TAG, "handleUIInit(). uiAction=%s", uiAction);
+
+        if (uiAction.equals(UIMessageConts.InventoryPay.M_INIT_INVENTORY_INFO)) {
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNetWrapper, mViewInventoryDetailWrapper);
+            mViewPayResultWrapper.setVisibility(View.GONE);
+
+            mTxvTotalGold.setText(mInventoryPayBiz.getTotalPayGolds() + "");
+            mTxvInventoryInfo.setText("");
+            mTxvInventoryInfo.setText(Html.fromHtml(mInventoryPayBiz.getHummanReadableOrdersInfo()));
+            String strBalanceFormat = getResources().getString(R.string.activity_inventory_pay_balance);
+            String strBalanceHint = String.format(strBalanceFormat, mInventoryPayBiz.getAccoutGold());
+            mTxvAccountInfo.setText(strBalanceHint);
+
+        } else if (uiAction.equals(UIMessageConts.InventoryPay.M_INIT_INVETORY_STATE)) {
+            handlePayResult(mInventoryPayBiz.getPayState());
+
+        }
+
 
     }
 
 
     public void onBtnBack(View view) {
+        exitActivityDeal();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        exitActivityDeal();
+        super.onBackPressed();
 
     }
+
+
+    private void exitActivityDeal() {
+        if (mInventoryPayBiz.isPaying()) {
+            String hint = getResources().getString(R.string.activity_inventory_exit_hint);
+            LogUtils.toastShortMsg(this, hint);
+
+        }
+
+    }
+
 
     //一键支付
     public void onBtnCommitPay(View view) {
@@ -232,4 +250,31 @@ public class InventoryPayActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onBtnReload() {
+        LogUtils.i(TAG, "onBtnReload()");
+        mInventoryPayBiz.onResume();
+    }
+
+
+
+    @Override
+    protected String getDebugTag() {
+        return TAG;
+    }
+
+    @Override
+    protected View getScrollViewWrapper() {
+        return null;
+    }
+
+    @Override
+    protected void onRefreshLoadData() {
+
+    }
+
+    @Override
+    protected View getLayoutViewWrapper() {
+        return null;
+    }
 }

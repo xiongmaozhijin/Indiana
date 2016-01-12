@@ -64,6 +64,11 @@ public abstract class BaseUIActivity extends Activity {
             return;
         }
 
+        if (getScrollViewWrapper() == null) {
+            LogUtils.e(TAG, "getScrollViewWrapper() == null");
+            return;
+        }
+
         // header
         final MaterialHeader header = new MaterialHeader(this);
         int[] colors = getResources().getIntArray(R.array.google_colors);

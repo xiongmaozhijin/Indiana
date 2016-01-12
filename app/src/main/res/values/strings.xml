@@ -104,6 +104,15 @@
     <string name="activity_indiana_record_run_ing">进行中</string>
     <string name="activity_indianarecord_tag_run_done">已揭晓</string>
 
+    <string name="activity_inventory_pay_orders_show">
+        <![CDATA[
+            <div>
+            %1$s&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#da3651">%2$d</font><br>
+            </div>
+        ]]>
+    </string>
+
+
     <string name="activity_indianarecord_userinfo_1">
         %1$s \n 参与期号:%2$s \n参与次数:%3$d \t 我的号码(%4$s) \n\n
         获奖者:%5$s\n
@@ -139,7 +148,22 @@
 
     <string name="f_personalcenter_logouting_hint">退出中...</string>
     <string name="f_personalcenter_logouting_hint_fail">网络错误，退出失败</string>
-    <string name="activity_inventory_pay_payresult">%1$s\n购买数量:%2$d\t购买成功数量:%3$d\n\n</string>
+    <string name="activity_inventory_pay_payresult">
+              <![CDATA[
+            <div>
+                %1$s<br>
+                购买数量:<font color="#0278fe">%2$d</font>  &nbsp;&nbsp;&nbsp;
+                购买成功数量:<font color="#da3651">%3$d</font> <br><br>
+            </div>
+        ]]>
+
+    </string>
+    <string name="activity_inventory_pay_failed">支付失败，其他错误</string>
+    <string name="activity_inventory_pay_net_failed">网络出错，支付失败</string>
+    <string name="activity_inventory_pay_ing">正在支付中...</string>
+    <string name="activity_inventory_pay_success">支付成功</string>
+    <string name="activity_inventory_exit_hint">将继续为您支付订单</string>
+
     <string name="activity_imgview_titlebar_title">图文详情</string>
     <string name="activity_user_info_info">\n用户ID:%1$s\n\n账户余额:%2$s</string>
     <string name="f_personal_userinfo_1">%1$s \t余额:%2$d</string>
@@ -230,6 +254,8 @@
     </string>
     <string name="activity_history_desc1">期号:%1$s\t (揭晓时间:%2$s)</string>
     <string name="activity_detail_menu_item_history_record">往期揭晓</string>
+    <string name="inventory_pay_btn">一键支付</string>
+    <string name="recharge_txv">充值</string>
 
 
 </resources>
