@@ -32,6 +32,14 @@
 
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        style="@style/ProgressBar_Mini"
+        android:max="100"
+        android:progress="3"/>
+
     <!-- webview-->
     <WebView
         android:id="@+id/activity_webview_webview"

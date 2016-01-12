@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -23,6 +27,8 @@ public class WebViewActivity extends Activity {
 
     private WebViewBiz mWebViewBiz;
 
+    private ProgressBar mProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +44,29 @@ public class WebViewActivity extends Activity {
     private void initView() {
         mTxvTitlebarTitle = (TextView) findViewById(R.id.activity_webview_titlebar_title);
         mWebView = (WebView) findViewById(R.id.activity_webview_webview);
-        mWebView.getSettings().setJavaScriptEnabled(true);
+        mProgressBar = (ProgressBar) findViewById(R.id.progressbar);
+
+        WebSettings webSettings = mWebView.getSettings();
+        mWebView.requestFocusFromTouch();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setSupportZoom(true);
+
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+
+        mWebView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                mProgressBar.setProgress(newProgress);
+            }
+        });
     }
 
 
@@ -65,4 +93,16 @@ public class WebViewActivity extends Activity {
         mWebView.loadUrl(url);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (mWebView.canGoBack()) {
+            mWebView.goBack();
+
+        } else {
+            super.onBackPressed();
+
+        }
+
+    }
 }
