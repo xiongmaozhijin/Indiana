@@ -78,8 +78,8 @@
 
             <ImageButton
                 android:id="@+id/f_indiana_product_item_shopping_cart_btn"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
                 android:layout_alignBottom="@id/temp_1"
                 android:layout_marginLeft="3dp"
                 android:layout_toRightOf="@id/f_indiana_product_item_progressbar"

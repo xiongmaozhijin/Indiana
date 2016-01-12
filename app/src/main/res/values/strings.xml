@@ -240,7 +240,7 @@
 
     <string name="shopping_cart_edit">编辑</string>
     <string name="shopping_cart_done">完成</string>
-    <string name="shoppingcart_delete_desc">全选/n共%1$d件</string>
+    <string name="shoppingcart_delete_desc">全选\t共%1$d件</string>
     <string name="activity_history_titlebar_title">往期揭晓</string>
     <string name="activity_history_item_desc2">
            <![CDATA[

@@ -195,11 +195,10 @@
                         android:layout_width="fill_parent"
                         android:layout_height="56dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginTop="1dp"
                         android:background="@drawable/tab_border"
                         android:paddingLeft="@dimen/cart_adjust_amount_margin"
                         android:paddingRight="10.0dip"
-                        android:visibility="visible">
+                        android:visibility="invisible">
 
 
                         <Button
@@ -262,11 +261,10 @@
                         android:layout_width="fill_parent"
                         android:layout_height="56dp"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginTop="1dp"
                         android:background="@drawable/tab_border"
                         android:paddingLeft="@dimen/cart_adjust_amount_margin"
                         android:paddingRight="10.0dip"
-                        android:visibility="visible">
+                        android:visibility="invisible">
 
 
                         <Button

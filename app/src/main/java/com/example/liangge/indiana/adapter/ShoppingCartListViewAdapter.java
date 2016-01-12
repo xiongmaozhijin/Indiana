@@ -159,6 +159,7 @@ public class ShoppingCartListViewAdapter extends BaseAdapter{
      */
     public void addAllDeleteItems() {
         LogUtils.i(TAG, "addAllDeleteItems()");
+        mListDelete.clear();
         mListDelete.addAll(mListInventorys);
         notifyDataSetChanged();
     }
