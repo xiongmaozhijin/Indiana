@@ -138,7 +138,7 @@ public class InventoryBuyWidget extends FrameLayout{
             public void onClick(View v) {
                 if (mIMaxBuyCnt > 0) {
                     LogUtils.i(TAG, "onBtnSub()");
-                    mICurBuyCnt--;
+                    mICurBuyCnt -= mIMinBuyCnt;
                     mEdtNumber.setText(mICurBuyCnt + "");
                 }
 
@@ -150,7 +150,7 @@ public class InventoryBuyWidget extends FrameLayout{
             public void onClick(View v) {
                 if (mIMaxBuyCnt > 0) {
                     LogUtils.i(TAG, "onBtnPlus()");
-                    mICurBuyCnt++;
+                    mICurBuyCnt += mIMinBuyCnt;
                     mEdtNumber.setText(mICurBuyCnt + "");
                 }
 
@@ -181,12 +181,18 @@ public class InventoryBuyWidget extends FrameLayout{
                         if (number< mIMinBuyCnt) {
                             mEdtNumber.setText(mIMinBuyCnt+"");
                             notifyListener(mIMinBuyCnt);
+
                         } else if (number > mIMaxBuyCnt) {
                             mEdtNumber.setText(mIMaxBuyCnt+"");
                             notifyListener(mIMaxBuyCnt);
-                        } else {
-                            notifyListener(number);
 
+                        } else {
+                            if ( (number%mIMinBuyCnt) != 0) {
+                                number = number - (number%mIMinBuyCnt);
+                                mEdtNumber.setText(number+"");
+                            }
+
+                            notifyListener(number);
                         }
 
                     } catch (Exception e) {
