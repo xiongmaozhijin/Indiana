@@ -213,7 +213,10 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
 
 
-
+    public void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+        loadIndianaRecord(RequestInfo.tag, true);
+    }
 
 
     @Override

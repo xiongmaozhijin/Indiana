@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.inner.HistoryRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -65,6 +66,25 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
         }
 
     }
+
+    /**
+     * 加载更多
+     * @param newList
+     */
+    public void loadMoreDataAndNotify(List<IndianaRecordEntity> newList) {
+        if (newList != null) {
+            IndianaRecordEntity item;
+            for (int i=0, len = newList.size(); i<len; i++) {
+                item = newList.get(i);
+                mListData.add(item);
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+
+
+
 
 
     @Override

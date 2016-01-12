@@ -1,10 +1,6 @@
 package com.example.liangge.indiana.ui.user;
 
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,10 +16,11 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
-import com.example.liangge.indiana.ui.BaseActivity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
+
+import java.util.List;
 
 /**
  * 夺宝记录
@@ -49,6 +46,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
 
     private ExScrollView mExScrollView;
 
+    private View mViewLoadMoreWrapper;
 
     private RadioGroup mRadioGroup;
     private RadioButton mBtnTagAll;
@@ -91,6 +89,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
         mViewNetHintWrapper = findViewById(R.id.activity_indianarecord_net_wrapper);
         mViewTagContentWrapper = findViewById(R.id.activity_indianarecord_tagcontent_wrapper);
         mExScrollView = (ExScrollView) findViewById(R.id.activity_indianarecord_scrollview);
+        mViewLoadMoreWrapper = findViewById(R.id.load_more_wrapper);
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup);
         mBtnTagAll = (RadioButton) findViewById(R.id.rb_tag_all);
@@ -113,7 +112,26 @@ public class IndianaRecordActivity extends BaseActivity2 {
             }
         });
 
+        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+            @Override
+            public void onScrollTop() {
 
+            }
+
+            @Override
+            public void onScrollBottom() {
+                onScrollBottomLoadMore();
+            }
+        });
+
+    }
+
+    /**
+     * 滚动到底部加载更多
+     */
+    private void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+        mIndianaRecordBiz.onScrollBottomLoadMore();
     }
 
     private void initManager() {
@@ -151,6 +169,20 @@ public class IndianaRecordActivity extends BaseActivity2 {
     }
 
     private void handleLoadMoreUI(String strUIAction) {
+        if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_FAIL_MORE)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
+
+        } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_START_MORE)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
+
+        } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_SUCCESS_MORE)) {
+            List<IndianaRecordEntity> data = mIndianaRecordBiz.getData();
+            boolean isEmpty = data.size()==0;
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
+            mAdapter.loadMoreDataAndNotify(data);
+        }
+
+
 
     }
 
@@ -203,7 +235,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
     @Override
     protected void onBtnReload() {
         LogUtils.w(TAG, "onBtnReload()");
-
+        mIndianaRecordBiz.onCreate();
     }
 
     @Override

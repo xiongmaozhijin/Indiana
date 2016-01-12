@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.liangge.indiana.ui.user.IndianaRecordActivity">
 
     <!-- Titlebar-->
-    <com.example.liangge.indiana.ui.widget.CommTitleBar
-        xmlns:app1="http://schemas.android.com/apk/res-auto"
-        app1:titlebar_title="@string/activity_indianrecord_titlebar_title"
+    <com.example.liangge.indiana.ui.widget.CommTitleBar xmlns:app1="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app1:titlebar_title="@string/activity_indianrecord_titlebar_title" />
 
 
     <LinearLayout
@@ -27,34 +27,34 @@
 
             <RadioGroup
                 android:id="@+id/radiogroup"
-                android:checkedButton="@+id/rb_tag_all"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
+                android:checkedButton="@+id/rb_tag_all"
                 android:orientation="horizontal">
 
                 <RadioButton
                     android:id="@+id/rb_tag_all"
-                    android:onClick="onBtnTagAll"
+                    style="@style/indianarecord_category_item"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    style="@style/indianarecord_category_item"
-                    android:text="@string/activity_indiana_record_tag_all"/>
+                    android:onClick="onBtnTagAll"
+                    android:text="@string/activity_indiana_record_tag_all" />
 
                 <RadioButton
                     android:id="@+id/rb_tag_ing"
-                    android:onClick="onBtnTagIng"
-                    android:layout_width="0dp"
                     style="@style/indianarecord_category_item"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="@string/activity_indiana_record_run_ing"/>
+                    android:onClick="onBtnTagIng"
+                    android:text="@string/activity_indiana_record_run_ing" />
 
                 <RadioButton
                     android:id="@+id/rb_tag_done"
-                    android:onClick="onBtnDone"
-                    android:layout_width="0dp"
                     style="@style/indianarecord_category_item"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="@string/activity_indianarecord_tag_run_done"/>
+                    android:onClick="onBtnDone"
+                    android:text="@string/activity_indianarecord_tag_run_done" />
 
             </RadioGroup>
 
@@ -66,38 +66,50 @@
             android:layout_height="match_parent"
             android:background="@color/bg_1">
 
-        <!-- 内容 -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include layout="@layout/layout_not_network" android:id="@+id/activity_indianarecord_net_wrapper" />
-
+            <!-- 内容 -->
             <FrameLayout
-                android:id="@+id/activity_indianarecord_tagcontent_wrapper"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.example.liangge.indiana.ui.widget.ExListView
-                    android:id="@+id/activity_indianarecord_listview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:dividerHeight="1dp">
+                <include
+                    android:id="@+id/activity_indianarecord_net_wrapper"
+                    layout="@layout/layout_not_network" />
 
-                </com.example.liangge.indiana.ui.widget.ExListView>
+                <FrameLayout
+                    android:id="@+id/activity_indianarecord_tagcontent_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+
+                        <com.example.liangge.indiana.ui.widget.ExListView
+                            android:id="@+id/activity_indianarecord_listview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:dividerHeight="1dp">
+
+                        </com.example.liangge.indiana.ui.widget.ExListView>
+
+
+                        <include
+                            android:id="@+id/load_more_wrapper"
+                            layout="@layout/layout_load_more_wrapper" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
 
             </FrameLayout>
-
-
-
-
-        </FrameLayout>
 
 
         </com.example.liangge.indiana.ui.widget.ExScrollView>
 
     </LinearLayout>
-
 
 
 </LinearLayout>
