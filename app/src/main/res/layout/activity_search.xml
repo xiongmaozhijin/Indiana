@@ -46,6 +46,7 @@
                 android:hint="@string/activity_category_search_hint"
                 android:textSize="12sp"
                 android:imeOptions="actionSearch"
+                android:singleLine="true"
                 android:textColor="#C9C9C9" />
         </LinearLayout>
 

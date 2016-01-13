@@ -262,4 +262,6 @@
 
     <string name="activity_search_net_error">网络错误</string>
 
+    <string name="activity_category_search">搜索-%1$s</string>
+
 </resources>

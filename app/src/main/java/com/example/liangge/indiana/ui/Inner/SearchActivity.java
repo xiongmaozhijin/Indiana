@@ -129,10 +129,13 @@ public class SearchActivity extends SimpleAdapterBaseActivity2 {
             LogUtils.toastShortMsg(this, hint);
 
         } else {
+            String titleFormat = getResources().getString(R.string.activity_category_search);
+            String title = String.format(titleFormat, keyword);
             mCategroyDetailBiz.setRequestData(CategroyDetailBiz.IRequestCategory.SEARCH_PRODUCT, keyword);
+
+            mCategroyDetailBiz.setTitle(title);
             Intent i = new Intent(SearchActivity.this, CategoryListActivity.class);
             startActivity(i);
-
         }
 
         LogUtils.i(TAG, "searchProduct().keyword=%s", keyword == null ? "null" : keyword);
