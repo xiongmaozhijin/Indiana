@@ -15,11 +15,30 @@ public class ExListView extends ListView{
 
     public ExListView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initRes(context, attrs);
     }
+
+
 
     public ExListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initRes(context, attrs);
     }
+
+
+    private void initRes(Context context, AttributeSet attrs) {
+        initState();
+    }
+
+    private void initState() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                setFocusable(false);
+            }
+        });
+    }
+
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

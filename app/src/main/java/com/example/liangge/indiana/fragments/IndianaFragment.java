@@ -511,7 +511,6 @@ public class IndianaFragment extends BaseRefreshFragment {
 
             handleCompleteRefreshUI();
 
-            mScrollViewMain.smoothScrollTo(0, 0);
         }
     }
 

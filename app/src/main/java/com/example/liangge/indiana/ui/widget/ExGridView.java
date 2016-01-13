@@ -8,31 +8,47 @@ import android.widget.GridView;
 
 /**
  * 扩展GridView，使其支持ScrollView<br/>
- *
+ * <p/>
  * Created by baoxing on 2015/12/15.
  */
-public class ExGridView extends GridView{
+public class ExGridView extends GridView {
 
-        public ExGridView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
+    public ExGridView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initRes(context, attrs);
+    }
 
-        public ExGridView(Context context) {
-            super(context);
-        }
 
-        public ExGridView(Context context, AttributeSet attrs, int defStyle) {
-            super(context, attrs, defStyle);
-        }
+    public ExGridView(Context context) {
+        super(context);
+    }
 
-        @Override
-        public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    public ExGridView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        initRes(context, attrs);
+    }
 
-            int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
-                    View.MeasureSpec.AT_MOST);
-            super.onMeasure(widthMeasureSpec, expandSpec);
-        }
+    @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
+        int expandSpec = View.MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2,
+                View.MeasureSpec.AT_MOST);
+        super.onMeasure(widthMeasureSpec, expandSpec);
+    }
+
+    private void initRes(Context context, AttributeSet attrs) {
+        initState();
+    }
+
+
+    private void initState() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                setFocusable(false);
+            }
+        });
+    }
 
 
 }

@@ -219,6 +219,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mViewGoNextHotActivityWrapper = findViewById(R.id.activity_join_next_hot_activity_wrapper);
 
 
+//        mPlayRecordListView.setFocusable(false);
+
         mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
             @Override
             public void onScrollTop() {

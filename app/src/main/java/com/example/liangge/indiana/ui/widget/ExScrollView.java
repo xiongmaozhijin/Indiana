@@ -29,7 +29,7 @@ public class ExScrollView extends ScrollView{
     private View mFloatMenuContentViewWrapper;
 
     /** Y轴滚动距离 */
-    private int mScrollY;
+    private int mExScrollY;
 
     private float iPrevY;
 
@@ -68,7 +68,7 @@ public class ExScrollView extends ScrollView{
      * @return
      */
     public int getExScrollY() {
-        return this.mScrollY;
+        return this.mExScrollY;
     }
 
 
@@ -89,7 +89,7 @@ public class ExScrollView extends ScrollView{
     protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
         super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
         handleFloatMenu();
-        this.mScrollY = scrollY;    //自身的getScrollY在Indiana获取不到
+        this.mExScrollY = scrollY;    //自身的getScrollY在Indiana获取不到
         LogUtils.i(TAG,"scrollY=%d", scrollY);
     }
 
