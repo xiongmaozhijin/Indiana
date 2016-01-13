@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.liangge.indiana.ui.Inner.SearchActivity">
+
+    <com.example.liangge.indiana.ui.widget.CommTitleBar
+        xmlns:title="http://schemas.android.com/apk/res-auto"
+        title:titlebar_title="@string/activity_search_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- search -->
+    <LinearLayout
+        android:id="@+id/category_search_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EBECED"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        android:paddingTop="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:background="@drawable/shape_bg_conner"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_gravity="center_vertical"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/search" />
+
+            <EditText
+                android:id="@+id/edt_search"
+                android:background="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:hint="@string/activity_category_search_hint"
+                android:textSize="12sp"
+                android:imeOptions="actionSearch"
+                android:textColor="#C9C9C9" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--搜索-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingLeft="16dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:text="热门搜索"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/txv_gray_light" />
+
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="0.1dp"
+            android:divider="@color/txv_gray_light" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

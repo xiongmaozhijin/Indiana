@@ -43,7 +43,24 @@ public class MyClass {
         
 //        gerationUserInfo();
 
-        jiami();
+//        jiami();
+
+        gerationStrArray();
+    }
+
+    private static void gerationStrArray() {
+//        [  "iPhone",   "华为",   "小米" ]
+        String json = "[  {\"iPhone\"},   {\"华为\"},   {\"小米\"} ]";
+        List<String> list = new ArrayList<>();
+//        String[] list;
+        Gson gson = new Gson();
+        list = gson.fromJson(json, new TypeToken<List<String>>(){}.getType());
+        String out =  String.format("size=%d, item[1]=%s", list.size(), list.get(1) );
+        System.out.println(out);
+
+        String json1 = gson.toJson(list);
+
+        System.out.println(json1);
 
     }
 

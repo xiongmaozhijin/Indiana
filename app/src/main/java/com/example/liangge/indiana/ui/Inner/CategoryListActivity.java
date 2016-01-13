@@ -21,7 +21,7 @@ import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 /**
- * 类别展示页
+ * 类别展示页/搜索展示页
  */
 public class CategoryListActivity extends BaseActivity2 {
 

@@ -28,6 +28,7 @@ import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.ui.Inner.CategoryListActivity;
 import com.example.liangge.indiana.ui.Inner.IndianaCategoryActivity;
+import com.example.liangge.indiana.ui.Inner.SearchActivity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.WebViewActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
@@ -97,6 +98,8 @@ public class IndianaFragment extends BaseRefreshFragment {
     /** 常见问题 */
     private View mViewQAQ;
 
+    /** 搜索 */
+    private View mViewSearch;
 
     /** 下拉刷新 */
 //    protected PtrFrameLayout mPtrFrameLayout;
@@ -246,7 +249,14 @@ public class IndianaFragment extends BaseRefreshFragment {
         mAdapter = new IndianaProductGridViewAdapter(getActivity() );
         mGridviewProducts.setAdapter(mAdapter);
 
+        mViewSearch = view.findViewById(R.id.main_btn_search);
 
+        mViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnSearch();
+            }
+        });
 
         mBannerView.setOnClickListener(new BannerView.OnClickListener() {
             @Override
@@ -304,6 +314,16 @@ public class IndianaFragment extends BaseRefreshFragment {
             }
         }, mViewProductContentWrapper);
 
+
+    }
+
+    /**
+     * 搜索
+     */
+    private void onBtnSearch() {
+        LogUtils.i(TAG, "onBtnSearch()");
+        Intent i = new Intent(getActivity(), SearchActivity.class);
+        startActivity(i);
 
     }
 

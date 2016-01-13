@@ -71,6 +71,8 @@
         </activity>
         <activity android:name=".ui.Inner.HistoryRunRecordActivity" >
         </activity>
+        <activity android:name=".ui.Inner.SearchActivity" >
+        </activity>
     </application>
 
 </manifest>

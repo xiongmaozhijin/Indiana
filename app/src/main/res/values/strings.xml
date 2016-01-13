@@ -256,6 +256,10 @@
     <string name="activity_detail_menu_item_history_record">往期揭晓</string>
     <string name="inventory_pay_btn">一键支付</string>
     <string name="recharge_txv">充值</string>
+    <string name="activity_search_title">商品搜索</string>
 
+    <string name="activity_search_keyword_hint_1">搜索关键词不能空</string>
+
+    <string name="activity_search_net_error">网络错误</string>
 
 </resources>

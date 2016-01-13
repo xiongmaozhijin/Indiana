@@ -63,8 +63,12 @@ public class CategroyDetailBiz extends BaseActivityBiz{
     public interface IRequestCategory {
         /** 普通类别 */
         int NORMAL_CATEGORY = 1;
+
         /** 10元专区类别 */
         int TEN_YUAN_CATEGORY = 2;
+
+        /** 搜索商品 */
+        int SEARCH_PRODUCT = 3;
     }
 
 
@@ -76,6 +80,7 @@ public class CategroyDetailBiz extends BaseActivityBiz{
         public static long categoryId;
         public static int iCurPage;
         public static int iLoadMode = Constant.Comm.MODE_ENTER;
+        public static String keyword = "unknow";
 
         public static int iRequestCategory = IRequestCategory.NORMAL_CATEGORY;
     }
@@ -109,6 +114,12 @@ public class CategroyDetailBiz extends BaseActivityBiz{
     public void setRequestData(long categoryId, int iRequestCategory) {
         RequestInfo.iRequestCategory = iRequestCategory;
         RequestInfo.categoryId = categoryId;
+
+    }
+
+    public void setRequestData(int iRequestCategory, String keyword) {
+        RequestInfo.iRequestCategory = iRequestCategory;
+        RequestInfo.keyword = keyword;
     }
 
 
@@ -203,7 +214,18 @@ public class CategroyDetailBiz extends BaseActivityBiz{
 
         @Override
         protected String getJsonBody() {
-            String jsonBody = String.format("{\"category_id\":%d, \"page\":%d}", RequestInfo.categoryId, RequestInfo.iCurPage);
+            String jsonBody = R_TAG + "unkown. error";
+
+            if (RequestInfo.iRequestCategory==IRequestCategory.NORMAL_CATEGORY) {
+                jsonBody = String.format("{\"category_id\":%d, \"page\":%d}", RequestInfo.categoryId, RequestInfo.iCurPage);
+
+            } else if (RequestInfo.iRequestCategory==IRequestCategory.TEN_YUAN_CATEGORY) {
+                jsonBody = String.format("{\"category_id\":%d, \"page\":%d}", RequestInfo.categoryId, RequestInfo.iCurPage);
+
+            } else if (RequestInfo.iRequestCategory==IRequestCategory.SEARCH_PRODUCT) {
+                jsonBody = String.format("{\"keyWord\":\"%s\", \"page\":%d}", RequestInfo.keyword, RequestInfo.iCurPage);
+
+            }
 
             LogUtils.w(TAG, "jsonBody=%s", jsonBody);
             return jsonBody;
@@ -237,6 +259,8 @@ public class CategroyDetailBiz extends BaseActivityBiz{
             } else if (RequestInfo.iRequestCategory==IRequestCategory.TEN_YUAN_CATEGORY){
                 api = Constant.WebServiceAPI.REQUEST_CATEGORY_TEN_YUAN_DETAIL;
 
+            } else if (RequestInfo.iRequestCategory == IRequestCategory.SEARCH_PRODUCT) {
+                api = Constant.WebServiceAPI.REQUEST_SEARCH_PRODUCT;
             }
 
             LogUtils.i(R_TAG, "web_api=%s", api);

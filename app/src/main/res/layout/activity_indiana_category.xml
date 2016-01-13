@@ -23,6 +23,7 @@
             <!-- search -->
             <LinearLayout
                 android:id="@+id/category_search_wrapper"
+                android:clickable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#EBECED"

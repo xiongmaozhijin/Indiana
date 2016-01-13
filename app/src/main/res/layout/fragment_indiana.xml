@@ -27,10 +27,11 @@
 
             <ImageView
                 android:id="@+id/main_btn_search"
+                android:clickable="true"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/search_white"
-                android:background="@drawable/selector_home_search"
+                android:background="@drawable/selector_f_indiana_btn_search"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingRight="9dp"/>

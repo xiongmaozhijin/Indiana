@@ -101,6 +101,9 @@ public class IndianaCategoryActivity extends Activity {
             public void onClick(View v) {
                 //跳转到搜索
                 LogUtils.i(TAG, "search activity");
+                Intent intent = new Intent(IndianaCategoryActivity.this, SearchActivity.class);
+                startActivity(intent);
+
             }
         });
 

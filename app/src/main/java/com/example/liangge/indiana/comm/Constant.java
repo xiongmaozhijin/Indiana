@@ -180,6 +180,12 @@ public class Constant {
 
         /** 往期揭晓 */
         String REQUEST_HISTORY_RECORD = WEBHOST + "/index.php/Admin/Api/previousActivity";
+
+        /** 热门搜索请求 */
+        String REQUEST_HOT_SEARCH = WEBHOST + "/index.php/Admin/Api/keyWords";
+
+        /** 商品搜索请求 */
+        String REQUEST_SEARCH_PRODUCT = WEBHOST + "/index.php/Admin/Api/search";
     }
 
 
