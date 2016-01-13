@@ -26,6 +26,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.model.inner.NotificationEntitiy;
 import com.example.liangge.indiana.ui.Inner.CategoryListActivity;
 import com.example.liangge.indiana.ui.Inner.IndianaCategoryActivity;
 import com.example.liangge.indiana.ui.Inner.SearchActivity;
@@ -33,6 +34,7 @@ import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.WebViewActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
+import com.example.liangge.indiana.ui.widget.NoticationTextView;
 
 import java.util.List;
 
@@ -100,6 +102,9 @@ public class IndianaFragment extends BaseRefreshFragment {
 
     /** 搜索 */
     private View mViewSearch;
+
+    /** 消息轮播TextView */
+    private NoticationTextView mViewNotification;
 
     /** 下拉刷新 */
 //    protected PtrFrameLayout mPtrFrameLayout;
@@ -237,6 +242,7 @@ public class IndianaFragment extends BaseRefreshFragment {
 
         mViewTagNetInfoDataInfoWrapper = view.findViewById(R.id.f_indiana_tag_net_hint_wrapper);
 
+        mViewNotification = (NoticationTextView) view.findViewById(R.id.txv_notification);
 
         mViewProductLoadingWrapper = view.findViewById(R.id.f_indiana_product_loading_more_wrapper);
 
@@ -250,6 +256,18 @@ public class IndianaFragment extends BaseRefreshFragment {
         mGridviewProducts.setAdapter(mAdapter);
 
         mViewSearch = view.findViewById(R.id.main_btn_search);
+
+
+        mViewNotification.setOnItemClickListener(new NoticationTextView.OnItemClickListener() {
+            @Override
+            public void onItemClickListener(NotificationEntitiy item) {
+                LogUtils.i(TAG, "onItemClick().");
+                mDetailInfoBiz.setActivityId(item.getIssue_id());
+                Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
+                startActivity(i);
+            }
+        });
+
 
         mViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -411,6 +429,10 @@ public class IndianaFragment extends BaseRefreshFragment {
                                 || strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL)
                                 || strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS)) {
                             handleUITagLoadMore(strUIAction);
+
+                        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_NOTICATION_SUCCESS)) {
+                            handleUINotication();
+
                         }
 
 
@@ -419,6 +441,14 @@ public class IndianaFragment extends BaseRefreshFragment {
                 }
             }
         }
+    }
+
+    /**
+     * 处理加载消息通知
+     */
+    private void handleUINotication() {
+        LogUtils.i(TAG, "handleUINotication()");
+        mViewNotification.setNotificationList(mIndianaBiz.getNotificationList());
     }
 
     /**

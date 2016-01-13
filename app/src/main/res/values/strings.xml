@@ -264,4 +264,16 @@
 
     <string name="activity_category_search">搜索-%1$s</string>
 
+    <string name="notification_format">
+
+                   <![CDATA[
+        <html>
+         恭喜<font color="#da3651">%1$s</font>获得了<font color="#0278fe">%2$s</font>
+        </html>
+        ]]>
+
+
+
+    </string>
+
 </resources>

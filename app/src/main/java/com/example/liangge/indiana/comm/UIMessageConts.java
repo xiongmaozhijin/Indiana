@@ -57,6 +57,8 @@ public class UIMessageConts {
 
         public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS = "MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS";
 
+        /** 加载消息数据成功 */
+        String MSG_LOAD_NOTICATION_SUCCESS = "MSG_LOAD_NOTICATION_SUCCESS";
 
     }
 

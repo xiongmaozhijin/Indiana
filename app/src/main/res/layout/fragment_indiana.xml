@@ -204,9 +204,11 @@
                                 android:layout_marginLeft="14dp"
                                 android:src="@drawable/f_indiana_top_notice" />
 
-                            <TextView
+                            <com.example.liangge.indiana.ui.widget.NoticationTextView
+                                android:id="@+id/txv_notification"
+                                android:clickable="true"
                                 android:layout_width="0dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_marginLeft="4dp"
                                 android:layout_weight="1"
                                 android:gravity="center_vertical"

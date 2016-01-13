@@ -186,6 +186,10 @@ public class Constant {
 
         /** 商品搜索请求 */
         String REQUEST_SEARCH_PRODUCT = WEBHOST + "/index.php/Admin/Api/search";
+
+        /** 获取消息通知接口 */
+        String REQUEST_NOTIFICATION = WEBHOST + "/index.php/Admin/Api/newestResult";
+
     }
 
 

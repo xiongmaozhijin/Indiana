@@ -15,6 +15,7 @@ import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.BannerInfo;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.example.liangge.indiana.model.inner.NotificationEntitiy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -49,18 +50,31 @@ public class IndianaBiz extends BaseFragmentBiz{
     /** 加载Banner轮播信息 */
     private SlaveLoadBannerThread mSlaveLoadBannerThread;
 
+    private SlaveLoadNoticationThread mSlaveLoadNoticationThread;
+
     private IndianaBiz(Context context) {
         this.mContext = context;
+        initManager(context);
+        initRes();
+    }
+
+    private void initManager(Context context) {
         mMessageManager = MessageManager.getInstance(context);
         mVolleyBiz = VolleyBiz.getInstance();
+    }
+
+    private void initRes() {
         mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
         mSlaveLoadBannerThread = new SlaveLoadBannerThread();
+        mSlaveLoadNoticationThread = new SlaveLoadNoticationThread();
     }
 
     /**
      * 要保存的一些数据
      */
     private static class DataInfo {
+        /** 消息数据 */
+        public static List<NotificationEntitiy> mNotificationList = new ArrayList<>();
 
     }
 
@@ -306,6 +320,65 @@ public class IndianaBiz extends BaseFragmentBiz{
         mSlaveLoadBannerThread.start();
     }
 
+
+    /**
+     * 加载消息通知
+     */
+    private void loadNotifications() {
+        LogUtils.i(TAG, "loadNotifications()");
+        if (!mSlaveLoadNoticationThread.isWorking() ) {
+            mSlaveLoadNoticationThread = new SlaveLoadNoticationThread();
+            mSlaveLoadNoticationThread.start();
+        }
+
+    }
+
+
+    /**
+     * 加载消息通知
+     */
+    private class SlaveLoadNoticationThread  extends NetRequestThread {
+
+        private static final String R_TAG = "SlaveLoadNoticationThread";
+
+        @Override
+        protected void notifySuccess() {
+            super.notifySuccess();
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.IndianaMessage.MSG_LOAD_NOTICATION_SUCCESS));
+        }
+
+        @Override
+        protected String getJsonBody() {
+            LogUtils.w(R_TAG, "jsonBody=%s", "");
+            return "";
+        }
+
+        @Override
+        protected void onResponseListener(String s) {
+            LogUtils.w(R_TAG, "onResponse=%s", s);
+            Gson gson = new Gson();
+            DataInfo.mNotificationList = gson.fromJson(s, new TypeToken<List<NotificationEntitiy>>(){}.getType());
+        }
+
+        @Override
+        protected void onResponseErrorListener(VolleyError volleyError) {
+            LogUtils.e(R_TAG, "volleyError=%s", volleyError.getLocalizedMessage());
+
+        }
+
+        @Override
+        protected String getRequestTag() {
+            return R_TAG;
+        }
+
+        @Override
+        protected String getWebServiceAPI() {
+            return Constant.WebServiceAPI.REQUEST_NOTIFICATION;
+        }
+    }
+
+
+
     /**
      * 加载Banner轮播图片
      */
@@ -412,6 +485,14 @@ public class IndianaBiz extends BaseFragmentBiz{
         return this.mListProducts;
     }
 
+    /**
+     * 返回消息数据
+     * @return
+     */
+    public List<NotificationEntitiy> getNotificationList() {
+        return DataInfo.mNotificationList;
+    }
+
 
     /**
      * 返回当前的tag
@@ -455,10 +536,11 @@ public class IndianaBiz extends BaseFragmentBiz{
         } else {
             loadBanner();
 //            loadActivityProductInfo();
-
+            loadNotifications();
         }
 
     }
+
 
     @Override
     public void onEnter() {
