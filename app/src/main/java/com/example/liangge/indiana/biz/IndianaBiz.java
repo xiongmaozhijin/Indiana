@@ -143,6 +143,17 @@ public class IndianaBiz extends BaseFragmentBiz{
 
         private boolean bIsWorking = false;
 
+
+        private void debug(List<ActivityProductItemEntity> list) {
+            if (list != null) {
+                ActivityProductItemEntity activityProductItemEntity;
+                for (int i=0, len=list.size(); i<len; i++) {
+                    activityProductItemEntity = list.get(i);
+                    LogUtils.e(TAG, "id=%d", activityProductItemEntity.getActivityId());
+                }
+            }
+        }
+
         @Override
         public void run() {
             super.run();
@@ -157,6 +168,7 @@ public class IndianaBiz extends BaseFragmentBiz{
 
                     Gson gson = new Gson();
                     mListProducts = gson.fromJson(s, new TypeToken<List<ActivityProductItemEntity>>(){}.getType());
+                    debug(mListProducts);
 
                     notifySuccess();
                 }

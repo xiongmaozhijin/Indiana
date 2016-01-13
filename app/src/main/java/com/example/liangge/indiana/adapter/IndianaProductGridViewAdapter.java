@@ -3,6 +3,7 @@ package com.example.liangge.indiana.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 public class IndianaProductGridViewAdapter extends BaseAdapter {
 
+    private static final String TAG = IndianaProductGridViewAdapter.class.getSimpleName();
     /** 产品数据 */
     public List<ActivityProductItemEntity> mListProducts = new ArrayList<>();
 
@@ -87,6 +89,7 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
             for (int i=0; i<list.size(); i++) {
                 item = list.get(i);
                 this.mListProducts.add(item);
+//                LogUtils.e(TAG, "id=%d", item.getActivityId());
             }
             notifyDataSetChanged();
         }
@@ -98,6 +101,7 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
             for (int i=0, len=newList.size(); i<len; i++) {
                 item = newList.get(i);
                 this.mListProducts.add(item);
+//                LogUtils.e(TAG, "id=%d", item.getActivityId());
             }
 
             notifyDataSetChanged();
@@ -123,10 +127,10 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = View.inflate(mContext, R.layout.f_indiana_gridview_item, null);
-
+//            convertView = View.inflate(mContext, R.layout.f_indiana_gridview_item, null);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.f_indiana_gridview_item, null);
             viewHolder = new ViewHolder(convertView);
 
             convertView.setTag(viewHolder);
