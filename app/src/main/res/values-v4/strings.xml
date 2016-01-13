@@ -42,7 +42,7 @@
     <string name="address_identity_text2">收货人</string>
     <string name="address_identity_text3">身份证</string>
     <string name="adress_identity_text_1">该商品需要您提供收货人的身份证信息；您的实名认证信息仅作清关用途，一元夺宝将严格保密。</string>
-    <string name="app_name">Widget</string>
+    <string name="app_name">Indiana</string>
     <string name="auth_result_back">登录返回</string>
     <string name="auth_result_cancel">取消登录</string>
     <string name="auth_result_err">登录失败</string>

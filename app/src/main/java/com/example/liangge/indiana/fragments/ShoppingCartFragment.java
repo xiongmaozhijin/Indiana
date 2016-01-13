@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -126,8 +127,8 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
     }
 
     private void initViewOnActivityCreate() {
-
         mBtnShoppingCart = (ExRadioButton) ((HomeActivity)getActivity()).getShoppingCartBtn();
+//        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     private void initManager() {
