@@ -41,7 +41,9 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
 
     private View mViewLayoutWrapper;
 
-    private ExScrollView mExScrollView;
+//    private ExScrollView mExScrollView;
+
+    private View mExScrollView;
 
     /** 没有清单时的View */
     private View mViewEmptyWrapper;
@@ -142,7 +144,8 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
      */
     private void initView(View view) {
         mViewLayoutWrapper = view;
-        mExScrollView = (ExScrollView) view.findViewById(R.id.f_shopping_content_scrollview);
+//        mExScrollView = (ExScrollView) view.findViewById(R.id.f_shopping_content_scrollview);
+//        mExScrollView = view.findViewById(R.id.f_shopping_content_scrollview);
         mViewEmptyWrapper = view.findViewById(R.id.f_shoppingcart_empty_wrapper);
         mViewLoadOrNotNetWrapper = view.findViewById(R.id.f_shopping_not_network_wrapper);
         mViewContentWrapper = view.findViewById(R.id.f_shoppingcart_content_wrapper);
@@ -161,6 +164,9 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
         mTxvContentItemDesc2 = (TextView) view.findViewById(R.id.f_shopping_content_item_txvdesc2);
 
         mListView = (ListView) view.findViewById(R.id.f_shopping_content_listview);
+
+        //TODO
+        mExScrollView = mListView;
 
         mAdapter = new ShoppingCartListViewAdapter(getActivity());
         mListView.setAdapter(mAdapter);

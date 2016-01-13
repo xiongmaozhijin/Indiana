@@ -37,18 +37,18 @@
 
             <TextView
                 android:id="@+id/btn_edit"
-                android:visibility="visible"
-                android:paddingLeft="3dp"
-                android:paddingRight="3dp"
-                android:gravity="center"
-                android:clickable="true"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="12dp"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:text="@string/shopping_cart_edit"
                 android:textColor="@android:color/white"
-                android:text="@string/shopping_cart_edit"/>
+                android:visibility="visible" />
 
         </RelativeLayout>
 
@@ -127,6 +127,7 @@
                 android:id="@+id/rotate_header_web_view_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="56dp"
                 android:background="@color/cube_mints_f1f1f1"
                 app:ptr_duration_to_close="200"
                 app:ptr_duration_to_close_header="1000"
@@ -135,37 +136,38 @@
                 app:ptr_ratio_of_header_height_to_refresh="1.2"
                 app:ptr_resistance="1.7">
 
-                <com.example.liangge.indiana.ui.widget.ExScrollView
+                <!--        <com.example.liangge.indiana.ui.widget.ExScrollView
+                            android:id="@+id/f_shopping_content_scrollview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/white"
+                            android:paddingBottom="54dp">-->
+
+                <LinearLayout
                     android:id="@+id/f_shopping_content_scrollview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:paddingBottom="54dp">
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <ListView
+                        android:id="@+id/f_shopping_content_listview"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:background="@color/fragment_gridview_split"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:dividerHeight="0.1dp"
+                        android:footerDividersEnabled="true"
+                        android:listSelector="@drawable/selector_f_indiana_product_item_bg" />
 
-                        <com.example.liangge.indiana.ui.widget.ExListView
-                            android:id="@+id/f_shopping_content_listview"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/fragment_gridview_split"
-                            android:cacheColorHint="@android:color/transparent"
-                            android:dividerHeight="0.1dp"
-                            android:footerDividersEnabled="true"
-                            android:listSelector="@drawable/selector_f_indiana_product_item_bg" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:background="@color/fragment_gridview_split" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.1dp"
+                        android:background="@color/fragment_gridview_split" />
 
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                </com.example.liangge.indiana.ui.widget.ExScrollView>
+                <!--</com.example.liangge.indiana.ui.widget.ExScrollView>-->
 
             </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
@@ -257,11 +259,11 @@
                     <!--删除-->
                     <RelativeLayout
                         android:id="@+id/footer_delete_wrapper"
-                        android:clickable="true"
                         android:layout_width="fill_parent"
                         android:layout_height="56dp"
                         android:layout_alignParentBottom="true"
                         android:background="@drawable/tab_border"
+                        android:clickable="true"
                         android:paddingLeft="@dimen/cart_adjust_amount_margin"
                         android:paddingRight="10.0dip"
                         android:visibility="invisible">
@@ -286,9 +288,9 @@
                             android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_gravity="center_vertical"
                                 android:layout_width="fill_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -296,7 +298,7 @@
                                     android:layout_width="20dp"
                                     android:layout_height="20dp"
                                     android:layout_marginRight="5dp"
-                                    android:src="@drawable/delete_no_select"/>
+                                    android:src="@drawable/delete_no_select" />
 
                                 <TextView
                                     android:id="@+id/delete_desc"
