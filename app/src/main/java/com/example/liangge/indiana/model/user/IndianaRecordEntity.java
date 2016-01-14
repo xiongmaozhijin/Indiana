@@ -54,12 +54,15 @@ public class IndianaRecordEntity {
     /** 最小购买 */
     private int minimum_share = 1;
 
+    /** 我的夺宝号码url */
+    private String myIndianaNumberUrl;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
     public IndianaRecordEntity() {
     }
 
-    public IndianaRecordEntity(long activityId, int activityState, String productImgUrl, String titleDescribe, String joinActivityNum, int needPeople, int lackPeople, int progress, int buyCnt, String myIndianaNum, String bingoUser, int bingoBuyCnt, String luckyNumber, long runLotteryTime, int minimum_share) {
+    public IndianaRecordEntity(long activityId, int activityState, String productImgUrl, String titleDescribe, String joinActivityNum, int needPeople, int lackPeople, int progress, int buyCnt, String myIndianaNum, String bingoUser, int bingoBuyCnt, String luckyNumber, long runLotteryTime, int minimum_share, String myIndianaNumberUrl) {
         this.activityId = activityId;
         this.activityState = activityState;
         this.productImgUrl = productImgUrl;
@@ -75,6 +78,7 @@ public class IndianaRecordEntity {
         this.luckyNumber = luckyNumber;
         this.runLotteryTime = runLotteryTime;
         this.minimum_share = minimum_share;
+        this.myIndianaNumberUrl = myIndianaNumberUrl;
     }
 
     public long getActivityId() {
@@ -198,6 +202,15 @@ public class IndianaRecordEntity {
         this.minimum_share = minimum_share;
     }
 
+
+    public String getMyIndianaNumberUrl() {
+        return myIndianaNumberUrl;
+    }
+
+    public void setMyIndianaNumberUrl(String myIndianaNumberUrl) {
+        this.myIndianaNumberUrl = myIndianaNumberUrl;
+    }
+
     /**
      * 返回可读的已揭晓时间
      * @return
@@ -214,7 +227,6 @@ public class IndianaRecordEntity {
     public String getHumanReadableProcessHint() {
         return this.progress + "%";
     }
-
 
     @Override
     public String toString() {
@@ -234,6 +246,7 @@ public class IndianaRecordEntity {
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", runLotteryTime=" + runLotteryTime +
                 ", minimum_share=" + minimum_share +
+                ", myIndianaNumberUrl='" + myIndianaNumberUrl + '\'' +
                 '}';
     }
 }

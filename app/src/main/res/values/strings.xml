@@ -163,9 +163,9 @@
             <font color="#d4d4d4">
             参与期号:%2$s <br>
             总需人次:%3$d &nbsp;&nbsp;&nbsp;参与次数:%4$d <br>
-            开奖号码:</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="indiana://www.baidu.com">我的号码</a> </font><br><br>
+            开奖号码:</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%6$s">我的号码</a> </font><br><br>
             <font color="#d4d4d4">
-            开奖时间:%6$s
+            开奖时间:%7$s
             </font>
         ]]>
 

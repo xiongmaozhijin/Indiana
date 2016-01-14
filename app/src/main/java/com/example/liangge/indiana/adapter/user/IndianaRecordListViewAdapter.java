@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.inner.HistoryRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
@@ -144,17 +145,18 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
             String indianaInfoFormat;
             String indianaInfo;
             int activityState = item.getActivityState();
+            String myIndianaNumUrl = NetworkUtils.getFixWebLink(mContext, item.getMyIndianaNumberUrl());
             if (activityState == 0) {      //已揭晓
                 indianaInfoFormat = mContext.getResources().getString(R.string.activity_indianarecord_userinfo_1);
-                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getJoinActivityNum(), item.getBuyCnt(), item.getMyIndianaNum(),
+                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getJoinActivityNum(), item.getBuyCnt(), myIndianaNumUrl,
                                                 item.getBingoUser(), item.getBingoBuyCnt(), item.getLuckyNumber(), item.getHumanAlreadyRunLotteryTime());
             } else if (activityState == 1) {    //进行中
                 indianaInfoFormat = mContext.getResources().getString(R.string.activity_indianarecord_userinfo_2);
-                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getActivityId(), item.getBuyCnt(), item.getMyIndianaNum(),
+                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getActivityId(), item.getBuyCnt(), myIndianaNumUrl,
                                                 item.getHumanReadableProcessHint());
             } else if (activityState == 2) {    //揭晓中
                 indianaInfoFormat = mContext.getResources().getString(R.string.activity_indianarecord_userinfo_3);
-                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getActivityId(), item.getBuyCnt(), item.getMyIndianaNum());
+                indianaInfo = String.format(indianaInfoFormat, item.getTitleDescribe(), item.getActivityId(), item.getBuyCnt(), myIndianaNumUrl);
             } else {        //服务端参数错误
                 indianaInfo = mContext.getResources().getString(R.string.activity_indianarecord_userinfo_4);
             }

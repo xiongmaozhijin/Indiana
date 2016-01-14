@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume;
@@ -143,7 +144,8 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
 
         public void adapterData(BingoRecordEntity item) {
             String bingoInfoFormat = mContext.getResources().getString(R.string.activity_bingorecord_bingoinfo);
-            String bingoInfo = String.format(bingoInfoFormat, item.getTitle(), item.getActivityId()+"", item.getNeedPeople(), item.getBuyCnt(), item.getLuckyNumber(), item.getHumanAlreadyRunLotteryTime());
+            String myIndianNumberUrl = NetworkUtils.getFixWebLink(mContext, item.getMyIndianaNumberUrl());
+            String bingoInfo = String.format(bingoInfoFormat, item.getTitle(), item.getActivityId()+"", item.getNeedPeople(), item.getBuyCnt(), item.getLuckyNumber(), myIndianNumberUrl, item.getHumanAlreadyRunLotteryTime());
 //            txvIndianaInfo.setText(Html.fromHtml(bingoInfo));
             ((TextViewFixTouchConsume)txvIndianaInfo).setTextViewHTML(bingoInfo);
 
