@@ -67,6 +67,22 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
     }
 
 
+    /**
+     * 加载更多
+     * @param newList
+     */
+    public void loadMoreDataAndNotify(List<BingoRecordEntity> newList) {
+        if (newList != null) {
+            BingoRecordEntity item;
+            for (int i=0, len = newList.size(); i<len; i++) {
+                item = newList.get(i);
+                mListData.add(item);
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+
     @Override
     public int getCount() {
         return this.mListData.size();

@@ -184,7 +184,10 @@ public class BingoRecordBiz extends BaseActivityBiz{
     }
 
 
-
+    public void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+        loadBingoRecord(true);
+    }
 
 
     @Override

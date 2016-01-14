@@ -19,6 +19,8 @@ import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
+import java.util.List;
+
 /**
  * 中奖记录页面
  */
@@ -42,6 +44,9 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     private ExScrollView mExScrollView;
 
+    /** 加载更多 */
+    private View mViewLoadWrapper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +62,8 @@ public class BingoRecordActivity extends BaseActivity2 {
         mExScrollView = (ExScrollView) findViewById(R.id.scrollview);
 
         mViewLayout = mViewContentWrapper;
+
+        mViewLoadWrapper = findViewById(R.id.load_more_wrapper);
 
         mListView = (ListView) findViewById(R.id.listview);
         mAdapter = new BingoRecordListViewAdapter(this);
@@ -74,6 +81,26 @@ public class BingoRecordActivity extends BaseActivity2 {
         });
 
 
+        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+            @Override
+            public void onScrollTop() {
+
+            }
+
+            @Override
+            public void onScrollBottom() {
+                onScrollBottomLoadMore();
+            }
+        });
+
+    }
+
+    /**
+     * 加载更多
+     */
+    private void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+        mBingoRecordBiz.onScrollBottomLoadMore();
     }
 
 
@@ -113,8 +140,30 @@ public class BingoRecordActivity extends BaseActivity2 {
                || strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_SUCCESS)) {
            handleReLoadUIMsg(strUIAction);
 
+       } else if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_START_MORE)
+               || strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_SUCCESS_MORE)
+               || strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_FAIL_MORE)) {
+           handleUILoadMoreData(strUIAction);
+
        }
 
+
+    }
+
+    private void handleUILoadMoreData(String strUIAction) {
+        if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_START_MORE)) {
+            handleUILoadMore(mViewLoadWrapper, Constant.Comm.LOAD_MORE_START, false);
+
+        } else if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_SUCCESS_MORE)) {
+            List<BingoRecordEntity> lists = mBingoRecordBiz.getBingoRecordList();
+            boolean isEmpty = (lists==null || lists.size()==0);
+            handleUILoadMore(mViewLoadWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
+            mAdapter.loadMoreDataAndNotify(lists);
+
+        } else if (strUIAction.equals(UIMessageConts.BingoRecord.M_RELOAD_FAIL_MORE)) {
+            handleUILoadMore(mViewLoadWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
+
+        }
 
     }
 
