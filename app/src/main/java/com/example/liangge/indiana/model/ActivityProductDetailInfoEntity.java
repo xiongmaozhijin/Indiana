@@ -68,6 +68,9 @@ public class ActivityProductDetailInfoEntity {
     /** 最少购买 */
     private int minimum_share = 1;
 
+    /** 图文链接 */
+    private String productDetailLink;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 
@@ -75,7 +78,7 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
-    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share) {
+    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share, String productDetailLink) {
         this.activityId = activityId;
         this.commodity_id = commodity_id;
         this.productImgUrls = productImgUrls;
@@ -95,6 +98,7 @@ public class ActivityProductDetailInfoEntity {
         this.bingoBuyCnts = bingoBuyCnts;
         this.luckyNumber = luckyNumber;
         this.minimum_share = minimum_share;
+        this.productDetailLink = productDetailLink;
     }
 
     public long getActivityId() {
@@ -251,6 +255,14 @@ public class ActivityProductDetailInfoEntity {
         this.minimum_share = minimum_share;
     }
 
+    public String getProductDetailLink() {
+        return productDetailLink;
+    }
+
+    public void setProductDetailLink(String productDetailLink) {
+        this.productDetailLink = productDetailLink;
+    }
+
     /**
      * 返回可读的已揭晓时间
      * @return
@@ -283,6 +295,7 @@ public class ActivityProductDetailInfoEntity {
                 ", bingoBuyCnts=" + bingoBuyCnts +
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", minimum_share=" + minimum_share +
+                ", productDetailLink='" + productDetailLink + '\'' +
                 '}';
     }
 }

@@ -14,11 +14,16 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.WebViewBiz;
+import com.example.liangge.indiana.comm.Constant;
+import com.example.liangge.indiana.comm.LogUtils;
 
 /**
  * 显示传入的url地址
+ * 1. <pre>http://stackoverflow.com/questions/7255249/how-can-we-open-textviews-links-into-webview</pre>
  */
 public class WebViewActivity extends Activity {
+
+    private static final String TAG = WebViewActivity.class.getSimpleName();
 
     /** 标题栏标题 */
     private TextView mTxvTitlebarTitle;
@@ -34,11 +39,26 @@ public class WebViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         initView();
-        initRes();
+        initRes(savedInstanceState);
     }
 
-    private void initRes() {
+    private void initRes(Bundle savedInstanceState) {
         mWebViewBiz = WebViewBiz.getInstance(this);
+
+        if (savedInstanceState==null) {
+            Intent intent = getIntent();
+            if (intent != null) {
+                String urlSchema = intent.getDataString();
+                if (urlSchema != null) {
+                    LogUtils.i(TAG, "urlSchema=%s", urlSchema);
+                    String schema = getResources().getString(R.string.custom_schema);
+                    String url = urlSchema.replace(schema + "://", "http://");
+                    String title = getResources().getString(R.string.my_number_title);
+                    mWebViewBiz.setWebViewRes(title, url);
+                }
+            }
+        }
+
     }
 
     private void initView() {

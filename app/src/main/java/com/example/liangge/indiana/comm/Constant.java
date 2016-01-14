@@ -29,6 +29,7 @@ public class Constant {
         int NET_LOADING = 1;
         int NET_SUCCESS = 2;
 
+
     }
 
     public interface IndianaFragment {
@@ -190,6 +191,8 @@ public class Constant {
         /** 获取消息通知接口 */
         String REQUEST_NOTIFICATION = WEBHOST + "/index.php/Admin/Api/newestResult";
 
+
+        String ERROR_404 = WEBHOST + "/index.php/404.php";
     }
 
 

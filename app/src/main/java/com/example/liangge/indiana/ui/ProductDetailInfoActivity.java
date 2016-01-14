@@ -554,13 +554,18 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
     //图文详情
     public void onBtnMoreProductInfo(View view) {
         LogUtils.w(TAG, "onBtnMoreProductInfo()");
-        String[] imgUrlArrays = mDetailInfoBiz.getDetailEntity().getProductDetailImgs();
-        if (imgUrlArrays != null) {
-            String imgUrl = imgUrlArrays[0];
-            mImageViewBiz.setDisplayImageView(imgUrl);
-            Intent intent = new Intent(this, ImageViewActivity.class);
-            startActivity(intent);
-        }
+        String imgUrl = mDetailInfoBiz.getDetailEntity().getProductDetailLink();
+        String title = getResources().getString(R.string.activity_imgview_titlebar_title);
+        mWebViewBiz.setWebViewRes(title, imgUrl);
+        Intent i = new Intent(this, WebViewActivity.class);
+        startActivity(i);
+//        String[] imgUrlArrays = mDetailInfoBiz.getDetailEntity().getProductDetailImgs();
+//        if (imgUrlArrays != null) {
+//            String imgUrl = imgUrlArrays[0];
+//            mImageViewBiz.setDisplayImageView(imgUrl);
+//            Intent intent = new Intent(this, ImageViewActivity.class);
+//            startActivity(intent);
+//        }
 
     }
 

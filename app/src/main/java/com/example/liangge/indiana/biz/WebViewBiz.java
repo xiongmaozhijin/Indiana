@@ -2,10 +2,14 @@ package com.example.liangge.indiana.biz;
 
 import android.content.Context;
 
+import com.example.liangge.indiana.comm.LogUtils;
+
 /**
  * Created by baoxing on 2015/12/24.
  */
 public class WebViewBiz {
+
+    private static final String TAG = WebViewBiz.class.getSimpleName();
 
     private static WebViewBiz mInstance;
 
@@ -22,10 +26,12 @@ public class WebViewBiz {
 
 
         public String getTitle() {
+            LogUtils.i(TAG, "title=%s", title);
             return title;
         }
 
         public String getUrl() {
+            LogUtils.i(TAG, "url=%s", url);
             return url;
         }
     }

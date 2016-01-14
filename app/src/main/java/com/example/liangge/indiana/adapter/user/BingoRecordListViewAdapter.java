@@ -2,6 +2,8 @@ package com.example.liangge.indiana.adapter.user;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
+import com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -122,6 +126,8 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
 
     private static class ViewHolder {
 
+        private static final String TAG = BingoRecordListViewAdapter.class.getSimpleName();
+
         private ImageView imgViewProduct;
 
         private TextView txvIndianaInfo;
@@ -137,7 +143,10 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
         public void adapterData(BingoRecordEntity item) {
             String bingoInfoFormat = mContext.getResources().getString(R.string.activity_bingorecord_bingoinfo);
             String bingoInfo = String.format(bingoInfoFormat, item.getTitle(), item.getActivityId()+"", item.getNeedPeople(), item.getBuyCnt(), item.getLuckyNumber(), item.getHumanAlreadyRunLotteryTime());
-            txvIndianaInfo.setText(bingoInfo);
+//            txvIndianaInfo.setText(Html.fromHtml(bingoInfo));
+            ((TextViewFixTouchConsume)txvIndianaInfo).setTextViewHTML(bingoInfo);
+            txvIndianaInfo.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
+
             ImageLoader.getInstance().displayImage(item.getProductImgUrl(), imgViewProduct, mDisplayImageOptions);
             if (item.getMinimum_share() == 10) {
                 mViewTenYuanHint.setVisibility(View.VISIBLE);

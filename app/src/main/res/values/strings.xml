@@ -134,7 +134,26 @@
 
     <string name="activity_bingo_record_titlebar_title">中奖记录</string>
 
-    <string name="activity_bingorecord_bingoinfo">%1$s \n参与期号:%2$s \n总需人次:%3$d \t参与次数:%4$d \n开奖号码:%5$s\t\n\n开奖时间:%6$s\n</string>
+    <string name="activity_bingorecord_bingoinfo">
+        <![CDATA[
+            <font color="#686868">%1$s</font><br>
+            <font color="#d4d4d4">
+            参与期号:%2$s <br>
+            总需人次:%3$d &nbsp;&nbsp;&nbsp;参与次数:%4$d <br>
+            开奖号码:</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <a href="indiana://www.baidu.com"><font color="#0278fe">我的号码</font></a> <br><br>
+            <font color="#d4d4d4">
+            开奖时间:%6$s
+            </font>
+        ]]>
+
+
+
+    </string>
+
+
+    <string name="custom_schema">indiana</string>
+
+    <string name="my_number_title">我的号码</string>
 
     <string name="activity_logsignin_signin_read_protocal_hint">请阅读《夺宝协议》并同意</string>
 

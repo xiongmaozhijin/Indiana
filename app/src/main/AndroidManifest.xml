@@ -45,8 +45,16 @@
         </activity>
         <activity android:name=".ui.test.VolleyPostJsonActivityTest" >
         </activity>
-        <activity android:name=".ui.WebViewActivity" >
+
+        <activity android:name=".ui.WebViewActivity" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="@string/custom_schema" />
+            </intent-filter>
         </activity>
+
+
         <activity android:name=".ui.user.IndianaRecordActivity" >
         </activity>
         <activity android:name=".ui.user.BingoRecordActivity" >
