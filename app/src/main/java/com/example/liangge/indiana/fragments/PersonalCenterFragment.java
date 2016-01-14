@@ -27,6 +27,7 @@ import com.example.liangge.indiana.ui.user.LogInActivity;
 import com.example.liangge.indiana.ui.user.LogSignInActivity;
 import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
+import com.example.liangge.indiana.ui.user.SettingActivity;
 import com.example.liangge.indiana.ui.user.UserInfoActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -80,6 +81,8 @@ public class PersonalCenterFragment extends BaseFragment {
     /** 已揭晓 */
     private View mViewRevealed;
 
+    /** 设置 */
+    private View mViewSetting;
 
     private DisplayImageOptions mDisplayImageOptions;
 
@@ -107,6 +110,7 @@ public class PersonalCenterFragment extends BaseFragment {
         mViewRecharge = view.findViewById(R.id.user_recharge);
         mViewOnGoing = view.findViewById(R.id.user_good_on_text);
         mViewRevealed = view.findViewById(R.id.user_revealed_text);
+        mViewSetting = view.findViewById(R.id.user_layout_setting);
 
         mBtnIndianaRecord = view.findViewById(R.id.f_personal_txvbtn_indiana_record);
         mBtnBingoRecord = view.findViewById(R.id.f_personal_txvbtn_bingo_record);
@@ -163,6 +167,22 @@ public class PersonalCenterFragment extends BaseFragment {
             }
         });
 
+
+        mViewSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnSetting();
+            }
+        });
+    }
+
+    /**
+     * 设置
+     */
+    private void onBtnSetting() {
+        LogUtils.i(TAG, "onBtnSetting()");
+        Intent i = new Intent(getActivity(), SettingActivity.class);
+        startActivity(i);
     }
 
 

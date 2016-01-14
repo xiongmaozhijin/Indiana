@@ -85,6 +85,7 @@
                 <TextView
                     android:id="@+id/personal_info_id"
                     style="@style/personal_info_edit_bg"
+                    android:minWidth="48dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -128,6 +129,7 @@
                 <EditText
                     android:id="@+id/personal_info_username"
                     style="@style/personal_info_edit_bg"
+                    android:minWidth="48dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -171,6 +173,7 @@
                 <EditText
                     android:id="@+id/personal_info_phone"
                     style="@style/personal_info_edit_bg"
+                    android:minWidth="48dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

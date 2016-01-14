@@ -55,6 +55,9 @@ public class NetworkUtils {
 
 
     public static String getRowStr(long time, long userId, String token) {
+        if (token==null) {
+            return "null";
+        }
         StringBuilder sb = new StringBuilder(token);
         String tempToken = token;
         String strTime = String.valueOf(time);

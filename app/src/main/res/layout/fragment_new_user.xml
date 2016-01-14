@@ -145,7 +145,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="正在进行" />
+                    android:text="@string/f_personalcenter_activity_ing" />
 
                 <TextView
                     android:id="@+id/user_revealed_text"
@@ -155,7 +155,7 @@
                     android:drawableTop="@drawable/ic_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="已揭晓" />
+                    android:text="@string/f_personalcenter_activity_done" />
 
             </LinearLayout>
 
@@ -192,7 +192,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
                 android:layout_toRightOf="@+id/user_ic_record"
-                android:text="全部夺宝记录"
+                android:text="@string/f_personalcenter_activity_all"
                 android:textSize="17.0sp" />
 
             <ImageView
@@ -234,7 +234,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
                 android:layout_toRightOf="@+id/user_ic_coupon"
-                android:text="红包"
+                android:text="@string/f_personalcenter_hongbao"
                 android:textSize="17.0sp" />
 
             <TextView
@@ -284,7 +284,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
                 android:layout_toRightOf="@+id/user_ic_wish"
-                android:text="心愿单"
+                android:text="@string/f_personalcenter_wish"
                 android:textSize="17.0sp" />
 
             <TextView
@@ -439,7 +439,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
                 android:layout_toRightOf="@+id/user_ic_charge"
-                android:text="充值记录"
+                android:text="@string/f_personalcenter_recharge_history"
                 android:textSize="17.0sp" />
 
             <TextView
@@ -488,7 +488,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
                 android:layout_toRightOf="@+id/user_ic_win_record"
-                android:text="中奖记录"
+                android:text="@string/f_personalcenter_bingo_history"
                 android:textSize="17.0sp" />
 
             <TextView
@@ -573,6 +573,7 @@
 
         <RelativeLayout
             android:id="@+id/user_layout_setting"
+            android:clickable="true"
             android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
@@ -594,7 +595,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
                 android:layout_toRightOf="@+id/user_ic_setting"
-                android:text="设置"
+                android:text="@string/f_personalcenter_setting"
                 android:textSize="17.0sp" />
 
             <TextView

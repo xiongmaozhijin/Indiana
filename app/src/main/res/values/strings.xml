@@ -325,5 +325,16 @@
 
 
     </string>
+    <string name="activity_setting_title">设置</string>
+    <string name="f_personalcenter_activity_ing">正在进行</string>
+    <string name="f_personalcenter_activity_done">已揭晓</string>
+    <string name="f_personalcenter_activity_all">全部夺宝记录</string>
+    <string name="f_personalcenter_hongbao">红包</string>
+    <string name="f_personalcenter_wish">心愿单</string>
+    <string name="f_personalcenter_recharge_history">充值记录</string>
+    <string name="f_personalcenter_bingo_history">中奖记录</string>
+    <string name="f_personalcenter_setting">设置</string>
+    <string name="setting_common_question">常见问题</string>
+    <string name="setting_check_update">检查更新</string>
 
 </resources>
