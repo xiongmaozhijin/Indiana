@@ -28,6 +28,7 @@ import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.biz.inner.HistoryRecordBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.NetworkUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
@@ -35,6 +36,7 @@ import com.example.liangge.indiana.ui.Inner.HistoryRunRecordActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.InventoryBuyWidget;
+import com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -203,6 +205,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mBtnCalcDetail = (Button) findViewById(R.id.activity_productdetailinfo_btn_calc_detail);
 
         mTxvHasJoinHint = (TextView) findViewById(R.id.activity_hasjoin_txv_hint);
+        ((TextViewFixTouchConsume)mTxvHasJoinHint).setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
 
         mViewBingoIngWrapper = findViewById(R.id.activity_productdetailinfo_bingo_ing_wrapper);
 
@@ -538,8 +541,9 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
         if (detailEntity.isPlay()) {
             String hintFormat = getResources().getString(R.string.activity_productdetailinfo_hasjoin_hint_join_2);
-            String hint  = String.format(hintFormat, detailEntity.getMyIndianaAmount());
-            mTxvHasJoinHint.setText(hint);
+            String indianNumUrl = NetworkUtils.getFixWebLink(this, detailEntity.getMyIndianaNumberUrl());
+            String hint  = String.format(hintFormat,indianNumUrl, detailEntity.getMyIndianaAmount());
+            mTxvHasJoinHint.setText(Html.fromHtml(hint));
 
         } else {
             String hint = getResources().getString(R.string.activity_productdetailinfo_hasjoin_hint);
@@ -671,15 +675,15 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         registerUIReceive();
 
         if (bIsEnter) {
-            bIsEnter = false;
-            mExScrollView.smoothScrollTo(0, 0);
-            mViewAllContentWrapper.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    onAutoRefreshUIShow();
-                }
-            }, 500);
+//            bIsEnter = false;
+//            mExScrollView.smoothScrollTo(0, 0);
+//            mViewAllContentWrapper.postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//
+//                    onAutoRefreshUIShow();
+//                }
+//            }, 500);
         }
     }
 

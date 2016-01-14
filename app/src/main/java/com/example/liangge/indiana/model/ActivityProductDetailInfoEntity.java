@@ -71,6 +71,9 @@ public class ActivityProductDetailInfoEntity {
     /** 图文链接 */
     private String productDetailLink;
 
+    /** 我的夺宝号码 */
+    private String myIndianaNumberUrl;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 
@@ -78,7 +81,7 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
-    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share, String productDetailLink) {
+    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share, String productDetailLink, String myIndianaNumberUrl) {
         this.activityId = activityId;
         this.commodity_id = commodity_id;
         this.productImgUrls = productImgUrls;
@@ -99,6 +102,7 @@ public class ActivityProductDetailInfoEntity {
         this.luckyNumber = luckyNumber;
         this.minimum_share = minimum_share;
         this.productDetailLink = productDetailLink;
+        this.myIndianaNumberUrl = myIndianaNumberUrl;
     }
 
     public long getActivityId() {
@@ -263,6 +267,14 @@ public class ActivityProductDetailInfoEntity {
         this.productDetailLink = productDetailLink;
     }
 
+    public String getMyIndianaNumberUrl() {
+        return myIndianaNumberUrl;
+    }
+
+    public void setMyIndianaNumberUrl(String myIndianaNumberUrl) {
+        this.myIndianaNumberUrl = myIndianaNumberUrl;
+    }
+
     /**
      * 返回可读的已揭晓时间
      * @return
@@ -296,6 +308,7 @@ public class ActivityProductDetailInfoEntity {
                 ", luckyNumber='" + luckyNumber + '\'' +
                 ", minimum_share=" + minimum_share +
                 ", productDetailLink='" + productDetailLink + '\'' +
+                ", myIndianaNumberUrl='" + myIndianaNumberUrl + '\'' +
                 '}';
     }
 }

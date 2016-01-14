@@ -283,7 +283,7 @@
                             </FrameLayout>
 
                             <!-- 是否参与到这次夺宝 -->
-                            <TextView
+                            <com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume
                                 android:id="@+id/activity_hasjoin_txv_hint"
                                 android:layout_width="match_parent"
                                 android:layout_height="34dp"
