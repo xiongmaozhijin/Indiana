@@ -5,6 +5,9 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.example.liangge.indiana.comm.FileOperateUtils;
+
+import java.io.File;
 
 /**
  * Created by baoxing on 2015/12/24.
@@ -44,5 +47,21 @@ public class VolleyBiz {
         mRequestQueue.cancelAll(tag);
     }
 
+
+    /**
+     * 返回缓存目录
+     * @return
+     */
+    public File getCacheFileDir() {
+        File cacheDir = new File(mContext.getCacheDir(), "volley");
+        return cacheDir;
+    }
+
+    /**
+     * 清除缓存
+     */
+    public void clearCache() {
+        mRequestQueue.getCache().clear();
+    }
 
 }
