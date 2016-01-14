@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
-                android:text="关于1元夺宝"
+                android:text="@string/setting_about_indiana"
                 android:textSize="17.0sp" />
 
             <TextView
@@ -172,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
-                android:text="清除缓存"
+                android:text="@string/setting_clear_cache"
                 android:textSize="17.0sp" />
 
             <TextView
@@ -219,7 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10.0dip"
-                android:text="退出登录"
+                android:text="@string/setting_exitlog"
                 android:textSize="17.0sp" />
 
             <TextView

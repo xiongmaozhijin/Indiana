@@ -336,5 +336,8 @@
     <string name="f_personalcenter_setting">设置</string>
     <string name="setting_common_question">常见问题</string>
     <string name="setting_check_update">检查更新</string>
+    <string name="setting_about_indiana">关于1元夺宝</string>
+    <string name="setting_clear_cache">清除缓存</string>
+    <string name="setting_exitlog">退出登录</string>
 
 </resources>

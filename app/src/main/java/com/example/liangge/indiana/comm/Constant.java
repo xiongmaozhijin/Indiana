@@ -191,6 +191,11 @@ public class Constant {
         /** 获取消息通知接口 */
         String REQUEST_NOTIFICATION = WEBHOST + "/index.php/Admin/Api/newestResult";
 
+        /** 检查更新 */
+        String REQUEST_CHECK_UPDATE = WEBHOST + "/index.php/check.php";
+
+        /** 关于一元夺宝 */
+        String REQUEST_ABOUT_INDAINA = WEBHOST + "/index.php/about_indiana";
 
         String ERROR_404 = WEBHOST + "/index.php/404.php";
     }

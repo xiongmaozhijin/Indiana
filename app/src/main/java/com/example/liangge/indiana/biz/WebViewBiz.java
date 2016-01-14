@@ -1,8 +1,10 @@
 package com.example.liangge.indiana.biz;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.ui.WebViewActivity;
 
 /**
  * Created by baoxing on 2015/12/24.
@@ -50,6 +52,10 @@ public class WebViewBiz {
         return mInstance;
     }
 
+    public void startActivity(Context context) {
+        Intent i = new Intent(context, WebViewActivity.class);
+        context.startActivity(i);
+    }
 
     public DataInfo getDataInfo() {
         return this.mDataInfo;
