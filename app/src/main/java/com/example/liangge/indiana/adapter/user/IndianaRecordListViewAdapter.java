@@ -12,6 +12,7 @@ import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.inner.HistoryRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
+import com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -136,6 +137,7 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
             imgViewProduct = (ImageView) view.findViewById(R.id.activity_indianarecord_product_img);
             txvIndianaInfo = (TextView) view.findViewById(R.id.activity_indianarecord_userinfo_txv);
             mViewTenYuanArea = view.findViewById(R.id.ten_yuan_hint);
+            txvIndianaInfo.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
         }
 
         public void adapterData(IndianaRecordEntity item) {
@@ -158,7 +160,7 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
             }
 
             ImageLoader.getInstance().displayImage(item.getProductImgUrl(), this.imgViewProduct, mDisplayImageOptions);
-            this.txvIndianaInfo.setText(indianaInfo);
+            ((TextViewFixTouchConsume)txvIndianaInfo).setTextViewHTML(indianaInfo);
 
             if (item.getMinimum_share() == 10) {
                 mViewTenYuanArea.setVisibility(View.VISIBLE);

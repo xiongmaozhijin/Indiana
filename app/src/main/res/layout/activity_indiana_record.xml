@@ -60,6 +60,11 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/txv_gray_light"/>
+
         <com.example.liangge.indiana.ui.widget.ExScrollView
             android:id="@+id/activity_indianarecord_scrollview"
             android:layout_width="match_parent"
@@ -90,7 +95,7 @@
                             android:id="@+id/activity_indianarecord_listview"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:dividerHeight="1dp">
+                            android:dividerHeight="0.1dp">
 
                         </com.example.liangge.indiana.ui.widget.ExListView>
 

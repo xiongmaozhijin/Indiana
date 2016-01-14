@@ -5,7 +5,7 @@
     android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
-        android:padding="6dp"
+        android:padding="@dimen/bingo_indiana_item_padding"
         android:background="@drawable/selector_f_indiana_product_item_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             android:src="@drawable/comm_loading_view"/>
 
         <com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume
-            android:lineSpacingMultiplier="1.1"
+            android:lineSpacingMultiplier="@dimen/bingo_indiana_line_height"
             android:id="@+id/bingo_info"
             android:layout_weight="1"
             android:layout_width="0dp"

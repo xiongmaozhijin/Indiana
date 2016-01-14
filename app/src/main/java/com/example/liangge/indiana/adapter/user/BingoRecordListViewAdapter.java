@@ -138,6 +138,7 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
             imgViewProduct = (ImageView) view.findViewById(R.id.product_imgview);
             txvIndianaInfo = (TextView) view.findViewById(R.id.bingo_info);
             mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
+            txvIndianaInfo.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
         }
 
         public void adapterData(BingoRecordEntity item) {
@@ -145,7 +146,6 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
             String bingoInfo = String.format(bingoInfoFormat, item.getTitle(), item.getActivityId()+"", item.getNeedPeople(), item.getBuyCnt(), item.getLuckyNumber(), item.getHumanAlreadyRunLotteryTime());
 //            txvIndianaInfo.setText(Html.fromHtml(bingoInfo));
             ((TextViewFixTouchConsume)txvIndianaInfo).setTextViewHTML(bingoInfo);
-            txvIndianaInfo.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
 
             ImageLoader.getInstance().displayImage(item.getProductImgUrl(), imgViewProduct, mDisplayImageOptions);
             if (item.getMinimum_share() == 10) {

@@ -53,6 +53,27 @@ public class TextViewFixTouchConsume extends TextView {
         SpannableStringBuilder strBuilder =
                 new SpannableStringBuilder(sequence);
         setText(strBuilder);
+
+    }
+
+    @Override
+    public void setScrollX(int value) {
+//        super.setScrollX(value);
+    }
+
+    @Override
+    public void setScrollY(int value) {
+//        super.setScrollY(value);
+    }
+
+    @Override
+    public void scrollBy(int x, int y) {
+//        super.scrollBy(x, y);
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+//        super.scrollTo(x, y);
     }
 
     public static class LocalLinkMovementMethod extends LinkMovementMethod {
@@ -60,8 +81,10 @@ public class TextViewFixTouchConsume extends TextView {
 
 
         public static LocalLinkMovementMethod getInstance() {
-            if (sInstance == null)
+            if (sInstance == null) {
                 sInstance = new LocalLinkMovementMethod();
+            }
+
 
             return sInstance;
         }
@@ -70,6 +93,10 @@ public class TextViewFixTouchConsume extends TextView {
         public boolean onTouchEvent(TextView widget,
                                     Spannable buffer, MotionEvent event) {
             int action = event.getAction();
+
+            if (widget!=null) {
+                widget.scrollTo(0, 0);
+            }
 
             if (action == MotionEvent.ACTION_UP ||
                     action == MotionEvent.ACTION_DOWN) {

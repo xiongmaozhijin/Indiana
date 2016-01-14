@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
+        android:background="@drawable/selector_f_indiana_product_item_bg"
+        android:padding="@dimen/bingo_indiana_item_padding"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="170dp"
         android:orientation="horizontal">
 
        <ImageView
+           android:layout_marginRight="@dimen/bingo_indiana_item_padding"
            android:layout_gravity="right|top"
            android:layout_width="54dp"
            android:layout_height="54dp"
@@ -21,9 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume
+                android:lineSpacingMultiplier="@dimen/bingo_indiana_line_height"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/activity_indianarecord_userinfo_1"
                 android:id="@+id/activity_indianarecord_userinfo_txv" />
 

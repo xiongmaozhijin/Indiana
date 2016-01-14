@@ -22,9 +22,14 @@
     <!--<dimen name="shoppingcart_item_title_line_height" format="float">1.2</dimen>-->
 
     <item name="line_height_1" format="float" type="dimen">1.2</item>
+    <item name="bingo_indiana_line_height" format="float" type="dimen">1.1</item>
 
     <dimen name="personal_info_item_height">50.0dip</dimen>
 
     <dimen name="ten_yuan_area_icon">28dp</dimen>
+
+    <dimen name="bingo_indiana_item_padding">6dp</dimen>
+
+
 
 </resources>
