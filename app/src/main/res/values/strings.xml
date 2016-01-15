@@ -349,5 +349,9 @@
     <string name="notify_title">通知</string>
 
     <string name="app_exit_hint">再按一次退出</string>
+    <string name="activity_user_center_indiana_records">夺宝记录</string>
+    <string name="activity_user_center_bingo">中奖记录</string>
+    <string name="activity_user_center_wish_list">心愿清单</string>
+    <string name="activity_user_center_title">用户中心</string>
 
 </resources>

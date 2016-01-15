@@ -3,6 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
+        android:background="@drawable/selector_f_indiana_product_item_bg"
         android:id="@+id/txv_desc"
         android:gravity="center_vertical"
         android:paddingLeft="16dp"

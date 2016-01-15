@@ -20,6 +20,8 @@ public class ResponseActivityPlayRecordEntity {
 
     private String photo;
 
+    private long userID;
+
     public ResponseActivityPlayRecordEntity() {
     }
 
@@ -71,6 +73,13 @@ public class ResponseActivityPlayRecordEntity {
         this.photo = photo;
     }
 
+    public long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(long userID) {
+        this.userID = userID;
+    }
 
     @Override
     public String toString() {
@@ -81,10 +90,7 @@ public class ResponseActivityPlayRecordEntity {
                 ", city='" + city + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", photo='" + photo + '\'' +
+                ", userID=" + userID +
                 '}';
     }
-
-
-
-
 }
