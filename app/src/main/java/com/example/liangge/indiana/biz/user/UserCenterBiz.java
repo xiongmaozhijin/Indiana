@@ -135,7 +135,7 @@ public class UserCenterBiz extends BaseActivityBiz {
     }
 
     /**
-     * 请求加载数据 {当加载更多时，参数tag无效}
+     * 请求加载数据
      * @param
      * @param bLoadMore
      */

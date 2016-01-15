@@ -20,6 +20,8 @@ import com.example.liangge.indiana.biz.user.UserCenterBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.InventoryEntity;
+import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
@@ -98,16 +100,16 @@ public class UserCenterActivity extends BaseActivity2 {
     }
 
     private void initView() {
-        mViewLayout = View.inflate(this, R.layout.activity_indiana_record, null);
+        mViewLayout = View.inflate(this, R.layout.activity_user_center, null);
         mViewNetHintWrapper = findViewById(R.id.activity_indianarecord_net_wrapper);
         mViewTagContentWrapper = findViewById(R.id.activity_indianarecord_tagcontent_wrapper);
         mExScrollView = (ExScrollView) findViewById(R.id.activity_indianarecord_scrollview);
         mViewLoadMoreWrapper = findViewById(R.id.load_more_wrapper);
 
-        mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+        mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup_1);
         mBtnTagAll = (RadioButton) findViewById(R.id.rb_tag_all);
-        mBtnTagBingo = (RadioButton) findViewById(R.id.rb_tag_ing);
-        mBtnTagWishList = (RadioButton) findViewById(R.id.rb_tag_done);
+        mBtnTagBingo = (RadioButton) findViewById(R.id.rb_tag_bingo);
+        mBtnTagWishList = (RadioButton) findViewById(R.id.rb_tag_wish_list);
 
         mListView = (ListView) findViewById(R.id.activity_indianarecord_listview);
         mIndianaAdapter = new IndianaRecordListViewAdapter(this);
@@ -122,10 +124,18 @@ public class UserCenterActivity extends BaseActivity2 {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "onItemClick(). position=%d", position);
-                final IndianaRecordEntity item = (IndianaRecordEntity) parent.getAdapter().getItem(position);
-                mDetailInfoBiz.setActivityId(item.getActivityId());
-                Intent i = new Intent(UserCenterActivity.this, ProductDetailInfoActivity.class);
-                startActivity(i);
+                if (mUserCenterBiz.getCurRequestType()== UserCenterBiz.RequestType.INDIAN_RECOREDS) {
+                    IndianaRecordEntity item = (IndianaRecordEntity) mIndianaAdapter.getItem(position);
+                    mDetailInfoBiz.startActivity(UserCenterActivity.this, item.getActivityId());
+
+                } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.BINGO_RECORDS) {
+                    BingoRecordEntity item = (BingoRecordEntity) mBingoAdapter.getItem(position);
+                    mDetailInfoBiz.startActivity(UserCenterActivity.this, item.getActivityId());
+
+                } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.WISH_LISTS) {
+
+                }
+
             }
         });
 
@@ -193,8 +203,17 @@ public class UserCenterActivity extends BaseActivity2 {
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_SUCCESS_MORE)) {
-            List<IndianaRecordEntity> data = mUserCenterBiz.getIndianListData();
-            boolean isEmpty = data.size()==0;
+            boolean isEmpty = true;
+            if (mUserCenterBiz.getCurRequestType()== UserCenterBiz.RequestType.INDIAN_RECOREDS) {
+                isEmpty = mUserCenterBiz.getIndianListData().size() == 0;
+
+            } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.BINGO_RECORDS) {
+                isEmpty = mUserCenterBiz.getBingoListData().size() == 0;
+
+            } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.WISH_LISTS) {
+
+            }
+
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
             adapterData(true);
         }
@@ -230,12 +249,15 @@ public class UserCenterActivity extends BaseActivity2 {
             }
 
         } else {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
             if (mUserCenterBiz.getCurRequestType()== UserCenterBiz.RequestType.INDIAN_RECOREDS) {
                 mListView.setAdapter(mIndianaAdapter);
+                mIndianaAdapter.clear();
                 mIndianaAdapter.resetDataAndNotify(mUserCenterBiz.getIndianListData());
 
             } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.BINGO_RECORDS) {
                 mListView.setAdapter(mBingoAdapter);
+                mBingoAdapter.clear();
                 mBingoAdapter.loadMoreDataAndNotify(mUserCenterBiz.getBingoListData());
 
             } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.WISH_LISTS) {
@@ -253,6 +275,7 @@ public class UserCenterActivity extends BaseActivity2 {
      */
     public void onBtnTagAll(View view) {
         LogUtils.i(TAG, "onBtnTagAll()");
+        mListView.setAdapter(mIndianaAdapter);
         mUserCenterBiz.loadUserData(UserCenterBiz.RequestType.INDIAN_RECOREDS, false);
     }
 
@@ -262,6 +285,7 @@ public class UserCenterActivity extends BaseActivity2 {
      */
     public void onBtnTagBingo(View view) {
         LogUtils.i(TAG, "onBtnTagBingo");
+        mListView.setAdapter(mBingoAdapter);
         mUserCenterBiz.loadUserData(UserCenterBiz.RequestType.BINGO_RECORDS, false);
     }
 
@@ -271,7 +295,8 @@ public class UserCenterActivity extends BaseActivity2 {
      */
     public void onBtnTagWishList(View view) {
         LogUtils.i(TAG, "onBtnTagWishList()");
-        mUserCenterBiz.loadUserData(UserCenterBiz.RequestType.WISH_LISTS, false);
+
+//        mUserCenterBiz.loadUserData(UserCenterBiz.RequestType.WISH_LISTS, false);
     }
 
 

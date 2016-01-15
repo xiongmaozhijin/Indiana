@@ -54,6 +54,11 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
                 .build();
     }
 
+    public void clear() {
+        if (mListData!=null) {
+            mListData.clear();
+        }
+    }
 
 
     public void resetDataAndNotify(List<IndianaRecordEntity> list) {

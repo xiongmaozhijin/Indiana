@@ -88,6 +88,13 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
     }
 
 
+    public void clear() {
+        if (mListData!=null) {
+            mListData.clear();
+        }
+    }
+
+
     @Override
     public int getCount() {
         return this.mListData.size();

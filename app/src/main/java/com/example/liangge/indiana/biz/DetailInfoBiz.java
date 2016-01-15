@@ -1,11 +1,13 @@
 package com.example.liangge.indiana.biz;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.adapter.DetailPlayRecordAdapter;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
@@ -15,6 +17,7 @@ import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.model.ActivityProductDetailInfoEntity;
 import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -130,6 +133,15 @@ public class DetailInfoBiz {
         RequestInfo.lActivityId = activityId;
 
     }
+
+    public void startActivity(Context context, long activityId) {
+        LogUtils.i(TAG, "startActivity()");
+        setActivityId(activityId);
+        Intent intent = new Intent(context, ProductDetailInfoActivity.class);
+        context.startActivity(intent);
+    }
+
+
 
     /**
      * 加载商品活动详情
