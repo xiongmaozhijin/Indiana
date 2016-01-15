@@ -107,13 +107,14 @@
             android:layout_below="@+id/user_layout_1"
             android:background="#ffd1324d">
 
+            <!--android:text="@string/f_personal_userinfo_1"-->
             <TextView
                 android:id="@+id/f_personal_userinfo_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20.0dip"
-                android:text="@string/f_personal_userinfo_1"
+                android:text=""
                 android:textColor="#ffcccccc" />
 
             <Button

@@ -9,10 +9,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Toast;
 
+import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
 import com.example.liangge.indiana.comm.Constant;
+import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.SharedPrefUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 
@@ -101,15 +104,32 @@ public abstract class UIBaseActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        clearRes();
-
-        System.exit(0);
+//        super.onBackPressed();
+        exitApp();
     }
 
     private void clearRes() {
         unregisterUIReciver();
     }
+
+    private static final long L_EXIT_APP_INTERVAL = 2000;
+    private long mExitTime = 0;
+    /**
+     * 退出App
+     */
+    private void exitApp() {
+        if ( (System.currentTimeMillis()-mExitTime) > L_EXIT_APP_INTERVAL)  {
+            String exitHint = getResources().getString(R.string.app_exit_hint);
+            mExitTime = System.currentTimeMillis();
+            LogUtils.toastShortMsg(this, exitHint);
+        } else {
+            clearRes();
+            super.onBackPressed();
+            System.exit(0);
+        }
+    }
+
+
 
 
 }
