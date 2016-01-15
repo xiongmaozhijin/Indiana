@@ -25,6 +25,12 @@ public class ResponseActivityPlayRecordEntity {
     public ResponseActivityPlayRecordEntity() {
     }
 
+    public ResponseActivityPlayRecordEntity(String nickname, String photo, long userID) {
+        this.nickname = nickname;
+        this.photo = photo;
+        this.userID = userID;
+    }
+
     public String getOwn_share() {
         return own_share;
     }

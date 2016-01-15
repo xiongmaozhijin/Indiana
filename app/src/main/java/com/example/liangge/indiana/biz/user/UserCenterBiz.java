@@ -1,17 +1,22 @@
 package com.example.liangge.indiana.biz.user;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.biz.BaseActivityBiz;
 import com.example.liangge.indiana.biz.MessageManager;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
+import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
+import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
+import com.example.liangge.indiana.ui.user.UserCenterActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -33,14 +38,23 @@ public class UserCenterBiz extends BaseActivityBiz {
 
     private MessageManager mMessageManager;
 
-    private PersonalCenterBiz mPersonalCenterBiz;
+    private SlaveLoadUserDataThread mSlaveLoadUserDataThread;
 
-    private SlaveLoadIndianaRecordInfThread mSlaveLoadIndianaRecordInfThread;
 
+    public interface RequestType {
+        int INDIAN_RECOREDS = 1;
+        int BINGO_RECORDS = 2;
+        int WISH_LISTS = 3;
+    }
 
     private static class DataInfo {
-        public static List<IndianaRecordEntity> mListData = new ArrayList<>();
+        /** 夺宝记录 */
+        public static List<IndianaRecordEntity> mIndianaList = new ArrayList<>();
 
+        /** 中奖记录 */
+        public static List<BingoRecordEntity> mBingoList = new ArrayList<>();
+
+        public static ResponseActivityPlayRecordEntity mUserItem = new ResponseActivityPlayRecordEntity("", "", -1);
     }
 
     private static class RequestInfo {
@@ -50,6 +64,8 @@ public class UserCenterBiz extends BaseActivityBiz {
         public static boolean bIsLoadMore = false;
 
         public static int iStartPage = 1;
+
+        public static int iRequestType = RequestType.INDIAN_RECOREDS;
 
     }
 
@@ -62,8 +78,7 @@ public class UserCenterBiz extends BaseActivityBiz {
 
     private void initManager(Context context) {
         mMessageManager = MessageManager.getInstance(context);
-        mPersonalCenterBiz = PersonalCenterBiz.getInstance(context);
-        mSlaveLoadIndianaRecordInfThread = new SlaveLoadIndianaRecordInfThread();
+        mSlaveLoadUserDataThread = new SlaveLoadUserDataThread();
 
     }
 
@@ -79,47 +94,67 @@ public class UserCenterBiz extends BaseActivityBiz {
 
 
     /**
-     * 返回参与记录数据
+     * 返回夺宝记录
      * @return
      */
-    public List<IndianaRecordEntity> getData() {
-        return DataInfo.mListData;
+    public List<IndianaRecordEntity> getIndianListData() {
+        return DataInfo.mIndianaList;
+    }
+
+    /**
+     * 返回中奖记录
+     * @return
+     */
+    public List<BingoRecordEntity> getBingoListData() {
+        return DataInfo.mBingoList;
     }
 
 
     /**
-     *
-     * @param tagFlag {@link Constant.IndianaRecord}
+     * 返回请求类型
+     * @return
      */
-    public void setCurRequestTag(String tagFlag) {
-        RequestInfo.tag = tagFlag;
+    public int getCurRequestType() {
+        return RequestInfo.iRequestType;
     }
 
-    public String getCurRequestTag() {
-        return RequestInfo.tag;
+
+    public ResponseActivityPlayRecordEntity getUserItem() {
+        return DataInfo.mUserItem;
     }
 
+
+    public void setUserItem(ResponseActivityPlayRecordEntity item) {
+        DataInfo.mUserItem = item;
+    }
+
+
+    public void startActivity(Context context) {
+        Intent intent = new Intent(context, UserCenterActivity.class);
+        context.startActivity(intent);
+    }
 
     /**
      * 请求加载数据 {当加载更多时，参数tag无效}
-     * @param tag
+     * @param
      * @param bLoadMore
      */
-    public void loadIndianaRecord(String tag, boolean bLoadMore) {
+    public void loadUserData(int requestType, boolean bLoadMore) {
+        RequestInfo.iRequestType = requestType;
+
         if (!bLoadMore) {
             RequestInfo.bIsLoadMore = false;
             RequestInfo.iStartPage = 1;
-            RequestInfo.tag = tag;
-            mSlaveLoadIndianaRecordInfThread.cancelAll();
-            mSlaveLoadIndianaRecordInfThread = new SlaveLoadIndianaRecordInfThread();
-            mSlaveLoadIndianaRecordInfThread.start();
+            mSlaveLoadUserDataThread.cancelAll();
+            mSlaveLoadUserDataThread = new SlaveLoadUserDataThread();
+            mSlaveLoadUserDataThread.start();
 
         } else {
-            if (!mSlaveLoadIndianaRecordInfThread.isWorking()) {
+            if (!mSlaveLoadUserDataThread.isWorking()) {
                 RequestInfo.iStartPage++;
                 RequestInfo.bIsLoadMore = true;
-                mSlaveLoadIndianaRecordInfThread = new SlaveLoadIndianaRecordInfThread();
-                mSlaveLoadIndianaRecordInfThread.start();
+                mSlaveLoadUserDataThread = new SlaveLoadUserDataThread();
+                mSlaveLoadUserDataThread.start();
 
             }
 
@@ -128,9 +163,9 @@ public class UserCenterBiz extends BaseActivityBiz {
 
 
 
-    private class SlaveLoadIndianaRecordInfThread extends NetRequestThread {
+    private class SlaveLoadUserDataThread extends NetRequestThread {
 
-        private static final String REQUEST_TAG = "SlaveLoadIndianaRecordInfThread";
+        private static final String REQUEST_TAG = "SlaveLoadUserDataThread";
 
 
         private void sendUIMessage(String uiMsg) {
@@ -181,7 +216,18 @@ public class UserCenterBiz extends BaseActivityBiz {
 
         @Override
         protected String getJsonBody() {
-            String jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, mPersonalCenterBiz.getUserInfo().getId(), RequestInfo.iStartPage);
+            String jsonData = "";
+            if (RequestInfo.iRequestType==RequestType.INDIAN_RECOREDS) {
+                jsonData = String.format("{\"type\":\"%s\", \"account_id\":%d, \"page\":%d}", RequestInfo.tag, DataInfo.mUserItem.getUserID(), RequestInfo.iStartPage);
+
+            } else if (RequestInfo.iRequestType==RequestType.BINGO_RECORDS) {
+                jsonData = String.format("{\"account_id\":%d, \"page\":%d}", DataInfo.mUserItem.getUserID(), RequestInfo.iStartPage);
+
+            } else if (RequestInfo.iRequestType==RequestType.WISH_LISTS) {
+                //TODO
+            }
+
+
             return jsonData;
         }
 
@@ -189,7 +235,16 @@ public class UserCenterBiz extends BaseActivityBiz {
         protected void onResponseListener(String s) {
             LogUtils.i(TAG, "onResponseListener=%s", s);
             Gson gson = new Gson();
-            DataInfo.mListData = gson.fromJson(s, new TypeToken<List<IndianaRecordEntity>>(){}.getType());
+            if (RequestInfo.iRequestType==RequestType.INDIAN_RECOREDS) {
+                DataInfo.mIndianaList = gson.fromJson(s, new TypeToken<List<IndianaRecordEntity>>(){}.getType());
+
+            } else if (RequestInfo.iRequestType==RequestType.BINGO_RECORDS) {
+                DataInfo.mBingoList = gson.fromJson(s, new TypeToken<List<BingoRecordEntity>>(){}.getType());
+
+            } else if (RequestInfo.iRequestType==RequestType.WISH_LISTS) {
+
+            }
+
         }
 
         @Override
@@ -204,7 +259,18 @@ public class UserCenterBiz extends BaseActivityBiz {
 
         @Override
         protected String getWebServiceAPI() {
-            return Constant.WebServiceAPI.PLAY_INDIANA_RECORD;
+            String api = "";
+            if (RequestInfo.iRequestType==RequestType.INDIAN_RECOREDS) {
+                api = Constant.WebServiceAPI.PLAY_INDIANA_RECORD;
+
+            } else if (RequestInfo.iRequestType==RequestType.BINGO_RECORDS) {
+                api = Constant.WebServiceAPI.BINGO_RECORED;
+
+            } else if (RequestInfo.iRequestType==RequestType.WISH_LISTS) {
+
+            }
+
+            return api;
         }
 
     }
@@ -215,13 +281,13 @@ public class UserCenterBiz extends BaseActivityBiz {
 
     public void onScrollBottomLoadMore() {
         LogUtils.i(TAG, "onScrollBottomLoadMore()");
-        loadIndianaRecord(RequestInfo.tag, true);
+        loadUserData(RequestInfo.iRequestType, true);
     }
 
 
     @Override
     public void onCreate() {
-        loadIndianaRecord(RequestInfo.tag, false);
+        loadUserData(RequestType.INDIAN_RECOREDS, false);
 
     }
 
@@ -237,8 +303,8 @@ public class UserCenterBiz extends BaseActivityBiz {
 
     @Override
     public void onDestroy() {
-        if (mSlaveLoadIndianaRecordInfThread != null) {
-            mSlaveLoadIndianaRecordInfThread.cancelAll();
+        if (mSlaveLoadUserDataThread != null) {
+            mSlaveLoadUserDataThread.cancelAll();
         }
     }
 

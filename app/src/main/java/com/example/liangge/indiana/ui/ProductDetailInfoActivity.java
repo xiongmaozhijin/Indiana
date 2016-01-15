@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.example.liangge.indiana.biz.ImageViewBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.biz.inner.HistoryRecordBiz;
+import com.example.liangge.indiana.biz.user.UserCenterBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.NetworkUtils;
@@ -132,6 +134,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
     private HistoryRecordBiz mHistoryRecordBiz;
 
+    private UserCenterBiz mUserCenterBiz;
+
     /** 再次进入 */
     private boolean bIsEnter = false;
 
@@ -176,6 +180,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mImageViewBiz = ImageViewBiz.getInstance(this);
         mHomeBiz = HomeBiz.getInstance(this);
         mHistoryRecordBiz = HistoryRecordBiz.getInstance(this);
+        mUserCenterBiz = UserCenterBiz.getInstance(this);
     }
 
     private void initView() {
@@ -223,6 +228,15 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
 
 //        mPlayRecordListView.setFocusable(false);
+        mPlayRecordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogUtils.i(TAG, "onItemClick(). position=%d", position);
+                ResponseActivityPlayRecordEntity item = (ResponseActivityPlayRecordEntity) parent.getAdapter().getItem(position);
+                mUserCenterBiz.setUserItem(item);
+                mUserCenterBiz.startActivity(ProductDetailInfoActivity.this);
+            }
+        });
 
         mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
             @Override

@@ -68,6 +68,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
     private void initOnCreate() {
 //        mIndianaRecordBiz.onCreate();
         String curTag = mIndianaRecordBiz.getCurRequestTag();
+        //虽然是字符串，但可以这样做
         if (curTag == Constant.IndianaRecord.TAG_ALL) {
             mRadioGroup.check(mBtnTagAll.getId());
             onBtnTagAll(null);
