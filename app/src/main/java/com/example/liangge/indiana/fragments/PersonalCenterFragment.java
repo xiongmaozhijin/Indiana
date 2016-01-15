@@ -12,20 +12,19 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
+import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.biz.user.IndianaRecordBiz;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.user.LogInActivity;
-import com.example.liangge.indiana.ui.user.LogSignInActivity;
 import com.example.liangge.indiana.ui.user.BingoRecordActivity;
 import com.example.liangge.indiana.ui.user.IndianaRecordActivity;
 import com.example.liangge.indiana.ui.user.SettingActivity;
@@ -47,6 +46,7 @@ public class PersonalCenterFragment extends BaseFragment {
 
     private IndianaRecordBiz mIndianaRecordBiz;
 
+    private WebViewBiz mWebViewBiz;
 
     private UIMsgRecevie mUIMsgRecevie;
 
@@ -64,8 +64,8 @@ public class PersonalCenterFragment extends BaseFragment {
     /** 简单的用户信息显示 */
     private TextView mTxvUserInfo;
 
-    /** 软件相关信息按钮 */
-    private ImageButton mImgBtnInfo;
+    /** 相关通知 */
+    private ImageButton mImgBtnNotifyInfo;
 
     /** 夺宝记录 */
     private View mBtnIndianaRecord;
@@ -109,7 +109,7 @@ public class PersonalCenterFragment extends BaseFragment {
     private void initViewNew(View view) {
         mImgViewUserPortain = (ImageView) view.findViewById(R.id.f_personal_user_portain);
         mBtnLogHint = (TextView) view.findViewById(R.id.f_personal_log_signup_logout);
-        mImgBtnInfo = (ImageButton) view.findViewById(R.id.f_personal_software_info);
+        mImgBtnNotifyInfo = (ImageButton) view.findViewById(R.id.f_personal_software_info);
         mTxvUserInfo = (TextView) view.findViewById(R.id.f_personal_userinfo_1);
         mViewRecharge = view.findViewById(R.id.user_recharge);
         mViewOnGoing = view.findViewById(R.id.user_good_on_text);
@@ -163,6 +163,13 @@ public class PersonalCenterFragment extends BaseFragment {
         });
 
 
+        mImgBtnNotifyInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnNotifyInfo();
+            }
+        });
+
         mImgViewUserPortain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +187,16 @@ public class PersonalCenterFragment extends BaseFragment {
                 onBtnSetting();
             }
         });
+    }
+
+    /**
+     * 相关通知
+     */
+    private void onBtnNotifyInfo() {
+        LogUtils.i(TAG, "onBtnNotifyInfo()");
+        String title = getActivity().getResources().getString(R.string.notify_title);
+        mWebViewBiz.setWebViewRes(title, Constant.WebServiceAPI.REQUEST_NOTIFY_INFO);
+        mWebViewBiz.startActivity(getActivity());
     }
 
     /**
@@ -230,6 +247,7 @@ public class PersonalCenterFragment extends BaseFragment {
         mPersonalCenterBiz = PersonalCenterBiz.getInstance(getActivity());
         mLogSignInBiz = LogSignInBiz.getInstance(getActivity());
         mIndianaRecordBiz = IndianaRecordBiz.getInstance(getActivity());
+        mWebViewBiz = WebViewBiz.getInstance(getActivity());
     }
 
 

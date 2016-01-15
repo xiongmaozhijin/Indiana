@@ -346,6 +346,7 @@
 
     <string name="setting_exitlog_hint">退出成功</string>
 
+    <string name="notify_title">通知</string>
 
     <string name="app_exit_hint">再按一次退出</string>
 

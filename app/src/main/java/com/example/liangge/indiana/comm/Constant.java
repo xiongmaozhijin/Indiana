@@ -200,7 +200,11 @@ public class Constant {
         /** 关于一元夺宝 */
         String REQUEST_ABOUT_INDAINA = WEBHOST + "/index.php/about_indiana";
 
+        /** 相关通知信息 */
+        String REQUEST_NOTIFY_INFO = WEBHOST + "/index.php/notify_info";
+
         String ERROR_404 = WEBHOST + "/index.php/404.php";
+
     }
 
 
