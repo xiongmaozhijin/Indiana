@@ -188,6 +188,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
     }
 
     private void handleReloadUI(String strUIAction) {
+        handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
         if (strUIAction.equals(UIMessageConts.IndianaRecord.M_RELOAD_FAIL)) {
             handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNetHintWrapper, mViewTagContentWrapper);
 

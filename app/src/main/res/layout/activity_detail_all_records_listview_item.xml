@@ -3,9 +3,19 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
+        android:padding="4dp"
+        android:paddingLeft="2dp"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/user_portrait"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/user_gray"/>
 
         <TextView
             android:id="@+id/playrecords_info"

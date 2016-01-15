@@ -125,7 +125,7 @@
         <![CDATA[
         <font color="#686868">%1$s</font><br>
         <font color="#d4d4d4">参与期号:%2$s <br>
-        参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>     <font color="#0278fe"><a href="%4$s">我的号码</a></font><br><br>
+        参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>     <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
         <font color="#d4d4d4">
         &nbsp;&nbsp;&nbsp;&nbsp;获奖者:%5$s<br>
         &nbsp;&nbsp;&nbsp;&nbsp;参与次数:%6$d<br>
@@ -141,7 +141,7 @@
         <font color="#686868">%1$s</font><br>
         <font color="#d4d4d4">
         参与期号:%2$s <br>
-        参与次数:%3$d &nbsp;&nbsp;&nbsp;</font> <font color="#0278fe"><a href="%4$s">我的号码</a></font><br><br>
+        参与次数:%3$d &nbsp;&nbsp;&nbsp;</font> <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
         <font color="#d4d4d4">
         进度:%5$s
         </font>
@@ -152,7 +152,7 @@
           <font color="#686868">%1$s</font><br>
           <font color="#d4d4d4">
           参与期号:%2$s <br>
-          参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>  <font color="#0278fe"><a href="%4$s">我的号码</a></font><br><br>
+          参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>  <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
           <font color="#d4d4d4">
           揭晓中...
           </font>
@@ -171,7 +171,7 @@
             <font color="#d4d4d4">
             参与期号:%2$s <br>
             总需人次:%3$d &nbsp;&nbsp;&nbsp;参与次数:%4$d <br>
-            开奖号码:</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%6$s">我的号码</a> </font><br><br>
+            开奖号码:</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%6$s">查看号码</a> </font><br><br>
             <font color="#d4d4d4">
             开奖时间:%7$s
             </font>
@@ -184,7 +184,7 @@
 
     <string name="custom_schema">indiana</string>
 
-    <string name="my_number_title">我的号码</string>
+    <string name="check_number_title">查看号码</string>
 
     <string name="activity_logsignin_signin_read_protocal_hint">请阅读《夺宝协议》并同意</string>
 

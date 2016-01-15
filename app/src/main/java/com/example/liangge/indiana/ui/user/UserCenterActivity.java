@@ -96,7 +96,7 @@ public class UserCenterActivity extends BaseActivity2 {
         //init view
         ImageLoader.getInstance().displayImage(mUserCenterBiz.getUserItem().getPhoto(), mImgUserPortrait, getUserPortraitImageConfig());
         mTxvUsername.setText(mUserCenterBiz.getUserItem().getNickname());
-        mTxvUserId.setText(mUserCenterBiz.getUserItem().getUserID() + "");
+        mTxvUserId.setText("ID:" + mUserCenterBiz.getUserItem().getUserID() + "");
     }
 
     private void initView() {

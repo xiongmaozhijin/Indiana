@@ -53,7 +53,7 @@ public class WebViewActivity extends Activity {
                     LogUtils.i(TAG, "urlSchema=%s", urlSchema);
                     String schema = getResources().getString(R.string.custom_schema);
                     String url = urlSchema.replace(schema + "://", "http://");
-                    String title = getResources().getString(R.string.my_number_title);
+                    String title = getResources().getString(R.string.check_number_title);
                     mWebViewBiz.setWebViewRes(title, url);
                 }
             }

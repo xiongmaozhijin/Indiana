@@ -5,12 +5,15 @@ import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -100,9 +103,11 @@ public class DetailPlayRecordAdapter extends BaseAdapter
 
     private static class ViewHolder {
 
+        private ImageView imgUserPortrait;
         private TextView txvRecordInfo;
 
         public ViewHolder(View view){
+            this.imgUserPortrait = (ImageView) view.findViewById(R.id.user_portrait);
             this.txvRecordInfo = (TextView) view.findViewById(R.id.playrecords_info);
         }
 
@@ -110,6 +115,7 @@ public class DetailPlayRecordAdapter extends BaseAdapter
             String infoFormat = mContext.getResources().getString(R.string.activity_detailinfo_listview_item_txv_info_format);
             String info = String.format(infoFormat, item.getNickname(), item.getOwn_share(), item.getRecord_time());
             this.txvRecordInfo.setText(Html.fromHtml(info));
+            ImageLoader.getInstance().displayImage(item.getPhoto(), imgUserPortrait, PersonalCenterBiz.getInstance(mContext).getUserPortraitConfig());
         }
 
     }

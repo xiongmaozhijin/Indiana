@@ -1,6 +1,7 @@
 package com.example.liangge.indiana.biz;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -18,6 +19,8 @@ import com.example.liangge.indiana.model.ResponseUserInfoEntitiy;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.example.liangge.indiana.model.user.UserInfoEntity;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 /**
  * Created by baoxing on 2015/12/23.
@@ -38,6 +41,8 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     private MessageManager mMessageManager;
 
+    private DisplayImageOptions mDisplayImageUserPortraitOptions;
+
     private PersonalCenterBiz(Context context) {
         this.mContext = context;
         initManager();
@@ -46,6 +51,7 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     private void initRes() {
         mSlaveRequestUserInfo = new SlaveRequestUserInfo();
+        initUserPortraitImageLoaderConf();
     }
 
     private void initManager() {
@@ -106,6 +112,30 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     private static class RequestInfo {
 
+    }
+
+    /**
+     * 初始化用户头像显示配置
+     */
+    private void initUserPortraitImageLoaderConf() {
+        mDisplayImageUserPortraitOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.user_gray)
+                .showImageOnFail(R.drawable.user_gray)
+                .showImageOnLoading(R.drawable.user_gray)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(90))
+                .build();
+    }
+
+    /**
+     * 返回用户的头像配置
+     * @return
+     */
+    public DisplayImageOptions getUserPortraitConfig() {
+        return this.mDisplayImageUserPortraitOptions;
     }
 
 
