@@ -30,6 +30,14 @@ public class SharedPrefUtils {
         mSharedPreferences.edit().putBoolean(key, value).commit();
     }
 
+    public synchronized static void save(String key, String value) {
+        mSharedPreferences.edit().putString(key, value).commit();
+    }
+
+    public synchronized static void save(String key, long value) {
+        mSharedPreferences.edit().putLong(key, value).commit();
+    }
+
 
     public static SharedPreferences getSharedPreferences() {
         return mSharedPreferences;

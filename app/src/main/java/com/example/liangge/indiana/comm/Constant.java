@@ -8,8 +8,11 @@ public class Constant {
     public interface SharedPerfer {
 
         /** 是否登录了 */
-        public static final String KEY_IS_LOGIN = "key_is_login";
+        String KEY_IS_LOGIN = "KEY_IS_LOGIN";
 
+        String KEY_TOKEN = "KEY_TOKEN";
+
+        String KEY_USERID = "KEY_USERID";
 
     }
 

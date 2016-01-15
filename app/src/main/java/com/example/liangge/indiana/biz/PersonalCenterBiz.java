@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.android.volley.VolleyError;
+import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
@@ -61,7 +62,9 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
         return mInstance;
     }
 
-    private static final int HANDLE_ACTION = -100;
+    private static final int HANDLE_ACTION_REQUEST_USER_INFO = -100;
+    private static final int HANDLE_ACTION_LOGOUT = -99;
+
 
     private static Handler mHandle = new Handler(Looper.getMainLooper()){
 
@@ -69,15 +72,20 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             int action = msg.arg1;
-            int status = msg.arg2;
 
-            if (action==HANDLE_ACTION) {
+            if (action== HANDLE_ACTION_REQUEST_USER_INFO) {
+                int status = msg.arg2;
                 if (status !=  200) {
                     String hint = (String) msg.obj;
                     LogUtils.toastShortMsg(mContext, hint);
                 }
 
+            } else if (action==HANDLE_ACTION_LOGOUT) {
+                String exitHint = mContext.getResources().getString(R.string.setting_exitlog_hint);
+                LogUtils.toastShortMsg(mContext, exitHint);
+
             }
+
 
         }
 
@@ -137,7 +145,7 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
     @Override
     public void onFirstEnter() {
         mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.PersonalCenterMessage.PERSONALCENTER_M_UPDATE_USER_INFO));
-
+        updateUserInfo();
     }
 
     @Override
@@ -151,7 +159,6 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
     }
 
     public void onDestory() {
-        logOut();
     }
 
 
@@ -170,11 +177,24 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
     }
 
     /**
+     * 初始化登录标志. token/userId
+     */
+    public synchronized void initLoginFlag() {
+        if (isLogin() ) {
+            String token = SharedPrefUtils.getSharedPreferences().getString(Constant.SharedPerfer.KEY_TOKEN, "");
+            long userID = SharedPrefUtils.getSharedPreferences().getLong(Constant.SharedPerfer.KEY_USERID, -1);
+            getUserInfo().setToken(token);
+            getUserInfo().setId(userID);
+            updateUserInfo();
+        }
+    }
+
+    /**
      * 用户登录()
      */
     public void logIn() {
-        _setLogin(true);
         DataInfo.userInfo = Bizdto.changeToUserInfoEntity(DataInfo.userInfo, mLogSignInBiz.getResponseLogEntity());
+        _setLogin(true);
     }
 
     /**
@@ -182,9 +202,12 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
      */
     public void logOut() {
         LogUtils.w(TAG, "logOut()");
-        //TODO 改到 LogSignInBiz ？？
         _setLogin(false);
         DataInfo.userInfo = new UserInfoEntity();
+
+        Message msg = Message.obtain();
+        msg.arg1 = HANDLE_ACTION_LOGOUT;
+        mHandle.sendMessage(msg);
 
         mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.PersonalCenterMessage.M_LOGOUT_SUCCESS));
     }
@@ -192,6 +215,16 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
     private synchronized void _setLogin(boolean isLogin) {
         SharedPrefUtils.save(Constant.SharedPerfer.KEY_IS_LOGIN, isLogin);
+        if (isLogin) {
+            SharedPrefUtils.save(Constant.SharedPerfer.KEY_TOKEN, getUserInfo().getToken());
+            SharedPrefUtils.save(Constant.SharedPerfer.KEY_USERID, getUserInfo().getId());
+
+        } else {
+            SharedPrefUtils.save(Constant.SharedPerfer.KEY_TOKEN, "");
+            SharedPrefUtils.save(Constant.SharedPerfer.KEY_USERID, "");
+
+        }
+
     }
 
 
@@ -231,7 +264,7 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
 
             } else {
                 Message msg = Message.obtain();
-                msg.arg1 = HANDLE_ACTION;
+                msg.arg1 = HANDLE_ACTION_REQUEST_USER_INFO;
                 msg.arg2 = item.getStatus();
                 msg.obj = item.getMsg();
                 mHandle.sendMessage(msg);

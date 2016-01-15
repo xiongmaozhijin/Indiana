@@ -12,6 +12,8 @@ import android.view.Window;
 
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.user.LogSignInBiz;
+import com.example.liangge.indiana.comm.Constant;
+import com.example.liangge.indiana.comm.SharedPrefUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 
 /**
@@ -31,6 +33,15 @@ public abstract class UIBaseActivity extends FragmentActivity {
 
         registerUIReceive();
         initManager();
+        initState();
+    }
+
+    /**
+     * 初始化相关状态
+     */
+    private void initState() {
+       mPersonalCenterBiz.initLoginFlag();
+
     }
 
     private void registerUIReceive() {
@@ -97,7 +108,6 @@ public abstract class UIBaseActivity extends FragmentActivity {
     }
 
     private void clearRes() {
-        mPersonalCenterBiz.logOut();
         unregisterUIReciver();
     }
 

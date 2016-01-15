@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.android.volley.Cache;
 import com.android.volley.toolbox.Volley;
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.FileOperateUtils;
@@ -26,6 +27,8 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
     private static final String TAG = SettingActivity.class.getSimpleName();
 
     private WebViewBiz mWebViewBiz;
+
+    private PersonalCenterBiz mPersonalCenterBiz;
 
     private TextView mTxvCacheSize;
 
@@ -51,7 +54,7 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
 
     private void initManager() {
         mWebViewBiz = WebViewBiz.getInstance(this);
-
+        mPersonalCenterBiz = PersonalCenterBiz.getInstance(this);
     }
 
     /**
@@ -102,7 +105,7 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
      */
     public void onBtnExitLog(View view) {
         LogUtils.i(TAG, "onBtnExitLog()");
-
+        mPersonalCenterBiz.logOut();
     }
 
     public void onBtnBack(View view) {
