@@ -664,8 +664,10 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
      * @param view
      */
     public void onBtnShoppingCart(View view) {
-        mHomeBiz.replaceFragment(HomeActivity.I_TAG_FRAGMENT_SHOPPING_CART);
-        finish();
+//        mHomeBiz.replaceFragment(HomeActivity.I_TAG_FRAGMENT_SHOPPING_CART);
+//        finish();
+        mHomeBiz.jumpToShoppingCartFragment(this);
+
     }
 
 

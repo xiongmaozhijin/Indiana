@@ -1,6 +1,7 @@
 package com.example.liangge.indiana.biz;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
@@ -72,6 +73,18 @@ public class HomeBiz {
 
     }
 
+
+    /**
+     * 跳转到主页的购物车模块
+     * @param context
+     */
+    public void jumpToShoppingCartFragment(Context context) {
+        LogUtils.i(TAG, "jumpToShoppingCartFragment()");
+        Intent intent = new Intent(context, HomeActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
+        replaceFragment(HomeActivity.I_TAG_FRAGMENT_SHOPPING_CART);
+    }
 
 
 

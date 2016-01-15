@@ -223,7 +223,7 @@ public abstract class BaseUIActivity extends Activity {
                 .cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20))
+                .displayer(new RoundedBitmapDisplayer(90))
                 .build();
     }
 

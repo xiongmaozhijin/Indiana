@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,9 @@ public class PersonalCenterFragment extends BaseFragment {
 
     /** 用户头像 */
     private ImageView mImgViewUserPortain;
+
+    /** 用户名显示 */
+    private TextView mTxvTopUsername;
 
     /** 登录/注册/已登录 */
     private TextView mBtnLogHint;
@@ -115,6 +119,8 @@ public class PersonalCenterFragment extends BaseFragment {
         mBtnIndianaRecord = view.findViewById(R.id.f_personal_txvbtn_indiana_record);
         mBtnBingoRecord = view.findViewById(R.id.f_personal_txvbtn_bingo_record);
 
+
+        mTxvTopUsername = (TextView) view.findViewById(R.id.top_username);
 
         mViewRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -236,7 +242,7 @@ public class PersonalCenterFragment extends BaseFragment {
                 .cacheInMemory(true)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20))
+                .displayer(new RoundedBitmapDisplayer(90))
                 .build();
     }
 
@@ -388,10 +394,17 @@ public class PersonalCenterFragment extends BaseFragment {
      */
     private void initLogOutState() {
         LogUtils.i(TAG, "initLogOutState()");
+
+        mBtnLogHint.setVisibility(View.VISIBLE);
         mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup));
+
         mImgViewUserPortain.setImageResource(R.drawable.user_gray);
+
         mTxvUserInfo.setText("");
         mTxvUserInfo.setVisibility(View.INVISIBLE);
+        mTxvTopUsername.setText("");
+        mTxvTopUsername.setVisibility(View.INVISIBLE);
+
     }
 
     /**
@@ -401,16 +414,19 @@ public class PersonalCenterFragment extends BaseFragment {
         LogUtils.i(TAG, "initLogInUIState()");
         mTxvUserInfo.setVisibility(View.VISIBLE);
         String strUserInfoFormat = getResources().getString(R.string.f_personal_userinfo_1);
-        String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getNickname(), mPersonalCenterBiz.getUserInfo().getBalance());
+        String strUserInfo = String.format(strUserInfoFormat, mPersonalCenterBiz.getUserInfo().getBalance());
         String userImgUrlTemp = "drawable://" + R.drawable.user;
         String userImgUrl = mPersonalCenterBiz.getUserInfo().getPhoto();
         if (userImgUrl==null || userImgUrl.equals("null")) {
             userImgUrl = userImgUrlTemp;
         }
         ImageLoader.getInstance().displayImage(userImgUrl, mImgViewUserPortain, mDisplayImageOptions);
-        mTxvUserInfo.setText(strUserInfo);
+        mTxvUserInfo.setText(Html.fromHtml(strUserInfo));
 
+        mTxvTopUsername.setVisibility(View.VISIBLE);
+        mTxvTopUsername.setText(mPersonalCenterBiz.getUserInfo().getNickname());
 
+        mBtnLogHint.setVisibility(View.INVISIBLE);
         mBtnLogHint.setText(getResources().getString(R.string.f_personal_btn_log_signup_2));
 
     }

@@ -216,7 +216,11 @@
 
     <string name="activity_imgview_titlebar_title">图文详情</string>
     <string name="activity_user_info_info">\n用户ID:%1$s\n\n账户余额:%2$s</string>
-    <string name="f_personal_userinfo_1">%1$s \t余额:%2$d</string>
+    <string name="f_personal_userinfo_1">
+        <![CDATA[
+        余额:&nbsp;<font color="yellow">%1$d</font>
+        ]]>
+    </string>
     <string name="activity_detailinfo_addto_shoppingcart">加入清单</string>
     <string name="activity_detailinfo_btn_go_nexthot_acitivity">立即前往</string>
     <string name="activity_logsign_signin_username_hint">请输入你的名字</string>
