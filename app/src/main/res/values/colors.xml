@@ -45,4 +45,6 @@
 
     <color name="red_light">#da3651</color>
 
+    <color name="red_lighter">#ff4040</color>
+
 </resources>

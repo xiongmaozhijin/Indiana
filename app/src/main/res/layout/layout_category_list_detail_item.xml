@@ -5,12 +5,14 @@
     android:descendantFocusability="blocksDescendants">
 
     <FrameLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
 
 
         <LinearLayout
+            android:padding="@dimen/bingo_indiana_item_padding"
             android:layout_width="match_parent"
             android:layout_height="98dp"
             android:gravity="center_vertical"
@@ -18,6 +20,7 @@
 
             <ImageView
                 android:id="@+id/imgview"
+                android:layout_marginRight="@dimen/bingo_indiana_item_padding"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:adjustViewBounds="true"
@@ -59,12 +62,17 @@
             <Button
                 android:id="@+id/btn_addto_char"
                 style="@style/Button.main.Border"
-                android:layout_width="78dp"
-                android:layout_height="32dp"
+                android:layout_width="68dp"
+                android:layout_height="24dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:text="加入清单"
-                android:textColor="#F5C5CC" />
+                android:textSize="10sp"
+                android:textColor="@color/red_lighter" />
 
         </LinearLayout>
 
