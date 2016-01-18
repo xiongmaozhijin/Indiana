@@ -24,6 +24,7 @@ import com.example.liangge.indiana.biz.Bizdto;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.HomeBiz;
 import com.example.liangge.indiana.biz.ImageViewBiz;
+import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.ShoppingCartBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.biz.inner.HistoryRecordBiz;
@@ -121,8 +122,6 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
     /** 前往下一期 */
     private View mViewGoNextHotActivityWrapper;
 
-    private DisplayImageOptions mDisplayImageOptions;
-
 
     private ImageViewBiz mImageViewBiz;
 
@@ -136,6 +135,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
     private UserCenterBiz mUserCenterBiz;
 
+    private PersonalCenterBiz mPersonalCenterBiz;
+
     /** 再次进入 */
     private boolean bIsEnter = false;
 
@@ -148,8 +149,6 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         initView();
         initManager();
         initRes();
-        initImageLoaderConf();
-
 
         mDetailInfoBiz.onCreate();
     }
@@ -159,28 +158,13 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         mWebViewBiz = WebViewBiz.getInstance(this);
     }
 
-    /**
-     * 配置开源组件ImageLoader的参数
-     */
-    private void initImageLoaderConf() {
-        mDisplayImageOptions = new DisplayImageOptions.Builder()
-                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
-                .showImageOnFail(R.drawable.main_banner_img_load_fail)
-                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
-                .cacheOnDisk(true)
-                .cacheInMemory(true)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .considerExifParams(true)
-                .build();
-
-    }
-
     private void initManager() {
         mDetailInfoBiz = DetailInfoBiz.getInstance(this);
         mImageViewBiz = ImageViewBiz.getInstance(this);
         mHomeBiz = HomeBiz.getInstance(this);
         mHistoryRecordBiz = HistoryRecordBiz.getInstance(this);
         mUserCenterBiz = UserCenterBiz.getInstance(this);
+        mPersonalCenterBiz = PersonalCenterBiz.getInstance(this);
     }
 
     private void initView() {
@@ -507,7 +491,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
 //            LogUtils.e(TAG, "imgUrl=%s, view=%s", detailEntity.getBingoUserPortain(), mImgBingoUserPortain.toString());
 
-            ImageLoader.getInstance().displayImage(detailEntity.getBingoUserPortain(), mImgBingoUserPortain, mDisplayImageOptions);
+            ImageLoader.getInstance().displayImage(detailEntity.getBingoUserPortain(), mImgBingoUserPortain, mPersonalCenterBiz.getUserPortraitConfig());
 
 
             String bingUserInfoFormat = getResources().getString(R.string.activity_detail_bingouser_info);
@@ -697,6 +681,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
     protected void onResume() {
         super.onResume();
         registerUIReceive();
+
+        mDetailInfoBiz.onResume();
 
         if (bIsEnter) {
 //            bIsEnter = false;

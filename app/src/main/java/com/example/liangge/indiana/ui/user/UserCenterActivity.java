@@ -295,7 +295,8 @@ public class UserCenterActivity extends BaseActivity2 {
      */
     public void onBtnTagWishList(View view) {
         LogUtils.i(TAG, "onBtnTagWishList()");
-
+        String hint = getResources().getString(R.string.cannot_use);
+        LogUtils.toastShortMsg(this, hint);
 //        mUserCenterBiz.loadUserData(UserCenterBiz.RequestType.WISH_LISTS, false);
     }
 

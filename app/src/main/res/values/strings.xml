@@ -354,4 +354,7 @@
     <string name="activity_user_center_wish_list">心愿清单</string>
     <string name="activity_user_center_title">用户中心</string>
 
+
+    <string name="cannot_use">还没有开通~~</string>
+
 </resources>

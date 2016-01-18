@@ -85,8 +85,23 @@ public class PersonalCenterFragment extends BaseFragment {
     /** 已揭晓 */
     private View mViewRevealed;
 
+    /**
+     * 红包
+     */
+    private View mViewRedPackage;
+
     /** 设置 */
     private View mViewSetting;
+
+    /**
+     * 心愿单
+     */
+    private View mViewWishList;
+
+    /**
+     * 充值记录
+     */
+    private View mViewAccountDetail;
 
     private DisplayImageOptions mDisplayImageOptions;
 
@@ -115,6 +130,9 @@ public class PersonalCenterFragment extends BaseFragment {
         mViewOnGoing = view.findViewById(R.id.user_good_on_text);
         mViewRevealed = view.findViewById(R.id.user_revealed_text);
         mViewSetting = view.findViewById(R.id.user_layout_setting);
+        mViewRedPackage = view.findViewById(R.id.user_layout_coupon);
+        mViewWishList = view.findViewById(R.id.user_layout_wish);
+        mViewAccountDetail = view.findViewById(R.id.f_personal_account_detail);
 
         mBtnIndianaRecord = view.findViewById(R.id.f_personal_txvbtn_indiana_record);
         mBtnBingoRecord = view.findViewById(R.id.f_personal_txvbtn_bingo_record);
@@ -122,6 +140,27 @@ public class PersonalCenterFragment extends BaseFragment {
 
         mTxvTopUsername = (TextView) view.findViewById(R.id.top_username);
 
+
+        mViewAccountDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAccountDetail();
+            }
+        });
+
+        mViewWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onWishList();
+            }
+        });
+
+        mViewRedPackage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRedPackage();
+            }
+        });
         mViewRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +226,27 @@ public class PersonalCenterFragment extends BaseFragment {
                 onBtnSetting();
             }
         });
+    }
+
+    /**
+     * 充值记录
+     */
+    private void onAccountDetail() {
+        toastCannotUse();
+    }
+
+    /**
+     * 心愿单
+     */
+    private void onWishList() {
+        toastCannotUse();
+    }
+
+    /**
+     * 红包
+     */
+    private void onRedPackage() {
+        toastCannotUse();
     }
 
     /**
@@ -395,13 +455,17 @@ public class PersonalCenterFragment extends BaseFragment {
 
 
 
+    private void toastCannotUse() {
+        String hint = getResources().getString(R.string.cannot_use);
+        LogUtils.toastShortMsg(getActivity(), hint);
+    }
 
 
     /**
      * 充值
      */
     public void onRecharge() {
-
+        toastCannotUse();
     }
 
 

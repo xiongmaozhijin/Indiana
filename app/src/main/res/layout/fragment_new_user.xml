@@ -225,6 +225,7 @@
 
         <RelativeLayout
             android:id="@+id/user_layout_coupon"
+            android:clickable="true"
             android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
@@ -275,6 +276,7 @@
 
         <RelativeLayout
             android:id="@+id/user_layout_wish"
+            android:clickable="true"
             android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
@@ -430,6 +432,7 @@
 
         <RelativeLayout
             android:id="@+id/f_personal_account_detail"
+            android:clickable="true"
             android:background="@android:color/white"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"

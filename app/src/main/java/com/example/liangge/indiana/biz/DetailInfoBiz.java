@@ -23,6 +23,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 商品详细Biz
@@ -77,6 +78,8 @@ public class DetailInfoBiz {
 
     private static class DataInfo {
         public static ActivityProductDetailInfoEntity activityProductItemEntity;
+
+        public static Stack<Long> activityIdStack = new Stack<>();
     }
 
 
@@ -131,7 +134,7 @@ public class DetailInfoBiz {
     public void setActivityId(long activityId) {
         LogUtils.i(TAG,"activityId=%d", activityId);
         RequestInfo.lActivityId = activityId;
-
+        DataInfo.activityIdStack.push(activityId);
     }
 
     public void startActivity(Context context, long activityId) {
@@ -393,6 +396,12 @@ public class DetailInfoBiz {
     }
 
     public void onResume() {
+        if (DataInfo.activityIdStack != null) {
+            if (!DataInfo.activityIdStack.empty()) {
+                RequestInfo.lActivityId = DataInfo.activityIdStack.peek();
+            }
+        }
+
     }
 
 
@@ -418,6 +427,12 @@ public class DetailInfoBiz {
         }
         if (mSlaveLoadAllPalyRecordsThread != null) {
             mSlaveLoadAllPalyRecordsThread.cancelAll();
+
+        }
+        if (DataInfo.activityIdStack != null) {
+            if (!DataInfo.activityIdStack.empty() ) {
+                DataInfo.activityIdStack.pop();
+            }
 
         }
 
