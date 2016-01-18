@@ -357,4 +357,12 @@
 
     <string name="cannot_use">还没有开通~~</string>
 
+    <string name="checking">检测中</string>
+
+    <string name="update_yes">升级</string>
+    <string name="update_no">以后再说</string>
+    <string name="update_hint">已经是最新版本啦</string>
+    <string name="download_apk_name">indiana.apk</string>
+    <string name="download_title">Indiana</string>
+
 </resources>

@@ -14,6 +14,9 @@ public class Constant {
 
         String KEY_USERID = "KEY_USERID";
 
+        /** 下载的apk id */
+        String KEY_APK_DOWNLOAD_ID = "KEY_APK_DOWNLOAD_ID";
+
     }
 
 
@@ -203,7 +206,11 @@ public class Constant {
         /** 相关通知信息 */
         String REQUEST_NOTIFY_INFO = WEBHOST + "/index.php/notify_info";
 
+        /** 检查更新 */
+        String REQUEST_CHECK_UPDATE_APP = WEBHOST + "/index.php/Admin/Api/checkAppUpdate";
+
         String ERROR_404 = WEBHOST + "/index.php/404.php";
+
 
     }
 

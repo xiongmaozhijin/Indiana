@@ -1,6 +1,8 @@
 package com.example.liangge.indiana.ui.user;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +11,13 @@ import android.widget.TextView;
 import com.android.volley.Cache;
 import com.android.volley.toolbox.Volley;
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.AppBiz;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.WebViewBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.FileOperateUtils;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,7 +36,11 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
 
     private TextView mTxvCacheSize;
 
+    private TextView mTxvVersionName;
+
     private SlaveGetCacheSizeThread mSlaveGetCacheSizeThread;
+
+    private AppBiz mAppBiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,12 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
         initView();
         initManager();
         initRes();
+        initState();
+    }
+
+    private void initState() {
+        mTxvVersionName.setText(AppBiz.getCurVersionName(this) );
+
     }
 
     private void initRes() {
@@ -50,11 +64,13 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
 
     private void initView() {
         mTxvCacheSize = (TextView) findViewById(R.id.txv_cache_size);
+        mTxvVersionName = (TextView) findViewById(R.id.txv_version_name);
     }
 
     private void initManager() {
         mWebViewBiz = WebViewBiz.getInstance(this);
         mPersonalCenterBiz = PersonalCenterBiz.getInstance(this);
+        mAppBiz = AppBiz.getInstance(this);
     }
 
     /**
@@ -74,7 +90,9 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
      */
     public void onBtnCheckUpdate(View view) {
         LogUtils.i(TAG, "onBtnCheckUpdate()");
-        //TODO
+        String hint = getResources().getString(R.string.checking);
+        LogUtils.toastShortMsg(this, hint);
+        mAppBiz.checkAppUpdate();
     }
 
     /**
@@ -115,6 +133,33 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
 
     @Override
     protected void handleUIMessage(String strUIAction) {
+        if (strUIAction.equals(UIMessageConts.Comm_Activity.COMM_CHECK_APP_UPDATE_SUCCESS)) {
+            handleUIAppUpdate();
+        }
+    }
+
+    /**
+     * app更新
+     */
+    private void handleUIAppUpdate() {
+        LogUtils.i(TAG, "handleUIAppUpdate()");
+        if (mAppBiz.isShouldUpdate()) {
+            final Dialog dialog = mAppBiz.showUpdateDialog(this, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mAppBiz.downloadApp();
+                }
+            }, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        } else {
+            String hint = getResources().getString(R.string.update_hint);
+            LogUtils.toastShortMsg(this, hint);
+
+        }
 
     }
 
@@ -155,7 +200,9 @@ public class SettingActivity extends SimpleAdapterBaseActivity2 {
 
     }
 
-
+    /**
+     * 清除缓存
+     */
     private class SlaveClearCacheThread extends Thread {
 
         @Override

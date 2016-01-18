@@ -81,7 +81,8 @@
                 android:textSize="17.0sp" />
 
             <TextView
-                android:text=""
+                android:id="@+id/txv_version_name"
+                android:text="1.1.0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

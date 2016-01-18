@@ -287,7 +287,8 @@ public class UIMessageConts {
         String COMM_NET_FAILED = "COMM_NET_FAILED";
         String COMM_NET_SUCCESS = "COMM_NET_SUCCESS";
 
-
+        /** 检查app更新 */
+        String COMM_CHECK_APP_UPDATE_SUCCESS = "COMM_CHECK_APP_UPDATE_SUCCESS";
     }
 
 
