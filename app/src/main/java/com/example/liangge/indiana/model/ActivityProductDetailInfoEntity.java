@@ -74,6 +74,9 @@ public class ActivityProductDetailInfoEntity {
     /** 我的夺宝号码 */
     private String myIndianaNumberUrl;
 
+    /** 获奖者的用户ID */
+    private long bingoUserID;
+
     private static transient DateFormat mDateFormatAlreadyRunLottory = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 
@@ -81,7 +84,7 @@ public class ActivityProductDetailInfoEntity {
     }
 
 
-    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share, String productDetailLink, String myIndianaNumberUrl) {
+    public ActivityProductDetailInfoEntity(long activityId, long commodity_id, String[] productImgUrls, int activityState, String titleDescribe, long activityNum, int needPeople, int lackPeople, boolean isPlay, String myIndianaNum, int myIndianaAmount, String[] productDetailImgs, long runLotteryTime, String bingoUserPortain, String bingoUserName, String bingoUserAddress, int bingoBuyCnts, String luckyNumber, int minimum_share, String productDetailLink, String myIndianaNumberUrl, long bingoUserID) {
         this.activityId = activityId;
         this.commodity_id = commodity_id;
         this.productImgUrls = productImgUrls;
@@ -103,6 +106,7 @@ public class ActivityProductDetailInfoEntity {
         this.minimum_share = minimum_share;
         this.productDetailLink = productDetailLink;
         this.myIndianaNumberUrl = myIndianaNumberUrl;
+        this.bingoUserID = bingoUserID;
     }
 
     public long getActivityId() {
@@ -275,6 +279,14 @@ public class ActivityProductDetailInfoEntity {
         this.myIndianaNumberUrl = myIndianaNumberUrl;
     }
 
+    public long getBingoUserID() {
+        return bingoUserID;
+    }
+
+    public void setBingoUserID(long bingoUserID) {
+        this.bingoUserID = bingoUserID;
+    }
+
     /**
      * 返回可读的已揭晓时间
      * @return
@@ -283,7 +295,6 @@ public class ActivityProductDetailInfoEntity {
         return mDateFormatAlreadyRunLottory.format(new Date(getRunLotteryTime()));
 
     }
-
 
     @Override
     public String toString() {
@@ -309,6 +320,7 @@ public class ActivityProductDetailInfoEntity {
                 ", minimum_share=" + minimum_share +
                 ", productDetailLink='" + productDetailLink + '\'' +
                 ", myIndianaNumberUrl='" + myIndianaNumberUrl + '\'' +
+                ", bingoUserID=" + bingoUserID +
                 '}';
     }
 }

@@ -685,6 +685,14 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
     }
 
 
+    public void onBtnClickBingUserWrapper(View view) {
+        LogUtils.i(TAG, "onBtnClickBingUserWrapper()");
+        mUserCenterBiz.setUserItem(new ResponseActivityPlayRecordEntity(mDetailInfoBiz.getDetailEntity().getBingoUserName(), mDetailInfoBiz.getDetailEntity().getBingoUserPortain(),
+                mDetailInfoBiz.getDetailEntity().getBingoUserID()));
+        mUserCenterBiz.startActivity(this);
+    }
+
+
     @Override
     protected void onResume() {
         super.onResume();
