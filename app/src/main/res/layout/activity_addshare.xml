@@ -300,8 +300,28 @@
                 </LinearLayout>
             </LinearLayout>
 
-            
+            <ImageButton
+                android:onClick="onBtnAddImage"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="@drawable/share_add_image_btn"
+                android:src="@drawable/add_image"
+                android:scaleType="fitCenter"/>
 
+            <HorizontalScrollView
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <LinearLayout
+                    android:id="@+id/share_grally_wrapper"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
 
             <Button
                 android:id="@+id/submit"

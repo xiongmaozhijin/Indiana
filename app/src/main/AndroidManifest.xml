@@ -12,7 +12,7 @@
         android:name=".ui.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/app_name_indiana"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".ui.HomeActivity" >
@@ -89,6 +89,11 @@
         <activity android:name=".ui.AddShareActivity">
 
         </activity>
+
+        <activity
+            android:configChanges="orientation|screenSize"
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
+
     </application>
 
 </manifest>

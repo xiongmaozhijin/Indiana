@@ -38,4 +38,5 @@ dependencies {
     compile files('libs/volley.jar')
     compile files('libs/gson-2.5.jar')
     compile 'com.commit451:PhotoView:1.2.4'
+    compile project(':multi-image-selector')
 }

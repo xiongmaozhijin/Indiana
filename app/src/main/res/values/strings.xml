@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Indiana</string>
+    <string name="app_name_indiana">Indiana</string>
     <string name="main_rb_indiana_text">夺宝</string>
     <string name="main_rb_latest_announcement_text">最新揭晓</string>
     <string name="main_rb_shopping_card_text">购物车</string>

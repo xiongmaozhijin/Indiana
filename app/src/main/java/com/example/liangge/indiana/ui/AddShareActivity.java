@@ -1,5 +1,6 @@
 package com.example.liangge.indiana.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,6 +14,11 @@ import com.example.liangge.indiana.model.user.BingoRecordEntity;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import me.nereo.multi_image_selector.MultiImageSelectorActivity;
+
 /**
  * 添加晒单
  * Created by baoxing on 2016/1/19.
@@ -21,6 +27,8 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
 
 
     private static final String TAG = AddShareActivity.class.getSimpleName();
+
+    private static final int REQUEST_IMAGE = 2;
 
     /** 提示 */
     private View mViewTips;
@@ -46,6 +54,9 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
     /** 揭晓时间 */
     private TextView mTxvRevealTime;
 
+    private View mViewShareGrallyWrapper;
+
+    private ArrayList<String> mSelectPath = new ArrayList<>();
 
     private AddShareBiz mAddShareBiz;
 
@@ -87,6 +98,7 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
         mTxvSpentAmount = (TextView) findViewById(R.id.txtSpentAmount);
         mTxvLuckyNumber = (TextView) findViewById(R.id.txtLuckyNumber);
         mTxvRevealTime = (TextView) findViewById(R.id.txtRevealTime);
+        mViewShareGrallyWrapper = findViewById(R.id.share_grally_wrapper);
 
     }
 
@@ -98,6 +110,28 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
     public void onBtnGoEditor(View view) {
         mViewTips.setVisibility(View.GONE);
     }
+
+    /**
+     * 添加图片
+     * @param view
+     */
+    public void onBtnAddImage(View view) {
+        LogUtils.i(TAG, "onBtnAddImage()");
+        Intent intent = new Intent(AddShareActivity.this, me.nereo.multi_image_selector.MultiImageSelectorActivity.class);
+        // 是否显示拍摄图片
+        intent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_SHOW_CAMERA, false);
+        // 最大可选择图片数量
+        intent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_SELECT_COUNT, 5);
+        // 选择模式
+        intent.putExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_SELECT_MODE, MultiImageSelectorActivity.MODE_MULTI);
+        // 默认选择
+        if(mSelectPath != null && mSelectPath.size()>0){
+            intent.putStringArrayListExtra(me.nereo.multi_image_selector.MultiImageSelectorActivity.EXTRA_DEFAULT_SELECTED_LIST, mSelectPath);
+        }
+        startActivityForResult(intent, REQUEST_IMAGE);
+    }
+
+
 
     /**
      * 发布晒单
@@ -133,6 +167,24 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
     public void onBtnBack(View view) {
         finish();
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_IMAGE){
+            if(resultCode == RESULT_OK){
+                mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                StringBuilder sb = new StringBuilder();
+                for(String p: mSelectPath){
+                    sb.append(p);
+                    sb.append("\n");
+                }
+                LogUtils.i(TAG, "path=%s", sb.toString());
+            }
+        }
+    }
+
 
 
     @Override
