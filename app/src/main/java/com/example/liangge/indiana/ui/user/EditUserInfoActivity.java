@@ -389,5 +389,15 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mBAOPortrait !=  null) {
+
+        }
+
+
+    }
+
 
 }

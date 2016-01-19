@@ -161,7 +161,7 @@ public class LogSignInActivity extends SimpleAdapterBaseActivity2 {
             LogUtils.toastShortMsg(this, hint);
 
         } else {
-            mLogSignInBiz.onSendVeticationCode();
+            mLogSignInBiz.onSendVeticationCode(phoneNumebr);
 
         }
 

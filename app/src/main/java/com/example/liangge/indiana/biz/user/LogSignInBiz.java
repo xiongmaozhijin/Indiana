@@ -1,5 +1,6 @@
 package com.example.liangge.indiana.biz.user;
 
+import android.app.DownloadManager;
 import android.content.Context;
 
 import com.android.volley.VolleyError;
@@ -162,7 +163,8 @@ public class LogSignInBiz {
     /**
      * 发送验证码
      */
-    public void onSendVeticationCode() {
+    public void onSendVeticationCode(String phoneNumber) {
+        RequestInfo.phoneNumber = phoneNumber;
         if (!mSlaveVeticationCodeRequestThead.isWorking()) {
             mSlaveVeticationCodeRequestThead.cancelAll();
             mSlaveVeticationCodeRequestThead = new SlaveVeticationCodeRequestThead();

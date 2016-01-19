@@ -121,7 +121,7 @@ public class SignInActivity extends SimpleAdapterBaseActivity2 {
 
         } else {
             mViewObtainVertication.startLimitSendVerticationCode();
-            mLogSignInBiz.onSendVeticationCode();
+            mLogSignInBiz.onSendVeticationCode(phoneNumebr);
 
         }
     }
