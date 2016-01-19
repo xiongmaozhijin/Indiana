@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="img_add_share_banner" type="drawable">@drawable/img_add_share_banner_zh</item>
+</resources>

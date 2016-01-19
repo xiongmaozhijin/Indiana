@@ -33,6 +33,8 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
 
     private static DisplayImageOptions mDisplayImageOptions;
 
+    private static OnShareOrderListener mOnShareOrderListener;
+
     public BingoRecordListViewAdapter(Context context) {
         this.mContext = context;
         initRes();
@@ -42,6 +44,17 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
         initImageLoaderConf();
 
     }
+
+
+
+    public interface OnShareOrderListener {
+        void onShareOrder(BingoRecordEntity item);
+    }
+
+    public void setOnShareOrderListener(OnShareOrderListener listener) {
+        mOnShareOrderListener = listener;
+    }
+
 
 
     private void initImageLoaderConf() {
@@ -142,19 +155,31 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
 
         private View mViewTenYuanHint;
 
+        private View mViewOnShareOrder;
+
         public ViewHolder(View view) {
             imgViewProduct = (ImageView) view.findViewById(R.id.product_imgview);
             txvIndianaInfo = (TextView) view.findViewById(R.id.bingo_info);
             mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
             txvIndianaInfo.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
+            mViewOnShareOrder = view.findViewById(R.id.share_order);
         }
 
-        public void adapterData(BingoRecordEntity item) {
+        public void adapterData(final BingoRecordEntity item) {
             String bingoInfoFormat = mContext.getResources().getString(R.string.activity_bingorecord_bingoinfo);
             String myIndianNumberUrl = NetworkUtils.getFixWebLink(mContext, item.getMyIndianaNumberUrl());
             String bingoInfo = String.format(bingoInfoFormat, item.getTitle(), item.getActivityId()+"", item.getNeedPeople(), item.getBuyCnt(), item.getLuckyNumber(), myIndianNumberUrl, item.getHumanAlreadyRunLotteryTime());
 //            txvIndianaInfo.setText(Html.fromHtml(bingoInfo));
             ((TextViewFixTouchConsume)txvIndianaInfo).setTextViewHTML(bingoInfo);
+
+            mViewOnShareOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mOnShareOrderListener != null) {
+                        mOnShareOrderListener.onShareOrder(item);
+                    }
+                }
+            });
 
             ImageLoader.getInstance().displayImage(item.getProductImgUrl(), imgViewProduct, mDisplayImageOptions);
             if (item.getMinimum_share() == 10) {

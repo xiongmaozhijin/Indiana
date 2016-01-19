@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:padding="@dimen/bingo_indiana_item_padding"
-        android:background="@drawable/selector_f_indiana_product_item_bg"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/selector_f_indiana_product_item_bg"
         android:minHeight="120dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/bingo_indiana_item_padding">
 
         <ImageView
-            android:layout_marginRight="6dp"
             android:id="@+id/product_imgview"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:src="@drawable/comm_loading_view"/>
+            android:layout_marginRight="6dp"
+            android:src="@drawable/comm_loading_view" />
 
         <com.example.liangge.indiana.ui.widget.TextViewFixTouchConsume
-            android:lineSpacingMultiplier="@dimen/bingo_indiana_line_height"
             android:id="@+id/bingo_info"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_toRightOf="@id/product_imgview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/activity_bingorecord_bingoinfo"/>
+            android:lineSpacingMultiplier="@dimen/bingo_indiana_line_height"
+            android:text="@string/activity_bingorecord_bingoinfo" />
 
+        <TextView
+            android:id="@+id/share_order"
+            android:clickable="true"
+            android:layout_alignBottom="@id/bingo_info"
+            android:layout_alignRight="@id/bingo_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bingo_item_share_order"
+            android:text="晒单"
+            android:textColor="@android:color/white" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/ten_yuan_hint"
-        android:visibility="invisible"
         android:layout_width="@dimen/ten_yuan_area_icon"
         android:layout_height="@dimen/ten_yuan_area_icon"
-        android:src="@drawable/ten_area_icon"/>
+        android:src="@drawable/ten_area_icon"
+        android:visibility="invisible" />
+
 
 </FrameLayout>

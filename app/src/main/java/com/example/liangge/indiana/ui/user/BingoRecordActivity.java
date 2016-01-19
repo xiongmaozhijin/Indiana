@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.user.BingoRecordListViewAdapter;
+import com.example.liangge.indiana.biz.AddShareBiz;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.user.BingoRecordBiz;
 import com.example.liangge.indiana.comm.Constant;
@@ -31,6 +32,8 @@ public class BingoRecordActivity extends BaseActivity2 {
     private BingoRecordBiz mBingoRecordBiz;
 
     private DetailInfoBiz mDetailInfoBiz;
+
+    private AddShareBiz mAddShareBiz;
 
     private ListView mListView;
 
@@ -77,6 +80,15 @@ public class BingoRecordActivity extends BaseActivity2 {
                 Intent intent = new Intent(BingoRecordActivity.this, ProductDetailInfoActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        //晒单
+        mAdapter.setOnShareOrderListener(new BingoRecordListViewAdapter.OnShareOrderListener() {
+            @Override
+            public void onShareOrder(BingoRecordEntity item) {
+                LogUtils.i(TAG, "item=%s", item.toString());
+                mAddShareBiz.startActivity(BingoRecordActivity.this, item);
             }
         });
 
@@ -129,6 +141,7 @@ public class BingoRecordActivity extends BaseActivity2 {
     private void initManager() {
         mBingoRecordBiz = BingoRecordBiz.getInstance(this);
         mDetailInfoBiz = DetailInfoBiz.getInstance(this);
+        mAddShareBiz = AddShareBiz.getInstance(this);
     }
 
 

@@ -86,6 +86,9 @@
         </activity>
         <activity android:name=".ui.user.UserCenterActivity">
         </activity>
+        <activity android:name=".ui.AddShareActivity">
+
+        </activity>
     </application>
 
 </manifest>

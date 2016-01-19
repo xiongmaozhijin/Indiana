@@ -365,4 +365,10 @@
     <string name="download_apk_name">indiana.apk</string>
     <string name="download_title">Indiana</string>
 
+    <string name="share_not_empty">标题或内容不能为空哟</string>
+    <string name="share_more_content">请多说几句获奖感言~~</string>
+    <string name="share_more_title">标题多写一些，更醒目哦</string>
+    <string name="activity_add_share">晒单</string>
+
+
 </resources>
