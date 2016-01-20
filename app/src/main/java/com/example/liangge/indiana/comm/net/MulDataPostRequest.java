@@ -58,7 +58,7 @@ public class MulDataPostRequest extends StringRequest {
         String itemStr = String.format("%sContent-Disposition: form-data; name=\"%s\"\r\n\r\n%s",
                     getItemBounderBegin(), name, value);
 
-        LogUtils.w("Post", itemStr);
+//        LogUtils.w("Post", itemStr);
         return itemStr;
     }
 
@@ -72,7 +72,7 @@ public class MulDataPostRequest extends StringRequest {
         String itemStr = String.format("%sContent-Disposition:form-data;name=\"%s\"; filename=\"%s\"\r\nContent-Type:application/octet-stream\r\n\r\n%s",
                                     getItemBounderBegin(), nameAttr, filename, octetData);
 
-        LogUtils.w("Post", itemStr);
+//        LogUtils.w("Post", itemStr);
         return itemStr;
     }
 

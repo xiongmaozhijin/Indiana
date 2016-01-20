@@ -72,7 +72,7 @@ public abstract class NetFormPostRequestThread extends Thread{
 //        LogUtils.i(REQUEST_TAG, "mulBody1=%s", sb.toString());
 
         for (int i=0, len=mFilePaths.size(); i<len; i++) {
-           sb.append(MulDataPostRequest.getFormFile(mFilePaths.get(i), "file"+i, "shareOrderImg"+i+".jpg" ) );
+           sb.append(MulDataPostRequest.getFormFile(mFilePaths.get(i), "imgFile[]", "shareOrderImg"+i+".jpg" ) );
         }
 
         sb.append(MulDataPostRequest.getItemBoundEnd());

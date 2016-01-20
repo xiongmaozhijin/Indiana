@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetFormPostRequestThread;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
+import com.example.liangge.indiana.model.CommResponseStatueEntity;
 import com.example.liangge.indiana.model.PostShareOrderEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
@@ -205,10 +206,10 @@ public class AddShareBiz extends BaseActivityBiz{
         protected void notifySuccess() {
             super.notifySuccess();
             mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.Comm_Activity.COMM_NET_SUCCESS));
-            String hint = mApplicationContext.getResources().getString(R.string.share_success);
-            Message msg = Message.obtain();
-            msg.obj = hint;
-            mHandler.sendMessage(msg);
+//            String hint = mApplicationContext.getResources().getString(R.string.share_success);
+//            Message msg = Message.obtain();
+//            msg.obj = hint;
+//            mHandler.sendMessage(msg);
         }
 
         @Override
@@ -224,7 +225,11 @@ public class AddShareBiz extends BaseActivityBiz{
         @Override
         protected void onResponseListener(String s) {
             LogUtils.i(R_TAG, "onResponse=%s", s);
-
+            Gson gson = new Gson();
+            CommResponseStatueEntity responseItem = gson.fromJson(s, CommResponseStatueEntity.class);
+            Message msg = Message.obtain();
+            msg.obj = responseItem.getMsg();
+            mHandler.sendMessage(msg);
         }
 
         @Override
