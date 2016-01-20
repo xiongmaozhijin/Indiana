@@ -369,6 +369,11 @@
     <string name="share_more_content">请多说几句获奖感言~~</string>
     <string name="share_more_title">标题多写一些，更醒目哦</string>
     <string name="activity_add_share">晒单</string>
+    <string name="share_image_cnt_hint">要上传3-5张晒单图片哦</string>
 
+    <string name="share_success">晒单成功</string>
+    <string name="share_fail">晒单失败</string>
+    <string name="share_post">上传数据中</string>
+    <string name="share_post_continue">继续为你上传数据中</string>
 
 </resources>

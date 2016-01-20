@@ -182,6 +182,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/addShareTitle"
+                android:text="titlefdoiafjiodsfjoisdjfoisjfoi"
                 android:paddingBottom="10.0dip"
                 android:singleLine="true"
                 android:textColorHint="@color/gray" />
@@ -199,6 +200,7 @@
                 android:layout_marginBottom="10.0dip"
                 android:background="@null"
                 android:hint="@string/addShareContent"
+                android:text="fewofjo获奖感言jfodifjoiwejfowjfoiwijfojweeoiefjojdfoa"
                 android:paddingBottom="10.0dip"
                 android:textColorHint="@color/gray" />
 
@@ -308,6 +310,10 @@
                 android:src="@drawable/add_image"
                 android:scaleType="fitCenter"/>
 
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="@color/divider_color" />
             <HorizontalScrollView
                 android:padding="4dp"
                 android:layout_width="match_parent"
@@ -316,12 +322,17 @@
                 <LinearLayout
                     android:id="@+id/share_grally_wrapper"
                     android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                 </LinearLayout>
 
             </HorizontalScrollView>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1.0px"
+                android:background="@color/divider_color" />
 
             <Button
                 android:id="@+id/submit"

@@ -8,6 +8,7 @@ import com.example.model.IndianaRecordEntity;
 import com.example.model.InventoryEntity;
 import com.example.model.LastestBingoEntity;
 import com.example.model.PayEntity;
+import com.example.model.PostShareOrderEntity;
 import com.example.model.ResponseUserInfoEntitiy;
 import com.example.model.UserInfoEntity;
 import com.google.gson.Gson;
@@ -45,7 +46,18 @@ public class MyClass {
 
 //        jiami();
 
-        gerationStrArray();
+        test1();
+
+//        gerationStrArray();
+    }
+
+    private static void test1() {
+        List<String> list = new ArrayList<>();
+        list.add("imgBase641");
+        list.add("imgBase642");
+        PostShareOrderEntity item = new PostShareOrderEntity(213, "token", "title", "content", list);
+        Gson  gson = new Gson();
+        System.out.println(gson.toJson(item));
     }
 
     private static void gerationStrArray() {

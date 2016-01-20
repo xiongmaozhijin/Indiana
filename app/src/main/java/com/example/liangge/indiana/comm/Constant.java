@@ -128,7 +128,7 @@ public class Constant {
 
     public interface WebServiceAPI {
 
-        public static final String WEBHOST = "http://192.168.199.100";
+        public static final String WEBHOST = "http://121.201.63.76";
 
         /** 夺宝页活动详情 */
         public static final String INDIANA_GOODS_LIST_API = WEBHOST + "/index.php/Admin/Api/goodslist";
@@ -208,6 +208,9 @@ public class Constant {
 
         /** 检查更新 */
         String REQUEST_CHECK_UPDATE_APP = WEBHOST + "/index.php/Admin/Api/checkAppUpdate";
+
+        /** 添加晒单 */
+        String REQUEST_ADD_SHARE_ORDERS = WEBHOST + "/index.php/Admin/Api/prizeShowSave";
 
         String ERROR_404 = WEBHOST + "/index.php/404.php";
 

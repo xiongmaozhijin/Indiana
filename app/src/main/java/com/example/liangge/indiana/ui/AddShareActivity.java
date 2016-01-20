@@ -1,16 +1,27 @@
 package com.example.liangge.indiana.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.AddShareBiz;
+import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.w3c.dom.Text;
 
@@ -54,11 +65,15 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
     /** 揭晓时间 */
     private TextView mTxvRevealTime;
 
-    private View mViewShareGrallyWrapper;
+    private LinearLayout mViewShareGrallyWrapper;
 
     private ArrayList<String> mSelectPath = new ArrayList<>();
 
     private AddShareBiz mAddShareBiz;
+
+    private static DisplayImageOptions mDisplayImageOptions;
+
+    private Button mBtnSubmit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +85,24 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
         initState();
     }
 
+    /**
+     * 配置开源组件ImageLoader的参数
+     * @param context
+     */
+    private void initImageLoaderConf(Context context) {
+        mDisplayImageOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
+                .showImageOnFail(R.drawable.main_banner_img_load_fail)
+                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .build();
+
+    }
+
+
     private void initState() {
         BingoRecordEntity item = mAddShareBiz.getBingoItem();
         mTxvGoodName.setText(item.getTitle());
@@ -80,6 +113,7 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
     }
 
     private void initRes() {
+        initImageLoaderConf(this);
 
     }
 
@@ -98,7 +132,8 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
         mTxvSpentAmount = (TextView) findViewById(R.id.txtSpentAmount);
         mTxvLuckyNumber = (TextView) findViewById(R.id.txtLuckyNumber);
         mTxvRevealTime = (TextView) findViewById(R.id.txtRevealTime);
-        mViewShareGrallyWrapper = findViewById(R.id.share_grally_wrapper);
+        mViewShareGrallyWrapper = (LinearLayout) findViewById(R.id.share_grally_wrapper);
+        mBtnSubmit = (Button) findViewById(R.id.submit);
 
     }
 
@@ -158,16 +193,31 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
             return;
         }
         //TODO 判断照片
+        if (mSelectPath==null || mSelectPath.size()<3) {
+            String hint = getResources().getString(R.string.share_image_cnt_hint);
+            LogUtils.toastShortMsg(this, hint);
+            return;
+        }
 
-
+        mAddShareBiz.setRequestInfo(title, content, mSelectPath);
         mAddShareBiz.onBtnSubmit();
     }
 
 
     public void onBtnBack(View view) {
-        finish();
+        onBackPressed();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mAddShareBiz.isWorking()) {
+            String hint = getResources().getString(R.string.share_post_continue);
+            LogUtils.toastShortMsg(this, hint);
+
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -180,11 +230,33 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
                     sb.append(p);
                     sb.append("\n");
                 }
-                LogUtils.i(TAG, "path=%s", sb.toString());
+                LogUtils.i(TAG, "paths=%s", sb.toString());
+                displayUpdateImgs(mSelectPath);
             }
         }
     }
 
+    //TODO
+    private void displayUpdateImgs(ArrayList<String> mSelectPath) {
+        if (mSelectPath != null) {
+            final LinearLayout viewWrapper = mViewShareGrallyWrapper;
+
+            viewWrapper.removeAllViews();
+            for (int i=0, len=mSelectPath.size(); i<len; i++) {
+                ImageView imageView = new ImageView(this);
+//                ImageView imageView = (ImageView) View.inflate(this, R.layout.image_item, null);
+                viewWrapper.addView(imageView);
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+                lp.width = LocalDisplay.dp2px(84.0f);
+                lp.height = LocalDisplay.dp2px(84.0f);
+                lp.setMargins(LocalDisplay.dp2px(2f), 0, LocalDisplay.dp2px(2f), 0);
+                imageView.requestLayout();
+                ImageLoader.getInstance().displayImage("file://" + mSelectPath.get(i), imageView, mDisplayImageOptions);
+
+            }
+
+        }
+    }
 
 
     @Override
@@ -195,7 +267,29 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
 
     @Override
     protected void handleUIMessage(String strUIAction) {
+        if (strUIAction.equals(UIMessageConts.Comm_Activity.COMM_NET_START)) {
+            handleUINetStart();
 
+        } else if (strUIAction.equals(UIMessageConts.Comm_Activity.COMM_NET_SUCCESS)) {
+            handleUINetSuccess();
+
+        } else if (strUIAction.equals(UIMessageConts.Comm_Activity.COMM_NET_FAILED)) {
+            handleUINetFailed();
+
+        }
+
+    }
+
+    private void handleUINetFailed() {
+        mBtnSubmit.setEnabled(true);
+    }
+
+    private void handleUINetSuccess() {
+        mBtnSubmit.setEnabled(true);
+    }
+
+    private void handleUINetStart() {
+        mBtnSubmit.setEnabled(false);
     }
 
     @Override
