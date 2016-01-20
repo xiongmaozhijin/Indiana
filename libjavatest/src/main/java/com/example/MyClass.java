@@ -10,6 +10,7 @@ import com.example.model.LastestBingoEntity;
 import com.example.model.PayEntity;
 import com.example.model.PostShareOrderEntity;
 import com.example.model.ResponseUserInfoEntitiy;
+import com.example.model.ShareOrdersEntity;
 import com.example.model.UserInfoEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -46,9 +47,19 @@ public class MyClass {
 
 //        jiami();
 
-        test1();
+//        test1();
+        test2();
 
 //        gerationStrArray();
+    }
+
+    private static void test2() {
+        List<String> listImgs = new ArrayList<>();
+        listImgs.add("imgUrl1");
+        listImgs.add("imgUrl2");
+        ShareOrdersEntity item = new ShareOrdersEntity("userPortraitUrl", "username", 3123, "xxx-xx", "title", "content", listImgs, new BingoRecordEntity(212, "productImgUrl", "title", "tilteDesc", 122, 21, 212, "324242", "323", 3243324));
+        Gson gson = new Gson();
+        System.out.println(gson.toJson(item));
     }
 
     private static void test1() {

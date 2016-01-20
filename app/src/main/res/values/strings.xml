@@ -375,5 +375,6 @@
     <string name="share_fail">晒单失败</string>
     <string name="share_post">上传数据中</string>
     <string name="share_post_continue">继续为你上传数据中</string>
+    <string name="main_rb_shareorders_txt">晒单</string>
 
 </resources>

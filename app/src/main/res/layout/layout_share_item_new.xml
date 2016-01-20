@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="90.0dip"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="15.0dip"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="50.0dip"
+            android:layout_height="50.0dip"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/user" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="20.0dip"
+            android:contentDescription="@string/desc_common_image"
+            android:src="@drawable/share_arrow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/share_list_wrapper"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5.0dip">
+
+        <TextView
+            android:id="@+id/share_list_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15.0dip"
+            android:text="2014-6-30 11:08"
+            android:textColor="#ff999999"
+            android:textSize="12.0sp" />
+
+        <TextView
+            android:id="@+id/share_list_name"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10.0dip"
+            android:layout_marginTop="15.0dip"
+            android:layout_toLeftOf="@+id/share_list_time"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="哈哈缺什么就来什么？随声Wifi随声Wifi随声Wifi随声Wifi"
+            android:textColor="#ffdc3851"
+            android:textSize="14.0sp" />
+
+        <TextView
+            android:id="@+id/share_list_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="2.0dip"
+            android:text="等待审核"
+            android:textColor="@color/white"
+            android:textSize="9.0sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/share_list_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/share_list_time"
+            android:background="@color/main_top_bg_gray"
+            android:orientation="vertical"
+            android:paddingBottom="5.0dip"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="10.0dip">
+
+            <TextView
+                android:id="@+id/share_list_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dip"
+                android:singleLine="true"
+                android:text="xxxxxxxx"
+                android:textColor="@color/black"
+                android:textSize="16.0sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/share_list_goodName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5.0dip"
+                android:singleLine="true"
+                android:text="yyyyyyyyy"
+                android:textColor="@color/gray"
+                android:textSize="12.0sp" />
+
+            <TextView
+                android:id="@+id/goods_period"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5.0dip"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/gray"
+                android:textSize="12.0sp" />
+
+            <TextView
+                android:id="@+id/share_list_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3.0dip"
+                android:lines="2"
+                android:text="我就是晒单的内容了，嘻嘻喜欢啥，嘻嘻喜欢啥，嘻嘻喜欢啥，嘻嘻喜欢啥，hahaha我就是晒单的内容了，嘻嘻喜欢啥，hahaha我就是晒单的内容了，嘻嘻喜欢啥，hahaha我就是晒单的内容了，嘻嘻喜欢啥，hahaha"
+                android:textColor="@color/app_textColor"
+                android:textSize="12.0sp" />
+
+            <LinearLayout
+                android:id="@+id/share_list_images"
+                android:layout_width="fill_parent"
+                android:layout_height="90.0dip"
+                android:orientation="horizontal"
+                android:paddingBottom="10.0dip"
+                android:paddingTop="10.0dip">
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:scaleType="fitCenter"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_gray"/>
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:scaleType="fitCenter"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_gray"/>
+
+
+                <ImageView
+                    android:id="@+id/img3"
+                    android:scaleType="fitCenter"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/user_gray"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -117,10 +117,9 @@ public class AddShareBiz extends BaseActivityBiz{
      */
     public void onBtnSubmit() {
         LogUtils.i(TAG, "onBtnSubmit()");
-        if (!mSlaveUpdateShareOrderThread.isWorking()) {
-            mSlaveUpdateShareOrderThread = new SlaveUpdateShareOrderThread(RequestInfo.mPostShareOrderEntity.getPostMapEntity(), RequestInfo.mImgPath, mCacheImgPathDir);
-            mSlaveUpdateShareOrderThread.start();
-        }
+        mSlaveUpdateShareOrderThread.cancelAll();
+        mSlaveUpdateShareOrderThread = new SlaveUpdateShareOrderThread(RequestInfo.mPostShareOrderEntity.getPostMapEntity(), RequestInfo.mImgPath, mCacheImgPathDir);
+        mSlaveUpdateShareOrderThread.start();
     }
 
 

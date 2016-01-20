@@ -69,7 +69,7 @@ public class MulDataPostRequest extends StringRequest {
 
     protected static String getFormFile(byte[] fileContent, String nameAttr, String filename) {
         String octetData = new String(fileContent);
-        String itemStr = String.format("%sContent-Disposition:form-data;name=\"%s\"; filename=\"%s\"\r\nContent-Type:application/octet-stream\r\n\r\n%s",
+        String itemStr = String.format("%sContent-Disposition:form-data;name=\"%s\"; filename=\"%s\"\r\nContent-Type:image/jpeg\r\n\r\n%s",
                                     getItemBounderBegin(), nameAttr, filename, octetData);
 
 //        LogUtils.w("Post", itemStr);

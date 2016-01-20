@@ -36,6 +36,10 @@ public abstract class BaseRefreshFragment extends BaseNetUIFragment {
         View view = getLayoutViewWrapper();
         mPtrFrame = (PtrClassicFrameLayout) view.findViewById(R.id.rotate_header_web_view_frame);
 
+        if (mPtrFrame == null) {
+            return;
+        }
+
         // header
         final MaterialHeader header = new MaterialHeader(getContext());
         int[] colors = getResources().getIntArray(R.array.google_colors);

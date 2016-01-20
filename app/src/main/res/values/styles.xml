@@ -11,7 +11,7 @@
     <!-- main radio button style-->
     <style name="main_radio_button_style">
         <item name="android:button">@null</item>
-        <item name="android:layout_weight">0.5</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:textColor">@drawable/selector_main_rb_text_color</item>
         <item name="android:textSize">12sp</item>
         <item name="android:gravity">center</item>

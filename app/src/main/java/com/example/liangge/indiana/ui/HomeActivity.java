@@ -21,6 +21,7 @@ import com.example.liangge.indiana.fragments.BaseFragment;
 import com.example.liangge.indiana.fragments.IndianaFragment;
 import com.example.liangge.indiana.fragments.LatestAnnouncementFragment;
 import com.example.liangge.indiana.fragments.PersonalCenterFragment;
+import com.example.liangge.indiana.fragments.ShareOrdersFragment;
 import com.example.liangge.indiana.fragments.ShoppingCartFragment;
 import com.example.liangge.indiana.ui.widget.RotateImageView;
 
@@ -36,11 +37,12 @@ public class HomeActivity extends UIBaseActivity {
     //各个fragment对应viewpager的标签
     public static final int I_TAG_FRAGMENT_INDIANA = 0;
     public static final int I_TAG_FRAGMENT_LASTEST = 1;
-    public static final int I_TAG_FRAGMENT_SHOPPING_CART = 2;
-    public static final int I_TAG_FRAGMENT_PERSONAL_CENTER = 3;
+    public static final int I_TAG_FRAGMENT_SHAREORDERS = 2;
+    public static final int I_TAG_FRAGMENT_SHOPPING_CART = 3;
+    public static final int I_TAG_FRAGMENT_PERSONAL_CENTER = 4;
     public static final int I_TAG_FRAGMENT_INVALID = -1;
 
-    private static final int I_TAG_FRAGMENT_COUNTS = 4;
+    private static final int I_TAG_FRAGMENT_COUNTS = 5;
 
 
     /** 夺宝的Fragment */
@@ -48,6 +50,9 @@ public class HomeActivity extends UIBaseActivity {
 
     /** 最新揭晓的Fragment */
     private LatestAnnouncementFragment mLastestAnnouncementFragment;
+
+    /** 晒单Fragment */
+    private ShareOrdersFragment mShareOrdersFragment;
 
     /** 购物车的Fragment */
     private ShoppingCartFragment mShoppingCartFragment;
@@ -66,11 +71,15 @@ public class HomeActivity extends UIBaseActivity {
     /** 最新揭晓菜单 */
     private RadioButton mRbLastest;
 
+    /** 晒单 */
+    private RadioButton mRbShareOrders;
+
     /** 购物车菜单 */
     private RadioButton mRbShoppingCart;
 
     /** 个人中心菜单 */
     private RadioButton mRbPersonalCenter;
+
 
     /** 菜单RadioGroup */
     private RadioGroup mMenuRadioGroup;
@@ -125,6 +134,7 @@ public class HomeActivity extends UIBaseActivity {
         mMenuRadioGroup = (RadioGroup) findViewById(R.id.main_menu_rg);
         mRbIndaina = (RadioButton) findViewById(R.id.main_rb_indiana);
         mRbLastest = (RadioButton) findViewById(R.id.main_rb_latest_announcement);
+        mRbShareOrders = (RadioButton) findViewById(R.id.main_rb_shareorders);
         mRbShoppingCart = (RadioButton) findViewById(R.id.main_rb_shopping_card);
         mRbPersonalCenter = (RadioButton) findViewById(R.id.main_rb_personal_center);
 
@@ -132,13 +142,16 @@ public class HomeActivity extends UIBaseActivity {
 
     private void initViewPager() {
         mViewPager = (ViewPager) findViewById(R.id.main_viewpager);
-        mViewPager.setOffscreenPageLimit(4);    //TODO 暂时的简单解决方案
+        mViewPager.setOffscreenPageLimit(I_TAG_FRAGMENT_COUNTS);    //TODO 暂时的简单解决方案
         mIndianaFragment = new IndianaFragment();
         mLastestAnnouncementFragment = new LatestAnnouncementFragment();
+        mShareOrdersFragment = new ShareOrdersFragment();
         mShoppingCartFragment = new ShoppingCartFragment();
         mPersonalCenterFragment = new PersonalCenterFragment();
+
         mListFragments.add(mIndianaFragment);
         mListFragments.add(mLastestAnnouncementFragment);
+        mListFragments.add(mShareOrdersFragment);
         mListFragments.add(mShoppingCartFragment);
         mListFragments.add(mPersonalCenterFragment);
 
@@ -185,6 +198,16 @@ public class HomeActivity extends UIBaseActivity {
     public void onBtnLatestAnnouncement(View view) {
         changeItemFragmentByButton(I_TAG_FRAGMENT_LASTEST, false);
         changeTitlebar(I_TAG_FRAGMENT_LASTEST);
+
+    }
+
+    /**
+     * 晒单
+     * @param view
+     */
+    public void onBtnShareOrders(View view) {
+        changeItemFragmentByButton(I_TAG_FRAGMENT_SHAREORDERS, false);
+        changeTitlebar(I_TAG_FRAGMENT_SHAREORDERS);
 
     }
 
@@ -259,6 +282,12 @@ public class HomeActivity extends UIBaseActivity {
                     changeTitlebar(I_TAG_FRAGMENT_LASTEST);
 
                     break;
+
+                case I_TAG_FRAGMENT_SHAREORDERS:
+                    mMenuRadioGroup.check(mRbShareOrders.getId());
+                    changeTitlebar(I_TAG_FRAGMENT_SHAREORDERS);
+                    break;
+
                 case I_TAG_FRAGMENT_SHOPPING_CART:
                     mMenuRadioGroup.check(mRbShoppingCart.getId());
                     changeTitlebar(I_TAG_FRAGMENT_SHOPPING_CART);
