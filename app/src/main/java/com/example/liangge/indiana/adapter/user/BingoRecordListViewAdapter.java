@@ -35,8 +35,11 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
 
     private static OnShareOrderListener mOnShareOrderListener;
 
-    public BingoRecordListViewAdapter(Context context) {
+    private boolean mIsUserOwn = false;
+
+    public BingoRecordListViewAdapter(Context context, boolean isUserOwn) {
         this.mContext = context;
+        this.mIsUserOwn = isUserOwn;
         initRes();
     }
 
@@ -128,7 +131,7 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
         ViewHolder viewHolder;
         if (view == null) {
             view = View.inflate(mContext, R.layout.activity_bingorecord_listview_item, null);
-            viewHolder = new ViewHolder(view);
+            viewHolder = new ViewHolder(view, mIsUserOwn);
             view.setTag(viewHolder);
 
         } else {
@@ -157,12 +160,20 @@ public class BingoRecordListViewAdapter extends BaseAdapter {
 
         private View mViewOnShareOrder;
 
-        public ViewHolder(View view) {
+        private boolean mIsUserOwn;
+
+        public ViewHolder(View view, boolean isUserOwn) {
             imgViewProduct = (ImageView) view.findViewById(R.id.product_imgview);
+            mIsUserOwn = isUserOwn;
             txvIndianaInfo = (TextView) view.findViewById(R.id.bingo_info);
             mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
             txvIndianaInfo.setMovementMethod(TextViewFixTouchConsume.LocalLinkMovementMethod.getInstance());
             mViewOnShareOrder = view.findViewById(R.id.share_order);
+            if (isUserOwn) {
+                mViewOnShareOrder.setVisibility(View.VISIBLE);
+            } else {
+                mViewOnShareOrder.setVisibility(View.GONE);
+            }
         }
 
         public void adapterData(final BingoRecordEntity item) {

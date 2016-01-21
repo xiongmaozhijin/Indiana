@@ -182,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/addShareTitle"
-                android:text="titlefdoiafjiodsfjoisdjfoisjfoi"
+                android:text=""
                 android:paddingBottom="10.0dip"
                 android:singleLine="true"
                 android:textColorHint="@color/gray" />
@@ -200,7 +200,7 @@
                 android:layout_marginBottom="10.0dip"
                 android:background="@null"
                 android:hint="@string/addShareContent"
-                android:text="fewofjo获奖感言jfodifjoiwejfowjfoiwijfojweeoiefjojdfoa"
+                android:text=""
                 android:paddingBottom="10.0dip"
                 android:textColorHint="@color/gray" />
 

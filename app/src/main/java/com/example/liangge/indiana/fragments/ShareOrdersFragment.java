@@ -208,7 +208,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
             dismissRefreshUI();
-
+            mAdapter.setDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }
     }
 

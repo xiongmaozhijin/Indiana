@@ -113,7 +113,7 @@ public class UserCenterActivity extends BaseActivity2 {
 
         mListView = (ListView) findViewById(R.id.activity_indianarecord_listview);
         mIndianaAdapter = new IndianaRecordListViewAdapter(this);
-        mBingoAdapter = new BingoRecordListViewAdapter(this);
+        mBingoAdapter = new BingoRecordListViewAdapter(this, false);
         mListView.setAdapter(mIndianaAdapter);
 
         mImgUserPortrait = (ImageView) findViewById(R.id.user_portrait);

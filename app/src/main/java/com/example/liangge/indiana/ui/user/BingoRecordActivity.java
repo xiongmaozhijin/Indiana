@@ -69,7 +69,7 @@ public class BingoRecordActivity extends BaseActivity2 {
         mViewLoadWrapper = findViewById(R.id.load_more_wrapper);
 
         mListView = (ListView) findViewById(R.id.listview);
-        mAdapter = new BingoRecordListViewAdapter(this);
+        mAdapter = new BingoRecordListViewAdapter(this, true);
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
