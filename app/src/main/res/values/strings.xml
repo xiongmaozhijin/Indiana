@@ -124,13 +124,16 @@
     <string name="activity_indianarecord_userinfo_1">
         <![CDATA[
         <font color="#686868">%1$s</font><br>
-        <font color="#d4d4d4">参与期号:%2$s <br>
-        参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>     <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
+        <font color="#d4d4d4">参与期号:&nbsp;%2$s <br>
+        参与次数:&nbsp;%3$d &nbsp;&nbsp;&nbsp; </font>     <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
         <font color="#d4d4d4">
-        &nbsp;&nbsp;&nbsp;&nbsp;获奖者:%5$s<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;参与次数:%6$d<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;开奖号码:%7$s<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;揭晓时间:%8$s<br><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;获奖者:&nbsp;</font><font color="#0278fe">%5$s</font><br>
+        <font color="#d4d4d4">
+        &nbsp;&nbsp;&nbsp;&nbsp;参与次数:&nbsp;</font><font color="#ff4040">%6$d</font><br>
+        <font color="#d4d4d4">
+        &nbsp;&nbsp;&nbsp;&nbsp;开奖号码:&nbsp;</font><font color="#ff4040">%7$s</font><br>
+        <font color="#d4d4d4">
+        &nbsp;&nbsp;&nbsp;&nbsp;揭晓时间:&nbsp;%8$s<br>
         </font>
         ]]>
     </string>
@@ -140,11 +143,13 @@
         <![CDATA[
         <font color="#686868">%1$s</font><br>
         <font color="#d4d4d4">
-        参与期号:%2$s <br>
-        参与次数:%3$d &nbsp;&nbsp;&nbsp;</font> <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
-        <font color="#d4d4d4">
-        进度:%5$s
+        参与期号:&nbsp;%2$s <br>
         </font>
+        <font color="#d4d4d4">
+        参与次数:&nbsp;</font><font color="#ff4040">%3$d</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
+        <font color="#d4d4d4">
+        进度:&nbsp;</font><font color="#d4d4d4">%5$s</font>
+
         ]]>
     </string>
      <string name="activity_indianarecord_userinfo_3">
@@ -169,11 +174,11 @@
         <![CDATA[
             <font color="#686868">%1$s</font><br>
             <font color="#d4d4d4">
-            参与期号:%2$s <br>
-            总需人次:%3$d &nbsp;&nbsp;&nbsp;参与次数:%4$d <br>
-            开奖号码:</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%6$s">查看号码</a> </font><br><br>
+            参与期号:&nbsp;%2$s <br>
+            总需人次:&nbsp;%3$d &nbsp;&nbsp;&nbsp;参与次数:&nbsp;%4$d <br>
+            开奖号码:&nbsp;</font><font color="#da3651">%5$s</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%6$s">查看号码</a> </font><br><br>
             <font color="#d4d4d4">
-            开奖时间:%7$s
+            开奖时间:&nbsp;%7$s
             </font>
         ]]>
 
