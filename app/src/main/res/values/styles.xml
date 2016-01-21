@@ -121,4 +121,17 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="ShareOrdersImg">
+        <item name="android:maxWidth">600dp</item>
+        <item name="android:maxHeight">800dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+
+
+
+
 </resources>

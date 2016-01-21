@@ -1,6 +1,8 @@
 package com.example.liangge.indiana.biz;
 
 import android.content.Context;
+import android.content.Intent;
+
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
@@ -8,6 +10,7 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.model.ShareOrdersEntity;
 import com.example.liangge.indiana.model.UIMessageEntity;
+import com.example.liangge.indiana.ui.ShareOrderDetailActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -55,6 +58,9 @@ public class ShareOrdersBiz extends BaseFragmentBiz{
 
     private static class DataInfo {
         public static List<ShareOrdersEntity> shareOrdersEntities = new ArrayList<>();
+
+        public static ShareOrdersEntity detailEntitiy = null;
+
     }
 
     private static class RequesetInfo {
@@ -70,6 +76,21 @@ public class ShareOrdersBiz extends BaseFragmentBiz{
     public List<ShareOrdersEntity> getShareOrdersList() {
         return DataInfo.shareOrdersEntities;
     }
+
+    public void setDatailEntity(ShareOrdersEntity item) {
+        DataInfo.detailEntitiy = item;
+    }
+
+    public void startShareOrderDetailActivity(Context context) {
+        Intent intent = new Intent(context, ShareOrderDetailActivity.class);
+        context.startActivity(intent);
+    }
+
+
+    public ShareOrdersEntity getDataEntity() {
+        return DataInfo.detailEntitiy;
+    }
+
 
 
     private void loadShareOrdersData(int loadMode) {

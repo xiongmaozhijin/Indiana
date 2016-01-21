@@ -379,6 +379,7 @@
     <string name="deal_imgs_ing">处理图片中</string>
 
     <string name="refresh_failed">刷新失败</string>
+    <string name="activity_share_detail_title">晒单详细</string>
 
 
 </resources>

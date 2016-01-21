@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.liangge.indiana.R;
@@ -16,6 +17,7 @@ import com.example.liangge.indiana.biz.ShareOrdersBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
+import com.example.liangge.indiana.model.ShareOrdersEntity;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
@@ -64,6 +66,17 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         mViewNotWrapper = view.findViewById(R.id.not_net_wrapper);
         mViewAllContentWrapper = view.findViewById(R.id.all_content_wrapper);
         mViewLoadMoreWrapper = view.findViewById(R.id.load_more_wrapper);
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ShareOrdersEntity item = (ShareOrdersEntity) parent.getAdapter().getItem(position);
+                mShareOrdersBiz.setDatailEntity(item);
+                mShareOrdersBiz.startShareOrderDetailActivity(getActivity());
+            }
+        });
+
 
         mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
             @Override
@@ -189,9 +202,11 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         LogUtils.i(TAG, "handleUIRefresh()");
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_FAILED)) {
             dismissRefreshUI();
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
             String hint = getActivity().getResources().getString(R.string.refresh_failed);
             LogUtils.toastShortMsg(getActivity(), hint);
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
             dismissRefreshUI();
 
         }

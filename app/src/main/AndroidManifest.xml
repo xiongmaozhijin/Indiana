@@ -90,6 +90,9 @@
 
         </activity>
 
+        <activity android:name=".ui.ShareOrderDetailActivity"></activity>
+
+
         <activity
             android:configChanges="orientation|screenSize"
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
