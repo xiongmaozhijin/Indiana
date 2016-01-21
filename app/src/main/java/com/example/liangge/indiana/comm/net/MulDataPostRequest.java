@@ -6,6 +6,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.liangge.indiana.comm.FileOperateUtils;
 import com.example.liangge.indiana.comm.LogUtils;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,13 +31,14 @@ public class MulDataPostRequest extends StringRequest {
 
     @Override
     public byte[] getBody() throws AuthFailureError {
-        return mMulDatas.getBytes();
+        return mMulDatas.getBytes(Charset.forName("utf-8"));
     }
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "multipart/form-data;boundary="+getBounder() );
+
         return headers;
     }
 
@@ -68,7 +70,7 @@ public class MulDataPostRequest extends StringRequest {
     }
 
     protected static String getFormFile(byte[] fileContent, String nameAttr, String filename) {
-        String octetData = new String(fileContent);
+        String octetData = new String(fileContent, Charset.forName("utf-8"));
         String itemStr = String.format("%sContent-Disposition:form-data;name=\"%s\"; filename=\"%s\"\r\nContent-Type:image/jpeg\r\n\r\n%s",
                                     getItemBounderBegin(), nameAttr, filename, octetData);
 

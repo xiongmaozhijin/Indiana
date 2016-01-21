@@ -17,6 +17,7 @@ import com.example.liangge.indiana.comm.ImageUtils;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.comm.net.NetFormPostRequestThread;
+import com.example.liangge.indiana.comm.net.NetFormPostRequestThread2;
 import com.example.liangge.indiana.comm.net.NetRequestThread;
 import com.example.liangge.indiana.model.CommResponseStatueEntity;
 import com.example.liangge.indiana.model.PostShareOrderEntity;
@@ -167,7 +168,7 @@ public class AddShareBiz extends BaseActivityBiz{
     /**
      * 上传晒单信息
      */
-    private class SlaveUpdateShareOrderThread extends NetFormPostRequestThread {
+    private class SlaveUpdateShareOrderThread extends NetFormPostRequestThread2 {
 
         private static final String R_TAG = "SlaveUpdateShareOrderThread";
 
@@ -233,7 +234,7 @@ public class AddShareBiz extends BaseActivityBiz{
 
         @Override
         protected void onResponseErrorListener(VolleyError volleyError) {
-            LogUtils.e(R_TAG, "volleyError=%s", volleyError.getLocalizedMessage());
+            LogUtils.e(R_TAG, "volleyError=%s", volleyError.getLocalizedMessage() + "\n" + volleyError.getMessage());
         }
 
         @Override

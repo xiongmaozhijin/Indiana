@@ -18,6 +18,11 @@ android {
         }
     }
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/java-gen']
@@ -39,4 +44,6 @@ dependencies {
     compile files('libs/gson-2.5.jar')
     compile 'com.commit451:PhotoView:1.2.4'
     compile project(':multi-image-selector')
+    compile files('libs/httpmime-4.2.5.jar')
+    compile files('libs/httpcore-4.4.3.jar')
 }
