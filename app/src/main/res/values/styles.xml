@@ -123,11 +123,13 @@
 
 
     <style name="ShareOrdersImg">
-        <item name="android:maxWidth">600dp</item>
-        <item name="android:maxHeight">800dp</item>
+   <!--     <item name="android:maxWidth">600dp</item>
+        <item name="android:maxHeight">800dp</item>-->
+        <item name="android:padding">0dip</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:visibility">gone</item>
-        <item name="android:scaleType">fitCenter</item>
+        <item name="android:scaleType">matrix</item>
+        <item name="android:background">@color/white</item>
     </style>
 
 
