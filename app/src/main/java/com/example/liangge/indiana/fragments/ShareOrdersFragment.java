@@ -1,5 +1,9 @@
 package com.example.liangge.indiana.fragments;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.adapter.ShareOrdersListViewAdapter;
+import com.example.liangge.indiana.biz.ShareOrdersBiz;
+import com.example.liangge.indiana.comm.Constant;
+import com.example.liangge.indiana.comm.LogUtils;
+import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 /**
@@ -22,13 +31,18 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     private ExScrollView mExScrollView;
 
     private ListView mListView;
-
+    private ShareOrdersListViewAdapter mAdapter;
 
     private View mViewNotWrapper;
 
-    private View mViewAllContent;
+    private View mViewAllContentWrapper;
+
+    private View mViewLoadMoreWrapper;
+
+    private UIMessageReceive mUIMessageReceive;
 
 
+    private ShareOrdersBiz mShareOrdersBiz;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,14 +56,46 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         mViewLayout = view;
         mExScrollView = (ExScrollView) view.findViewById(R.id.scrollview);
         mListView = (ListView) view.findViewById(R.id.listview);
+        mAdapter = new ShareOrdersListViewAdapter(getActivity());
+        mListView.setAdapter(mAdapter);
+
         mViewNotWrapper = view.findViewById(R.id.not_net_wrapper);
-        mViewAllContent = view.findViewById(R.id.all_content_wrapper);
+        mViewAllContentWrapper = view.findViewById(R.id.all_content_wrapper);
+        mViewLoadMoreWrapper = view.findViewById(R.id.load_more_wrapper);
+
+        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+            @Override
+            public void onScrollTop() {
+
+            }
+
+            @Override
+            public void onScrollBottom() {
+                onScrollBottomLoadMore();
+            }
+        });
+    }
+
+
+
+
+    /**
+     * 滚动到底部加载更多
+     */
+    private void onScrollBottomLoadMore() {
+        LogUtils.i(TAG, "onScrollBottomLoadMore()");
+
     }
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        initManager();
+    }
+
+    private void initManager() {
+        mShareOrdersBiz = ShareOrdersBiz.getInstance(getActivity());
 
     }
 
@@ -75,13 +121,106 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     @Override
     protected void registerUIBroadCast() {
+        if (mUIMessageReceive == null) {
+            mUIMessageReceive = new UIMessageReceive();
+            IntentFilter filter = new IntentFilter(UIMessageConts.UI_MESSAGE_ACTION);
+            getActivity().registerReceiver(mUIMessageReceive, filter);
+        }
 
     }
 
     @Override
     protected void unRegisterUIBroadCast() {
+        if (mUIMessageReceive != null) {
+            getActivity().unregisterReceiver(mUIMessageReceive);
+            mUIMessageReceive = null;
+        }
 
     }
+
+
+
+
+
+    /**
+     * UI消息接收
+     */
+    private class UIMessageReceive extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            handleUIMessage(intent);
+
+        }
+    }
+
+    private void handleUIMessage(Intent intent) {
+        if (intent != null) {
+            String intentAction = intent.getAction();
+            if (intentAction!=null && intentAction.equals(UIMessageConts.UI_MESSAGE_ACTION)) {
+                String uiAction = intent.getStringExtra(UIMessageConts.UI_MESSAGE_KEY);
+                if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_FAILED) ||
+                        uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_START) ||
+                        uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_SUCCESS)) {
+
+                    handleUILoadData(uiAction);
+
+                } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_FAILED) ||
+                        uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_START) ||
+                        uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_SUCCESS)) {
+                    handleUILoadMoreData(uiAction);
+
+                } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_FAILED) ||
+                        uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
+                    handleUIRefresh(uiAction);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    private void handleUIRefresh(String uiAction) {
+        if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_FAILED)) {
+            //TODO
+
+        } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
+            //TODO
+
+        }
+    }
+
+    private void handleUILoadMoreData(String uiAction) {
+        handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+
+        if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_START)) {
+            handleNetUI(Constant.Comm.NET_LOADING, mViewNotWrapper, mViewAllContentWrapper);
+
+        } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_FAILED)) {
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewNotWrapper, mViewAllContentWrapper);
+
+        } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_SUCCESS)) {
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewNotWrapper, mViewAllContentWrapper);
+            //TODO
+        }
+
+    }
+
+    private void handleUILoadData(String uiAction) {
+        if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_START)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
+
+        } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_FAILED)) {
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
+
+        } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_SUCCESS)) {
+            //TODO
+        }
+
+    }
+
 
     @Override
     protected String getDeugTag() {

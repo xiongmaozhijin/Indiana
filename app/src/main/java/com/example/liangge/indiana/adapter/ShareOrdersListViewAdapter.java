@@ -1,6 +1,7 @@
 package com.example.liangge.indiana.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.model.ShareOrdersEntity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +26,65 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
 
     private List<ShareOrdersEntity> mListData = new ArrayList<>();
 
+    private static DisplayImageOptions mDisplayImageOptions;
+
     public ShareOrdersListViewAdapter(Context context) {
         mContext = context;
+        initRes();
     }
 
+
+
+
+    /**
+     * 重置数据并更新列表
+     * @param list
+     */
+    public void setDataAndNotify(List<ShareOrdersEntity> list) {
+        if (list != null) {
+            this.mListData.clear();
+            ShareOrdersEntity item;
+            for (int i=0; i<list.size(); i++) {
+                item = list.get(i);
+                this.mListData.add(item);
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    public void loadMoreDataAndNotify(List<ShareOrdersEntity> newList) {
+        if (newList != null) {
+            ShareOrdersEntity item;
+            for (int i=0, len=newList.size(); i<len; i++) {
+                item = newList.get(i);
+                this.mListData.add(item);
+            }
+
+            notifyDataSetChanged();
+        }
+    }
+
+
+
+
+
+
+    private void initRes() {
+        initImageLoaderConf();
+
+    }
+
+    private void initImageLoaderConf() {
+        mDisplayImageOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
+                .showImageOnFail(R.drawable.main_banner_img_load_fail)
+                .showImageOnLoading(R.drawable.main_product_item_img_onloading)
+                .cacheOnDisk(true)
+                .cacheInMemory(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .build();
+    }
 
 
     @Override
@@ -45,10 +103,22 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+    public View getView(int position, View view, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if (view == null) {
+            view = View.inflate(mContext, R.layout.layout_share_item_new, null);
+            viewHolder = new ViewHolder(view);
+            view.setTag(viewHolder);
 
+        } else {
+            viewHolder = (ViewHolder) view.getTag();
 
+        }
+
+        final ShareOrdersEntity item = mListData.get(position);
+        viewHolder.adapterData(item);
+
+        return view;
     }
 
 
@@ -85,6 +155,15 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
 
 
         public void adapterData(ShareOrdersEntity item) {
+            ImageLoader.getInstance().displayImage(item.getUserPortraitUrl(), imgUserPortrait, mDisplayImageOptions);
+            username.setText(item.getUsername());
+            shareDate.setText(item.getShareDate());
+            shareTitle.setText(item.getShareTitle());
+            shareContent.setText(item.getShareContent());
+            goodName.setText(item.getBingoRecordEntity().getTitle());
+            ImageLoader.getInstance().displayImage(item.getShareImgs().get(0), shareImg1, mDisplayImageOptions);
+            ImageLoader.getInstance().displayImage(item.getShareImgs().get(1), shareImg2, mDisplayImageOptions);
+            ImageLoader.getInstance().displayImage(item.getShareImgs().get(2), shareImg3, mDisplayImageOptions);
 
         }
 

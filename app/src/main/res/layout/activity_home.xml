@@ -82,7 +82,7 @@
                 android:gravity="center"
                 android:id="@+id/main_rb_indiana"
                 android:checked="true"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 style="@style/main_radio_button_style"
                 android:drawableTop="@drawable/selector_main_rb_indianna"
@@ -91,7 +91,7 @@
 
             <com.example.liangge.indiana.ui.widget.ExBaseRadioButton
                 android:id="@+id/main_rb_latest_announcement"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 style="@style/main_radio_button_style"
                 android:drawableTop="@drawable/selector_main_rb_latest_announcement"
@@ -100,7 +100,7 @@
 
             <com.example.liangge.indiana.ui.widget.ExBaseRadioButton
                 android:id="@+id/main_rb_shareorders"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 style="@style/main_radio_button_style"
                 android:drawableTop="@drawable/selector_main_rb_shareorders"
@@ -110,7 +110,7 @@
             <com.example.liangge.indiana.ui.widget.ExRadioButton
                 android:id="@+id/main_rb_shopping_card"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 style="@style/main_radio_button_style"
                 android:drawableTop="@drawable/selector_main_rb_shopping_cart"
@@ -119,7 +119,7 @@
 
             <com.example.liangge.indiana.ui.widget.ExBaseRadioButton
                 android:id="@+id/main_rb_personal_center"
-                android:layout_width="wrap_content"
+                android:layout_width="48dp"
                 android:layout_height="wrap_content"
                 style="@style/main_radio_button_style"
                 android:drawableTop="@drawable/selector_main_rb_personal_center"

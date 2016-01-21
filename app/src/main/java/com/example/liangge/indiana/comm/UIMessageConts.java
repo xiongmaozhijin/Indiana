@@ -83,6 +83,28 @@ public class UIMessageConts {
 
     }
 
+
+    /**
+     * 晒单消息
+     */
+    public interface ShareOrdersMessage {
+
+        String PREV = "ShareOrdersMessage";
+
+        String NET_START = PREV + "NET_START";
+        String NET_SUCCESS = PREV + "NET_SUCCESS";
+        String NET_FAILED = PREV + "NET_FAILED";
+
+        String LOAD_MORE_NET_START = PREV + "LOAD_MORE_NET_START";
+        String LOAD_MORE_NET_SUCCESS = PREV + "LOAD_MORE_NET_SUCCESS";
+        String LOAD_MORE_NET_FAILED = PREV + "LOAD_MORE_NET_FAILED";
+
+
+        String REFRESH_SUCCESS = PREV + "REFRESH_SUCCESS";
+        String REFRESH_FAILED = PREV + "REFRESH_FAILED";
+    }
+
+
     public interface ShoppingCartMessage {
 
         /** 重置列表ui */

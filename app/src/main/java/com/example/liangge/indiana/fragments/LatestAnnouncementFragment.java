@@ -201,7 +201,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
 
         } else if (loadMode == Constant.Comm.MODE_LOAD_MORE) {
             List<LastestBingoEntity> list = mLatestBiz.getProductsData();
-            boolean isEmpty = list.size() > 0 ? false : true;
+            boolean isEmpty = list.size()<=0;
             handleUILoadMore(mViewLoadMoreHintWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
             if (!isEmpty) {
                 mAdapter.loadMoreDataAndNotify(list);
