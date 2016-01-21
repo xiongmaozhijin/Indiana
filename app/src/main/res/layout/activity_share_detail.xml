@@ -226,31 +226,31 @@
                 <ImageView
                     android:id="@+id/img0"
                     style="@style/ShareOrdersImg"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/img1"
                     style="@style/ShareOrdersImg"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/img2"
                     style="@style/ShareOrdersImg"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/img3"
                     style="@style/ShareOrdersImg"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <ImageView
                     android:id="@+id/img4"
                     style="@style/ShareOrdersImg"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
 
