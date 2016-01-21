@@ -2,6 +2,7 @@ package com.example.liangge.indiana.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.model.ShareOrdersEntity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -27,6 +29,8 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
     private List<ShareOrdersEntity> mListData = new ArrayList<>();
 
     private static DisplayImageOptions mDisplayImageOptions;
+
+    private static DisplayImageOptions mUserImgOptions;
 
     public ShareOrdersListViewAdapter(Context context) {
         mContext = context;
@@ -53,7 +57,7 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
     }
 
     public void loadMoreDataAndNotify(List<ShareOrdersEntity> newList) {
-        if (newList != null) {
+        if (newList != null && newList.size()>0) {
             ShareOrdersEntity item;
             for (int i=0, len=newList.size(); i<len; i++) {
                 item = newList.get(i);
@@ -71,7 +75,7 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
 
     private void initRes() {
         initImageLoaderConf();
-
+        mUserImgOptions = PersonalCenterBiz.getInstance(mContext).getUserPortraitConfig();
     }
 
     private void initImageLoaderConf() {
@@ -155,7 +159,7 @@ public class ShareOrdersListViewAdapter extends BaseAdapter{
 
 
         public void adapterData(ShareOrdersEntity item) {
-            ImageLoader.getInstance().displayImage(item.getUserPortraitUrl(), imgUserPortrait, mDisplayImageOptions);
+            ImageLoader.getInstance().displayImage(item.getUserPortraitUrl(), imgUserPortrait, mUserImgOptions);
             username.setText(item.getUsername());
             shareDate.setText(item.getShareDate());
             shareTitle.setText(item.getShareTitle());

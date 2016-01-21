@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * @deprecated
  * 表单上传，包含文件
  * Created by baoxing on 2016/1/20.
  */

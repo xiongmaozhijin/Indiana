@@ -182,6 +182,12 @@ public class AddShareBiz extends BaseActivityBiz{
         @Override
         protected void preDoDump() {
             super.preDoDump();
+            String hint = mApplicationContext.getResources().getString(R.string.deal_imgs_ing);
+            Message msg = Message.obtain();
+            msg.obj = hint;
+            mHandler.sendMessage(msg);
+            mMessageManager.sendMessage(new UIMessageEntity(UIMessageConts.AddShareOrdersMessage.DEAL_IMGS));
+
             List<String> filePath = getFilePath();
             List<String> compressImgPath = new ArrayList<>();
             for (int i=0, len=filePath.size(); i<len; i++) {

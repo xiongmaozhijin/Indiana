@@ -276,8 +276,14 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
         } else if (strUIAction.equals(UIMessageConts.Comm_Activity.COMM_NET_FAILED)) {
             handleUINetFailed();
 
+        } else if (strUIAction.equals(UIMessageConts.AddShareOrdersMessage.DEAL_IMGS)) {
+            handleUIDealImgs();
         }
 
+    }
+
+    private void handleUIDealImgs() {
+        mBtnSubmit.setEnabled(false);
     }
 
     private void handleUINetFailed() {

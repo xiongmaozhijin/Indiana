@@ -18,6 +18,8 @@ import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
+import java.util.List;
+
 /**
  * 晒单
  * Created by baoxing on 2016/1/20.
@@ -84,7 +86,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
      */
     private void onScrollBottomLoadMore() {
         LogUtils.i(TAG, "onScrollBottomLoadMore()");
-
+        mShareOrdersBiz.onScrollBottomLoadData();
     }
 
 
@@ -106,7 +108,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     @Override
     protected void onRefreshLoadData() {
-
+        mShareOrdersBiz.onRefreshLoadData();
     }
 
     @Override
@@ -116,7 +118,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     @Override
     protected void onBtnReload() {
-
+        mShareOrdersBiz.onReload();
     }
 
     @Override
@@ -159,6 +161,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
             String intentAction = intent.getAction();
             if (intentAction!=null && intentAction.equals(UIMessageConts.UI_MESSAGE_ACTION)) {
                 String uiAction = intent.getStringExtra(UIMessageConts.UI_MESSAGE_KEY);
+                LogUtils.i(TAG, "handleUIMessage().uiAction=%s", uiAction);
                 if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_FAILED) ||
                         uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_START) ||
                         uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_SUCCESS)) {
@@ -183,16 +186,19 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     }
 
     private void handleUIRefresh(String uiAction) {
+        LogUtils.i(TAG, "handleUIRefresh()");
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_FAILED)) {
-            //TODO
-
+            dismissRefreshUI();
+            String hint = getActivity().getResources().getString(R.string.refresh_failed);
+            LogUtils.toastShortMsg(getActivity(), hint);
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
-            //TODO
+            dismissRefreshUI();
 
         }
     }
 
-    private void handleUILoadMoreData(String uiAction) {
+    private void handleUILoadData(String uiAction) {
+        LogUtils.i(TAG, "handleUILoadData()");
         handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_START)) {
@@ -203,12 +209,13 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_SUCCESS)) {
             handleNetUI(Constant.Comm.NET_SUCCESS, mViewNotWrapper, mViewAllContentWrapper);
-            //TODO
+            mAdapter.setDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }
 
     }
 
-    private void handleUILoadData(String uiAction) {
+    private void handleUILoadMoreData(String uiAction) {
+        LogUtils.i(TAG, "handleUILoadMoreData()");
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_START)) {
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
 
@@ -216,11 +223,29 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
 
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_SUCCESS)) {
-            //TODO
+            boolean isEmpty = mShareOrdersBiz.getShareOrdersList().size()<=0;
+            handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
+            mAdapter.loadMoreDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }
 
     }
 
+
+    @Override
+    public void onFirstEnter() {
+        super.onFirstEnter();
+        mShareOrdersBiz.onFirstEnter();
+    }
+
+    @Override
+    public void onEnter() {
+        super.onEnter();
+    }
+
+    @Override
+    public void onLeft() {
+        super.onLeft();
+    }
 
     @Override
     protected String getDeugTag() {

@@ -23,7 +23,6 @@ public class VolleyBiz {
     private VolleyBiz(Context context) {
         this.mContext = context;
         mRequestQueue = Volley.newRequestQueue(context);
-
     }
 
     public static void init(Context context) {

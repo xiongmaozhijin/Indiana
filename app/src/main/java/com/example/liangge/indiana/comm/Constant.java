@@ -213,7 +213,7 @@ public class Constant {
         String REQUEST_ADD_SHARE_ORDERS = WEBHOST + "/index.php/Admin/Api/prizeShowSave";
 
         /** 晒单接口 */
-        String REQUEST_SHARE_ORDERS = WEBHOST + "/index.php/shaidan";
+        String REQUEST_SHARE_ORDERS = WEBHOST + "/index.php/Admin/Api/prizeShow";
 
         String ERROR_404 = WEBHOST + "/index.php/404.php";
 

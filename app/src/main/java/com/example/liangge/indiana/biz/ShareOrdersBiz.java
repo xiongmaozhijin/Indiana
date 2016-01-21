@@ -74,6 +74,7 @@ public class ShareOrdersBiz extends BaseFragmentBiz{
 
     private void loadShareOrdersData(int loadMode) {
         LogUtils.i(TAG, "loadShareOrdersData(). isLoadMode=%d", loadMode);
+        RequesetInfo.iLoadMode = loadMode;
         if (loadMode==RequesetInfo.MODE_LOADMORE) {
            if (!mSlaveLoadShareOrdersThread.isWorking()) {
                RequesetInfo.iCurStartPage++;
@@ -197,7 +198,9 @@ public class ShareOrdersBiz extends BaseFragmentBiz{
 
         @Override
         protected String getJsonBody() {
-            return "";
+            String jsonBody = String.format("{\"type\":\"%s\", \"page\":%d}", "", RequesetInfo.iCurStartPage);
+
+            return jsonBody;
         }
 
         @Override

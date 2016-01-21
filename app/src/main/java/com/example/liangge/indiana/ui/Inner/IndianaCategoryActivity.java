@@ -171,7 +171,25 @@ public class IndianaCategoryActivity extends Activity {
      */
     private class SlaveLoadDataThread extends NetRequestThread {
 
-        private static final String REQUEST_TAG = "SlaveLoadDataThread";
+        private static final String REQUEST_TAG = "SlaveLoadCategoryDataThread";
+
+        @Override
+        protected void notifyStart() {
+            super.notifyStart();
+            LogUtils.w(REQUEST_TAG, "notifyStart()");
+        }
+
+        @Override
+        protected void notifySuccess() {
+            super.notifySuccess();
+            LogUtils.w(REQUEST_TAG, "notifySuccess()");
+        }
+
+        @Override
+        protected void notifyFail() {
+            super.notifyFail();
+            LogUtils.w(REQUEST_TAG, "notifyFail()");
+        }
 
         @Override
         protected String getJsonBody() {

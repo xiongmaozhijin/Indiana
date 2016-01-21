@@ -376,5 +376,9 @@
     <string name="share_post">上传数据中</string>
     <string name="share_post_continue">继续为你上传数据中</string>
     <string name="main_rb_shareorders_txt">晒单</string>
+    <string name="deal_imgs_ing">处理图片中</string>
+
+    <string name="refresh_failed">刷新失败</string>
+
 
 </resources>

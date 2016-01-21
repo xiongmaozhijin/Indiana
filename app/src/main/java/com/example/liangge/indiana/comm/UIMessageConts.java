@@ -105,6 +105,13 @@ public class UIMessageConts {
     }
 
 
+    public interface AddShareOrdersMessage {
+        String PREV = "AddShareOrdersMessage";
+        /** 处理图片 */
+        String DEAL_IMGS = PREV + "DEAL_IMGS";
+    }
+
+
     public interface ShoppingCartMessage {
 
         /** 重置列表ui */

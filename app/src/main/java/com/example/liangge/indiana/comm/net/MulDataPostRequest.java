@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @deprecated
  * Created by baoxing on 2016/1/20.
  */
 public class MulDataPostRequest extends StringRequest {
