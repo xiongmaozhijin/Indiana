@@ -11,7 +11,10 @@
         android:background="@drawable/selector_f_indiana_product_item_bg"
         android:minHeight="120dp"
         android:orientation="horizontal"
-        android:padding="@dimen/bingo_indiana_item_padding">
+        android:paddingTop="10dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp">
 
         <ImageView
             android:id="@+id/product_imgview"
