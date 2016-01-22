@@ -125,7 +125,7 @@
         <![CDATA[
         <font color="#686868">%1$s</font><br>
         <font color="#d4d4d4">参与期号:&nbsp;%2$s <br>
-        参与次数:&nbsp;%3$d &nbsp;&nbsp;&nbsp; </font>     <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
+        参与次数:&nbsp;%3$d &nbsp;&nbsp;&nbsp; </font>     <font color="#0278fe"><a href="%4$s">查看号码</a> </font>&nbsp;&nbsp;<br><br>
         <font color="#d4d4d4">
         &nbsp;&nbsp;&nbsp;&nbsp;获奖者:&nbsp;</font><font color="#0278fe">%5$s</font><br>
         <font color="#d4d4d4">
@@ -146,7 +146,7 @@
         参与期号:&nbsp;%2$s <br>
         </font>
         <font color="#d4d4d4">
-        参与次数:&nbsp;</font><font color="#ff4040">%3$d</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
+        参与次数:&nbsp;</font><font color="#ff4040">%3$d</font> &nbsp;&nbsp;&nbsp; <font color="#0278fe"><a href="%4$s">查看号码</a> </font>&nbsp;&nbsp;<br><br>
         <font color="#d4d4d4">
         进度:&nbsp;</font><font color="#d4d4d4">%5$s</font>
 
@@ -157,7 +157,7 @@
           <font color="#686868">%1$s</font><br>
           <font color="#d4d4d4">
           参与期号:%2$s <br>
-          参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>  <font color="#0278fe"><a href="%4$s">查看号码</a></font><br><br>
+          参与次数:%3$d &nbsp;&nbsp;&nbsp; </font>  <font color="#0278fe"><a href="%4$s">查看号码</a> </font>&nbsp;&nbsp;<br><br>
           <font color="#d4d4d4">
           揭晓中...
           </font>
