@@ -141,6 +141,7 @@
 
     <style name="PersonalCenterItem">
         <item name="android:background">@drawable/selector_personal_item_bg</item>
+        <item name="android:descendantFocusability">blocksDescendants</item>
     </style>
 
 
@@ -148,5 +149,9 @@
         <item name="android:background">@drawable/selector_personal_item_bg</item>
     </style>
 
+
+    <style name="DetailItem">
+        <item name="android:background">@drawable/selector_detail_item_bg</item>
+    </style>
 
 </resources>

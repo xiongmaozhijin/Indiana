@@ -201,6 +201,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/personal_center_item_margin_left"
+                android:clickable="false"
                 android:background="@null"
                 android:src="@drawable/ic_record" />
 
@@ -239,6 +240,7 @@
 
             <ImageButton
                 android:id="@+id/user_ic_coupon"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -290,6 +292,7 @@
 
             <ImageButton
                 android:id="@+id/user_ic_wish"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -446,6 +449,7 @@
 
             <ImageButton
                 android:id="@+id/user_ic_charge"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -495,6 +499,7 @@
 
             <ImageButton
                 android:id="@+id/user_ic_win_record"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -602,6 +607,7 @@
 
             <ImageButton
                 android:id="@+id/user_ic_setting"
+                android:clickable="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

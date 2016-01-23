@@ -316,9 +316,9 @@
                                     android:id="@+id/activity_productdetailinfo_more_info_wrapper"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="11dp"
+                                    android:layout_marginBottom="3dp"
                                     android:layout_marginTop="11dp"
-                                    android:background="@android:color/white"
+                                    style="@style/DetailItem"
                                     android:orientation="horizontal"
                                     android:paddingLeft="@dimen/activity_detail_pading_side"
                                     android:paddingRight="@dimen/activity_detail_pading_side">
@@ -348,14 +348,14 @@
                                     android:background="#ffdcdcdc"
                                     android:contentDescription="@string/desc_common_image" />
 
-                                <!--图文详细-->
+                                <!--往期详细-->
                                 <LinearLayout
                                     android:id="@+id/history_record_wrapper"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="11dp"
-                                    android:layout_marginTop="11dp"
-                                    android:background="@android:color/white"
+                                    android:layout_marginBottom="3dp"
+                                    android:layout_marginTop="3dp"
+                                    style="@style/DetailItem"
                                     android:orientation="horizontal"
                                     android:paddingLeft="@dimen/activity_detail_pading_side"
                                     android:paddingRight="@dimen/activity_detail_pading_side">
