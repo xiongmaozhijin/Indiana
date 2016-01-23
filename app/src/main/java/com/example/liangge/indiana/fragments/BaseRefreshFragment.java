@@ -142,6 +142,11 @@ public abstract class BaseRefreshFragment extends BaseNetUIFragment {
         }
     }
 
+    protected void disableWhenHorizontalMove() {
+        mPtrFrame.disableWhenHorizontalMove(true);
+    }
+
+
 
     protected abstract View getScrollViewWrapper();
 

@@ -359,6 +359,8 @@ public class IndianaFragment extends BaseRefreshFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initManager();
+
+        disableWhenHorizontalMove();
     }
 
     @Override

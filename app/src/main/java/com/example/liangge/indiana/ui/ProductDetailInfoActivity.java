@@ -682,6 +682,8 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
         super.onResume();
         registerUIReceive();
 
+        disableWhenHorizontalMove();
+
         mDetailInfoBiz.onResume();
 
         if (bIsEnter) {

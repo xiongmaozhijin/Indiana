@@ -109,6 +109,12 @@ public abstract class BaseUIActivity extends Activity {
 
     }
 
+
+    protected void disableWhenHorizontalMove() {
+        mPtrFrame.disableWhenHorizontalMove(true);
+    }
+
+
     /**
      * 取消下拉的UI提示
      */
