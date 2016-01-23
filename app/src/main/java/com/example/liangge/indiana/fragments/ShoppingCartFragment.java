@@ -369,6 +369,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
      * 更新购物车商品数量
      */
     private void handleShoppingCartCounts(String uiAction) {
+        LogUtils.i(TAG, "handleShoppingCartCounts(). uiAction=%s", uiAction);
         if (uiAction.equals(UIMessageConts.ShoppingCartMessage.M_UPDATE_SHOPPINGCART_ITEM_COUNTS)) {
             //0.badgeview下次再画
 //            mBtnShoppingCart.setBuyCnt(mShoppingCartBiz.getBuyCnt());
