@@ -99,10 +99,11 @@ public class AppBiz {
     }
 
     public Dialog showUpdateDialog(Context context, DialogInterface.OnClickListener yesListener, DialogInterface.OnClickListener noListener) {
+//        LogUtils.e(TAG, "showUpdateDialog(). content=%s", getVersionInfo().getUpdate_msg());
         final String strUpdateYes = context.getResources().getString(R.string.update_yes);
         final String strUpdateNo = context.getResources().getString(R.string.update_no);
-        AlertDialog alertDialog = new AlertDialog.Builder(context).setTitle(getVersionInfo().getVersion_name())
-                .setMessage(getVersionInfo().getUpdate_msg())
+        AlertDialog alertDialog = new AlertDialog.Builder(context).setTitle(Html.fromHtml(getVersionInfo().getVersion_name()))
+                .setMessage(Html.fromHtml(getVersionInfo().getUpdate_msg()))
                 .setPositiveButton(strUpdateYes, yesListener)
                 .setNegativeButton(strUpdateNo, noListener)
                 .setCancelable(false)
