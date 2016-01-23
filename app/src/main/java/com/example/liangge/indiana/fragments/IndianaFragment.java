@@ -351,7 +351,7 @@ public class IndianaFragment extends BaseRefreshFragment {
      * 滚动到底部加载更多
      */
     private void onScrollBottomLoadMore() {
-        mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), true);
+        mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), true, Constant.Comm.MODE_LOAD_MORE);
 
     }
 
@@ -372,7 +372,7 @@ public class IndianaFragment extends BaseRefreshFragment {
 
     @Override
     protected void onRefreshLoadData() {
-        mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), false);
+        mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), false, Constant.Comm.MODE_REFRESH);
     }
 
     @Override
@@ -436,6 +436,11 @@ public class IndianaFragment extends BaseRefreshFragment {
 
                         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_NOTICATION_SUCCESS)) {
                             handleUINotication();
+
+                        } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_START) ||
+                                strUIAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_FAILED) ||
+                                strUIAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_SUCCESS)) {
+                            handleUIRefresh(strUIAction);
 
                         }
 
@@ -502,7 +507,7 @@ public class IndianaFragment extends BaseRefreshFragment {
             handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
             handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
-            handleCompleteRefreshUI();
+//            handleCompleteRefreshUI();
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS)) {
 //            int iScrollY = mScrollViewMain.getExScrollY();
@@ -513,9 +518,28 @@ public class IndianaFragment extends BaseRefreshFragment {
 
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
 
-            handleCompleteRefreshUI();
+//            handleCompleteRefreshUI();
 
         }
+    }
+
+
+    private void handleUIRefresh(String strAction) {
+        if (strAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_START)) {
+
+
+        } else if (strAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_FAILED)) {
+            handleCompleteRefreshUI();
+            String hint = getResources().getString(R.string.refresh_failed);
+            LogUtils.toastShortMsg(getActivity(), hint);
+
+        } else if (strAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_SUCCESS)) {
+            handleCompleteRefreshUI();
+            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
+
+        }
+
     }
 
 
@@ -568,7 +592,7 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnHots() {
         LogUtils.w(TAG, "onBtnHots()");
-        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_HOTS, false);
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_HOTS, false, Constant.Comm.MODE_ENTER);
     }
 
     /**
@@ -576,7 +600,7 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnLatest() {
         LogUtils.w(TAG, "onBtnLatest()");
-        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_NEWS, false);
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_NEWS, false, Constant.Comm.MODE_ENTER);
     }
 
     /**
@@ -584,7 +608,7 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnSchedule() {
         LogUtils.w(TAG, "onBtnSchedule()");
-        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_PROGRESS, false);
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_PROGRESS, false, Constant.Comm.MODE_ENTER);
 
     }
 
@@ -593,7 +617,7 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnNeed() {
         LogUtils.w(TAG, "onBtnNeed()");
-        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_SHARE, false);
+        mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_SHARE, false, Constant.Comm.MODE_ENTER);
     }
 
     /**

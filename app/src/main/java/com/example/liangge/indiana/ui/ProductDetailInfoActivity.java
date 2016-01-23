@@ -179,6 +179,7 @@ public class ProductDetailInfoActivity extends BaseUIActivity {
 
         mBtnBack = (ImageButton) findViewById(R.id.titlebar_btn_back);
         mBannerView = (BannerView) findViewById(R.id.activity_productdetailinfo_bannerview);
+//        mBannerView.setImageScaleType(ImageView.ScaleType.CENTER_INSIDE);
         mTxvProductInfoTitleDescribe1 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe1);
         mTxvProductInfoTitleDescribe2 = (TextView) findViewById(R.id.activity_productdetailinfo_title_describe2);
 

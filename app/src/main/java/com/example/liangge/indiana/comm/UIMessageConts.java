@@ -29,6 +29,8 @@ public class UIMessageConts {
 
     public interface IndianaMessage {
 
+        String PREV= "IndianaMessage";
+
         /** 正在加载轮播图片 */
         public static final String MESSAGE_LOADING_BANNER = "message_indiannamessage_loading_banner";
 
@@ -49,6 +51,12 @@ public class UIMessageConts {
         public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL = "m_log_tag_activity_product_info_fail";
 
         public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS = "m_log_tag_activity_product_info_success";
+
+        /** 刷新加载 */
+        String MSG_REFRESH_START = PREV + "MSG_REFRESH_START";
+        String MSG_REFRESH_SUCCESS = PREV + "MSG_REFRESH_SUCCESS";
+        String MSG_REFRESH_FAILED = PREV + "MSG_REFRESH_FAILED";
+
 
         /** 开始加载相应分标签<b>更多</b>的数据 */
         public static final String MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START = "MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START";

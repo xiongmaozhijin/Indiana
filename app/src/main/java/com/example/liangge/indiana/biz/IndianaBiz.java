@@ -91,6 +91,8 @@ public class IndianaBiz extends BaseFragmentBiz{
 
         public static boolean bIsLoadMore = false;
 
+
+        public static int iLoadMode = Constant.Comm.MODE_ENTER;
     }
 
 
@@ -123,20 +125,27 @@ public class IndianaBiz extends BaseFragmentBiz{
      * 加载活动标签信息/及加载更多
      * @param tag   标签页
      */
-    public void loadActivityProductInfo(String tag, boolean isLoadMore) {
-        LogUtils.w(TAG, "loadActivityProductInfo().tag=%s, isLoadMore=%b", tag, isLoadMore);
+    public void loadActivityProductInfo(String tag, boolean isLoadMore, int loadMode) {
+        LogUtils.w(TAG, "loadActivityProductInfo().tag=%s, isLoadMore=%b, loadMode=%d", tag, isLoadMore, loadMode);
 //        loadProductTest();
-
+        RequestInfo.iLoadMode = loadMode;
         RequestInfo.bIsLoadMore = isLoadMore;
 
-        if (isLoadMore) {
+        if (RequestInfo.iLoadMode == Constant.Comm.MODE_LOAD_MORE) {
             if (!mSlaveLoadActivityProductInfoThread.isWorking()) {
                 RequestInfo.iCurPage++;
                 mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
                 mSlaveLoadActivityProductInfoThread.start();
             }
 
-        } else {
+        } else if (RequestInfo.iLoadMode == Constant.Comm.MODE_ENTER){
+            RequestInfo.iCurTag = tag;
+            RequestInfo.iCurPage = 1;
+            mSlaveLoadActivityProductInfoThread.cancelNetRequest();
+            mSlaveLoadActivityProductInfoThread = new SlaveLoadActivityProductInfoThread();
+            mSlaveLoadActivityProductInfoThread.start();
+
+        } else if (RequestInfo.iLoadMode == Constant.Comm.MODE_REFRESH) {
             RequestInfo.iCurTag = tag;
             RequestInfo.iCurPage = 1;
             mSlaveLoadActivityProductInfoThread.cancelNetRequest();
@@ -217,11 +226,15 @@ public class IndianaBiz extends BaseFragmentBiz{
             this.bIsWorking = true;
 
             UIMessageEntity item = new UIMessageEntity();
-            if (RequestInfo.bIsLoadMore) {
+            if (RequestInfo.iLoadMode== Constant.Comm.MODE_LOAD_MORE) {
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START);
 
-            } else {
+            } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_ENTER){
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START);
+
+            } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_REFRESH) {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_REFRESH_START);
+
             }
             mMessageManager.sendMessage(item);
         }
@@ -230,11 +243,16 @@ public class IndianaBiz extends BaseFragmentBiz{
             this.bIsWorking = false;
 
             UIMessageEntity item =  new UIMessageEntity();
-            if (RequestInfo.bIsLoadMore) {
+
+            if (RequestInfo.iLoadMode== Constant.Comm.MODE_LOAD_MORE) {
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL);
 
-            } else {
+            } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_ENTER){
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL);
+
+            } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_REFRESH) {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_REFRESH_FAILED);
+
             }
 
             mMessageManager.sendMessage(item);
@@ -244,11 +262,15 @@ public class IndianaBiz extends BaseFragmentBiz{
             this.bIsWorking = false;
 
             UIMessageEntity item = new UIMessageEntity();
-            if (RequestInfo.bIsLoadMore) {
+
+            if (RequestInfo.iLoadMode== Constant.Comm.MODE_LOAD_MORE) {
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS);
 
-            } else {
+            } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_ENTER){
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_SUCCESS);
+
+            } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_REFRESH) {
+                item.setMessageAction(UIMessageConts.IndianaMessage.MSG_REFRESH_SUCCESS);
 
             }
 
