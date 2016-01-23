@@ -151,8 +151,11 @@
 
                 <TextView
                     android:id="@+id/user_good_on_text"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:gravity="center"
                     android:drawableTop="@drawable/circle_arrow_right"
+                    android:background="@drawable/selector_personal_item_bg"
                     android:drawablePadding="9dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,6 +164,9 @@
 
                 <TextView
                     android:id="@+id/user_revealed_text"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:background="@drawable/selector_personal_item_bg"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:drawablePadding="9dp"
@@ -184,7 +190,7 @@
 
         <RelativeLayout
             android:id="@+id/f_personal_txvbtn_indiana_record"
-            android:background="@android:color/white"
+            style="@style/PersonalCenterItem"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_3">
@@ -226,7 +232,7 @@
         <RelativeLayout
             android:id="@+id/user_layout_coupon"
             android:clickable="true"
-            android:background="@android:color/white"
+            style="@style/PersonalCenterItem"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_5">
@@ -277,7 +283,7 @@
         <RelativeLayout
             android:id="@+id/user_layout_wish"
             android:clickable="true"
-            android:background="@android:color/white"
+            style="@style/PersonalCenterItem"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_coupon">
@@ -433,7 +439,7 @@
         <RelativeLayout
             android:id="@+id/f_personal_account_detail"
             android:clickable="true"
-            android:background="@android:color/white"
+            style="@style/PersonalCenterItem"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_10">
@@ -482,7 +488,7 @@
 
         <RelativeLayout
             android:id="@+id/f_personal_txvbtn_bingo_record"
-            android:background="@android:color/white"
+            style="@style/PersonalCenterItem"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/f_personal_account_detail">
@@ -589,7 +595,7 @@
         <RelativeLayout
             android:id="@+id/user_layout_setting"
             android:clickable="true"
-            android:background="@android:color/white"
+            style="@style/PersonalCenterItem"
             android:layout_width="fill_parent"
             android:layout_height="60.0dip"
             android:layout_below="@+id/user_layout_13">

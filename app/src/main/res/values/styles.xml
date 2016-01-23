@@ -18,6 +18,8 @@
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">2dp</item>
         <item name="android:drawablePadding">2dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="titlebar_title">
@@ -33,6 +35,7 @@
 
     <!-- indiana category item -->
     <style name="indiana_category_item">
+        <item name="android:background">@drawable/selector_float_menu_bg</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@drawable/selector_f_indiana_text_color</item>
         <item name="android:checkable">true</item>
@@ -50,6 +53,7 @@
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_indiana_record_item_bg</item>
     </style>
 
     <style name="latest_item_bingo_info">
@@ -132,6 +136,16 @@
         <item name="android:background">@color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_gravity">center</item>
+    </style>
+
+
+    <style name="PersonalCenterItem">
+        <item name="android:background">@drawable/selector_personal_item_bg</item>
+    </style>
+
+
+    <style name="SettingItem">
+        <item name="android:background">@drawable/selector_personal_item_bg</item>
     </style>
 
 
