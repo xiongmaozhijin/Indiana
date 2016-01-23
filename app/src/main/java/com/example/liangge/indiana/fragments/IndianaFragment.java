@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.IndianaProductGridViewAdapter;
@@ -247,6 +248,7 @@ public class IndianaFragment extends BaseRefreshFragment {
         mViewProductLoadingWrapper = view.findViewById(R.id.f_indiana_product_loading_more_wrapper);
 
         mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
+        mBannerView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
         mViewProductContentWrapper = view.findViewById(R.id.f_indiana_product_content_wrapper);
 //        mViewFitFloatMenu = view.findViewById(R.id.f_indiana_product_fit_float_menu);
         mScrollViewMain = (ExScrollView) view.findViewById(R.id.f_indiana_main_scrollview);

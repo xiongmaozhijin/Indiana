@@ -73,6 +73,9 @@ public class BannerView extends FrameLayout{
     private int mSpace;
 
 
+    private ImageView.ScaleType mImgScaleType = ImageView.ScaleType.FIT_CENTER;
+
+
     public BannerView(Context context) {
         this(context, null);
     }
@@ -149,6 +152,11 @@ public class BannerView extends FrameLayout{
         confing();
     }
 
+    public void setImageScaleType(ImageView.ScaleType scaleType) {
+        mImgScaleType = scaleType;
+    }
+
+
     private void confing() {
         LogUtils.e(TAG, "config()");
         mBannerViewPager.setAdapter(mAdapter);
@@ -197,9 +205,10 @@ public class BannerView extends FrameLayout{
                mCurItem = position;
 
                ImageView imgView = new ImageView(mContext);
-               ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//               ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+               ViewGroup.MarginLayoutParams layoutParams = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-               imgView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+               imgView.setScaleType(mImgScaleType);
                imgView.setLayoutParams(layoutParams);
                imgView.setClickable(true);
                imgView.setOnClickListener(new ImgViewOnClick(bannerInfo));
