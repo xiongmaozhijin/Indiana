@@ -138,6 +138,29 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * 是否可以双击
+     * @param scrollOrListView
+     * @param loadingHintView
+     * @param allContentView
+     * @return
+     */
+    protected boolean canDoubleClick(View scrollOrListView, View loadingHintView, View allContentView) {
+        boolean r = false;
+//        if (isAlreadyEnter()) {
+//            if (scrollOrListView!=null && loadingHintView!=null && allContentView!=null) {
+//                if ( (loadingHintView.getVisibility()!=View.VISIBLE) && (allContentView.getVisibility()==View.VISIBLE) ) {
+//                    r = true;
+//                }
+//
+//            }
+//        }
+
+
+        return r;
+    }
+
+
+    /**
      * 再次进入这个界面
      */
     public void onEnter() {

@@ -266,7 +266,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if (mExScrollView != null) {
+        if ( canDoubleClick(mExScrollView, mViewNotWrapper, mViewAllContentWrapper) ) {
             mExScrollView.smoothScrollTo(0, 0);
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();

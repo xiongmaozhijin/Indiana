@@ -590,7 +590,7 @@ public class ShoppingCartFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if (mListView != null) {
+        if ( canDoubleClick(mListView, mViewLoadOrNotNetWrapper, mViewContentWrapper) ) {
             mListView.setSelection(0);
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();

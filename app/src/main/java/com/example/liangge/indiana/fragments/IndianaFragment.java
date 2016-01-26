@@ -672,7 +672,7 @@ public class IndianaFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if (mScrollViewMain != null) {
+        if (canDoubleClick(mScrollViewMain, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper) ) {
             mScrollViewMain.smoothScrollTo(0, 0);
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();

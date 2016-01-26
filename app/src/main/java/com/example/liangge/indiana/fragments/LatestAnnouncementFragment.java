@@ -375,7 +375,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if (mExScrollView != null) {
+        if ( canDoubleClick(mExScrollView, mViewNotNetWorkWrpper, mViewContentWrapper) ) {
             mExScrollView.smoothScrollTo(0, 0);
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();
