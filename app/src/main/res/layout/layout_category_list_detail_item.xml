@@ -5,7 +5,7 @@
     android:descendantFocusability="blocksDescendants">
 
     <FrameLayout
-        android:background="@color/white"
+        android:background="@drawable/selector_category_detail_list_item_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
