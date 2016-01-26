@@ -23,6 +23,7 @@ import com.example.liangge.indiana.fragments.LatestAnnouncementFragment;
 import com.example.liangge.indiana.fragments.PersonalCenterFragment;
 import com.example.liangge.indiana.fragments.ShareOrdersFragment;
 import com.example.liangge.indiana.fragments.ShoppingCartFragment;
+import com.example.liangge.indiana.ui.widget.ExBaseRadioButton;
 import com.example.liangge.indiana.ui.widget.RotateImageView;
 
 import java.util.ArrayList;
@@ -60,25 +61,28 @@ public class HomeActivity extends UIBaseActivity {
     /** 个人中心的Fragment */
     private PersonalCenterFragment mPersonalCenterFragment;
 
+    /** 当前的fragment */
+    private int mCurFragmentItem = I_TAG_FRAGMENT_INVALID;
+
     /** Fragment 列表*/
     private List<Fragment> mListFragments = new ArrayList<>();
 
     private boolean[] mAlreadyEntry = new boolean[I_TAG_FRAGMENT_COUNTS];
 
     /** 夺宝菜单 */
-    private RadioButton mRbIndaina;
+    private ExBaseRadioButton mRbIndaina;
 
     /** 最新揭晓菜单 */
-    private RadioButton mRbLastest;
+    private ExBaseRadioButton mRbLastest;
 
     /** 晒单 */
-    private RadioButton mRbShareOrders;
+    private ExBaseRadioButton mRbShareOrders;
 
     /** 购物车菜单 */
-    private RadioButton mRbShoppingCart;
+    private ExBaseRadioButton mRbShoppingCart;
 
     /** 个人中心菜单 */
-    private RadioButton mRbPersonalCenter;
+    private ExBaseRadioButton mRbPersonalCenter;
 
 
     /** 菜单RadioGroup */
@@ -119,6 +123,55 @@ public class HomeActivity extends UIBaseActivity {
         initViewPager();
         initOtherWidget();
 
+        initViewEvent();
+    }
+
+    private void initViewEvent() {
+        mRbIndaina.setOnDoubleClickListener(new ExBaseRadioButton.OnDoubleClickListener() {
+            @Override
+            public void onDoubleClick(View view) {
+                if (mIndianaFragment!=null) {
+                    mIndianaFragment.onDoubleClick();
+                }
+            }
+        });
+
+
+        mRbLastest.setOnDoubleClickListener(new ExBaseRadioButton.OnDoubleClickListener() {
+            @Override
+            public void onDoubleClick(View view) {
+                if (mLastestAnnouncementFragment!=null) {
+                    mLastestAnnouncementFragment.onDoubleClick();
+                }
+            }
+        });
+
+        mRbShareOrders.setOnDoubleClickListener(new ExBaseRadioButton.OnDoubleClickListener() {
+            @Override
+            public void onDoubleClick(View view) {
+                if (mShareOrdersFragment!=null) {
+                    mShareOrdersFragment.onDoubleClick();
+                }
+            }
+        });
+
+        mRbShoppingCart.setOnDoubleClickListener(new ExBaseRadioButton.OnDoubleClickListener() {
+            @Override
+            public void onDoubleClick(View view) {
+                if (mShoppingCartFragment!=null) {
+                    mShoppingCartFragment.onDoubleClick();
+                }
+            }
+        });
+
+        mRbPersonalCenter.setOnDoubleClickListener(new ExBaseRadioButton.OnDoubleClickListener() {
+            @Override
+            public void onDoubleClick(View view) {
+                if (mPersonalCenterFragment!=null) {
+                    mPersonalCenterFragment.onDoubleClick();
+                }
+            }
+        });
     }
 
     private void initRes() {
@@ -132,11 +185,11 @@ public class HomeActivity extends UIBaseActivity {
 
     private void initBottomMenu() {
         mMenuRadioGroup = (RadioGroup) findViewById(R.id.main_menu_rg);
-        mRbIndaina = (RadioButton) findViewById(R.id.main_rb_indiana);
-        mRbLastest = (RadioButton) findViewById(R.id.main_rb_latest_announcement);
-        mRbShareOrders = (RadioButton) findViewById(R.id.main_rb_shareorders);
-        mRbShoppingCart = (RadioButton) findViewById(R.id.main_rb_shopping_card);
-        mRbPersonalCenter = (RadioButton) findViewById(R.id.main_rb_personal_center);
+        mRbIndaina = (ExBaseRadioButton) findViewById(R.id.main_rb_indiana);
+        mRbLastest = (ExBaseRadioButton) findViewById(R.id.main_rb_latest_announcement);
+        mRbShareOrders = (ExBaseRadioButton) findViewById(R.id.main_rb_shareorders);
+        mRbShoppingCart = (ExBaseRadioButton) findViewById(R.id.main_rb_shopping_card);
+        mRbPersonalCenter = (ExBaseRadioButton) findViewById(R.id.main_rb_personal_center);
 
     }
 
@@ -189,13 +242,38 @@ public class HomeActivity extends UIBaseActivity {
     }
 
 
+    /**
+     * 底部的按钮点击了
+     * @param btnClickFragmentItem
+     */
+    private void onClickFragmentBtn(final int btnClickFragmentItem) {
+        if ((mMenuRadioGroup != null) && (mViewPager != null)) {
+            int curFragmentItem = mViewPager.getCurrentItem();
+
+            if ((btnClickFragmentItem != I_TAG_FRAGMENT_INVALID) && (curFragmentItem != I_TAG_FRAGMENT_INVALID)) {
+                if (mListFragments != null && mListFragments.size() == I_TAG_FRAGMENT_COUNTS) {
+                    if (btnClickFragmentItem == curFragmentItem) {
+                        BaseFragment baseFragment = (BaseFragment) mListFragments.get(curFragmentItem);
+                        baseFragment.onClickAgain();
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+
     public void onBtnIndiana(View view) {
+        onClickFragmentBtn(I_TAG_FRAGMENT_INDIANA);
         changeItemFragmentByButton(I_TAG_FRAGMENT_INDIANA, false);
         changeTitlebar(I_TAG_FRAGMENT_INDIANA);
 
     }
 
     public void onBtnLatestAnnouncement(View view) {
+        onClickFragmentBtn(I_TAG_FRAGMENT_LASTEST);
         changeItemFragmentByButton(I_TAG_FRAGMENT_LASTEST, false);
         changeTitlebar(I_TAG_FRAGMENT_LASTEST);
 
@@ -206,18 +284,20 @@ public class HomeActivity extends UIBaseActivity {
      * @param view
      */
     public void onBtnShareOrders(View view) {
+        onClickFragmentBtn(I_TAG_FRAGMENT_SHAREORDERS);
         changeItemFragmentByButton(I_TAG_FRAGMENT_SHAREORDERS, false);
         changeTitlebar(I_TAG_FRAGMENT_SHAREORDERS);
-
     }
 
     public void onBtnShoppingCart(View view) {
+        onClickFragmentBtn(I_TAG_FRAGMENT_SHOPPING_CART);
         changeItemFragmentByButton(I_TAG_FRAGMENT_SHOPPING_CART, false);
         changeTitlebar(I_TAG_FRAGMENT_SHOPPING_CART);
 
     }
 
     public void onBtnPersonalCenter(View view) {
+        onClickFragmentBtn(I_TAG_FRAGMENT_PERSONAL_CENTER);
         changeItemFragmentByButton(I_TAG_FRAGMENT_PERSONAL_CENTER, false);
         changeTitlebar(I_TAG_FRAGMENT_PERSONAL_CENTER);
 

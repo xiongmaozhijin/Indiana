@@ -7,13 +7,16 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.RadioButton;
 
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
 
 /**
- * 改变Drawable的大小
+ * 改变Drawable的大小，及设置双击事件
  * Created by baoxing on 2016/1/6.
  */
 public class ExBaseRadioButton extends RadioButton {
@@ -23,6 +26,16 @@ public class ExBaseRadioButton extends RadioButton {
     private static int mDrawableSize;
 
     private static final int I_DRAWABLE_SIZE = 28;  //dp
+
+    private GestureDetector mGestureDetector;
+
+    private OnDoubleClickListener mOnDoubleClickListener;
+
+
+    public interface OnDoubleClickListener {
+        void onDoubleClick(View view);
+    }
+
 
     static {
 //        mDrawableSize = LocalDisplay.dp2px(I_DRAWABLE_SIZE);
@@ -48,9 +61,24 @@ public class ExBaseRadioButton extends RadioButton {
 
     private void init(Context context) {
         mDrawableSize = LocalDisplay.dp2px(I_DRAWABLE_SIZE);
+        mGestureDetector = new GestureDetector(context, new GestureDoubleClickListener());
+
         LogUtils.w(TAG, "init()#mDrawableSize=%d", mDrawableSize);
     }
 
+
+    public void setOnDoubleClickListener(OnDoubleClickListener listener) {
+        mOnDoubleClickListener = listener;
+    }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (mGestureDetector!=null) {
+            mGestureDetector.onTouchEvent(event);
+        }
+        return super.onTouchEvent(event);
+    }
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -62,4 +90,22 @@ public class ExBaseRadioButton extends RadioButton {
         super.onDraw(canvas);
 
     }
+
+
+
+    private class GestureDoubleClickListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            if (mOnDoubleClickListener != null) {
+                mOnDoubleClickListener.onDoubleClick(ExBaseRadioButton.this);
+            }
+            return super.onDoubleTap(e);
+        }
+    }
+
+
+
+
+
+
 }

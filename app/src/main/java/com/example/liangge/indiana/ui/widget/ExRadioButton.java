@@ -90,7 +90,7 @@ public class ExRadioButton extends ExBaseRadioButton{
             mTextPaint.setColor(Color.WHITE);
             canvas.drawText(mIBuyCnt + "", x1, y1+txvHeight/2, mTextPaint);
 
-            LogUtils.i(TAG, "drawBadgeView(). h=%d, w=%d,dh=%d, dw=%d iCircleSize=%d, x1=%d, y1=%d", h, w,dh, dw, iCircleSize, x1, y1);
+//            LogUtils.i(TAG, "drawBadgeView(). h=%d, w=%d,dh=%d, dw=%d iCircleSize=%d, x1=%d, y1=%d", h, w,dh, dw, iCircleSize, x1, y1);
         }
 
     }

@@ -153,4 +153,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
+    /**
+     * 在当前页面再次点击该framgent的 button
+     */
+    public void onClickAgain() {
+        LogUtils.e(getDeugTag(), "onClickAgain()");
+    }
+
+    /**
+     * 双击了底部的按钮
+     */
+    public void onDoubleClick() {
+        LogUtils.e(getDeugTag(), "onDoubleClick()");
+    }
+
+
 }
