@@ -262,6 +262,19 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         super.onLeft();
     }
 
+
+    @Override
+    public void onDoubleClick() {
+        super.onDoubleClick();
+        if (mExScrollView != null) {
+            mExScrollView.smoothScrollTo(0, 0);
+            if (!isRefreshing()) {
+                onAutoRefreshUIShow();
+            }
+        }
+    }
+
+
     @Override
     protected String getDeugTag() {
         return TAG;

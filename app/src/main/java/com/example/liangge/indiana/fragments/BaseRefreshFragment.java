@@ -135,12 +135,37 @@ public abstract class BaseRefreshFragment extends BaseNetUIFragment {
     }
 
 
-
+    /**
+     * 自动刷新
+     */
     protected void onAutoRefreshUIShow() {
         if (mPtrFrame != null) {
             mPtrFrame.autoRefresh();
         }
     }
+
+    /**
+     * 返回刷新组件
+     * @return
+     */
+    protected PtrClassicFrameLayout getRefreshViewWrapper() {
+        mPtrFrame.isRefreshing();
+        return mPtrFrame;
+    }
+
+    /**
+     * 是否正在刷新
+     * @return
+     */
+    protected boolean isRefreshing() {
+        if (mPtrFrame != null) {
+            return mPtrFrame.isRefreshing();
+
+        } else {
+            return false;
+        }
+    }
+
 
     protected void disableWhenHorizontalMove() {
         mPtrFrame.disableWhenHorizontalMove(true);

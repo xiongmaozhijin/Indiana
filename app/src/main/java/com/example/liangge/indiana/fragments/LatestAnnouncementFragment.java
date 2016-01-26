@@ -372,4 +372,17 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
         mLatestBiz.onLeave();
     }
 
+    @Override
+    public void onDoubleClick() {
+        super.onDoubleClick();
+        if (mExScrollView != null) {
+            mExScrollView.smoothScrollTo(0, 0);
+            if (!isRefreshing()) {
+                onAutoRefreshUIShow();
+            }
+        }
+    }
+
+
+
 }
