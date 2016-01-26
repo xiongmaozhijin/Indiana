@@ -72,6 +72,17 @@
     </style>
 
 
+    <!-- 网页进度条样式 -->
+    <style name="WebViewProgressBar_Mini" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:maxHeight">50dip</item>
+        <item name="android:minHeight">7dip</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:progressDrawable">@drawable/webview_progressbar_mini</item>
+    </style>
+
+
+
     <style name="f_personal_txvbtn">
         <item name="android:layout_height">39dp</item>
         <item name="android:paddingLeft">7dp</item>
