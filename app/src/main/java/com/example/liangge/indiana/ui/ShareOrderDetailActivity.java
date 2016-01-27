@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.AppBiz;
 import com.example.liangge.indiana.biz.DetailInfoBiz;
 import com.example.liangge.indiana.biz.ShareOrdersBiz;
 import com.example.liangge.indiana.model.ShareOrdersEntity;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 晒单详细
  * Created by baoxing on 2016/1/21.
  */
 public class ShareOrderDetailActivity extends SimpleAdapterBaseActivity2 {
@@ -159,9 +161,15 @@ public class ShareOrderDetailActivity extends SimpleAdapterBaseActivity2 {
     }
 
 
-
-
-
+    /**
+     * 点击分享
+     * @param view
+     */
+    public void onBtnShareAction(View view) {
+        String shareContentFormat = getResources().getString(R.string.share_content_format);
+        String shareContent = String.format(shareContentFormat, mShareOrdersBiz.getDataEntity().getBingoRecordEntity().getTitle());
+        AppBiz.getInstance(this).showShareDialog(this, shareContent);
+    }
 
 
 

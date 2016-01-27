@@ -6,11 +6,27 @@
     android:layout_height="fill_parent"
     android:orientation="vertical">
 
-    <com.example.liangge.indiana.ui.widget.CommTitleBar
-        xmlns:title="http://schemas.android.com/apk/res-auto"
-        title:titlebar_title="@string/activity_share_detail_title"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <com.example.liangge.indiana.ui.widget.CommTitleBar
+            xmlns:title="http://schemas.android.com/apk/res-auto"
+            title:titlebar_title="@string/activity_share_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:onClick="onBtnShareAction"
+            android:layout_marginRight="3dp"
+            android:layout_gravity="center_vertical|right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/share_action"
+            android:background="@drawable/selector_share_action_bg"/>
+
+    </FrameLayout>
+
 
     <ScrollView
         android:background="@color/white"

@@ -393,4 +393,6 @@
     <string name="share_item_failed">没有找到App哟</string>
 
 
+    <string name="share_content_format">哟，快来看看！这家伙在Indiana中获得了%1$s. 真是春风得意马蹄疾，一日看尽长安花。</string>
+
 </resources>
