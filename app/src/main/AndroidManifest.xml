@@ -16,11 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".ui.HomeActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.test.BannerActivityTest"
@@ -84,18 +80,23 @@
         </activity>
         <activity android:name=".ui.user.SettingActivity" >
         </activity>
-        <activity android:name=".ui.user.UserCenterActivity">
+        <activity android:name=".ui.user.UserCenterActivity" >
         </activity>
-        <activity android:name=".ui.AddShareActivity">
-
+        <activity android:name=".ui.AddShareActivity" >
         </activity>
-
-        <activity android:name=".ui.ShareOrderDetailActivity"></activity>
-
-
+        <activity android:name=".ui.ShareOrderDetailActivity" />
         <activity
-            android:configChanges="orientation|screenSize"
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name=".ui.test.ShareTestActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
 
     </application>
 

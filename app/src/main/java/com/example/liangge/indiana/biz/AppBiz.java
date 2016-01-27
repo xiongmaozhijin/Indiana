@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.text.Html;
+import android.view.View;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
@@ -214,6 +215,80 @@ public class AppBiz {
     }
 
 
+    /**
+     * 显示分享对话框
+     * @param context
+     */
+    public void showShareDialog(final Context context, final String shareContent) {
+        View view = View.inflate(context, R.layout.layout_share, null);
+        view.findViewById(R.id.btn_share_facebook).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareText(context, shareContent, "com.facebook.katana");
+            }
+        });
+        view.findViewById(R.id.btn_share_weixin).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareText(context, shareContent, "com.tencent.mm");
+            }
+        });
+        view.findViewById(R.id.btn_share_twitter).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareText(context, shareContent, "com.twitter.android");
+            }
+        });
+        view.findViewById(R.id.btn_share_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareText(context, shareContent);
+            }
+        });
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context).setView(view).setCancelable(true);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.setCancelable(true);
+        alertDialog.setCanceledOnTouchOutside(true);
+        alertDialog.show();
+    }
+
+
+    private void shareText(Context context, String shareContent) {
+        try {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, shareContent);
+            sendIntent.setType("text/plain");
+            context.startActivity(sendIntent);
+
+        } catch (Exception e) {
+            String hint = context.getString(R.string.share_item_failed);
+            LogUtils.toastShortMsg(context, hint);
+
+        }
+
+    }
+
+
+    private void shareText(Context context, String shareContent, String packageName) {
+        try {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, shareContent);
+            sendIntent.setType("text/plain");
+            sendIntent.setPackage(packageName);
+            context.startActivity(sendIntent);
+
+        } catch (Exception e) {
+            String hint = context.getString(R.string.share_item_failed);
+            LogUtils.toastShortMsg(context, hint);
+
+        }
+
+
+    }
 
 
 

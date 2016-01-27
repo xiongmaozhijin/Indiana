@@ -385,9 +385,12 @@
 
     <string name="refresh_failed">刷新失败</string>
     <string name="activity_share_detail_title">晒单详细</string>
+    <string name="share_title_1">分享到</string>
+    <string name="share_item_facebook">FACEBOOK</string>
+    <string name="share_item_twitter">TWITTER</string>
+    <string name="share_item_more">MORE</string>
 
-
-
+    <string name="share_item_failed">没有找到App哟</string>
 
 
 </resources>

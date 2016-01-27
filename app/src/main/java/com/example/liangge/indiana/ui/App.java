@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.SharedPrefUtils;
 import com.example.liangge.indiana.comm.net.VolleyBiz;
+import com.example.liangge.indiana.exception.CrashHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -24,6 +25,7 @@ public class App extends Application{
         initSharedPref();
         initVolley();
         initOther();
+//        registerCrashRecord();
     }
 
     private void initOther() {
@@ -47,7 +49,9 @@ public class App extends Application{
 
     }
 
-
+    private void registerCrashRecord() {
+        CrashHandler.init(getApplicationContext());
+    }
 
 
 

@@ -166,4 +166,25 @@
         <item name="android:background">@drawable/selector_detail_item_bg</item>
     </style>
 
+    <style name="ShareItem">
+        <item name="android:background">@drawable/selector_share_item_bg</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="ShareItemText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+
+    <style name="share_dialog" parent="@android:style/Theme.Dialog">
+
+    </style>
+
+
+
+
 </resources>
