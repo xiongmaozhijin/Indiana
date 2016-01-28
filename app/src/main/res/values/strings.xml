@@ -46,7 +46,7 @@
     <string name="activity_productdetailinfo_hasjoin_hint_join_2">
         <![CDATA[
             <font color="#d4d4d4">
-            已参与,参与次数</font> [ <font color="#0278fe"><a href="%1$s">%2$d</a></font> ]
+            已参与,参与次数</font> [ <font color="#0278fe"><a href="%1$s">&nbsp; %2$d &nbsp;</a></font> ]
         ]]>
 
     </string>
