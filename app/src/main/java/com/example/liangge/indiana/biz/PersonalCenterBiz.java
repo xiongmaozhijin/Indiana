@@ -82,6 +82,18 @@ public class PersonalCenterBiz extends BaseFragmentBiz{
             if (action== HANDLE_ACTION_REQUEST_USER_INFO) {
                 int status = msg.arg2;
                 if (status !=  200) {
+                    if (status == 413) {    //用户在其它地方登录了
+                        if (mInstance != null) {
+                            mInstance.logOut();
+                        }
+
+                    } else if (status == 412) { //用户的登录有效期到了
+                        if (mInstance != null) {
+                            mInstance.logOut();
+                        }
+
+                    }
+
                     String hint = (String) msg.obj;
                     LogUtils.toastShortMsg(mContext, hint);
                 }

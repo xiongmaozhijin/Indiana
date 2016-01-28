@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
+import com.example.liangge.indiana.biz.AppBiz;
 import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.biz.user.EditUserInfoBiz;
 import com.example.liangge.indiana.comm.LogUtils;
@@ -262,7 +263,13 @@ public class EditUserInfoActivity extends SimpleAdapterBaseActivity2 {
 
 
     public void onBtnBack(View view) {
-        finish();
+        AppBiz.getInstance(this).hideSoftKeyBoard(this, mEdtUsername.getWindowToken());
+        mEdtUsername.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onBackPressed();
+            }
+        }, 400);
     }
 
 
