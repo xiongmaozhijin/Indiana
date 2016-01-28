@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.adapter.ShoppingCartListViewAdapter;
+import com.example.liangge.indiana.biz.AppBiz;
 import com.example.liangge.indiana.biz.inner.CategroyDetailBiz;
 import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
@@ -153,7 +154,14 @@ public class SearchActivity extends SimpleAdapterBaseActivity2 {
 
 
     public void onBtnBack(View view) {
-        finish();
+        AppBiz.getInstance(this).hideSoftKeyBoard(this, mEdtSearch.getWindowToken());
+        mEdtSearch.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onBackPressed();
+            }
+        }, 400);
+
     }
 
 

@@ -11,9 +11,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.text.Html;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.example.liangge.indiana.R;
@@ -289,6 +292,24 @@ public class AppBiz {
 
 
     }
+
+    /**
+     * 隐藏软键盘
+     * @param context
+     * @param windowToken
+     */
+    public void hideSoftKeyBoard(Context context, IBinder windowToken) {
+        //1.得到InputMethodManager对象
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        //2.调用hideSoftInputFromWindow方法隐藏软键盘
+        if (imm != null) {
+            if (imm.isActive()) {
+                imm.hideSoftInputFromWindow(windowToken, 0); //强制隐藏键盘
+            }
+        }
+
+    }
+
 
 
 
