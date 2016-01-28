@@ -77,8 +77,11 @@ public class ImageUtils {
             fos.write(baos.toByteArray());
             fos.flush();
             fos.close();
+            baos.close();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            bmp.recycle();
         }
     }
 
