@@ -82,11 +82,26 @@ public class ScrollListViewActivity extends Activity {
         });
 
 
+    /*
+     * scrollState值：
+     * 当屏幕停止滚动时为SCROLL_STATE_IDLE = 0；
+     * 当屏幕滚动且用户使用的触碰或手指还在屏幕上时为SCROLL_STATE_TOUCH_SCROLL = 1；
+     * 由于用户的操作，屏幕产生惯性滑动时为SCROLL_STATE_FLING = 2
+     */
+
         mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 LogUtils.e(TAG+1, "scrollState=%d", scrollState);
             }
+
+    /*
+     * firstVisibleItem:表示在现时屏幕第一个ListItem(部分显示的ListItem也算)在整个ListView的位置(下标从0开始)
+     * visibleItemCount:表示在现时屏幕可以见到的ListItem(部分显示的ListItem也算)总数
+     * totalItemCount:表示ListView的ListItem总数
+     * listView.getFirstVisiblePosition()表示在现时屏幕第一个ListItem(第一个ListItem部分显示也算)在整个ListView的位置(下标从0开始)
+     * listView.getLastVisiblePosition()表示在现时屏幕最后一个ListItem(最后ListItem要完全显示出来才算)在整个ListView的位置(下标从0开始)
+     */
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -138,8 +153,13 @@ public class ScrollListViewActivity extends Activity {
         int scrollY = mListView.getScrollY();
         int getFirstVisItem = mListView.getFirstVisiblePosition();
         int getLastVisItem = mListView.getLastVisiblePosition();
+//        View firstVisibleView = mListView.getChildAt(mListView.getFirstVisiblePosition());
+        int childCount = mListView.getChildCount();
+        int lastViewtop = mListView.getChildAt(mListView.getLastVisiblePosition()-mListView.getFirstVisiblePosition()).getTop();
 
         LogUtils.e(TAG, "getBottom=%d, scrollY=%d, firstItem=%d, lastItem=%d", getBottom, scrollY, getFirstVisItem, getLastVisItem);
+        LogUtils.e(TAG, "childCnt=%d, lastViewtop=%d", childCount, lastViewtop);
+//        LogUtils.e(TAG, "firstView.top=%d", firstVisibleView.getTop());
     }
 
     private class MyAdapter extends BaseAdapter {
