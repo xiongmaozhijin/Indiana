@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
+import com.example.liangge.indiana.ui.widget.ExGridViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -29,7 +30,7 @@ public class GridViewTest extends AppCompatActivity {
 
     private static final String TAG = GridViewTest.class.getSimpleName();
 
-    private GridView mGridView;
+    private ExGridViewScrollDone mGridView;
 
     private GridAdapter mAdapter;
 
@@ -76,7 +77,10 @@ public class GridViewTest extends AppCompatActivity {
         mFloatContentView = findViewById(R.id.float_content_wrapper);
         mFixMenu = findViewById(R.id.fit_float_menu);
 
-        mGridView = (GridView) findViewById(R.id.gridview);
+        mGridView = (ExGridViewScrollDone) findViewById(R.id.gridview);
+
+        mGridView.setNumColumns(2);
+
         mScrollGridView = (ExScrollView) findViewById(R.id.scrollview);
 
         mScrollGridView.setOnFloatMenuHiddenListener(new ExScrollView.OnFloatMenuHiddenListener() {

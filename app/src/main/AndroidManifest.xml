@@ -17,11 +17,7 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".ui.HomeActivity" >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -95,10 +91,20 @@
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
             android:configChanges="orientation|screenSize" />
         <activity android:name=".ui.test.ShareTestActivity" >
+
         </activity>
         <activity android:name=".ui.test.ScrollListViewActivity" >
 
         </activity>
+
+        <activity android:name=".ui.test.SrollViewTestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
