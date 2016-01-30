@@ -246,6 +246,10 @@ public class IndianaBiz extends BaseFragmentBiz{
 
             if (RequestInfo.iLoadMode== Constant.Comm.MODE_LOAD_MORE) {
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL);
+                RequestInfo.iCurPage--;
+                if (RequestInfo.iCurPage <= 0) {
+                    RequestInfo.iCurPage = 1;
+                }
 
             } else if (RequestInfo.iLoadMode== Constant.Comm.MODE_ENTER){
                 item.setMessageAction(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL);
