@@ -61,8 +61,8 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         mAdapter = new ShareOrdersListViewAdapter(getActivity());
 
         mViewLoadMoreWrapper = View.inflate(getActivity(), R.layout.layout_load_more_wrapper, null);
-//        mViewLoadMoreWrapper.setVisibility(View.GONE);
-//        mListView.addFooterView(mViewLoadMoreWrapper, null, false);
+        mViewLoadMoreWrapper.setVisibility(View.GONE);
+        mListView.addFooterView(mViewLoadMoreWrapper, null, false);
         mListView.setAdapter(mAdapter);
 
         mViewNotWrapper = view.findViewById(R.id.not_net_wrapper);
@@ -211,17 +211,11 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_FAILED)) {
             dismissRefreshUI();
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
-            if (mListView != null) {
-                mListView.removeFooterView(mViewLoadMoreWrapper);
-            }
 
             String hint = getActivity().getResources().getString(R.string.refresh_failed);
             LogUtils.toastShortMsg(getActivity(), hint);
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
-            if (mListView != null) {
-                mListView.removeFooterView(mViewLoadMoreWrapper);
-            }
 
             dismissRefreshUI();
             mAdapter.setDataAndNotify(mShareOrdersBiz.getShareOrdersList());
@@ -231,9 +225,6 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     private void handleUILoadData(String uiAction) {
         LogUtils.i(TAG, "handleUILoadData()");
         handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
-        if (mListView != null) {
-            mListView.removeFooterView(mViewLoadMoreWrapper);
-        }
 
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_START)) {
             handleNetUI(Constant.Comm.NET_LOADING, mViewNotWrapper, mViewAllContentWrapper);
@@ -251,10 +242,6 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     private void handleUILoadMoreData(String uiAction) {
         LogUtils.i(TAG, "handleUILoadMoreData()");
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_START)) {
-            if (mListView != null) {
-                mListView.removeFooterView(mViewLoadMoreWrapper);
-                mListView.addFooterView(mViewLoadMoreWrapper);
-            }
 
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
 
@@ -264,19 +251,10 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_SUCCESS)) {
             boolean isEmpty = mShareOrdersBiz.getShareOrdersList().size()<=0;
-            if (mListView != null) {
-               if (isEmpty) {
-
-
-               } else {
-                mListView.removeFooterView(mViewLoadMoreWrapper);
-
-               }
-
-            }
-
 
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
+
+            LogUtils.e(TAG, "here---");
             mAdapter.loadMoreDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }
 
