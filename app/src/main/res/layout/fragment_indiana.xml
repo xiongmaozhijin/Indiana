@@ -6,9 +6,9 @@
     tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
 
     <LinearLayout
-        android:background="@color/bg_1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_1"
         android:orientation="vertical">
 
         <!-- Titlebar-->
@@ -19,261 +19,259 @@
 
             <TextView
                 android:id="@+id/titlebar_title"
+                style="@style/titlebar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/main_titlebar_title_indiana"
-                style="@style/titlebar_title"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true"
+                android:text="@string/main_titlebar_title_indiana" />
 
             <ImageView
                 android:id="@+id/main_btn_search"
-                android:clickable="true"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/search_white"
-                android:background="@drawable/selector_f_indiana_btn_search"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:paddingRight="9dp"/>
+                android:background="@drawable/selector_f_indiana_btn_search"
+                android:clickable="true"
+                android:paddingRight="9dp"
+                android:src="@drawable/search_white" />
 
 
             <com.example.liangge.indiana.ui.widget.RotateImageView
                 android:id="@+id/main_btn_refresh_loading"
-                android:visibility="gone"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:src="@drawable/comm_loading_view"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:paddingRight="9dp"/>
+                android:paddingRight="9dp"
+                android:src="@drawable/comm_loading_view"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
 
+        <!-- 没有网络或第一次加载 -->
+        <include
+            android:id="@+id/f_indian_not_network_first_load_wrapper"
+            layout="@layout/layout_not_network" />
 
-
-    <!-- 没有网络或第一次加载 -->
-    <include
-        android:id="@+id/f_indian_not_network_first_load_wrapper"
-        layout="@layout/layout_not_network" />
-
-    <FrameLayout
-        android:id="@+id/f_indiana_all_content_wrapper"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <in.srain.cube.views.ptr.PtrClassicFrameLayout
-            android:id="@+id/rotate_header_web_view_frame"
+        <FrameLayout
+            android:id="@+id/f_indiana_all_content_wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cube_mints_f1f1f1"
-            app:ptr_duration_to_close="200"
-            app:ptr_duration_to_close_header="1000"
-            app:ptr_keep_header_when_refresh="true"
-            app:ptr_pull_to_fresh="false"
-            app:ptr_ratio_of_header_height_to_refresh="1.2"
-            app:ptr_resistance="1.7">
+            android:visibility="gone">
 
-
-            <com.example.liangge.indiana.ui.widget.ExScrollView
-                android:id="@+id/f_indiana_main_scrollview"
+            <in.srain.cube.views.ptr.PtrClassicFrameLayout
+                android:id="@+id/rotate_header_web_view_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
-                android:fillViewport="true">
+                android:background="@color/cube_mints_f1f1f1"
+                app:ptr_duration_to_close="200"
+                app:ptr_duration_to_close_header="1000"
+                app:ptr_keep_header_when_refresh="true"
+                app:ptr_pull_to_fresh="false"
+                app:ptr_ratio_of_header_height_to_refresh="1.2"
+                app:ptr_resistance="1.7">
 
 
-                <LinearLayout
+                <com.example.liangge.indiana.ui.widget.ExScrollView
+                    android:id="@+id/f_indiana_main_scrollview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/bg_1"
-                    android:orientation="vertical">
+                    android:background="@android:color/darker_gray"
+                    android:fillViewport="true">
 
-                    <!-- 图片轮播部分 -->
-                    <com.example.liangge.indiana.ui.widget.BannerView
-                        android:id="@+id/main_banner_view"
-                        xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
-                        appbannerview:normalIndexDrawable="@drawable/main_banner_indicator_normal"
-                        appbannerview:selectIndexDrawable="@drawable/main_banner_indicator_select"
-                        appbannerview:space="3dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="120dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/white"
-                        android:orientation="vertical"
-                        android:paddingTop="5dp">
+                        android:layout_height="match_parent"
+                        android:background="@color/bg_1"
+                        android:orientation="vertical">
 
-                        <!-- menu -->
-                        <LinearLayout
+                        <!-- 图片轮播部分 -->
+                        <com.example.liangge.indiana.ui.widget.BannerView
+                            xmlns:appbannerview="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/main_banner_view"
                             android:layout_width="match_parent"
-                            android:layout_height="72dp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:id="@+id/top_menu_catory"
-                                android:layout_width="54dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:adjustViewBounds="true"
-                                    android:src="@drawable/f_indiana_top_menu_category" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:gravity="center"
-                                    android:text="@string/f_indiana_top_menu_category" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/top_menu_tenyuan_area"
-                                android:layout_width="54dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:adjustViewBounds="true"
-                                    android:src="@drawable/f_indiana_ten_area" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:gravity="center"
-                                    android:text="@string/f_indiana_top_menu_tenyuan_area" />
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:id="@+id/top_menu_qaq"
-                                android:layout_width="54dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center"
-                                android:orientation="vertical">
-
-                                <ImageView
-                                    android:layout_width="48dp"
-                                    android:layout_height="48dp"
-                                    android:adjustViewBounds="true"
-                                    android:src="@drawable/f_indiana_top_menu_qaq" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="3dp"
-                                    android:gravity="center"
-                                    android:text="@string/f_indiana_top_menu_qaq" />
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.1dp"
-                            android:layout_marginTop="5dp"
-                            android:background="#F5F3F1" />
-
-                        <!-- notification -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="38dp"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_marginLeft="14dp"
-                                android:src="@drawable/f_indiana_top_notice" />
-
-                            <com.example.liangge.indiana.ui.widget.NoticationTextView
-                                android:id="@+id/txv_notification"
-                                android:clickable="true"
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="4dp"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical"
-                                android:singleLine="true"
-                                android:text="......" />
-
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="9dp"
-                        android:background="#F1EEEC" />
-
-
-                    <!-- 内容部分，包括菜单，内容，加载更多提示部分 -->
-                    <FrameLayout
-                        android:id="@+id/f_indiana_product_content_wrapper"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                            android:layout_height="120dp"
+                            appbannerview:normalIndexDrawable="@drawable/main_banner_indicator_normal"
+                            appbannerview:selectIndexDrawable="@drawable/main_banner_indicator_select"
+                            appbannerview:space="3dp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:background="@android:color/white"
+                            android:orientation="vertical"
+                            android:paddingTop="5dp">
 
-                            <!-- 分类浮动菜单 -->
-                            <include
-                                android:id="@+id/f_indiana_fix_menu"
-                                layout="@layout/f_indiana_content_float_menu" />
+                            <!-- menu -->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="72dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:id="@+id/top_menu_catory"
+                                    android:layout_width="54dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:adjustViewBounds="true"
+                                        android:src="@drawable/f_indiana_top_menu_category" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:text="@string/f_indiana_top_menu_category" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/top_menu_tenyuan_area"
+                                    android:layout_width="54dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:adjustViewBounds="true"
+                                        android:src="@drawable/f_indiana_ten_area" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:text="@string/f_indiana_top_menu_tenyuan_area" />
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:id="@+id/top_menu_qaq"
+                                    android:layout_width="54dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:layout_width="48dp"
+                                        android:layout_height="48dp"
+                                        android:adjustViewBounds="true"
+                                        android:src="@drawable/f_indiana_top_menu_qaq" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:text="@string/f_indiana_top_menu_qaq" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.1dp"
-                                android:background="#ededeb" />
+                                android:layout_marginTop="5dp"
+                                android:background="#F5F3F1" />
 
-                            <!-- 产品展示或正在加载 -->
-                            <FrameLayout
+                            <!-- notification -->
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                                android:layout_height="38dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
 
+                                <ImageView
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginLeft="14dp"
+                                    android:src="@drawable/f_indiana_top_notice" />
+
+                                <com.example.liangge.indiana.ui.widget.NoticationTextView
+                                    android:id="@+id/txv_notification"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_weight="1"
+                                    android:clickable="true"
+                                    android:gravity="center_vertical"
+                                    android:singleLine="true"
+                                    android:text="......" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="9dp"
+                            android:background="#F1EEEC" />
+
+
+                        <!-- 内容部分，包括菜单，内容，加载更多提示部分 -->
+                        <FrameLayout
+                            android:id="@+id/f_indiana_product_content_wrapper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <!-- 分类浮动菜单 -->
                                 <include
-                                    android:id="@+id/f_indiana_tag_net_hint_wrapper"
-                                    layout="@layout/layout_not_network" />
+                                    android:id="@+id/f_indiana_fix_menu"
+                                    layout="@layout/f_indiana_content_float_menu" />
 
-                                <!-- 产品展示, GridView -->
-                                <com.example.liangge.indiana.ui.widget.ExGridView
-                                    android:id="@+id/f_indiana_product_content_gridview"
+                                <View
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@color/fragment_gridview_split"
-                                    android:gravity="center"
-                                    android:horizontalSpacing="1dp"
-                                    android:numColumns="2"
-                                    android:verticalSpacing="1dp"
-                                    android:visibility="visible" />
+                                    android:layout_height="0.1dp"
+                                    android:background="#ededeb" />
+
+                                <!-- 产品展示或正在加载 -->
+                                <FrameLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <include
+                                        android:id="@+id/f_indiana_tag_net_hint_wrapper"
+                                        layout="@layout/layout_not_network" />
+
+                                    <!-- 产品展示, GridView -->
+                                    <com.example.liangge.indiana.ui.widget.ExGridView
+                                        android:id="@+id/f_indiana_product_content_gridview"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/fragment_gridview_split"
+                                        android:gravity="center"
+                                        android:horizontalSpacing="1dp"
+                                        android:numColumns="2"
+                                        android:verticalSpacing="1dp"
+                                        android:visibility="visible" />
 
 
-                            </FrameLayout>
+                                </FrameLayout>
 
 
-                            <!-- 加载更多 -->
+                                <!-- 加载更多 -->
 
 
                                 <include
@@ -281,30 +279,30 @@
                                     layout="@layout/layout_load_more_wrapper" />
 
 
-                        </LinearLayout>
+                            </LinearLayout>
 
 
-                    </FrameLayout>
+                        </FrameLayout>
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
-            </com.example.liangge.indiana.ui.widget.ExScrollView>
-
-
-            <!--
-                   &lt;!&ndash; 浮动菜单 &ndash;&gt;
-                   <include
-                       android:id="@+id/f_indiana_product_fit_float_menu"
-                       layout="@layout/f_indiana_content_fit_float_menu" />
+                </com.example.liangge.indiana.ui.widget.ExScrollView>
 
 
-                   -->
+                <!--
+                       &lt;!&ndash; 浮动菜单 &ndash;&gt;
+                       <include
+                           android:id="@+id/f_indiana_product_fit_float_menu"
+                           layout="@layout/f_indiana_content_fit_float_menu" />
 
 
-        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+                       -->
 
-    </FrameLayout>
+
+            </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+        </FrameLayout>
 
 
     </LinearLayout>
