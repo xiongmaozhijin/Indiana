@@ -93,31 +93,36 @@ public class RunLottoryView3 extends TextView{
     private void initRes() {
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mDateFormatCountdown.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
+
+        mSlaveDrawThread = new SlaveDrawThread();
+        mSlaveDrawThread.start();
     }
 
 
 
     public void init2(LastestBingoEntity item) {
         this.mLastestBingoEntity = item;    //这里考虑是传clone还是引用
-        LogUtils.w(TAG, "item=%s", item.toString() );
+        LogUtils.w(TAG, "item=%s", item.toString());
         startSlaveThread();
     }
 
     private synchronized void startSlaveThread() {
         LogUtils.w(TAG, "startSlaveThread()");
-        if (mSlaveDrawThread == null) {
-            mSlaveDrawThread = new SlaveDrawThread();
-            mSlaveDrawThread.start();
 
-        } else {
-            boolean isAlive = mSlaveDrawThread.getIsAlive();
-            LogUtils.w(TAG, "isAlive=%b", isAlive);
-            if (!isAlive) {
-                mSlaveDrawThread = new SlaveDrawThread();
-                mSlaveDrawThread.start();
+        postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mSlaveDrawThread != null) {
+                    if (!mSlaveDrawThread.getIsAlive()) {
+                        mSlaveDrawThread = new SlaveDrawThread();
+                        mSlaveDrawThread.start();
+                    }
+                } else {
+                    mSlaveDrawThread = new SlaveDrawThread();
+                    mSlaveDrawThread.start();
+                }
             }
-
-        }
+        }, 100);
 
 
     }
@@ -257,30 +262,38 @@ public class RunLottoryView3 extends TextView{
         public void run() {
             super.run();
             while (bIsAlive) {
-                mStrRunLottoryHumanReadable = getHumanCountdownHint2();
-                postInvalidate();
+                if (mLastestBingoEntity !=null) {
+                    try {
+                        mStrRunLottoryHumanReadable = getHumanCountdownHint2();
+                        postInvalidate();
 
-                updateSpeed();
+                        updateSpeed();
 
-                if (isTimeUp2()) {
-                    LogUtils.e(TAG, "timeUp2...");
-                    if (mOnTimesUpListener != null) {
-                        mOnTimesUpListener.onTimesUp(mLastestBingoEntity);
+                        if (isTimeUp2()) {
+                            LogUtils.e(TAG, "timeUp2...");
+                            if (mOnTimesUpListener != null) {
+                                mOnTimesUpListener.onTimesUp(mLastestBingoEntity);
+                            }
+                            break;
+                        }   //end ifTimeUP
+
+                        if (isExit()) {
+                            LogUtils.e(TAG, "isExit...");
+                            mLastestBingoEntity = null;
+                            break;
+                        }
+
+                        LogUtils.e(TAG, "end run...");
+
+                    } catch (Exception e) {
+
+                        LogUtils.e(TAG, "Exception:%s", e.getLocalizedMessage());
                     }
-                    this.bIsAlive = false;
-                    break;
-                }   //end ifTimeUP
-
-                if (isExit()) {
-                    LogUtils.e(TAG, "isExit...");
-                    this.bIsAlive = false;
-                    break;
                 }
+
 
             }   //end while
 
-
-            LogUtils.e(TAG, "end run...");
         } //end run
 
         private void updateSpeed() {
