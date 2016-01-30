@@ -1,5 +1,6 @@
 package com.example.liangge.indiana.biz;
 
+import android.app.DownloadManager;
 import android.content.Context;
 
 import com.android.volley.Request;
@@ -179,6 +180,14 @@ public class LatestBiz extends BaseFragmentBiz{
             this.bIsWorking = false;
             UIMessageEntity item = new UIMessageEntity();
             item.setMessageAction(UIMessageConts.LatestAnnouncementMessage.MESSAGE_LOAD_PRODUCT_DATA_FAILED);
+
+            if (RequestInfo.bIsLoadMore || (RequestInfo.iLoadMode== Constant.Comm.MODE_LOAD_MORE) ) {
+                RequestInfo.startPage--;
+                if (RequestInfo.startPage <= 0) {
+                    RequestInfo.startPage = 1;
+                }
+
+            }
 
             mMessageManager.sendMessage(item);
         }

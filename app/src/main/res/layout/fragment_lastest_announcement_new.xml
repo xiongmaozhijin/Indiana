@@ -62,40 +62,27 @@
                 app:ptr_resistance="1.7">
 
 
-                <com.example.liangge.indiana.ui.widget.ExScrollView
-                    android:id="@+id/f_latest_content_scrollview"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@android:color/darker_gray"
+                    android:orientation="vertical">
 
-                    <LinearLayout
+                    <com.example.liangge.indiana.ui.widget.ExGridViewScrollDone
+                        android:id="@+id/f_latest_gridview_product_data"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@android:color/darker_gray"
-                        android:orientation="vertical">
-
-                        <com.example.liangge.indiana.ui.widget.ExGridView
-
-                            android:id="@+id/f_latest_gridview_product_data"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/fragment_gridview_split"
-                            android:cacheColorHint="@android:color/transparent"
-                            android:fadingEdge="none"
-                            android:focusable="false"
-                            android:gravity="center"
-                            android:horizontalSpacing="1dp"
-                            android:numColumns="2"
-                            android:verticalSpacing="1dp" />
+                        android:background="@color/fragment_gridview_split"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:fadingEdge="none"
+                        android:focusable="false"
+                        android:gravity="center"
+                        android:horizontalSpacing="1dp"
+                        android:numColumns="2"
+                        android:verticalSpacing="1dp" />
 
 
-                        <include
-                            android:id="@+id/load_more_wrapper"
-                            layout="@layout/layout_load_more_wrapper" />
-
-
-                    </LinearLayout>
-
-                </com.example.liangge.indiana.ui.widget.ExScrollView>
+                </LinearLayout>
 
 
             </in.srain.cube.views.ptr.PtrClassicFrameLayout>

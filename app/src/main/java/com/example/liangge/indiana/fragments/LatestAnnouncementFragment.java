@@ -22,6 +22,7 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.LastestBingoEntity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.widget.ExGridView;
+import com.example.liangge.indiana.ui.widget.ExGridViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
@@ -45,9 +46,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     /** 内容布局包裹 */
     private View mViewContentWrapper;
 
-    private ExScrollView mExScrollView;
-
-    private ExGridView mExGridView;
+    private ExGridViewScrollDone mExGridView;
 
     private LatestProductGridViewAdapter mAdapter;
 
@@ -224,7 +223,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mExScrollView;
+        return mExGridView;
     }
 
     @Override
@@ -250,7 +249,7 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_lastest_announcement, container, false);
+        View view = inflater.inflate(R.layout.fragment_lastest_announcement_new, container, false);
         initView(view);
 
         return view;
@@ -263,14 +262,19 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     private void initView(View view) {
         mViewLayoutWrapper = view;
 
-        mViewLoadMoreHintWrapper = view.findViewById(R.id.load_more_wrapper);
+        mViewLoadMoreHintWrapper = View.inflate(getActivity(), R.layout.layout_load_more_wrapper, null);
+        mViewLoadMoreHintWrapper.setVisibility(View.GONE);
+
         mViewNotNetWorkWrpper = view.findViewById(R.id.f_latest_not_network_wrapper);
         mViewContentWrapper = view.findViewById(R.id.f_latest_content_wrapper);
 
-        mExScrollView = (ExScrollView) view.findViewById(R.id.f_latest_content_scrollview);
+        mExGridView = (ExGridViewScrollDone) view.findViewById(R.id.f_latest_gridview_product_data);
+        mExGridView.setNumColumns(2);
+        mExGridView.addFooterView(mViewLoadMoreHintWrapper);
 
-        mExGridView = (ExGridView) view.findViewById(R.id.f_latest_gridview_product_data);
         mAdapter = new LatestProductGridViewAdapter(getActivity());
+        
+        
         mExGridView.setAdapter(mAdapter);
 
 
@@ -278,6 +282,8 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.w(TAG, "onItemClick(). position=%d, info=", position, parent.getAdapter().getItem(position).toString());
+                LogUtils.w(TAG, "childCild=%d", mExGridView.getChildCount());
+
                 LastestBingoEntity item = (LastestBingoEntity) parent.getAdapter().getItem(position);
                 mDetailInfoBiz.setActivityId(item.getActivityId());
                 Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
@@ -293,21 +299,20 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
             }
         });
 
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        
+        mExGridView.setOnTouchScrollDoneListener(new ExGridViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-                LogUtils.w(TAG, "onScrollTop()");
-            }
-
-            @Override
-            public void onScrollBottom() {
+            public void onTouchScrollBottom() {
                 LogUtils.w(TAG, "onScrollBottom()");
                 onScrollBottomLoadData();
             }
+
+            @Override
+            public void onTouchScrollTop() {
+                LogUtils.w(TAG, "onScrollTop()");
+            }
         });
-
-        //TODO
-
+        
     }
 
     /**
@@ -354,7 +359,11 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     public void onEnter() {
         super.onEnter();
 //        mLatestBiz.onEnter();
-        mExScrollView.smoothScrollTo(0, 0);
+        if (mExGridView != null) {
+            if (mExGridView.getChildCount() >= 1) {
+                mExGridView.setSelection(0);
+            }
+        }
         mViewContentWrapper.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -375,8 +384,12 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if ( canDoubleClick(mExScrollView, mViewNotNetWorkWrpper, mViewContentWrapper) ) {
-            mExScrollView.smoothScrollTo(0, 0);
+        if ( canDoubleClick(mExGridView, mViewNotNetWorkWrpper, mViewContentWrapper) ) {
+            if (mExGridView != null) {
+                if (mExGridView.getChildCount()>=1 ) {
+                    mExGridView.setSelection(0);;
+                }
+            }
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();
             }

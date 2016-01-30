@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.GridView;
 
 /**
+ * @deprecated
+ * 不建议使用了，因为这种做法会导致item无法服用，造成OOM<br/>
+ * 使用 {@link ExGridViewScrollDone}
  * 扩展GridView，使其支持ScrollView<br/>
  * <p/>
  * Created by baoxing on 2015/12/15.

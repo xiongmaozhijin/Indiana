@@ -9,12 +9,12 @@ import android.widget.GridView;
 import com.example.liangge.indiana.comm.LogUtils;
 
 /**
- * 扩展GridView，使其支持监听到手指滚动到顶部和底部，及有Header 和 Footer
+ * 扩展GridView，使其支持监听到手指滚动到顶部和底部，没有Header 和 Footer
  * Created by baoxing on 2016/1/30.
  */
-public class ExGridViewScrollDone extends GridViewWithHeaderAndFooter{
+public class ExGridViewScrollDone2 extends GridView {
 
-    private static final String TAG = ExGridViewScrollDone.class.getSimpleName();
+    private static final String TAG = ExGridViewScrollDone2.class.getSimpleName();
 
     private OnTouchScrollDoneListener mOnTouchScrollDoneListener;
 
@@ -24,15 +24,15 @@ public class ExGridViewScrollDone extends GridViewWithHeaderAndFooter{
     }
 
 
-    public ExGridViewScrollDone(Context context) {
+    public ExGridViewScrollDone2(Context context) {
         super(context);
     }
 
-    public ExGridViewScrollDone(Context context, AttributeSet attrs) {
+    public ExGridViewScrollDone2(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ExGridViewScrollDone(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ExGridViewScrollDone2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
