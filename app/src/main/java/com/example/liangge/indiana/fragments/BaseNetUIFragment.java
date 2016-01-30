@@ -28,26 +28,47 @@ public abstract class BaseNetUIFragment extends BaseFragment{
         View loadingHintWrapper = view.findViewById(R.id.comm_loading_icon);
 
         if (netState== Constant.Comm.NET_FAILED_NO_NET) {
-            allContentViewWrapper.setVisibility(View.GONE);
-            view.setVisibility(View.VISIBLE);
-            notNetHintWrapper.setVisibility(View.VISIBLE);
-            loadingHintWrapper.setVisibility(View.GONE);
-            view.findViewById(R.id.comm_reload).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onBtnReload();
-                }
-            });
+            if (allContentViewWrapper != null) {
+                allContentViewWrapper.setVisibility(View.GONE);
+            }
+
+            if (view != null) {
+                view.setVisibility(View.VISIBLE);
+                notNetHintWrapper.setVisibility(View.VISIBLE);
+                loadingHintWrapper.setVisibility(View.GONE);
+                view.findViewById(R.id.comm_reload).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onBtnReload();
+                    }
+                });
+            }
+
+
 
         } else if (netState== Constant.Comm.NET_LOADING) {
-            allContentViewWrapper.setVisibility(View.GONE);
-            view.setVisibility(View.VISIBLE);
-            notNetHintWrapper.setVisibility(View.GONE);
-            loadingHintWrapper.setVisibility(View.VISIBLE);
+            if (allContentViewWrapper != null) {
+                allContentViewWrapper.setVisibility(View.GONE);
+            }
+
+            if (view != null) {
+                view.setVisibility(View.VISIBLE);
+                notNetHintWrapper.setVisibility(View.GONE);
+                loadingHintWrapper.setVisibility(View.VISIBLE);
+            }
+
+
 
         } else if (netState== Constant.Comm.NET_SUCCESS) {
-            view.setVisibility(View.GONE);
-            allContentViewWrapper.setVisibility(View.VISIBLE);
+
+            if (view != null) {
+                view.setVisibility(View.GONE);
+            }
+
+            if (allContentViewWrapper != null) {
+                allContentViewWrapper.setVisibility(View.VISIBLE);
+            }
+
 
         }
 

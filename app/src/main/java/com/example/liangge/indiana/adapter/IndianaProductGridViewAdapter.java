@@ -108,6 +108,15 @@ public class IndianaProductGridViewAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * 清除数据
+     */
+    public void clearDataAndNotify() {
+        if (mListProducts != null) {
+            mListProducts.clear();
+            notifyDataSetChanged();
+        }
+    }
 
 
     @Override

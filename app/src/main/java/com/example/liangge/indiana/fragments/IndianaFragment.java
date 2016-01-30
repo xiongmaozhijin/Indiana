@@ -34,6 +34,7 @@ import com.example.liangge.indiana.ui.Inner.SearchActivity;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
 import com.example.liangge.indiana.ui.WebViewActivity;
 import com.example.liangge.indiana.ui.widget.BannerView;
+import com.example.liangge.indiana.ui.widget.ExGridViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.NoticationTextView;
 
@@ -72,16 +73,13 @@ public class IndianaFragment extends BaseRefreshFragment {
 //    private View mViewFitFloatMenu;
 
     /** 产品显示列表 */
-    private GridView mGridviewProducts;
+    private ExGridViewScrollDone mGridviewProducts;
 
     /** 适配器*/
     private IndianaProductGridViewAdapter mAdapter;
 
-    /** Main ScrollView */
-    private ExScrollView mScrollViewMain;
-
     /** GridView底部加载更多提示 */
-    private View mViewProductLoadingWrapper;
+    private View mViewProductLoadingMoreWrapper;
 
     private View mViewNotNetworkOrFirstLoadWrapper;
 
@@ -110,6 +108,9 @@ public class IndianaFragment extends BaseRefreshFragment {
     /** 下拉刷新 */
 //    protected PtrFrameLayout mPtrFrameLayout;
 
+    /** Header View Wrapper */
+    private View mViewHeaderWrapper;
+
 
     public IndianaFragment() {
         // Required empty public constructor
@@ -122,11 +123,10 @@ public class IndianaFragment extends BaseRefreshFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_indiana, container, false);
+        View view =  inflater.inflate(R.layout.fragment_indiana_new, container, false);
 
         initWidget(view);
-        initMenuBtn(view);
-        initTopMenuView(view);
+        adapterGridView(view);
 
         return view;
     }
@@ -243,32 +243,12 @@ public class IndianaFragment extends BaseRefreshFragment {
 
         mViewTagNetInfoDataInfoWrapper = view.findViewById(R.id.f_indiana_tag_net_hint_wrapper);
 
-        mViewNotification = (NoticationTextView) view.findViewById(R.id.txv_notification);
-
-        mViewProductLoadingWrapper = view.findViewById(R.id.f_indiana_product_loading_more_wrapper);
-
-        mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
-        mBannerView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
         mViewProductContentWrapper = view.findViewById(R.id.f_indiana_product_content_wrapper);
 //        mViewFitFloatMenu = view.findViewById(R.id.f_indiana_product_fit_float_menu);
-        mScrollViewMain = (ExScrollView) view.findViewById(R.id.f_indiana_main_scrollview);
 
-        mGridviewProducts = (GridView) view.findViewById(R.id.f_indiana_product_content_gridview);
-        mAdapter = new IndianaProductGridViewAdapter(getActivity() );
-        mGridviewProducts.setAdapter(mAdapter);
+
 
         mViewSearch = view.findViewById(R.id.main_btn_search);
-
-
-        mViewNotification.setOnItemClickListener(new NoticationTextView.OnItemClickListener() {
-            @Override
-            public void onItemClickListener(NotificationEntitiy item) {
-                LogUtils.i(TAG, "onItemClick().");
-                mDetailInfoBiz.setActivityId(item.getIssue_id());
-                Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
-                startActivity(i);
-            }
-        });
 
 
         mViewSearch.setOnClickListener(new View.OnClickListener() {
@@ -278,13 +258,29 @@ public class IndianaFragment extends BaseRefreshFragment {
             }
         });
 
-        mBannerView.setOnClickListener(new BannerView.OnClickListener() {
-            @Override
-            public void onClick(BannerInfo item) {
-                LogUtils.i(TAG, "onBannerInfo click. item=%s", item.toString());
-                mBannerInfoBiz.onItemClick(item);
-            }
-        });
+
+
+    }
+
+
+    private void adapterGridView(View viewLayout) {
+        mViewHeaderWrapper = View.inflate(getActivity(), R.layout.fragment_indiana_header, null);
+        mViewProductLoadingMoreWrapper = View.inflate(getActivity(), R.layout.layout_load_more_wrapper, null);
+        mViewProductLoadingMoreWrapper.setVisibility(View.GONE);
+
+        mGridviewProducts = (ExGridViewScrollDone) viewLayout.findViewById(R.id.f_indiana_product_content_gridview);
+        mGridviewProducts.setNumColumns(2);
+        mGridviewProducts.addHeaderView(mViewHeaderWrapper, null, false);
+        mGridviewProducts.addFooterView(mViewProductLoadingMoreWrapper, null, false);
+
+        mAdapter = new IndianaProductGridViewAdapter(getActivity() );
+
+        final View view = mViewHeaderWrapper;
+
+        mViewNotification = (NoticationTextView) view.findViewById(R.id.txv_notification);
+        mBannerView = (BannerView) view.findViewById(R.id.main_banner_view);
+        mBannerView.setImageScaleType(ImageView.ScaleType.CENTER_CROP);
+
 
         mAdapter.setOnShoppingCartClickListener(new IndianaProductGridViewAdapter.OnShoppingCartClickListener() {
             @Override
@@ -299,42 +295,53 @@ public class IndianaFragment extends BaseRefreshFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "item click. position=%d", position);
+                LogUtils.w(TAG, "mGridView.childCount=%d", mGridviewProducts.getChildCount());
                 //TODO
-                ActivityProductItemEntity item = (ActivityProductItemEntity) parent.getAdapter().getItem(position);
+                ActivityProductItemEntity item = (ActivityProductItemEntity) mAdapter.getItem(position);
                 mDetailInfoBiz.setActivityId(item.getActivityId());
                 startActivity(new Intent(getActivity(), ProductDetailInfoActivity.class));
             }
         });
 
-
-        mScrollViewMain.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mGridviewProducts.setOnTouchScrollDoneListener(new ExGridViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-                LogUtils.w(TAG, "onScrollTop()");
-
+            public void onTouchScrollBottom() {
+                onScrollBottomLoadMore();
             }
 
             @Override
-            public void onScrollBottom() {
-                LogUtils.w(TAG, "onScrollBottom()");
-                onScrollBottomLoadMore();
+            public void onTouchScrollTop() {
+
             }
         });
 
-        mScrollViewMain.setOnFloatMenuHiddenListener(new ExScrollView.OnFloatMenuHiddenListener() {
+
+        mViewNotification.setOnItemClickListener(new NoticationTextView.OnItemClickListener() {
             @Override
-            public void shouldHiddle(boolean bShouldHiddle) {
-                if (bShouldHiddle) {
-//                    mViewFitFloatMenu.setVisibility(View.GONE);
+            public void onItemClickListener(NotificationEntitiy item) {
+                LogUtils.i(TAG, "onItemClick().");
 
-                } else {
-//                    mViewFitFloatMenu.setVisibility(View.VISIBLE);
-
-                }
+                mDetailInfoBiz.setActivityId(item.getIssue_id());
+                Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
+                startActivity(i);
             }
-        }, mViewProductContentWrapper);
+        });
 
 
+        mBannerView.setOnClickListener(new BannerView.OnClickListener() {
+            @Override
+            public void onClick(BannerInfo item) {
+                LogUtils.i(TAG, "onBannerInfo click. item=%s", item.toString());
+                mBannerInfoBiz.onItemClick(item);
+            }
+        });
+
+
+        initMenuBtn(view);
+        initTopMenuView(view);
+
+
+        mGridviewProducts.setAdapter(mAdapter);
     }
 
     /**
@@ -367,11 +374,12 @@ public class IndianaFragment extends BaseRefreshFragment {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mScrollViewMain;
+        return mGridviewProducts;
     }
 
     @Override
     protected void onRefreshLoadData() {
+        handleNetUI(Constant.Comm.NET_SUCCESS, mViewTagNetInfoDataInfoWrapper, null);
         mIndianaBiz.loadActivityProductInfo(mIndianaBiz.getCurRequestTag(), false, Constant.Comm.MODE_REFRESH);
     }
 
@@ -468,21 +476,21 @@ public class IndianaFragment extends BaseRefreshFragment {
         LogUtils.i(TAG, "handleUITagLoadMore().strUIAction=%s", strUIAction);
 
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_START)) {
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_START, false);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_FAIL)) {
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_MORE_SUCCESS)) {
             //TODO
             List<ActivityProductItemEntity> requestListData = mIndianaBiz.getListProducts();
             if (requestListData != null) {
                 if (requestListData.size() > 0) {
-                    handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+                    handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
                     mAdapter.loadMoreProductDataAndNotify(requestListData);
 
                 } else {
-                    handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
+                    handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
 
                 }
 
@@ -499,13 +507,13 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     private void handleUITagProduct(String strUIAction) {
         if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_START)) {
-            handleNetUI(Constant.Comm.NET_LOADING, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            handleNetUI(Constant.Comm.NET_LOADING, mViewTagNetInfoDataInfoWrapper, null);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MSG_LOAD_TAG_ACTIVITY_PRODUCT_INFO_FAIL)) {
-            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            handleNetUI(Constant.Comm.NET_FAILED_NO_NET, mViewTagNetInfoDataInfoWrapper, null);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
 //            handleCompleteRefreshUI();
 
@@ -513,8 +521,8 @@ public class IndianaFragment extends BaseRefreshFragment {
 //            int iScrollY = mScrollViewMain.getExScrollY();
 //            LogUtils.e(TAG, "iScrollY=%d", iScrollY);
 
-            handleNetUI(Constant.Comm.NET_SUCCESS, mViewTagNetInfoDataInfoWrapper, mGridviewProducts);
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            handleNetUI(Constant.Comm.NET_SUCCESS, mViewTagNetInfoDataInfoWrapper, null);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
 
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
 
@@ -535,7 +543,7 @@ public class IndianaFragment extends BaseRefreshFragment {
 
         } else if (strAction.equals(UIMessageConts.IndianaMessage.MSG_REFRESH_SUCCESS)) {
             handleCompleteRefreshUI();
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
             mAdapter.setDataAndNotify(mIndianaBiz.getListProducts());
 
         }
@@ -567,7 +575,7 @@ public class IndianaFragment extends BaseRefreshFragment {
 
         } else if (strUIAction.equals(UIMessageConts.IndianaMessage.MESSAGE_LOAD_BANNER_SUCCESS)) {
             handleNetUI(Constant.Comm.NET_SUCCESS, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper);
-            handleUILoadMore(mViewProductLoadingWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
+            handleUILoadMore(mViewProductLoadingMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, true);
 
             mBannerView.setDatasAndNotify(mIndianaBiz.getListBanners());
             //TODO
@@ -592,6 +600,8 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnHots() {
         LogUtils.w(TAG, "onBtnHots()");
+        dismissRefreshUI();
+        mAdapter.clearDataAndNotify();
         mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_HOTS, false, Constant.Comm.MODE_ENTER);
     }
 
@@ -600,6 +610,8 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnLatest() {
         LogUtils.w(TAG, "onBtnLatest()");
+        dismissRefreshUI();
+        mAdapter.clearDataAndNotify();
         mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_NEWS, false, Constant.Comm.MODE_ENTER);
     }
 
@@ -608,6 +620,8 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnSchedule() {
         LogUtils.w(TAG, "onBtnSchedule()");
+        mAdapter.clearDataAndNotify();
+        dismissRefreshUI();
         mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_PROGRESS, false, Constant.Comm.MODE_ENTER);
 
     }
@@ -617,6 +631,8 @@ public class IndianaFragment extends BaseRefreshFragment {
      */
     public void onBtnNeed() {
         LogUtils.w(TAG, "onBtnNeed()");
+        mAdapter.clearDataAndNotify();
+        dismissRefreshUI();
         mIndianaBiz.loadActivityProductInfo(Constant.IndianaFragment.TAG_SHARE, false, Constant.Comm.MODE_ENTER);
     }
 
@@ -672,8 +688,8 @@ public class IndianaFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if (canDoubleClick(mScrollViewMain, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper) ) {
-            mScrollViewMain.smoothScrollTo(0, 0);
+        if (canDoubleClick(mGridviewProducts, mViewNotNetworkOrFirstLoadWrapper, mViewAllContentWrapper) ) {
+            mGridviewProducts.setSelection(0);
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();
             }

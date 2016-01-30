@@ -1,0 +1,120 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.liangge.indiana.fragments.IndianaFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_1"
+        android:orientation="vertical">
+
+        <!-- Titlebar-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titlebar_height"
+            android:background="@color/titlebar_color">
+
+            <TextView
+                android:id="@+id/titlebar_title"
+                style="@style/titlebar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/main_titlebar_title_indiana" />
+
+            <ImageView
+                android:id="@+id/main_btn_search"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selector_f_indiana_btn_search"
+                android:clickable="true"
+                android:paddingRight="9dp"
+                android:src="@drawable/search_white" />
+
+
+            <com.example.liangge.indiana.ui.widget.RotateImageView
+                android:id="@+id/main_btn_refresh_loading"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="9dp"
+                android:src="@drawable/comm_loading_view"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+        <!-- 没有网络或第一次加载 -->
+        <include
+            android:id="@+id/f_indian_not_network_first_load_wrapper"
+            layout="@layout/layout_not_network" />
+
+        <FrameLayout
+            android:id="@+id/f_indiana_all_content_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <in.srain.cube.views.ptr.PtrClassicFrameLayout
+                android:id="@+id/rotate_header_web_view_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/cube_mints_f1f1f1"
+                app:ptr_duration_to_close="200"
+                app:ptr_duration_to_close_header="1000"
+                app:ptr_keep_header_when_refresh="true"
+                app:ptr_pull_to_fresh="false"
+                app:ptr_ratio_of_header_height_to_refresh="1.2"
+                app:ptr_resistance="1.7">
+
+
+                <!-- 内容部分，包括菜单，内容，加载更多提示部分 -->
+                <FrameLayout
+                    android:id="@+id/f_indiana_product_content_wrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_1">
+
+
+                    <!-- 产品展示或正在加载 -->
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- 产品展示, GridView -->
+                        <com.example.liangge.indiana.ui.widget.ExGridViewScrollDone
+                            android:id="@+id/f_indiana_product_content_gridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/fragment_gridview_split"
+                            android:gravity="center"
+                            android:horizontalSpacing="1dp"
+                            android:numColumns="2"
+                            android:verticalSpacing="1dp"
+                            android:visibility="visible" />
+
+                        <include
+                            android:id="@+id/f_indiana_tag_net_hint_wrapper"
+                            layout="@layout/layout_not_network_for_indiana_tag" />
+
+
+                    </FrameLayout>
+
+
+                </FrameLayout>
+
+
+            </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
