@@ -386,6 +386,12 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mLatestBiz.onDestory();
+    }
+
+    @Override
     public void onDoubleClick() {
         super.onDoubleClick();
         if ( canDoubleClick(mExGridView, mViewNotNetWorkWrpper, mViewContentWrapper) ) {

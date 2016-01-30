@@ -433,13 +433,15 @@ public class LatestBiz extends BaseFragmentBiz{
 
     @Override
     public void onLeave() {
+
+    }
+
+    public void onDestory() {
         if (mSingleBingoInfoComsumerThread != null) {
             mSingleBingoInfoComsumerThread.onDestroy();
             mSingleBingoInfoComsumerThread = null;
         }
     }
-
-
 
 
 

@@ -222,7 +222,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
             if (mListView != null) {
                 mListView.removeFooterView(mViewLoadMoreWrapper);
             }
-            
+
             dismissRefreshUI();
             mAdapter.setDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }

@@ -218,6 +218,12 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         private void adapterCommView(LastestBingoEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductUrl(), latestProductImg, mDisplayImageOptions);
             latestProductDescribe.setText(itemInfo.getHumanProductDescribe() );
+
+            bingoUser.setText("-");
+            buyCounts.setText("-");
+            luckyNumber.setText("----");
+            alreadyRunLottoryTime.setText("xxxx-xx-xx");
+
             if (itemInfo.getMinimum_share() == 10) {
                 mViewTenYuanHint.setVisibility(View.VISIBLE);
 
@@ -248,13 +254,13 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
          * @param parent
          */
         private void adapterDataRunLottory(LastestBingoEntity itemInfo, ViewGroup parent, int position) {
-            if (position == parent.getChildCount() ) {
+//            if (position == parent.getChildCount() ) {
                 runLottoryWrapper.setVisibility(View.VISIBLE);
                 bingoInfoWrapper.setVisibility(View.GONE);
 
                 runLottoryHint.init2(itemInfo);
                 runLottoryHint.setOnTimesUpListener(new SimpleOnTimeUpListenerAdapter());
-            }
+//            }
 
         }
 
