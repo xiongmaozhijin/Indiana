@@ -39,6 +39,7 @@ import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.example.liangge.indiana.ui.widget.NoticationTextView;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -294,12 +295,18 @@ public class IndianaFragment extends BaseRefreshFragment {
         mGridviewProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogUtils.i(TAG, "item click. position=%d", position);
-                LogUtils.w(TAG, "mGridView.childCount=%d", mGridviewProducts.getChildCount());
+//                LogUtils.i(TAG, "item click. position=%d", position);
+//                LogUtils.w(TAG, "mGridView.childCount=%d", mGridviewProducts.getChildCount());
                 //TODO
-                ActivityProductItemEntity item = (ActivityProductItemEntity) mAdapter.getItem(position);
-                mDetailInfoBiz.setActivityId(item.getActivityId());
-                startActivity(new Intent(getActivity(), ProductDetailInfoActivity.class));
+                Object objects = mAdapter.getItem(position);
+                if ( (objects!=null) && (objects instanceof ActivityProductItemEntity) ) {
+                    ActivityProductItemEntity item = (ActivityProductItemEntity) mAdapter.getItem(position);
+                    mDetailInfoBiz.setActivityId(item.getActivityId());
+                    startActivity(new Intent(getActivity(), ProductDetailInfoActivity.class));
+
+                }
+
+
             }
         });
 

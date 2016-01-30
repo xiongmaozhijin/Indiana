@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.Constant;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.ShareOrdersEntity;
+import com.example.liangge.indiana.ui.widget.ExListViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
@@ -32,9 +33,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     private View mViewLayout;
 
-    private ExScrollView mExScrollView;
-
-    private ListView mListView;
+    private ExListViewScrollDone mListView;
     private ShareOrdersListViewAdapter mAdapter;
 
     private View mViewNotWrapper;
@@ -50,7 +49,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = View.inflate(getActivity(), R.layout.fragment_shareorders, null);
+        View view = View.inflate(getActivity(), R.layout.fragment_shareorders_new, null);
         initView(view);
 
         return view;
@@ -58,37 +57,46 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     private void initView(View view) {
         mViewLayout = view;
-        mExScrollView = (ExScrollView) view.findViewById(R.id.scrollview);
-        mListView = (ListView) view.findViewById(R.id.listview);
+        mListView = (ExListViewScrollDone) view.findViewById(R.id.listview);
         mAdapter = new ShareOrdersListViewAdapter(getActivity());
+
+        mViewLoadMoreWrapper = View.inflate(getActivity(), R.layout.layout_load_more_wrapper, null);
+//        mViewLoadMoreWrapper.setVisibility(View.GONE);
+//        mListView.addFooterView(mViewLoadMoreWrapper, null, false);
         mListView.setAdapter(mAdapter);
 
         mViewNotWrapper = view.findViewById(R.id.not_net_wrapper);
         mViewAllContentWrapper = view.findViewById(R.id.all_content_wrapper);
-        mViewLoadMoreWrapper = view.findViewById(R.id.load_more_wrapper);
+
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShareOrdersEntity item = (ShareOrdersEntity) parent.getAdapter().getItem(position);
-                mShareOrdersBiz.setDatailEntity(item);
-                mShareOrdersBiz.startShareOrderDetailActivity(getActivity());
+                Object object = parent.getAdapter().getItem(position);
+                if ((object != null) && (object instanceof ShareOrdersEntity)) {
+                    ShareOrdersEntity item = (ShareOrdersEntity) parent.getAdapter().getItem(position);
+
+                    mShareOrdersBiz.setDatailEntity(item);
+                    mShareOrdersBiz.startShareOrderDetailActivity(getActivity());
+
+                }
+
             }
         });
 
-
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mListView.setOnTouchScrollDoneListener(new ExListViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-
-            }
-
-            @Override
-            public void onScrollBottom() {
+            public void onTouchScrollBottom() {
                 onScrollBottomLoadMore();
             }
+
+            @Override
+            public void onTouchScrollTop() {
+
+            }
         });
+
     }
 
 
@@ -116,7 +124,7 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mExScrollView;
+        return mListView;
     }
 
     @Override
@@ -203,10 +211,18 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_FAILED)) {
             dismissRefreshUI();
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            if (mListView != null) {
+                mListView.removeFooterView(mViewLoadMoreWrapper);
+            }
+
             String hint = getActivity().getResources().getString(R.string.refresh_failed);
             LogUtils.toastShortMsg(getActivity(), hint);
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.REFRESH_SUCCESS)) {
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+            if (mListView != null) {
+                mListView.removeFooterView(mViewLoadMoreWrapper);
+            }
+            
             dismissRefreshUI();
             mAdapter.setDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }
@@ -215,6 +231,9 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     private void handleUILoadData(String uiAction) {
         LogUtils.i(TAG, "handleUILoadData()");
         handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, false);
+        if (mListView != null) {
+            mListView.removeFooterView(mViewLoadMoreWrapper);
+        }
 
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.NET_START)) {
             handleNetUI(Constant.Comm.NET_LOADING, mViewNotWrapper, mViewAllContentWrapper);
@@ -232,13 +251,31 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     private void handleUILoadMoreData(String uiAction) {
         LogUtils.i(TAG, "handleUILoadMoreData()");
         if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_START)) {
+            if (mListView != null) {
+                mListView.removeFooterView(mViewLoadMoreWrapper);
+                mListView.addFooterView(mViewLoadMoreWrapper);
+            }
+
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_START, false);
 
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_FAILED)) {
+
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_FAILED, false);
 
         } else if (uiAction.equals(UIMessageConts.ShareOrdersMessage.LOAD_MORE_NET_SUCCESS)) {
             boolean isEmpty = mShareOrdersBiz.getShareOrdersList().size()<=0;
+            if (mListView != null) {
+               if (isEmpty) {
+
+
+               } else {
+                mListView.removeFooterView(mViewLoadMoreWrapper);
+
+               }
+
+            }
+
+
             handleUILoadMore(mViewLoadMoreWrapper, Constant.Comm.LOAD_MORE_SUCCESS, isEmpty);
             mAdapter.loadMoreDataAndNotify(mShareOrdersBiz.getShareOrdersList());
         }
@@ -266,8 +303,13 @@ public class ShareOrdersFragment extends BaseRefreshFragment {
     @Override
     public void onDoubleClick() {
         super.onDoubleClick();
-        if ( canDoubleClick(mExScrollView, mViewNotWrapper, mViewAllContentWrapper) ) {
-            mExScrollView.smoothScrollTo(0, 0);
+        if ( canDoubleClick(mListView, mViewNotWrapper, mViewAllContentWrapper) ) {
+            if (mListView != null) {
+                if (mListView.getChildCount() >= 1) {
+                    mListView.setSelection(0);
+                }
+            }
+
             if (!isRefreshing()) {
                 onAutoRefreshUIShow();
             }

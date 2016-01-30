@@ -281,13 +281,17 @@ public class LatestAnnouncementFragment extends BaseRefreshFragment {
         mExGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LogUtils.w(TAG, "onItemClick(). position=%d, info=", position, parent.getAdapter().getItem(position).toString());
-                LogUtils.w(TAG, "childCild=%d", mExGridView.getChildCount());
+//                LogUtils.w(TAG, "onItemClick().position=%d", position);
+//                LogUtils.w(TAG, "onItemClick(). position=%d, info=", position, parent.getAdapter().getItem(position).toString());
+//                LogUtils.w(TAG, "childCild=%d", mExGridView.getChildCount());
+                Object object = parent.getAdapter().getItem(position);
+                if ( (object!=null) && (object instanceof LastestBingoEntity) ) {
+                    LastestBingoEntity item = (LastestBingoEntity) parent.getAdapter().getItem(position);
+                    mDetailInfoBiz.setActivityId(item.getActivityId());
+                    Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
+                    startActivity(i);
+                }
 
-                LastestBingoEntity item = (LastestBingoEntity) parent.getAdapter().getItem(position);
-                mDetailInfoBiz.setActivityId(item.getActivityId());
-                Intent i = new Intent(getActivity(), ProductDetailInfoActivity.class);
-                startActivity(i);
             }
         });
 

@@ -8,6 +8,7 @@
     <!-- 加载更多 -->
     <FrameLayout
         android:id="@+id/f_indiana_product_loading_more_wrapper"
+        android:clickable="false"
         android:background="@color/bg_1"
         android:layout_width="match_parent"
         android:layout_height="64dp">

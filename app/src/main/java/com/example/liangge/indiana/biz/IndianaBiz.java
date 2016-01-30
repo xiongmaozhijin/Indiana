@@ -383,7 +383,13 @@ public class IndianaBiz extends BaseFragmentBiz{
         protected void onResponseListener(String s) {
             LogUtils.w(R_TAG, "onResponse=%s", s);
             Gson gson = new Gson();
-            DataInfo.mNotificationList = gson.fromJson(s, new TypeToken<List<NotificationEntitiy>>(){}.getType());
+            try {
+                DataInfo.mNotificationList = gson.fromJson(s, new TypeToken<List<NotificationEntitiy>>(){}.getType());
+
+            } catch (com.google.gson.JsonSyntaxException e) {
+                LogUtils.e(TAG, "error json syntaException");
+            }
+
         }
 
         @Override
