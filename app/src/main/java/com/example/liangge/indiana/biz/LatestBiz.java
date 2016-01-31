@@ -337,17 +337,21 @@ public class LatestBiz extends BaseFragmentBiz{
         private void updateLatestBingoInfo(LastestBingoEntity entity) {
             synchronized (mInstance) {
                 LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#updateLatestBingoInfo()");
-                LastestBingoEntity item;
-                for (int i=0, len=mLatestDatas.size(); i<len; i++) {
-                    item = mLatestDatas.get(i);
-                    if (item.getActivityId() == entity.getActivityId() ) {
-                        item.copyfrom(entity);
-                        break;
-                    }
-                } //end for
+                if (entity.getStatus()== Constant.LatestFragment.CODE_ALREADY_RUN) {
+                    LastestBingoEntity item;
+                    for (int i=0, len=mLatestDatas.size(); i<len; i++) {
+                        item = mLatestDatas.get(i);
+                        if (item.getActivityId() == entity.getActivityId() ) {
+                            item.copyfrom(entity);
+                            break;
+                        }
+                    } //end for
 
-                UIMessageEntity msgItem = new UIMessageEntity(UIMessageConts.LatestAnnouncementMessage.MSG_UPDATE_BINGO_INFO);
-                mMessageManager.sendMessage(msgItem);
+                    UIMessageEntity msgItem = new UIMessageEntity(UIMessageConts.LatestAnnouncementMessage.MSG_UPDATE_BINGO_INFO);
+                    mMessageManager.sendMessage(msgItem);
+
+                }
+
             }
 
         }
