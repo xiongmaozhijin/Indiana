@@ -215,9 +215,9 @@ public class RunLottoryView4 extends TextView{
      * 检测正在揭晓是否到时了
      * @return
      */
-    private boolean isTimeUp2() {
+    private synchronized boolean isTimeUp2() {
         boolean bIsTimeUp = false;
-        if ( (mLastestBingoEntity.getTimeLeft() <= 0) && (mLastestBingoEntity.getStatus()==Constant.LatestFragment.CODE_RUNNING) ) {
+        if ( (mLastestBingoEntity.getTimeLeft() <= 0) && (mLastestBingoEntity.getStatus()!=Constant.LatestFragment.CODE_ALREADY_RUN)  ) {
             bIsTimeUp = true;
         }
 
