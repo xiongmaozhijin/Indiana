@@ -15,15 +15,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:background="@color/bg_1"
         android:orientation="vertical">
 
         <!-- 标签 -->
         <LinearLayout
-            android:background="@android:color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:orientation="horizontal">
 
             <RadioGroup
@@ -64,52 +64,33 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.1dp"
-            android:background="@color/txv_gray_light"/>
-
+            android:background="@color/txv_gray_light" />
 
 
         <include
             android:id="@+id/activity_indianarecord_net_wrapper"
             layout="@layout/layout_not_network" />
 
-        <com.example.liangge.indiana.ui.widget.ExScrollView
-            android:id="@+id/activity_indianarecord_scrollview"
+
+        <!-- 内容 -->
+        <FrameLayout
+            android:id="@+id/activity_indianarecord_tagcontent_wrapper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bg_1">
-
-            <!-- 内容 -->
-            <FrameLayout
-                    android:id="@+id/activity_indianarecord_tagcontent_wrapper"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+            android:visibility="gone">
 
 
-                        <com.example.liangge.indiana.ui.widget.ExListView
-                            android:id="@+id/activity_indianarecord_listview"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:dividerHeight="0.1dp">
+            <com.example.liangge.indiana.ui.widget.ExListViewScrollDone
+                android:id="@+id/activity_indianarecord_listview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:dividerHeight="0.1dp">
 
-                        </com.example.liangge.indiana.ui.widget.ExListView>
-
-
-                        <include
-                            android:id="@+id/load_more_wrapper"
-                            layout="@layout/layout_load_more_wrapper" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
+            </com.example.liangge.indiana.ui.widget.ExListViewScrollDone>
 
 
-        </com.example.liangge.indiana.ui.widget.ExScrollView>
+        </FrameLayout>
+
 
     </LinearLayout>
 

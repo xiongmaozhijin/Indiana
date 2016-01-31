@@ -48,7 +48,7 @@ public class IndianaRecordListViewAdapter extends BaseAdapter {
                 .showImageOnFail(R.drawable.main_banner_img_load_fail)
                 .showImageOnLoading(R.drawable.main_product_item_img_onloading)
                 .cacheOnDisk(true)
-                .cacheInMemory(true)
+                .cacheInMemory(false)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .build();

@@ -18,9 +18,11 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.widget.ExListViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 夺宝记录
@@ -40,11 +42,10 @@ public class IndianaRecordActivity extends BaseActivity2 {
 
     private View mViewTagContentWrapper;
 
-    private ListView mListView;
+    private ExListViewScrollDone mListView;
 
     private View mViewLayout;
 
-    private ExScrollView mExScrollView;
 
     private View mViewLoadMoreWrapper;
 
@@ -89,15 +90,16 @@ public class IndianaRecordActivity extends BaseActivity2 {
         mViewLayout = View.inflate(this, R.layout.activity_indiana_record, null);
         mViewNetHintWrapper = findViewById(R.id.activity_indianarecord_net_wrapper);
         mViewTagContentWrapper = findViewById(R.id.activity_indianarecord_tagcontent_wrapper);
-        mExScrollView = (ExScrollView) findViewById(R.id.activity_indianarecord_scrollview);
-        mViewLoadMoreWrapper = findViewById(R.id.load_more_wrapper);
+        mViewLoadMoreWrapper = View.inflate(this, R.layout.layout_load_more_wrapper, null);
+        mViewLoadMoreWrapper.setVisibility(View.GONE);
 
         mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup);
         mBtnTagAll = (RadioButton) findViewById(R.id.rb_tag_all);
         mBtnTagIng = (RadioButton) findViewById(R.id.rb_tag_ing);
         mBtnTagDone = (RadioButton) findViewById(R.id.rb_tag_done);
 
-        mListView = (ListView) findViewById(R.id.activity_indianarecord_listview);
+        mListView = (ExListViewScrollDone) findViewById(R.id.activity_indianarecord_listview);
+        mListView.addFooterView(mViewLoadMoreWrapper, null, false);
         mAdapter = new IndianaRecordListViewAdapter(this);
         mListView.setAdapter(mAdapter);
 
@@ -106,22 +108,26 @@ public class IndianaRecordActivity extends BaseActivity2 {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "onItemClick(). position=%d", position);
-                final IndianaRecordEntity item = (IndianaRecordEntity) parent.getAdapter().getItem(position);
-                mDetailInfoBiz.setActivityId(item.getActivityId());
-                Intent i = new Intent(IndianaRecordActivity.this, ProductDetailInfoActivity.class);
-                startActivity(i);
+                Object object = mAdapter.getItem(position);
+                if (object instanceof IndianaRecordEntity) {
+                    final IndianaRecordEntity item = (IndianaRecordEntity) parent.getAdapter().getItem(position);
+                    mDetailInfoBiz.setActivityId(item.getActivityId());
+                    Intent i = new Intent(IndianaRecordActivity.this, ProductDetailInfoActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
 
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mListView.setOnTouchScrollDoneListener(new ExListViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-
+            public void onTouchScrollBottom() {
+                onScrollBottomLoadMore();
             }
 
             @Override
-            public void onScrollBottom() {
-                onScrollBottomLoadMore();
+            public void onTouchScrollTop() {
+
             }
         });
 
@@ -242,7 +248,7 @@ public class IndianaRecordActivity extends BaseActivity2 {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mExScrollView;
+        return mListView;
     }
 
     @Override
