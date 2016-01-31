@@ -132,10 +132,16 @@ public class LatestBiz extends BaseFragmentBiz{
             JsonStringRequest request = new JsonStringRequest(Request.Method.POST, Constant.WebServiceAPI.LATEST_PRODUCT_INFO, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String s) {
-                    LogUtils.i(TAG, "SlaveLoadLatestInfoThread#onResponse=%s", s);
-                    Gson gson = new Gson();
-                    mLatestDatas = gson.fromJson(s, new TypeToken<List<LastestBingoEntity>>(){}.getType());
-                    notifySuccess();
+
+                    synchronized (mInstance) {
+                        LogUtils.i(TAG, "SlaveLoadLatestInfoThread#onResponse=%s", s);
+                        Gson gson = new Gson();
+                        mLatestDatas = gson.fromJson(s, new TypeToken<List<LastestBingoEntity>>(){}.getType());
+                        notifySuccess();
+
+                    }
+
+
 
                 }
             }, new Response.ErrorListener() {
@@ -216,6 +222,41 @@ public class LatestBiz extends BaseFragmentBiz{
             this.mUpdateEntity = updateEntity;
         }
 
+        public LastestBingoEntity getUpdateEntity() {
+            return mUpdateEntity;
+        }
+
+
+        @Override
+        public String toString() {
+            return REQUEST_TAG + String.format("[item=%s]", mUpdateEntity==null? "null" : mUpdateEntity.toString());
+
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            boolean r;
+            if (o == null) {
+                r = false;
+            } else {
+                if (o instanceof SlaveSingleRequestLatestInfoThread2) {
+                    SlaveSingleRequestLatestInfoThread2 item = (SlaveSingleRequestLatestInfoThread2) o;
+                    if ( (mUpdateEntity!=null) && (mUpdateEntity.getActivityId()==item.getUpdateEntity().getActivityId()) ) {
+                        r = true;
+
+                    } else {
+                        r = false;
+                    }
+
+                } else {
+                    r = false;
+                }
+
+            }
+
+            return r;
+        }
+
         @Override
         protected void notifyStart() {
             super.notifyStart();
@@ -274,6 +315,9 @@ public class LatestBiz extends BaseFragmentBiz{
         @Override
         protected void onResponseErrorListener(VolleyError volleyError) {
             LogUtils.e(TAG, "SlaveSingleRequestLatestInfoThread#volleyError=%s", volleyError.getLocalizedMessage());
+//            SlaveSingleRequestLatestInfoThread2 requestItem = new SlaveSingleRequestLatestInfoThread2(mUpdateEntity);
+//            mSingleBingoInfoComsumerThread.addRequest(requestItem);
+
         }
 
         @Override
@@ -291,18 +335,21 @@ public class LatestBiz extends BaseFragmentBiz{
          * 更新中奖用户信息/更新请求最新揭晓信息
          */
         private void updateLatestBingoInfo(LastestBingoEntity entity) {
-            LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#updateLatestBingoInfo()");
-            LastestBingoEntity item;
-            for (int i=0, len=mLatestDatas.size(); i<len; i++) {
-                item = mLatestDatas.get(i);
-                if (item.getActivityId() == entity.getActivityId() ) {
-                    item.copyfrom(entity);
-                    break;
-                }
-            } //end for
+            synchronized (mInstance) {
+                LogUtils.w(TAG, "SlaveSingleRequestLatestInfoThread#updateLatestBingoInfo()");
+                LastestBingoEntity item;
+                for (int i=0, len=mLatestDatas.size(); i<len; i++) {
+                    item = mLatestDatas.get(i);
+                    if (item.getActivityId() == entity.getActivityId() ) {
+                        item.copyfrom(entity);
+                        break;
+                    }
+                } //end for
 
-            UIMessageEntity msgItem = new UIMessageEntity(UIMessageConts.LatestAnnouncementMessage.MSG_UPDATE_BINGO_INFO);
-            mMessageManager.sendMessage(msgItem);
+                UIMessageEntity msgItem = new UIMessageEntity(UIMessageConts.LatestAnnouncementMessage.MSG_UPDATE_BINGO_INFO);
+                mMessageManager.sendMessage(msgItem);
+            }
+
         }
 
     }
@@ -325,7 +372,7 @@ public class LatestBiz extends BaseFragmentBiz{
                 try {
                     SlaveSingleRequestLatestInfoThread2 item = mRequestQueue.take();
                     item.start();
-                    Thread.sleep(3000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     LogUtils.e(TAG, "SlaveRequestQueueSingleBingoInfoComsumerThread#error");
@@ -341,14 +388,23 @@ public class LatestBiz extends BaseFragmentBiz{
 
         public void addRequest(SlaveSingleRequestLatestInfoThread2 item) {
             LogUtils.i(TAG, "SlaveRequestQueueSingleBingoInfoComsumerThread#addRequest().item=%s", item.toString());
+            LogUtils.i(TAG, "request cnt=%d", mRequestQueue.size());
             try {
-                this.mRequestQueue.put(item);
+                if (!isContain(item)) {
+
+                    this.mRequestQueue.put(item);
+                }
+
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
 
             }
 
+        }
+
+        private boolean isContain(SlaveSingleRequestLatestInfoThread2 item) {
+            return mRequestQueue.contains(item);
         }
 
 
