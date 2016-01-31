@@ -11,7 +11,8 @@ import android.widget.TextView;
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.LastestBingoEntity;
-import com.example.liangge.indiana.ui.widget.RunLottoryView3;
+import com.example.liangge.indiana.ui.test.Constant;
+import com.example.liangge.indiana.ui.widget.RunLottoryView4;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -32,6 +33,9 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
     private static DisplayImageOptions mDisplayImageOptions;
 
     private static LatestProductGridViewAdapter.OnTimeUpListener mOnTimeUpListener;
+
+    /** 倒计时资源 */
+    private static SlaveCntDwnThread mSlaveCntDwnThread;
 
     public LatestProductGridViewAdapter(Context context) {
         this.mContext = context;
@@ -67,6 +71,16 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
 
     private void initRes(Context context) {
         initImageLoaderConf(context);
+        initCntDownRes();
+    }
+
+    /**
+     * 初始化倒计时资源
+     */
+    private void initCntDownRes() {
+        LogUtils.i(TAG, "initCntDownRes()");;
+        mSlaveCntDwnThread = new SlaveCntDwnThread();
+        mSlaveCntDwnThread.start();
     }
 
 
@@ -76,6 +90,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
      */
     public void setDatasAndNotify(List<LastestBingoEntity> listProducts) {
         this.mListLatestDatas = listProducts;
+        mSlaveCntDwnThread.resetRunningLatestData(mListLatestDatas);;
         this.notifyDataSetChanged();
     }
 
@@ -87,6 +102,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
                 this.mListLatestDatas.add(item);
             }
 
+            mSlaveCntDwnThread.resetRunningLatestData(mListLatestDatas);
             this.notifyDataSetChanged();
         }
     }
@@ -126,7 +142,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         ViewHolder viewHolder = null;
         LastestBingoEntity lastestItem = mListLatestDatas.get(position);
 
-        LogUtils.e(TAG, "getView(). position=%d, itemInfo=%s", position, lastestItem.toString());
+        LogUtils.v(TAG, "getView(). position=%d, itemInfo=%s", position, lastestItem.toString());
 
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.f_lastest_gridview_item, null);
@@ -157,7 +173,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
         /** 正在揭晓Wrapper View */
         private View runLottoryWrapper;
         /** 正在揭晓提示 */
-        private RunLottoryView3 runLottoryHint;
+        private RunLottoryView4 runLottoryHint;
 
         /** 揭晓信息Wrapper View */
         private View bingoInfoWrapper;
@@ -186,7 +202,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
 
             mViewTenYuanHint = view.findViewById(R.id.ten_yuan_hint);
 
-            runLottoryHint = (RunLottoryView3) view.findViewById(R.id.latest_runlottorytime_hint_txv);
+            runLottoryHint = (RunLottoryView4) view.findViewById(R.id.latest_runlottorytime_hint_txv);
 
         }
 
@@ -217,7 +233,9 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
          */
         private void adapterCommView(LastestBingoEntity itemInfo) {
             ImageLoader.getInstance().displayImage(itemInfo.getProductUrl(), latestProductImg, mDisplayImageOptions);
-            latestProductDescribe.setText(itemInfo.getHumanProductDescribe() );
+            latestProductDescribe.setText(itemInfo.getHumanProductDescribe());
+
+            runLottoryHint.clearRes();
 
             bingoUser.setText("-");
             buyCounts.setText("-");
@@ -258,7 +276,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
                 runLottoryWrapper.setVisibility(View.VISIBLE);
                 bingoInfoWrapper.setVisibility(View.GONE);
 
-                runLottoryHint.init2(itemInfo);
+                runLottoryHint.init2(itemInfo, SlaveCntDwnThread.L_CALC_SPEED);
                 runLottoryHint.setOnTimesUpListener(new SimpleOnTimeUpListenerAdapter());
 //            }
 
@@ -269,7 +287,7 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
 
 
 
-    private static class SimpleOnTimeUpListenerAdapter implements RunLottoryView3.OnTimesUpListener {
+    private static class SimpleOnTimeUpListenerAdapter implements RunLottoryView4.OnTimesUpListener {
 
         @Override
         public void onTimesUp(LastestBingoEntity lastestBingoEntity) {
@@ -285,7 +303,115 @@ public class LatestProductGridViewAdapter extends BaseAdapter{
 
 
 
+    //计算部分
 
+
+    /**
+     * 倒计时统一线程
+     */
+    private static class SlaveCntDwnThread extends Thread {
+
+        /** 计算速率 */
+        private static final long L_CALC_SPEED = 47;
+
+        private List<LastestBingoEntity> mRunningLatestData = new ArrayList<>();
+
+
+        //重置资源
+        private List<LastestBingoEntity> mResetData = new ArrayList<>();
+        private boolean bIsNeedReset = false;
+
+        /**
+         * 重置资源，当传入为null时，清空资源
+         * @param runningLatestData
+         */
+        public void resetRunningLatestData(List<LastestBingoEntity> runningLatestData) {
+            mResetData.clear();
+            LastestBingoEntity item;
+            if (runningLatestData != null) {
+                for (int i=0, len=runningLatestData.size(); i<len; i++) {
+                    item = runningLatestData.get(i);
+                    mResetData.add(item);
+                }
+
+            }
+
+            bIsNeedReset = true;
+        }
+
+
+
+
+        @Override
+        public void run() {
+            super.run();
+            LogUtils.w(TAG, "CntDwn Slave Start..run()...");
+
+            List<LastestBingoEntity> inValidData = new ArrayList<>();
+            LastestBingoEntity item;
+
+            while (true) {
+                for (int i=0, len=mRunningLatestData.size(); i<len; i++) {
+                    item = mRunningLatestData.get(i);
+                    item.setTimeLeft(item.getTimeLeft()-L_CALC_SPEED);
+                    if (item.getTimeLeft() < 0) {
+                        inValidData.add(item);
+                    }
+
+                }
+                mRunningLatestData.removeAll(inValidData);
+                inValidData.clear();
+                updateSpeedDump();
+                _resetRunningLatestData();
+
+            }   //end while
+
+        }   //end run
+
+        private void _resetRunningLatestData() {
+            synchronized (this) {
+                if (bIsNeedReset) {
+                    bIsNeedReset = false;
+
+                    debug();
+
+                    mRunningLatestData.clear();
+
+                    if (mResetData==null) {
+                        mResetData = new ArrayList<>();
+                    }
+                    LastestBingoEntity item;
+                    for (int i=0, len=mResetData.size(); i<len; i++) {
+                        item = mResetData.get(i);
+                        if (item.getStatus() == com.example.liangge.indiana.comm.Constant.LatestFragment.CODE_RUNNING) {
+                            mRunningLatestData.add(item);
+                        }
+                    }
+
+                    mResetData.clear();
+                }
+            }
+
+        }
+
+        private void debug() {
+            final String D = TAG + "DEBUG";
+            LogUtils.e(D, "mRunningList.size=%d, mRunnningList=%s, ", mRunningLatestData.size(), mRunningLatestData.toString());
+
+        }
+
+        private void updateSpeedDump() {
+            try {
+                Thread.sleep(L_CALC_SPEED);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+
+            }
+        }
+
+
+    }
 
 
 

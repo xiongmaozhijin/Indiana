@@ -5,8 +5,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.os.Looper;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
@@ -16,21 +16,18 @@ import com.example.liangge.indiana.model.LastestBingoEntity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * @deprecated
- * 和需求整体设计不合理   <br/>
  * Created by baoxing on 2015/12/17.
  */
-public class RunLottoryView3 extends TextView{
+public class RunLottoryView4 extends TextView{
 
-    private static final String TAG = RunLottoryView3.class.getSimpleName();
+    private static final String TAG = RunLottoryView4.class.getSimpleName();
 
     /** 计算速度 */
-    private static final long L_CLAC_SPEED = 47;
+    private static long L_CLAC_SPEED = 47;
 
     /** 计时监听 */
     private OnTimesUpListener mOnTimesUpListener;
@@ -45,9 +42,6 @@ public class RunLottoryView3 extends TextView{
 
     /** 开奖提示 */
     private String mStrRunLottoryHumanReadable = "";
-
-    /** 干活的线程 */
-    private volatile SlaveDrawThread mSlaveDrawThread;
 
     /**
      * 设置计时监听
@@ -75,19 +69,19 @@ public class RunLottoryView3 extends TextView{
 
 
 
-    public RunLottoryView3(Context context) {
+    public RunLottoryView4(Context context) {
         this(context, null);
     }
 
 
 
-    public RunLottoryView3(Context context, AttributeSet attrs) {
+    public RunLottoryView4(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
 
 
-    public RunLottoryView3(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RunLottoryView4(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initRes();
     }
@@ -96,40 +90,51 @@ public class RunLottoryView3 extends TextView{
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mDateFormatCountdown.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
 
-        mSlaveDrawThread = new SlaveDrawThread();
-        mSlaveDrawThread.start();
     }
 
 
+    /**
+     * 初始化必要的资源
+     * @param item
+     * @param updateSpeed   计算速率
+     */
+    public void init2(LastestBingoEntity item, long updateSpeed) {
+        mLastestBingoEntity = item;    //这里考虑是传clone还是引用，暂时只能传引用，直接修改改变值
+        L_CLAC_SPEED = updateSpeed;
 
-    public void init2(LastestBingoEntity item) {
-        this.mLastestBingoEntity = item;    //这里考虑是传clone还是引用
         LogUtils.w(TAG, "item=%s", item.toString());
-        startSlaveThread();
-    }
 
-    private synchronized void startSlaveThread() {
-        LogUtils.w(TAG, "startSlaveThread()");
+        initStartDraw();
 
-        postDelayed(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
-                if (mSlaveDrawThread != null) {
-                    if (!mSlaveDrawThread.getIsAlive()) {
-                        mSlaveDrawThread = new SlaveDrawThread();
-                        mSlaveDrawThread.start();
-                    }
-                } else {
-                    mSlaveDrawThread = new SlaveDrawThread();
-                    mSlaveDrawThread.start();
-                }
-            }
-        }, 100);
+                updateNotifyInfo();
 
+            }
+        });
 
     }
 
 
+    public void clearRes() {
+        initEndDraw();
+    }
+
+
+    /**
+     * 重置开始绘画资源
+     */
+    private void initStartDraw() {
+        bIsNeedDrawAgain = true;
+    }
+
+    /**
+     * 取消绘制
+     */
+    private void initEndDraw() {
+        bIsNeedDrawAgain = false;
+    }
 
 
     @Override
@@ -137,6 +142,7 @@ public class RunLottoryView3 extends TextView{
         super.onDraw(canvas);
 
         drawRunLottotyHint(canvas);
+        updateNotifyInfo();
     }
 
     /**
@@ -201,30 +207,9 @@ public class RunLottoryView3 extends TextView{
 
         }
 
-        int temp = (int) mLastestBingoEntity.getTimeLeft();
-        mLastestBingoEntity.setTimeLeft(temp - L_CLAC_SPEED);
-
         return hintReadable;
     }
 
-
-
-
-    /**
-     * @deprecated
-     * 检查是否到时了
-     */
-    private boolean isTimeUp() {
-        boolean bIsTimeUp = false;
-        long lRunLottory = mLastestBingoEntity.getRunLotteryTime();
-        long lLeftDuration = lRunLottory - System.currentTimeMillis();
-
-        if (lLeftDuration <= 0) {
-            bIsTimeUp = true;
-        }
-
-        return bIsTimeUp;
-    }
 
     /**
      * 检测正在揭晓是否到时了
@@ -239,92 +224,52 @@ public class RunLottoryView3 extends TextView{
         return bIsTimeUp;
     }
 
+
+    /** 是否需要继续绘制 */
+    private boolean bIsNeedDrawAgain = true;
+
     /**
-     * 检测是否退出线程
-     * @return
+     * 更新和通知信息
      */
-    private boolean isExit() {
-        return (mLastestBingoEntity.getTimeLeft()<=0);
+    private void updateNotifyInfo() {
+
+        if (bIsNeedDrawAgain) {
+
+            if (isTimeUp2()) {
+                initEndDraw();
+                notifyTimeUp();
+
+            }   //end ifTimeUP
+
+            mStrRunLottoryHumanReadable = getHumanCountdownHint2();
+            postInvalidate();
+        }
+
     }
 
 
-    /**
-     * 绘画奴隶线程
-     */
-    private class SlaveDrawThread extends Thread {
 
-        private volatile boolean bIsAlive = true;
+    private void notifyTimeUp() {
+        LogUtils.e(TAG, "timeUp2...");
 
-        public SlaveDrawThread() {
-            super();
-            LogUtils.w(TAG, "SlaveDrawThread#构造函数");
-        }
-
-        @Override
-        public void run() {
-            super.run();
-            while (bIsAlive) {
-                if (mLastestBingoEntity !=null) {
-                    try {
-                        mStrRunLottoryHumanReadable = getHumanCountdownHint2();
-                        postInvalidate();
-
-                        updateSpeed();
-
-                        if (isTimeUp2()) {
-                            LogUtils.e(TAG, "timeUp2...");
-                            if (mOnTimesUpListener != null) {
-                                mOnTimesUpListener.onTimesUp(mLastestBingoEntity);
-                            }
-                            break;
-                        }   //end ifTimeUP
-
-                        if (isExit()) {
-                            LogUtils.e(TAG, "isExit...");
-                            mLastestBingoEntity = null;
-                            break;
-                        }
-
-                        LogUtils.e(TAG, "end run...");
-
-                    } catch (Exception e) {
-
-                        LogUtils.e(TAG, "Exception:%s", e.getLocalizedMessage());
-                    }
-                }
-
-
-            }   //end while
-
-        } //end run
-
-        private void updateSpeed() {
-            try {
-                Thread.sleep(L_CLAC_SPEED);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void setIsAlive(boolean isAlive) {
-            this.bIsAlive = isAlive;
-
-        }
-
-        public boolean getIsAlive() {
-            return this.bIsAlive;
+        if (mOnTimesUpListener != null) {
+            mOnTimesUpListener.onTimesUp(mLastestBingoEntity);
         }
 
     }
+
+
+
+
 
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         LogUtils.e(TAG, "onDetachedFromWindow()");
-        if (mSlaveDrawThread != null) {
-            mSlaveDrawThread.setIsAlive(false);
-        }
 
     }
+
+
+
 }

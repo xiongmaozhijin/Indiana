@@ -69,7 +69,7 @@
                     android:textColor="@android:color/white"
                     android:background="@android:color/holo_red_light"/>
 
-                <com.example.liangge.indiana.ui.widget.RunLottoryView3
+                <com.example.liangge.indiana.ui.widget.RunLottoryView4
                     android:id="@+id/latest_runlottorytime_hint_txv"
                     android:layout_width="match_parent"
                     android:layout_height="24dp"

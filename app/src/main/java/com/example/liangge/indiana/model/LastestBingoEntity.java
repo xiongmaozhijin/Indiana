@@ -16,7 +16,7 @@ public class LastestBingoEntity {
     /** 活动期号 */
     private long activityId;
 
-    /** 状态码 */
+    /** 状态码 {@link Constant.LatestFragment.CODE_ALREADY_RUN } */
     private int status;
 
     /** 剩余时间 */
