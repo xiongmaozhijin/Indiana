@@ -1,6 +1,7 @@
 package com.example.liangge.indiana.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import com.example.liangge.indiana.biz.PersonalCenterBiz;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.model.ActivityProductItemEntity;
 import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +34,11 @@ public class DetailPlayRecordAdapter extends BaseAdapter
 
     private static Context mContext;
 
+    private static DisplayImageOptions mDisplayImageUserPortraitOptions;
+
     public DetailPlayRecordAdapter(Context context) {
         this.mContext = context;
-
+        initUserPortraitImageLoaderConf();
     }
 
     public void reSetDataAndNotify(List<ResponseActivityPlayRecordEntity> list) {
@@ -64,6 +69,23 @@ public class DetailPlayRecordAdapter extends BaseAdapter
             notifyDataSetChanged();
         }
     }
+
+    /**
+     * 初始化用户头像显示配置
+     */
+    private void initUserPortraitImageLoaderConf() {
+        mDisplayImageUserPortraitOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.user_gray)
+                .showImageOnFail(R.drawable.user_gray)
+                .showImageOnLoading(R.drawable.user_gray)
+                .cacheOnDisk(true)
+                .cacheInMemory(false)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new RoundedBitmapDisplayer(90))
+                .build();
+    }
+
 
     @Override
     public int getCount() {
@@ -115,7 +137,7 @@ public class DetailPlayRecordAdapter extends BaseAdapter
             String infoFormat = mContext.getResources().getString(R.string.activity_detailinfo_listview_item_txv_info_format);
             String info = String.format(infoFormat, item.getNickname(), item.getOwn_share(), item.getRecord_time());
             this.txvRecordInfo.setText(Html.fromHtml(info));
-            ImageLoader.getInstance().displayImage(item.getPhoto(), imgUserPortrait, PersonalCenterBiz.getInstance(mContext).getUserPortraitConfig());
+            ImageLoader.getInstance().displayImage(item.getPhoto(), imgUserPortrait, mDisplayImageUserPortraitOptions);
         }
 
     }
