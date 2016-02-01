@@ -25,6 +25,7 @@ import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.model.user.IndianaRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.widget.ExListViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -49,11 +50,9 @@ public class UserCenterActivity extends BaseActivity2 {
 
     private View mViewTagContentWrapper;
 
-    private ListView mListView;
+    private ExListViewScrollDone mListView;
 
     private View mViewLayout;
-
-    private ExScrollView mExScrollView;
 
     private View mViewLoadMoreWrapper;
 
@@ -69,7 +68,7 @@ public class UserCenterActivity extends BaseActivity2 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_center);
+        setContentView(R.layout.activity_user_center_new);
 
         initView();
         initManager();
@@ -103,34 +102,40 @@ public class UserCenterActivity extends BaseActivity2 {
         mViewLayout = View.inflate(this, R.layout.activity_user_center, null);
         mViewNetHintWrapper = findViewById(R.id.activity_indianarecord_net_wrapper);
         mViewTagContentWrapper = findViewById(R.id.activity_indianarecord_tagcontent_wrapper);
-        mExScrollView = (ExScrollView) findViewById(R.id.activity_indianarecord_scrollview);
-        mViewLoadMoreWrapper = findViewById(R.id.load_more_wrapper);
+        mViewLoadMoreWrapper = View.inflate(this, R.layout.layout_load_more_wrapper, null);
+        mViewLoadMoreWrapper.setVisibility(View.GONE);
 
-        mRadioGroup = (RadioGroup) findViewById(R.id.radiogroup_1);
-        mBtnTagAll = (RadioButton) findViewById(R.id.rb_tag_all);
-        mBtnTagBingo = (RadioButton) findViewById(R.id.rb_tag_bingo);
-        mBtnTagWishList = (RadioButton) findViewById(R.id.rb_tag_wish_list);
+        View viewHeaderViewFit = findViewById(R.id.user_center_header);
 
-        mListView = (ListView) findViewById(R.id.activity_indianarecord_listview);
+        initHeaderView(viewHeaderViewFit);
+
+        mListView = (ExListViewScrollDone) findViewById(R.id.activity_indianarecord_listview);
+        mListView.addFooterView(mViewLoadMoreWrapper, null, false);
         mIndianaAdapter = new IndianaRecordListViewAdapter(this);
         mBingoAdapter = new BingoRecordListViewAdapter(this, false);
         mListView.setAdapter(mIndianaAdapter);
-
-        mImgUserPortrait = (ImageView) findViewById(R.id.user_portrait);
-        mTxvUsername = (TextView) findViewById(R.id.username);
-        mTxvUserId = (TextView) findViewById(R.id.user_id);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "onItemClick(). position=%d", position);
+
                 if (mUserCenterBiz.getCurRequestType()== UserCenterBiz.RequestType.INDIAN_RECOREDS) {
-                    IndianaRecordEntity item = (IndianaRecordEntity) mIndianaAdapter.getItem(position);
-                    mDetailInfoBiz.startActivity(UserCenterActivity.this, item.getActivityId());
+                    Object object = mIndianaAdapter.getItem(position);
+                    if ( (object!=null) && (object instanceof IndianaRecordEntity) ) {
+                        IndianaRecordEntity item = (IndianaRecordEntity) mIndianaAdapter.getItem(position);
+                        mDetailInfoBiz.startActivity(UserCenterActivity.this, item.getActivityId());
+
+                    }
+
 
                 } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.BINGO_RECORDS) {
-                    BingoRecordEntity item = (BingoRecordEntity) mBingoAdapter.getItem(position);
-                    mDetailInfoBiz.startActivity(UserCenterActivity.this, item.getActivityId());
+                    Object object = mBingoAdapter.getItem(position);
+                    if ( (object!=null) && (object instanceof BingoRecordEntity) ) {
+                        BingoRecordEntity item = (BingoRecordEntity) mBingoAdapter.getItem(position);
+                        mDetailInfoBiz.startActivity(UserCenterActivity.this, item.getActivityId());
+
+                    }
 
                 } else if (mUserCenterBiz.getCurRequestType()==UserCenterBiz.RequestType.WISH_LISTS) {
 
@@ -139,19 +144,54 @@ public class UserCenterActivity extends BaseActivity2 {
             }
         });
 
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mListView.setOnTouchScrollDoneListener(new ExListViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-
+            public void onTouchScrollBottom() {
+                onScrollBottomLoadMore();
             }
 
             @Override
-            public void onScrollBottom() {
-                onScrollBottomLoadMore();
+            public void onTouchScrollTop() {
+
             }
         });
 
     }
+
+
+    private void initHeaderView(View view) {
+
+        mRadioGroup = (RadioGroup) view.findViewById(R.id.radiogroup_1);
+        mBtnTagAll = (RadioButton) view.findViewById(R.id.rb_tag_all);
+        mBtnTagBingo = (RadioButton) view.findViewById(R.id.rb_tag_bingo);
+        mBtnTagWishList = (RadioButton) view.findViewById(R.id.rb_tag_wish_list);
+
+        mImgUserPortrait = (ImageView) view.findViewById(R.id.user_portrait);
+        mTxvUsername = (TextView) view.findViewById(R.id.username);
+        mTxvUserId = (TextView) view.findViewById(R.id.user_id);
+
+        mBtnTagAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnTagAll(null);
+            }
+        });
+
+        mBtnTagBingo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnTagBingo(null);
+            }
+        });
+
+        mBtnTagWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBtnTagWishList(null);
+            }
+        });
+    }
+
 
     /**
      * 滚动到底部加载更多
@@ -321,7 +361,7 @@ public class UserCenterActivity extends BaseActivity2 {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mExScrollView;
+        return mListView;
     }
 
     @Override

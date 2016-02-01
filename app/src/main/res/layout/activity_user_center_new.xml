@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.liangge.indiana.ui.user.IndianaRecordActivity">
+
+    <!-- Titlebar-->
+    <com.example.liangge.indiana.ui.widget.CommTitleBar xmlns:app1="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app1:titlebar_title="@string/activity_user_center_title" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_1"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_user_center_header" android:id="@+id/user_center_header" />
+
+        <!-- 内容 -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/activity_indianarecord_net_wrapper"
+                layout="@layout/layout_not_network" />
+
+            <FrameLayout
+                android:id="@+id/activity_indianarecord_tagcontent_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <com.example.liangge.indiana.ui.widget.ExListViewScrollDone
+                    android:id="@+id/activity_indianarecord_listview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:dividerHeight="0.1dp">
+
+                </com.example.liangge.indiana.ui.widget.ExListViewScrollDone>
+
+
+            </FrameLayout>
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
