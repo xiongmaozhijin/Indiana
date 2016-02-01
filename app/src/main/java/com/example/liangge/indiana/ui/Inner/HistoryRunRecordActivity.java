@@ -17,9 +17,11 @@ import com.example.liangge.indiana.model.ResponseActivityPlayRecordEntity;
 import com.example.liangge.indiana.model.inner.HistoryRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.SimpleAdapterBaseActivity2;
+import com.example.liangge.indiana.ui.widget.ExListViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 往期揭晓
@@ -36,9 +38,7 @@ public class HistoryRunRecordActivity extends BaseActivity2 {
 
     private View mViewLoadMoreWrapper;
 
-    private ExScrollView mExScrollView;
-
-    private ListView mListView;
+    private ExListViewScrollDone mListView;
 
     private HistoryRecordAdapter mAdapter;
 
@@ -75,32 +75,39 @@ public class HistoryRunRecordActivity extends BaseActivity2 {
         mViewLayout = View.inflate(this, R.layout.activity_history_run_record, null);
         mViewNotNetWrapper = findViewById(R.id.net_hint_wrapper);
         mViewAllContent = findViewById(R.id.all_content_wrapper);
-        mViewLoadMoreWrapper = findViewById(R.id.load_more_wrapper);
-        mExScrollView = (ExScrollView) findViewById(R.id.scrollview);
-        mListView = (ListView) findViewById(R.id.listview);
+        mViewLoadMoreWrapper = View.inflate(this, R.layout.layout_load_more_wrapper, null);
+        mViewLoadMoreWrapper.setVisibility(View.GONE);
+        mListView = (ExListViewScrollDone) findViewById(R.id.listview);
+        mListView.addFooterView(mViewLoadMoreWrapper, null, false);
         mAdapter = new HistoryRecordAdapter(this);
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                HistoryRecordEntity item = (HistoryRecordEntity) parent.getAdapter().getItem(position);
-                mUserCenterBiz.setUserItem(new ResponseActivityPlayRecordEntity(item.getWinner(), item.getPhoto(), item.getAccount_id()));
-                mUserCenterBiz.startActivity(HistoryRunRecordActivity.this);
+                Object object = mAdapter.getItem(position);
+                if ( (object!=null) && (object instanceof HistoryRecordEntity) ) {
+                    HistoryRecordEntity item = (HistoryRecordEntity)object;
+                    mUserCenterBiz.setUserItem(new ResponseActivityPlayRecordEntity(item.getWinner(), item.getPhoto(), item.getAccount_id()));
+                    mUserCenterBiz.startActivity(HistoryRunRecordActivity.this);
+
+                }
+
             }
         });
 
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mListView.setOnTouchScrollDoneListener(new ExListViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-
-            }
-
-            @Override
-            public void onScrollBottom() {
+            public void onTouchScrollBottom() {
                 onScrollBottomLoadMoreData();
             }
+
+            @Override
+            public void onTouchScrollTop() {
+
+            }
         });
+
     }
 
     /**

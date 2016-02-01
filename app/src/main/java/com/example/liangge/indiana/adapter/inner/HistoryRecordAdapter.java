@@ -49,7 +49,7 @@ public class HistoryRecordAdapter extends BaseAdapter{
                 .showImageOnFail(R.drawable.user_gray)
                 .showImageOnLoading(R.drawable.user_gray)
                 .cacheOnDisk(true)
-                .cacheInMemory(true)
+                .cacheInMemory(false)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new RoundedBitmapDisplayer(20))

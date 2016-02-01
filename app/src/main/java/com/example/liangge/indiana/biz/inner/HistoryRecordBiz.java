@@ -23,8 +23,6 @@ import java.util.List;
  */
 public class HistoryRecordBiz extends BaseActivityBiz {
 
-    private static Context mContext;
-
     private static HistoryRecordBiz mInstance;
 
     private MessageManager mMessageManager;
@@ -32,7 +30,6 @@ public class HistoryRecordBiz extends BaseActivityBiz {
     private SlaveLoadHistoryDataThread mSlaveLoadHistoryDataThread;
 
     private HistoryRecordBiz(Context context) {
-        mContext = context;
         initManager(context);
         initRes(context);
     }
