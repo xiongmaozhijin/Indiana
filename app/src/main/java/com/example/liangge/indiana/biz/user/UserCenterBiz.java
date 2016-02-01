@@ -32,7 +32,6 @@ public class UserCenterBiz extends BaseActivityBiz {
 
     private static final String TAG = IndianaRecordBiz.class.getSimpleName();
 
-    private static Context mContext;
 
     private static UserCenterBiz mInstance;
 
@@ -72,7 +71,6 @@ public class UserCenterBiz extends BaseActivityBiz {
 
 
     private UserCenterBiz(Context context) {
-        this.mContext = context;
         initManager(context);
     }
 

@@ -27,8 +27,6 @@ public class BingoRecordBiz extends BaseActivityBiz{
 
     private static final String TAG = BingoRecordBiz.class.getSimpleName();
 
-    private static Context mContext;
-
     private static BingoRecordBiz mInstance;
 
     private static MessageManager mMessageManager;
@@ -38,7 +36,6 @@ public class BingoRecordBiz extends BaseActivityBiz{
     private PersonalCenterBiz mPersonalCenterBiz;
 
     private BingoRecordBiz(Context context) {
-        this.mContext = context;
         initManager(context);
         initRes();
     }

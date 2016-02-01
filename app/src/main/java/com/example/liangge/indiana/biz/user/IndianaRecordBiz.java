@@ -27,8 +27,6 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
     private static final String TAG = IndianaRecordBiz.class.getSimpleName();
 
-    private static Context mContext;
-
     private static IndianaRecordBiz mInstance;
 
     private MessageManager mMessageManager;
@@ -56,7 +54,6 @@ public class IndianaRecordBiz extends BaseActivityBiz {
 
 
     private IndianaRecordBiz(Context context) {
-        this.mContext = context;
         initManager(context);
     }
 
