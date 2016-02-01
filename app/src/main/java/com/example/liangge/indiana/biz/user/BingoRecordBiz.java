@@ -39,7 +39,7 @@ public class BingoRecordBiz extends BaseActivityBiz{
 
     private BingoRecordBiz(Context context) {
         this.mContext = context;
-        initManager();
+        initManager(context);
         initRes();
     }
 
@@ -47,9 +47,9 @@ public class BingoRecordBiz extends BaseActivityBiz{
         mSlaveLoadBingoRecordThread = new SlaveLoadBingoRecordThread();
     }
 
-    private void initManager() {
-        mMessageManager = MessageManager.getInstance(mContext);
-        mPersonalCenterBiz = PersonalCenterBiz.getInstance(mContext);
+    private void initManager(Context context) {
+        mMessageManager = MessageManager.getInstance(context);
+        mPersonalCenterBiz = PersonalCenterBiz.getInstance(context);
     }
 
     public static synchronized BingoRecordBiz getInstance(Context context) {

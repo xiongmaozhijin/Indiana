@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.user.BingoRecordEntity;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.widget.ExListViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     private AddShareBiz mAddShareBiz;
 
-    private ListView mListView;
+    private ExListViewScrollDone mListView;
 
     private BingoRecordListViewAdapter mAdapter;
 
@@ -45,15 +46,13 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     private View mViewLayout;
 
-    private ExScrollView mExScrollView;
-
     /** 加载更多 */
     private View mViewLoadWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bingo_record);
+        setContentView(R.layout.activity_bingo_record_new);
         initView();
         initManager();
         initOnCreate();
@@ -62,23 +61,29 @@ public class BingoRecordActivity extends BaseActivity2 {
     private void initView() {
         mViewNetWrapper = findViewById(R.id.net_hint_wrapper);
         mViewContentWrapper = findViewById(R.id.content_wrapper);
-        mExScrollView = (ExScrollView) findViewById(R.id.scrollview);
 
         mViewLayout = mViewContentWrapper;
 
-        mViewLoadWrapper = findViewById(R.id.load_more_wrapper);
+        mViewLoadWrapper = View.inflate(this, R.layout.layout_load_more_wrapper, null);
+        mViewLoadWrapper.setVisibility(View.GONE);
 
-        mListView = (ListView) findViewById(R.id.listview);
+        mListView = (ExListViewScrollDone) findViewById(R.id.listview);
+        mListView.addFooterView(mViewLoadWrapper);
         mAdapter = new BingoRecordListViewAdapter(this, true);
+
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "onItemClick=%d", position);
-                final BingoRecordEntity item = (BingoRecordEntity) parent.getAdapter().getItem(position);
-                mDetailInfoBiz.setActivityId(item.getActivityId());
-                Intent intent = new Intent(BingoRecordActivity.this, ProductDetailInfoActivity.class);
-                startActivity(intent);
+                Object object = mAdapter.getItem(position);
+                if ( (object!=null) && (object instanceof BingoRecordEntity) ) {
+                    final BingoRecordEntity item = (BingoRecordEntity) parent.getAdapter().getItem(position);
+                    mDetailInfoBiz.setActivityId(item.getActivityId());
+                    Intent intent = new Intent(BingoRecordActivity.this, ProductDetailInfoActivity.class);
+                    startActivity(intent);
+
+                }
 
             }
         });
@@ -93,15 +98,16 @@ public class BingoRecordActivity extends BaseActivity2 {
         });
 
 
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mListView.setOnTouchScrollDoneListener(new ExListViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
+            public void onTouchScrollBottom() {
+                onScrollBottomLoadMore();
 
             }
 
             @Override
-            public void onScrollBottom() {
-                onScrollBottomLoadMore();
+            public void onTouchScrollTop() {
+
             }
         });
 
@@ -215,7 +221,7 @@ public class BingoRecordActivity extends BaseActivity2 {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mExScrollView;
+        return mListView;
     }
 
     @Override
