@@ -101,6 +101,13 @@ public class HomeActivity extends UIBaseActivity {
         initRes();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initHomeActivityManager();
+    }
+
     private void initHomeActivityManager() {
         mHomeBiz = HomeBiz.getInstance(this);
     }

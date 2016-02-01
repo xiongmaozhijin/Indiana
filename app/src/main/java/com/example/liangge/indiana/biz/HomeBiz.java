@@ -56,6 +56,14 @@ public class HomeBiz {
         return mInstance;
     }
 
+    public static HomeBiz getInstance() {
+        return mInstance;
+    }
+
+
+    public Context getHomeActivity() {
+        return mContext;
+    }
 
     public int getReplaceFragmentFlag() {
         return DataInfo.iReplaceFlag;

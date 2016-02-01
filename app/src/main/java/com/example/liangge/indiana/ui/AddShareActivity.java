@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.liangge.indiana.R;
 import com.example.liangge.indiana.biz.AddShareBiz;
+import com.example.liangge.indiana.biz.HomeBiz;
 import com.example.liangge.indiana.comm.LocalDisplay;
 import com.example.liangge.indiana.comm.LogUtils;
 import com.example.liangge.indiana.comm.UIMessageConts;
@@ -118,7 +119,7 @@ public class AddShareActivity extends SimpleAdapterBaseActivity2{
     }
 
     private void initManager() {
-        mAddShareBiz = AddShareBiz.getInstance(this);
+        mAddShareBiz = AddShareBiz.getInstance(HomeBiz.getInstance().getHomeActivity());
     }
 
     private void initView() {
