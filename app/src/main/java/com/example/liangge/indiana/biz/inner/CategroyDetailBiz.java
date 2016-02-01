@@ -28,7 +28,6 @@ public class CategroyDetailBiz extends BaseActivityBiz{
 
     private static CategroyDetailBiz mInstance;
 
-    private static Context mContext;
 
     private static MessageManager mMessageManager;
 
@@ -36,7 +35,6 @@ public class CategroyDetailBiz extends BaseActivityBiz{
     private SlaveLoadDataThread mSlaveLoadDataThread;
 
     private CategroyDetailBiz(Context context) {
-        this.mContext = context;
         initManager(context);
         initRes(context);
     }

@@ -121,6 +121,25 @@ public class BannerView extends FrameLayout{
                 .build();
     }
 
+    /**
+     * 设置轮播的图片不要缓存
+     */
+    public void forbidImageCache() {
+        mDisplayImageOptions = new DisplayImageOptions.Builder()
+                .showImageForEmptyUri(R.drawable.main_banner_img_load_empty_uri)
+                .showImageOnFail(R.drawable.main_banner_img_load_fail)
+                .resetViewBeforeLoading(false)
+                .cacheOnDisk(true)
+                .cacheInMemory(false)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new FadeInBitmapDisplayer(50))
+                .build();
+    }
+
+
+
     private void initRes(Context context) {
         this.mContext = context;
         mWrapperView = LayoutInflater.from(context).inflate(R.layout.widget_banner_view, this);

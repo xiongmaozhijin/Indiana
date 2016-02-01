@@ -18,6 +18,7 @@ import com.example.liangge.indiana.comm.UIMessageConts;
 import com.example.liangge.indiana.model.inner.CategoryDetailEntitiy;
 import com.example.liangge.indiana.ui.BaseActivity2;
 import com.example.liangge.indiana.ui.ProductDetailInfoActivity;
+import com.example.liangge.indiana.ui.widget.ExListViewScrollDone;
 import com.example.liangge.indiana.ui.widget.ExScrollView;
 
 /**
@@ -33,9 +34,8 @@ public class CategoryListActivity extends BaseActivity2 {
 
     private View mViewAllContent;
 
-    private ExScrollView mExScrollView;
 
-    private ListView mExListView;
+    private ExListViewScrollDone mExListView;
     private CategoryDetailAdapter mAdapter;
 
     private CategroyDetailBiz mCategroyDetailBiz;
@@ -81,11 +81,11 @@ public class CategoryListActivity extends BaseActivity2 {
 
 
     private void initView() {
-        mViewLoadMoreHintWrapper = findViewById(R.id.load_more_hint);
+        mViewLoadMoreHintWrapper = View.inflate(this, R.layout.layout_load_more_wrapper, null);
         mViewNetHintWrapper = findViewById(R.id.network_hint);
         mViewAllContent = findViewById(R.id.all_content_wrapper);
-        mExScrollView = (ExScrollView) findViewById(R.id.scrollview);
-        mExListView = (ListView) findViewById(R.id.listview);
+        mExListView = (ExListViewScrollDone) findViewById(R.id.listview);
+        mExListView.addFooterView(mViewLoadMoreHintWrapper, null, false);
         mAdapter = new CategoryDetailAdapter(this);
 
         mViewLayout = mViewAllContent;
@@ -103,23 +103,26 @@ public class CategoryListActivity extends BaseActivity2 {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LogUtils.i(TAG, "position=%d", position);
-                final CategoryDetailEntitiy item = (CategoryDetailEntitiy) parent.getAdapter().getItem(position);
-                mDetailInfoBiz.setActivityId(item.getIssue_id());
-                Intent intent = new Intent(CategoryListActivity.this, ProductDetailInfoActivity.class);
-                startActivity(intent);
+                Object object = mAdapter.getItem(position);
+                if ( (object!=null) && (object instanceof CategoryDetailEntitiy) ) {
+                    final CategoryDetailEntitiy item = (CategoryDetailEntitiy) object;
+                    mDetailInfoBiz.setActivityId(item.getIssue_id());
+                    Intent intent = new Intent(CategoryListActivity.this, ProductDetailInfoActivity.class);
+                    startActivity(intent);
+
+                }
             }
         });
 
-        mExScrollView.setOnScrollDoneListener(new ExScrollView.OnScrollDoneListener() {
+        mExListView.setOnTouchScrollDoneListener(new ExListViewScrollDone.OnTouchScrollDoneListener() {
             @Override
-            public void onScrollTop() {
-                LogUtils.i(TAG, "onScrollTop()");
+            public void onTouchScrollBottom() {
+                mCategroyDetailBiz.onScrollBottomLoadData();
             }
 
             @Override
-            public void onScrollBottom() {
-                LogUtils.i(TAG, "onScrollBottom()");
-                mCategroyDetailBiz.onScrollBottomLoadData();
+            public void onTouchScrollTop() {
+
             }
         });
 
@@ -252,7 +255,7 @@ public class CategoryListActivity extends BaseActivity2 {
 
     @Override
     protected View getScrollViewWrapper() {
-        return mExScrollView;
+        return mExListView;
     }
 
     @Override
