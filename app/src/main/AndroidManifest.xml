@@ -27,7 +27,7 @@
         <activity
             android:name=".ui.test.BannerActivityTest"
             android:label="@string/title_activity_banner_activity_test"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         </activity>
         <activity android:name=".ui.test.GridViewTest" >
         </activity>
